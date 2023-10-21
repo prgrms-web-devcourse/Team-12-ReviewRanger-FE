@@ -52,12 +52,12 @@ module.exports = {
           {
             pattern: '@/hooks*',
             group: 'internal',
-            position: 'after',
+            position: 'before',
           },
           {
             pattern: '@/components*',
             group: 'internal',
-            position: 'after',
+            position: 'before',
           },
           {
             pattern: '@/services*',
