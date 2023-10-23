@@ -27,7 +27,6 @@ module.exports = {
     'import/order': [
       'error',
       {
-        'newlines-between': 'always',
         groups: [
           'type',
           'builtin',
