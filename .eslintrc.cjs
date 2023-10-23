@@ -69,6 +69,11 @@ module.exports = {
             group: 'internal',
             position: 'after',
           },
+          {
+            pattern: '@/types*',
+            group: 'internal',
+            position: 'after',
+          },
         ],
 
         alphabetize: {
