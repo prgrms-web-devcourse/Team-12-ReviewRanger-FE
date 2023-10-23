@@ -1,0 +1,44 @@
+name: dev-server-auto-deploy
+on:
+    push:
+        branches:
+            - main
+            - develop
+              
+    pull_request:
+        branches:
+            - main
+            - develop
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@master
+
+            # 실행 속도를 빠르게 하기 위해 설치된 Node 모듈을 캐시하도록 설정합니다.
+            - name: Cache node modules
+              uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - name: Install Dependencies
+              run: yarn
+
+            - name: Build
+              run: yarn build
+              env:
+                  CI: ""
+
+            - name: Deploy
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              run: |
+                  aws s3 cp \
+                  --recursive \
+                  --region ap-northeast-2 \
+                  build s3://devserver-review-ranger
