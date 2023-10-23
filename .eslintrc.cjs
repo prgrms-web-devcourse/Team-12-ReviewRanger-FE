@@ -71,7 +71,6 @@ module.exports = {
           },
         ],
 
-        pathGroupsExcludedImportTypes: ['@tanstack*'],
         alphabetize: {
           order: 'asc',
         },
