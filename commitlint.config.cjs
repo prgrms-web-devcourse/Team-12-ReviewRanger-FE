@@ -21,6 +21,7 @@ module.exports = {
         if (regex.test(header)) {
           return [true]
         }
+
         return [
           false,
           '커밋 형식은 (feat,style..etc): 메시지의 형태여야 합니다.',

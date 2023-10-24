@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const apiClient = axios.create({
   baseURL: '',
-});
+})
 
-export default apiClient;
+export default apiClient
