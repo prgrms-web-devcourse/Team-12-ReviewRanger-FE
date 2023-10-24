@@ -21,6 +21,7 @@ module.exports = {
     },
   },
   rules: {
+    "newline-before-return":"error",
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
