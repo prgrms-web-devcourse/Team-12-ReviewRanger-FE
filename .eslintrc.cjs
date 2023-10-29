@@ -26,6 +26,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'import/newline-after-import': ['error'],
     'import/order': [
       'error',
       {
