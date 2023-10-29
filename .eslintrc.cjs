@@ -21,11 +21,12 @@ module.exports = {
     },
   },
   rules: {
-    "newline-before-return":"error",
+    'newline-before-return': 'error',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
+    'import/newline-after-import': ['error'],
     'import/order': [
       'error',
       {
