@@ -6,5 +6,15 @@ export default {
   theme: {
     extend: {},
   },
+  rippleui: {
+    themes: [
+      {
+        themeName: 'dark',
+        colors: {
+          backgroundPrimary: '#ffffff',
+        },
+      },
+    ],
+  },
   plugins: [rippleui],
 }
