@@ -53,7 +53,9 @@ const IconButton = ({
   const customClasses = className && generateClass(className)
 
   return (
-    <button className={`flex items-center ${iconBtnClasses} ${customClasses} `}>
+    <button
+      className={`flex h-14 w-36 items-center bg-white text-black ${iconBtnClasses} ${customClasses} `}
+    >
       {!loading && children}
       Default
     </button>
