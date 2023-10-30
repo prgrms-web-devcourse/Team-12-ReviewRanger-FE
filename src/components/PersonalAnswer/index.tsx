@@ -5,14 +5,26 @@ interface PersonalAnswerProps {
   image?: string | ReactNode
   name: string
   answer?: ReactNode
+  type?: 'basic' | 'hexagon'
 }
 
-const PersonalAnswer = ({ image, name, answer }: PersonalAnswerProps) => {
+const PersonalAnswer = ({
+  image,
+  name,
+  answer,
+  type = 'basic',
+}: PersonalAnswerProps) => {
   return (
     <>
-      <div className="flex w-80 flex-col gap-1.5 border border-black p-2">
+      <div
+        className={`flex ${
+          type === 'basic'
+            ? 'w-80 flex-col border border-black'
+            : 'flew-row w-fit items-center'
+        } flex-row gap-1.5 p-2`}
+      >
         <Profile image={image} name={name} />
-        <div className="px-6">{answer}</div>
+        <div className={`${type === 'basic' ? 'px-6' : 'px-1'}`}>{answer}</div>
       </div>
     </>
   )
