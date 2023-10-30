@@ -1,0 +1,7 @@
+.star:hover path {
+  cursor:pointer;
+}
+
+.star{
+  display:inline;
+}
