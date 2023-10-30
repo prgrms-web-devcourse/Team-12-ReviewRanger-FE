@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react'
 import './IconButton.css'
 
 interface IconButtonProps {
@@ -40,12 +41,18 @@ const IconButton = ({
   size,
   loading,
   disabled,
-}: IconButtonProps) => {
+  children,
+}: PropsWithChildren<IconButtonProps>) => {
   const iconBtnClasses = `iconbtn iconbtn-color--${color} iconbtn-background--${background} iconbtn-${size} ${
     loading ? 'iconbtn-loading' : ''
   } ${disabled ? 'iconbtn-disabled' : ''}`
 
-  return <button className={iconBtnClasses}>asd</button>
+  return (
+    <button className={`flex items-center ${iconBtnClasses}`}>
+      {!loading && children}
+      Default
+    </button>
+  )
 }
 
 export default IconButton
