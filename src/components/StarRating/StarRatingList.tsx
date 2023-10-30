@@ -3,14 +3,14 @@ import { StarRatingItem } from '@/components'
 import { useStarRate } from '@/hooks/useStarRate/useStarRate'
 
 const StarRatingList = () => {
-  const { handleClickStar, rates } = useStarRate()
+  const { changeStar, rates } = useStarRate()
 
   return (
     <>
       {rates.map((rate, index) => (
         <StarRatingItem
           initFill={rate}
-          handleClickStar={() => handleClickStar(index)}
+          handleChangeStar={() => changeStar(index)}
           key={v4()}
         />
       ))}

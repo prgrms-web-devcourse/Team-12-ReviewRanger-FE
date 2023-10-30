@@ -5,7 +5,7 @@ export const useStarRate = () => {
   const { FIRST, END } = STAR_CONSTANT
   const [rates, setRates] = useState<boolean[]>(Array(END).fill(false))
 
-  const handleClickStar = (index: number) => {
+  const changeStar = (index: number) => {
     const newRateArr = [...rates]
     for (let i = FIRST; i < END; i++) {
       newRateArr[i] = i <= index
@@ -14,7 +14,7 @@ export const useStarRate = () => {
   }
 
   return {
-    handleClickStar,
+    changeStar,
     score: rates.filter((value) => value).length,
     rates,
   }
