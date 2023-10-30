@@ -8,65 +8,65 @@
 }
 
 .iconbtn-color--red {
-  color: rgb(var(--red-7));
+  color: rgb(var(--red-9));
 }
 
 .iconbtn-disabled{
   @apply pointer-events-none;
   color:#9B9B9B;
-  background-color:#D7D7D7;
+  background-color:#D7D9D9;
 }
 
 .iconbtn-color--blue {
-  color: rgb(var(--blue-7));
+  color: rgb(var(--blue-9));
 }
 
 .iconbtn-color--green {
-  color: rgb(var(--green-7));
+  color: rgb(var(--green-9));
 }
 
 .iconbtn-color--yellow {
-  color: rgb(var(--yellow-7));
+  color: rgb(var(--yellow-9));
 }
 
 .iconbtn-color--pink {
-  color: rgb(var(--pink-7));
+  color: rgb(var(--pink-9));
 }
 
 .iconbtn-color--gray {
-  color: rgb(var(--gray-7));
+  color: rgb(var(--gray-9));
 }
 
 .iconbtn-color--slate {
-  color: rgb(var(--slate-7));
+  color: rgb(var(--slate-9));
 }
 
 .iconbtn-background--red {
-  background-color: rgb(var(--red-7));
+  background-color: rgb(var(--red-9));
 }
 
 .iconbtn-background--blue {
-  background-color: rgb(var(--blue-7));
+  background-color: rgb(var(--blue-9));
 }
 
 .iconbtn-background--green {
-  background-color: rgb(var(--green-7));
+  background-color: rgb(var(--green-9));
 }
 
 .iconbtn-background--yellow {
-  background-color: rgb(var(--yellow-7));
+  background-color: rgb(var(--yellow-9));
 }
 
 .iconbtn-background--pink {
-  background-color: rgb(var(--pink-7));
+  background-color: rgb(var(--pink-9));
 }
 
 .iconbtn-background--gray {
-  background-color: rgb(var(--gray-7));
+  background-color: rgb(var(--gray-9));
 }
 
 .iconbtn-background--slate {
-  background-color: rgb(var(--slate-7));
+  background-color: rgb(var(--slate-9));
 }
 
 .iconbtn-outline {
