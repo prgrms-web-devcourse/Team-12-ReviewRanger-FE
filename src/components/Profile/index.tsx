@@ -17,7 +17,7 @@ const Profile = ({ image = <BasicProfileIcon />, name }: ProfileProps) => {
             image
           )}
         </div>
-        <div className="font-medium">{name}</div>
+        <div className="font-medium text-black">{name}</div>
       </div>
     </>
   )
