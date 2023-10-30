@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
 import './IconButton.css'
+import { generateClass } from '@/utils'
 
 interface IconButtonProps {
   color?:
@@ -33,6 +34,7 @@ interface IconButtonProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   loading?: boolean
   disabled?: boolean
+  className?: string[] | string
 }
 
 const IconButton = ({
@@ -41,14 +43,17 @@ const IconButton = ({
   size,
   loading,
   disabled,
+  className,
   children,
 }: PropsWithChildren<IconButtonProps>) => {
   const iconBtnClasses = `iconbtn iconbtn-color--${color} iconbtn-background--${background} iconbtn-${size} ${
     loading ? 'iconbtn-loading' : ''
   } ${disabled ? 'iconbtn-disabled' : ''}`
 
+  const customClasses = className && generateClass(className)
+
   return (
-    <button className={`flex items-center ${iconBtnClasses}`}>
+    <button className={`flex items-center ${iconBtnClasses} ${customClasses} `}>
       {!loading && children}
       Default
     </button>
