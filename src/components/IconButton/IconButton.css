@@ -1,0 +1,99 @@
+.iconbtn {
+  @apply cursor-pointer select-none outline outline-border active:scale-[0.97];
+  @apply inline-flex gap-2 items-center justify-center text-center; 
+  color: #000000;
+  background-color: #ffffff;
+  width: 118px;
+  height: 49px;
+}
+
+.iconbtn-color--red {
+  color: rgb(var(--red-7));
+}
+
+.iconbtn-disabled{
+  @apply pointer-events-none;
+  color:#9B9B9B;
+  background-color:#D7D7D7;
+}
+
+.iconbtn-color--blue {
+  color: rgb(var(--blue-7));
+}
+
+.iconbtn-color--green {
+  color: rgb(var(--green-7));
+}
+
+.iconbtn-color--yellow {
+  color: rgb(var(--yellow-7));
+}
+
+.iconbtn-color--pink {
+  color: rgb(var(--pink-7));
+}
+
+.iconbtn-color--gray {
+  color: rgb(var(--gray-7));
+}
+
+.iconbtn-color--slate {
+  color: rgb(var(--slate-7));
+}
+
+.iconbtn-background--red {
+  background-color: rgb(var(--red-7));
+}
+
+.iconbtn-background--blue {
+  background-color: rgb(var(--blue-7));
+}
+
+.iconbtn-background--green {
+  background-color: rgb(var(--green-7));
+}
+
+.iconbtn-background--yellow {
+  background-color: rgb(var(--yellow-7));
+}
+
+.iconbtn-background--pink {
+  background-color: rgb(var(--pink-7));
+}
+
+.iconbtn-background--gray {
+  background-color: rgb(var(--gray-7));
+}
+
+.iconbtn-background--slate {
+  background-color: rgb(var(--slate-7));
+}
+
+.iconbtn-outline {
+  @apply outline-2;
+}
+
+/* 아이콘 버튼 크기 */
+.iconbtn-xs {
+  @apply h-[1.5rem] min-h-[1.5rem] px-2 text-xs;
+}
+
+.iconbtn-sm {
+  @apply h-8 min-h-[2rem] px-3 text-sm;
+}
+
+.iconbtn-md {
+  @apply h-12 min-h-[2.5rem] px-5 text-base;
+}
+
+.iconbtn-lg {
+  @apply h-16 min-h-[3rem] px-6 text-lg;
+}
+
+.iconbtn-xl {
+  @apply h-20 min-h-[4rem] px-6 text-xl;
+}
+
+.iconbtn-loading{
+  @apply pointer-events-none cursor-not-allowed select-none before:mr-2 before:box-border before:h-4 before:w-4 before:animate-spin before:rounded-[50%] before:border-2 before:border-gray-4 before:border-t-gray-9;
+}
