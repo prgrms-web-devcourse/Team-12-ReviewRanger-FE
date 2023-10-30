@@ -2,12 +2,10 @@ import { PropsWithChildren } from 'react'
 import { MenuIcon } from '@/assets/icons'
 
 interface QuestionBoxProps {
-  questionId: number
   questionTitle: '객관식' | '주관식' | '별점' | '드롭다운' | '육각형 스탯'
 }
 
 const QuestionBox = ({
-  questionId,
   questionTitle,
   children,
 }: PropsWithChildren<QuestionBoxProps>) => {
@@ -17,7 +15,6 @@ const QuestionBox = ({
 
   const handleClickDelete = () => {
     // TODO: 질문 삭제 기능 구현
-    console.log(questionId)
   }
 
   return (
