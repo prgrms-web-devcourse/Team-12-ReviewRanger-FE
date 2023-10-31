@@ -1,11 +1,11 @@
 import { Profile } from '..'
 
 interface User {
+  surveyResultId: number
   id: number
-  image?: string
   name: string
-  updated_at?: string
-  responser_count?: number
+  updatedAt?: string
+  responserCount?: number
 }
 
 interface UserListProps {
@@ -34,9 +34,9 @@ const UserList = ({ users }: UserListProps) => {
         >
           <Profile name={user.name} />
           <div className="text-gray-500">
-            {user.updated_at
-              ? `답변날짜: ${convertDate(user.updated_at)}`
-              : `응답자 수: ${user.responser_count}`}
+            {user.updatedAt
+              ? `답변날짜: ${convertDate(user.updatedAt)}`
+              : `응답자 수: ${user.responserCount}`}
           </div>
         </div>
       ))}
