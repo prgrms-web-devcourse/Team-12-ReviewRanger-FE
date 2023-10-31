@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { Profile } from '..'
 
 interface User {
@@ -13,33 +14,29 @@ interface UserListProps {
 }
 
 const UserList = ({ users }: UserListProps) => {
-  const convertDate = (dates: string) => {
-    let [date, time] = dates.split('Y')
-    const timeArr = time.split(':')
-
-    date = date.split('-').join('. ')
-    time = timeArr[0] + ':' + timeArr[1]
-
-    return date + ', ' + time
-  }
-
   return (
     <div className="flex flex-col">
-      {users.map((user, index) => (
-        <div
-          key={user.id}
-          className={`flex flex-row items-center justify-between border border-x-black p-2 ${
-            index === users.length - 1 ? 'border-y-black' : 'border-t-black'
-          }`}
-        >
-          <Profile name={user.name} />
-          <div className="text-gray-500">
-            {user.updatedAt
-              ? `답변날짜: ${convertDate(user.updatedAt)}`
-              : `응답자 수: ${user.responserCount}`}
+      {users.map((user, index) => {
+        const date = dayjs(user.updatedAt?.split('Y').join(' ')).format(
+          'YYYY. MM. DD, HH:mm',
+        )
+
+        return (
+          <div
+            key={user.id}
+            className={`flex flex-row items-center justify-between border border-x-black p-2 ${
+              index === users.length - 1 ? 'border-y-black' : 'border-t-black'
+            }`}
+          >
+            <Profile name={user.name} />
+            <div className="text-gray-500">
+              {user.updatedAt
+                ? `답변날짜: ${date}`
+                : `응답자 수: ${user.responserCount}`}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
