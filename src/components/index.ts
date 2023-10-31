@@ -1,4 +1,5 @@
 export { default as Profile } from './Profile'
+export { default as UserList } from './UserList'
 export { default as PersonalAnswer } from './PersonalAnswer'
 export { default as PassWordInput } from './PasswordInput'
 export { default as StarRating } from './StarRating'
