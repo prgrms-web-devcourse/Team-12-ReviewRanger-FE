@@ -1,3 +1,4 @@
+
 import { BasicProfileIcon } from '@/assets/icons'
 
 interface ProfileProps {
