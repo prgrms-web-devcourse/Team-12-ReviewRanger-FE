@@ -90,6 +90,3 @@
   @apply h-20 min-h-[4rem] px-6 text-xl;
 }
 
-.iconbtn-loading{
-  @apply pointer-events-none cursor-not-allowed select-none before:mr-2 before:box-border before:h-4 before:w-4 before:animate-spin before:rounded-[50%] before:border-2 before:border-gray-4 before:border-t-gray-9;
-}
