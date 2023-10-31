@@ -1,4 +1,4 @@
-import { StarRatingItem } from '@/components'
+import { StarRatingItem } from '@/components/StarRating'
 import { useStarRate } from '@/hooks/useStarRate/useStarRate'
 
 const StarRatingList = () => {

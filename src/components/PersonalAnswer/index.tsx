@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Profile } from '..'
 
 interface PersonalAnswerProps {
-  image?: string | ReactNode
+  image?: string | JSX.Element
   name: string
   answer?: ReactNode
   type?: 'basic' | 'hexagon'

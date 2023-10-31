@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react'
-import './IconButton.css'
 
 interface IconButtonProps {
   disabled?: boolean
