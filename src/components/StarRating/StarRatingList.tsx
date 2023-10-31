@@ -1,4 +1,3 @@
-import { v4 } from 'uuid'
 import { StarRatingItem } from '@/components'
 import { useStarRate } from '@/hooks/useStarRate/useStarRate'
 
@@ -6,15 +5,15 @@ const StarRatingList = () => {
   const { changeStar, rates } = useStarRate()
 
   return (
-    <>
+    <div className="flex gap-2">
       {rates.map((rate, index) => (
         <StarRatingItem
           initFill={rate}
           handleChangeStar={() => changeStar(index)}
-          key={v4()}
+          key={index}
         />
       ))}
-    </>
+    </div>
   )
 }
 
