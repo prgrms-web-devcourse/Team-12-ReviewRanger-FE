@@ -7,14 +7,7 @@ export default {
     extend: {},
   },
   rippleui: {
-    themes: [
-      {
-        themeName: 'dark',
-        colors: {
-          backgroundPrimary: '#ffffff',
-        },
-      },
-    ],
+    removeThemes: ['dark'],
   },
   plugins: [rippleui],
 }
