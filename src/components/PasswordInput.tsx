@@ -4,7 +4,7 @@ import { PassWord, PassWordConfirm } from '@/assets/icons'
 interface PasswordInputProps
   extends Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> {
   type: 'password' | 'confirmation'
-  handlePassWordChange?: (newPassword?: string) => void
+  handlePassWordChange?: (e: ChangeEvent<HTMLInputElement>) => void
   disabled?: boolean
   placeholder?: string
 }
@@ -22,9 +22,7 @@ const PassWordInput = ({
         className="input border-0 bg-white pl-8 text-black"
         placeholder={placeholder ?? '새 비밀번호 입력'}
         disabled={disabled}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          handlePassWordChange && handlePassWordChange(e.target.value)
-        }
+        onChange={handlePassWordChange}
         {...rest}
       />
       <i className="flex items-center">
