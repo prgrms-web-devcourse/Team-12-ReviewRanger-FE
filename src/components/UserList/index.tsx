@@ -17,7 +17,7 @@ const UserList = ({ users }: UserListProps) => {
   return (
     <div className="flex flex-col">
       {users.map((user, index) => {
-        const date = dayjs(user.updatedAt?.split('Y').join(' ')).format(
+        const date = dayjs(user.updatedAt?.replace('Y', ' ')).format(
           'YYYY. MM. DD, HH:mm',
         )
 
