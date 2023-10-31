@@ -1,5 +1,5 @@
-import { StarRatingItem } from '@/components/StarRating'
 import { useStarRate } from '@/hooks/useStarRate/useStarRate'
+import StarRatingItem from './StarRatingItem'
 
 const StarRatingList = () => {
   const { changeStar, rates } = useStarRate()

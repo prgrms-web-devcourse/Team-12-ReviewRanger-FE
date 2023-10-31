@@ -1,19 +1,18 @@
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import { Profile } from '..'
 
 interface PersonalAnswerProps {
   image?: string | JSX.Element
   name: string
-  answer?: ReactNode
   type?: 'basic' | 'hexagon'
 }
 
 const PersonalAnswer = ({
   image,
   name,
-  answer,
+  children,
   type = 'basic',
-}: PersonalAnswerProps) => {
+}: PropsWithChildren<PersonalAnswerProps>) => {
   return (
     <>
       <div
@@ -24,7 +23,9 @@ const PersonalAnswer = ({
         } flex-row gap-1.5 p-2`}
       >
         <Profile image={image} name={name} />
-        <div className={`${type === 'basic' ? 'px-6' : 'px-1'}`}>{answer}</div>
+        <div className={`${type === 'basic' ? 'px-6' : 'px-1'}`}>
+          {children}
+        </div>
       </div>
     </>
   )
