@@ -25,10 +25,11 @@ const UserList = ({ users }: UserListProps) => {
 
   return (
     <div className="flex flex-col">
-      {users.map((user, idx) => (
+      {users.map((user, index) => (
         <div
+          key={user.id}
           className={`flex flex-row items-center justify-between border border-x-black p-2 ${
-            idx === users.length - 1 ? 'border-y-black' : 'border-t-black'
+            index === users.length - 1 ? 'border-y-black' : 'border-t-black'
           }`}
         >
           <Profile name={user.name} />
