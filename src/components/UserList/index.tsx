@@ -24,7 +24,7 @@ const UserList = ({ users }: UserListProps) => {
         return (
           <div
             key={user.id}
-            className={`flex flex-row items-center justify-between border border-x-black p-2 ${
+            className={`flex items-center justify-between border border-x-black p-2 ${
               index === users.length - 1 ? 'border-y-black' : 'border-t-black'
             }`}
           >
