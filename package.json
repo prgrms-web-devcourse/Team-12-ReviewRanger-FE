@@ -11,6 +11,8 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.4.3",
+    "@tanstack/react-query-devtools": "^5.4.3",
     "axios": "^1.5.1",
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.4",

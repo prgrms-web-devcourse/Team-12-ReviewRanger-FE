@@ -1,17 +1,19 @@
-import { CloseIcon } from './assets/icons'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { worker } from './mocks'
 
 if (process.env.NODE_ENV === 'development') {
   worker.start()
 }
 
+const queryClient = new QueryClient()
+
 function App() {
   return (
-    <>
-      <CloseIcon />
-      <h1 className="bg-blue-500 text-red-500">Hellosadasds</h1>
-      <button className="btn btn-primary">Hello World!</button>
-    </>
+    <QueryClientProvider client={queryClient}>
+      {/* The rest of your application */}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   )
 }
 
