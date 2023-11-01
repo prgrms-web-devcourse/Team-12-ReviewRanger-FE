@@ -1,5 +1,5 @@
 import { ChangeEvent, ComponentPropsWithoutRef } from 'react'
-import { PasswordIcon, PasswordConfirmIcon } from '@/assets/icons'
+import { EyeOnIcon, EyeOffIcon } from '@/assets/icons'
 
 interface PasswordInputProps
   extends Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> {
@@ -26,7 +26,7 @@ const PassWordInput = ({
         {...rest}
       />
       <i className="flex items-center">
-        {type === 'password' ? <PasswordIcon /> : <PasswordConfirmIcon />}
+        {type === 'password' ? <EyeOffIcon /> : <EyeOnIcon />}
       </i>
     </div>
   )
