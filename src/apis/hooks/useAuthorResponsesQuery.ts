@@ -1,3 +1,4 @@
+//NOTE - 작성자별 응답 결과 전체조회
 import { useQuery } from '@tanstack/react-query'
 import { get } from '@/apis/apiClient'
 
@@ -9,9 +10,12 @@ interface AuthorResponse {
   responsers: Responser[]
 }
 
-interface Responser {
-  surveyResultId: string
-  responserId: string
+export interface Responser {
+  surveyResultId: number
+  //통일 필요함
+  id: number
+  name: string
+  responserId: number
   responserName: string
   updatedAt: string
 }
@@ -28,7 +32,7 @@ export const getResponseByAuthor = async ({
 
 export const useAuthorResponse = ({ surveyId }: { surveyId: string }) => {
   return useQuery({
-    queryKey: [surveyId],
+    queryKey: [`/surveys/${surveyId}/responser`],
     queryFn: () => getResponseByAuthor({ surveyId }),
   })
 }

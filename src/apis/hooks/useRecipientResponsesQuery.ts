@@ -6,10 +6,13 @@ interface RecipientList {
   recipientList: Recipient[]
 }
 
-interface Recipient {
+export interface Recipient {
   surveyResultId: number
+  //통일 필요함
   id: number
   name: string
+  recipientId: number
+  recipientName: string
   responserCount: number
 }
 
@@ -25,7 +28,7 @@ export const getResponseByRecipient = async ({
 
 export const useRecipientResponse = ({ surveyId }: { surveyId: string }) => {
   return useQuery({
-    queryKey: ['수신자별응답전체조회', surveyId],
+    queryKey: [`/surveys/${surveyId}/recipient`],
     queryFn: () => getResponseByRecipient({ surveyId }),
   })
 }

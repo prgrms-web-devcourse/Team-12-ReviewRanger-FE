@@ -1,6 +1,8 @@
+//NOTE - 작성자별 응답 결과 단일 조회
 import { useQuery } from '@tanstack/react-query'
 import { get } from '@/apis/apiClient'
-//NOTE - 작성자별 응답 결과 단일 조회
+
+//FIXME - 타입 수정 될 여지 있음
 interface Question {
   responserName: string
   title: string
@@ -43,7 +45,7 @@ export const useSingleAuthorResponse = ({
   responserId: string
 }) => {
   return useQuery({
-    queryKey: ['작성자별응답결과단일조회', responserId, surveyResultId],
+    queryKey: [`/surveys/${surveyResultId}/responser/${responserId}`],
     queryFn: () => getSingleAuthorResponse({ surveyResultId, responserId }),
   })
 }
