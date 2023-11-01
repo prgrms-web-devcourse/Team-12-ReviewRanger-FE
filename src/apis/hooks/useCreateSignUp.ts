@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface userType {
+interface createSignUpProps {
   email: string
   name: string
   password: string
 }
 
 const useCreateSignUp = () => {
-  const createSignUp = async (user: userType) => {
+  const createSignUp = async (user: createSignUpProps) => {
     return await apiClient.post('/sign-up', user)
   }
 
