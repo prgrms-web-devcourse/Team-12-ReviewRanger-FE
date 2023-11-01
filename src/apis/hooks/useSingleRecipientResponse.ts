@@ -1,17 +1,12 @@
 //NOTE - 수신자별 응답 결과 단일 조회
-//NOTE - 전체 응답
+
 export interface Reply {
   subjectName: string
   surveyTitle: string
-  subjectResults: ReplyResult[]
+  subjectResults: ReplyResult
 }
 
-interface ReplyResult extends ReplyQuestion {
-  answer: ReplyAnswer
-}
-
-//NOTE - 질문에 관한 필드
-interface ReplyQuestion {
+interface ReplyResult {
   questionType:
     | 'multipleChoice'
     | 'singleChoice'
@@ -21,6 +16,7 @@ interface ReplyQuestion {
     | 'hexagon'
   questionTitle: string
   questionId: string
+  answers: ReplyAnswer[]
 }
 
 //NOTE - 응답에 관한 필드
