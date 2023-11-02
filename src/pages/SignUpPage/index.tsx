@@ -1,37 +1,21 @@
 import { useState, ChangeEvent } from 'react'
 import { PasswordInput } from '@/components'
-import { useSignUp, useCheckDuplicatedName } from '@/apis/hooks'
+import { useSignUp } from '@/apis/hooks'
 import { CheckIcon } from '@/assets/icons'
 import useEmailCheck from './hooks/useEmailCheck'
+import useNameCheck from './hooks/useNameCheck'
 
 const SingUpPage = () => {
   const { email, uniqueEmail, handleEmailChange, handleEmailDuplicatedClick } =
     useEmailCheck()
-  const [name, setName] = useState('')
+  const { name, uniqueName, handleNameChange, handleNameDuplicatedClick } =
+    useNameCheck()
   const [password, setPassword] = useState('')
-  const [uniqueName, setUniqueName] = useState(false)
 
   const { mutate: signUp } = useSignUp()
-  const { mutate: checkDuplicatedName } = useCheckDuplicatedName()
-
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUniqueName(false)
-    setName(e.currentTarget.value)
-  }
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value)
-  }
-
-  const handleNameDuplicatedClick = () => {
-    checkDuplicatedName(
-      { name },
-      {
-        onSuccess: ({ data }) => {
-          setUniqueName(data.success)
-        },
-      },
-    )
   }
 
   const handleSignUpButtonClick = () => {
