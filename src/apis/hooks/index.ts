@@ -1,3 +1,3 @@
-export { default as useCreateSignUp } from './useCreateSignUp'
-export { default as useCreateCheckDuplicatedName } from './useCreateCheckDuplicatedName'
-export { default as useCreateCheckDuplicatedEmail } from './useCreateCheckDuplicatedEmail'
+export { default as useSignUp } from './useSignUp'
+export { default as useCheckDuplicatedName } from './useCheckDuplicatedName'
+export { default as useCheckDuplicatedEmail } from './useCheckDuplicatedEmail'

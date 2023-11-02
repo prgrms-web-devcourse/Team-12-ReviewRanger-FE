@@ -1,9 +1,9 @@
 import { useState, ChangeEvent } from 'react'
 import { PasswordInput } from '@/components'
 import {
-  useCreateSignUp,
-  useCreateCheckDuplicatedName,
-  useCreateCheckDuplicatedEmail,
+  useSignUp,
+  useCheckDuplicatedName,
+  useCheckDuplicatedEmail,
 } from '@/apis/hooks'
 import { CheckIcon } from '@/assets/icons'
 
@@ -14,11 +14,11 @@ const SingUpPage = () => {
   const [clickDuplicatedEmail, setClickDuplicatedEmail] = useState(false)
   const [clickDuplicatedName, setClickDuplicatedName] = useState(false)
 
-  const { mutate: signUp } = useCreateSignUp()
+  const { mutate: signUp } = useSignUp()
   const { mutate: checkDuplicatedNameMutate, data: checkDuplicatedNameData } =
-    useCreateCheckDuplicatedName()
+    useCheckDuplicatedName()
   const { mutate: checkDuplicatedEmailMutate, data: checkDuplicatedEmailData } =
-    useCreateCheckDuplicatedEmail()
+    useCheckDuplicatedEmail()
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setClickDuplicatedEmail(false)
