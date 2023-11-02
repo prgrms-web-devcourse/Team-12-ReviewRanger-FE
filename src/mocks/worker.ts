@@ -6,6 +6,7 @@ import {
   manageHandlers,
   createHandlers,
   profileHandlers,
+  responseHandlers,
 } from './handlers'
 
 export const worker = setupWorker(
@@ -15,4 +16,5 @@ export const worker = setupWorker(
   ...profileHandlers,
   ...loginHandlers,
   ...manageHandlers,
+  ...responseHandlers,
 )
