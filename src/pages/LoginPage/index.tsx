@@ -1,11 +1,11 @@
 import { useState, ChangeEvent } from 'react'
-import { useCreateLogin } from '@/apis/hooks'
+import { useLogin } from '@/apis/hooks'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  const { mutate: loginMutate, data: loginToken } = useCreateLogin()
+  const { mutate: loginMutate, data: loginToken } = useLogin()
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)

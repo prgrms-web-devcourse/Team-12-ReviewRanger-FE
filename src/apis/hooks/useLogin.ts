@@ -1,20 +1,20 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface createLoginProps {
+interface loginProps {
   email: string
   password: string
 }
 
-const useCreateLogin = () => {
-  const createLogin = async (user: createLoginProps) => {
+const useLogin = () => {
+  const login = async (user: loginProps) => {
     return await apiClient.post('/login', user)
   }
 
   return useMutation({
-    mutationFn: createLogin,
+    mutationFn: login,
     onSuccess: () => console.log('로그인 성공'),
   })
 }
 
-export default useCreateLogin
+export default useLogin
