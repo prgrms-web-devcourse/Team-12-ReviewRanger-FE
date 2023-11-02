@@ -10,7 +10,7 @@ interface Question {
 }
 
 interface QuestionResult {
-  questionId: number
+  questionId: string
   questionTitle: string
   questionType:
     | 'multipleChoice'
