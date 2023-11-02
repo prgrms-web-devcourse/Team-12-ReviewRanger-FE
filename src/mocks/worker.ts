@@ -1,10 +1,9 @@
 import { setupWorker } from 'msw'
-
 import {
-  manageHandlers,
   loginHandlers,
   signUpHandlers,
   mainHandlers,
+  manageHandlers,
 } from './handlers'
 
 export const worker = setupWorker(
