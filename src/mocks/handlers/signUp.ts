@@ -11,6 +11,7 @@ const users: userType[] = []
 export const signUpHandlers = [
   rest.post('/sign-up', async (req, res, ctx) => {
     users.push(await req.json())
+    console.log(users)
 
     return res(ctx.status(201))
   }),

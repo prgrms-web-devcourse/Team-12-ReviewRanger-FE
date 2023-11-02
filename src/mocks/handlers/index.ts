@@ -1,2 +1,1 @@
-export * from './test'
-export * from './signUp'
+export { signUpHandlers } from './signUp'
