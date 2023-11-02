@@ -1,13 +1,17 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface checkDuplicatedEmailProps {
+interface Email {
   email: string
 }
 
+interface Response {
+  success: boolean
+}
+
 const useCheckDuplicatedEmail = () => {
-  const checkDuplicatedEmail = async (email: checkDuplicatedEmailProps) => {
-    return await apiClient.post('/members/check-email', email)
+  const checkDuplicatedEmail = async (email: Email) => {
+    return await apiClient.post<Response>('/members/check-email', email)
   }
 
   return useMutation({ mutationFn: checkDuplicatedEmail })

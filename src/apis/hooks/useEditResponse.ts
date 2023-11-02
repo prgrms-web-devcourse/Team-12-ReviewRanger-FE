@@ -12,14 +12,18 @@ interface Result {
   answers: Answer[]
 }
 
-interface Response {
+interface ResponseType {
   responseId: number
   results: Result[]
 }
 
+interface Response {
+  success: boolean
+}
+
 const useEditResponse = () => {
-  const editResponse = async (data: Response) => {
-    return await apiClient.put('/invited-surveys', data)
+  const editResponse = async (data: ResponseType) => {
+    return await apiClient.put<Response>('/invited-surveys', data)
   }
 
   return useMutation({ mutationFn: editResponse })
