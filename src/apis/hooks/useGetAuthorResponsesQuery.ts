@@ -6,7 +6,14 @@ interface AuthorResponse {
   surveyId: string
   title: string
   responserCount: number
-  surveyType: string
+  surveyType:
+    | 'subjective'
+    | 'objective_unique'
+    | 'objective_duplicate'
+    | 'rating'
+    | 'dropdown'
+    | 'hexastat'
+
   responsers: Responser[]
 }
 

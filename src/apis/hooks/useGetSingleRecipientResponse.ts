@@ -10,12 +10,12 @@ export interface Reply {
 
 interface ReplyResult {
   questionType:
-    | 'multipleChoice'
-    | 'singleChoice'
     | 'subjective'
+    | 'objective_unique'
+    | 'objective_duplicate'
+    | 'rating'
     | 'dropdown'
-    | 'starRating'
-    | 'hexagon'
+    | 'hexastat'
   questionTitle: string
   questionId: string
   answers: ReplyAnswer[]

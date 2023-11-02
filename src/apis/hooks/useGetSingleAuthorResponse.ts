@@ -15,12 +15,12 @@ interface ReviewQuestion {
   questionId: number
   questionTitle: string
   questionType:
-    | 'multipleChoice'
-    | 'singleChoice'
     | 'subjective'
+    | 'objective_unique'
+    | 'objective_duplicate'
+    | 'rating'
     | 'dropdown'
-    | 'starRating'
-    | 'hexagon'
+    | 'hexastat'
   questionSequence: number
   isRequired: boolean
 }
