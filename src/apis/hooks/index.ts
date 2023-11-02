@@ -1,4 +1,4 @@
-export { default as useAuthorResponse } from './useAuthorResponsesQuery'
-export { default as useRecipientResponse } from './useRecipientResponsesQuery'
-export { default as useSingleAuthorResponse } from './useSingleAuthorResponse'
-export { default as useSingleRecipientResponse } from './useSingleRecipientResponse'
+export { default as useGetAuthorResponse } from './useGetAuthorResponsesQuery'
+export { default as useGetRecipientResponse } from './useGetRecipientResponsesQuery'
+export { default as useGetSingleAuthorResponse } from './useGetSingleAuthorResponse'
+export { default as useGetSingleRecipientResponse } from './useGetSingleRecipientResponse'

@@ -20,7 +20,7 @@ export interface Responser {
   updatedAt: string
 }
 
-const useAuthorResponse = ({ surveyId }: { surveyId: string }) => {
+const useGetAuthorResponse = ({ surveyId }: { surveyId: string }) => {
   const getResponseByAuthor = async ({ surveyId }: { surveyId: string }) => {
     const response = await get<AuthorResponse>(`/surveys/${surveyId}/responser`)
 
@@ -33,4 +33,4 @@ const useAuthorResponse = ({ surveyId }: { surveyId: string }) => {
   })
 }
 
-export default useAuthorResponse
+export default useGetAuthorResponse

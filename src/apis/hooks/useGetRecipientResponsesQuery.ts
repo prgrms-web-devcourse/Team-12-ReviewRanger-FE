@@ -16,7 +16,7 @@ export interface Recipient {
   responserCount: number
 }
 
-const useRecipientResponse = ({ surveyId }: { surveyId: string }) => {
+const useGetRecipientResponse = ({ surveyId }: { surveyId: string }) => {
   const getResponseByRecipient = async ({ surveyId }: { surveyId: string }) => {
     const response = await get<RecipientList>(`/surveys/${surveyId}/recipient`)
 
@@ -29,4 +29,4 @@ const useRecipientResponse = ({ surveyId }: { surveyId: string }) => {
   })
 }
 
-export default useRecipientResponse
+export default useGetRecipientResponse

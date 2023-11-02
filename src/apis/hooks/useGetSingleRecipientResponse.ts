@@ -29,7 +29,7 @@ interface ReplyAnswer {
   answer: number | string | string[] | Record<string, number>
 }
 
-const useSingleRecipientResponse = ({
+const useGetSingleRecipientResponse = ({
   surveyResultId,
   recipientId,
 }: {
@@ -56,4 +56,4 @@ const useSingleRecipientResponse = ({
   })
 }
 
-export default useSingleRecipientResponse
+export default useGetSingleRecipientResponse
