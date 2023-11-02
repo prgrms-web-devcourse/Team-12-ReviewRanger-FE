@@ -1,1 +1,1 @@
-export * from './test'
+export { loginHandlers } from './login'
