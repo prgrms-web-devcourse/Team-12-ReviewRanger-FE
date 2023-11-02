@@ -6,7 +6,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>('')
   const [token, setToken] = useState('')
 
-  const { mutate: loginMutate } = useLogin()
+  const { mutate: login } = useLogin()
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -17,7 +17,7 @@ const LoginPage = () => {
   }
 
   const handleLoginButtonClick = () => {
-    loginMutate(
+    login(
       { email, password },
       {
         onSuccess: ({ data }) => {
