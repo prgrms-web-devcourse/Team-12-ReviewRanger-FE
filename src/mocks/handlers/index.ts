@@ -1,3 +1,4 @@
+export { manageHandlers } from './manageHandler'
 export { loginHandlers } from './login'
 export { profileHandlers } from './profile'
 export { signUpHandlers } from './signUp'
