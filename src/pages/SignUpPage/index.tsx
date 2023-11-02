@@ -11,22 +11,20 @@ const SingUpPage = () => {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  const [clickDuplicatedEmail, setClickDuplicatedEmail] = useState(false)
-  const [clickDuplicatedName, setClickDuplicatedName] = useState(false)
+  const [uniqueEmail, setUniqueEmail] = useState(false)
+  const [uniqueName, setUniqueName] = useState(false)
 
   const { mutate: signUp } = useSignUp()
-  const { mutate: checkDuplicatedNameMutate, data: checkDuplicatedNameData } =
-    useCheckDuplicatedName()
-  const { mutate: checkDuplicatedEmailMutate, data: checkDuplicatedEmailData } =
-    useCheckDuplicatedEmail()
+  const { mutate: checkDuplicatedEmail } = useCheckDuplicatedEmail()
+  const { mutate: checkDuplicatedName } = useCheckDuplicatedName()
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setClickDuplicatedEmail(false)
+    setUniqueEmail(false)
     setEmail(e.currentTarget.value)
   }
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setClickDuplicatedName(false)
+    setUniqueName(false)
     setName(e.currentTarget.value)
   }
 
@@ -35,13 +33,25 @@ const SingUpPage = () => {
   }
 
   const handleEmailDuplicatedClick = () => {
-    checkDuplicatedEmailMutate({ email })
-    setClickDuplicatedEmail(true)
+    checkDuplicatedEmail(
+      { email },
+      {
+        onSuccess: ({ data }) => {
+          setUniqueEmail(data.success)
+        },
+      },
+    )
   }
 
   const handleNameDuplicatedClick = () => {
-    checkDuplicatedNameMutate({ name })
-    setClickDuplicatedName(true)
+    checkDuplicatedName(
+      { name },
+      {
+        onSuccess: ({ data }) => {
+          setUniqueName(data.success)
+        },
+      },
+    )
   }
 
   const handleSignUpButtonClick = () => {
@@ -61,13 +71,7 @@ const SingUpPage = () => {
               placeholder="email"
               value={email}
             />
-            <i
-              className={`mx-1.5 ${
-                clickDuplicatedEmail && checkDuplicatedEmailData?.data.success
-                  ? 'none'
-                  : 'hidden'
-              }`}
-            >
+            <i className={`mx-1.5 ${uniqueEmail ? 'none' : 'hidden'}`}>
               <CheckIcon fill="#5dbb63" />
             </i>
           </div>
@@ -87,13 +91,7 @@ const SingUpPage = () => {
               placeholder="name"
               value={name}
             />
-            <i
-              className={`${
-                clickDuplicatedName && checkDuplicatedNameData?.data.success
-                  ? 'none'
-                  : 'hidden'
-              } mx-1.5`}
-            >
+            <i className={`${uniqueName ? 'none' : 'hidden'} mx-1.5`}>
               <CheckIcon fill="#5dbb63" />
             </i>
           </div>
@@ -107,15 +105,7 @@ const SingUpPage = () => {
         <PasswordInput handlePasswordChange={handlePasswordChange} />
       </div>
       <button
-        disabled={
-          !(
-            checkDuplicatedEmailData?.data.success &&
-            checkDuplicatedNameData?.data.success &&
-            clickDuplicatedEmail &&
-            clickDuplicatedName &&
-            password !== ''
-          )
-        }
+        disabled={!(uniqueEmail && uniqueName && password !== '')}
         className="btn bg-green-200 text-black hover:bg-blue-300"
         onClick={handleSignUpButtonClick}
       >
