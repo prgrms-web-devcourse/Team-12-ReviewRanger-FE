@@ -3,9 +3,9 @@
 
 case `uname` in
   *CYGWIN*|*MINGW*|*MSYS*)
-    npx.cmd npx.cmd commitlint --config commitlint.config.cjs --edit $1
+    npx.cmd commitlint --config commitlint.config.cjs --edit $1
   ;;
   *)
-    npx npx.cmd commitlint --config commitlint.config.cjs --edit $1
+    npx commitlint --config commitlint.config.cjs --edit $1
   ;;
 esac

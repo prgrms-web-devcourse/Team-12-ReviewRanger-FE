@@ -6,8 +6,5 @@ export default {
   theme: {
     extend: {},
   },
-  rippleui: {
-    removeThemes: ['dark'],
-  },
   plugins: [rippleui],
 }
