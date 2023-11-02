@@ -9,7 +9,6 @@ const useDeleteSurvey = ({ surveyId }: { surveyId: string }) => {
   }
 
   return useMutation({
-    mutationKey: [`/surveys/${surveyId}`],
     mutationFn: deleteSurvey,
   })
 }

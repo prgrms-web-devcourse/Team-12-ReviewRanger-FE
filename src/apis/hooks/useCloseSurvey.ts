@@ -18,7 +18,6 @@ const usePostSurveyClose = ({ surveyId }: { surveyId: string }) => {
   }
 
   return useMutation({
-    mutationKey: [`/surveys/${surveyId}/closed`],
     mutationFn: postSurveyClose,
   })
 }
