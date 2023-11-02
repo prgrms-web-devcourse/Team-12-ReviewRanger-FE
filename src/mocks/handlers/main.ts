@@ -23,7 +23,4 @@ export const mainHandlers = [
   rest.get('/received-reviews/:afterResultId', async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(REVIEW_RESULT))
   }),
-  rest.put('/invited-surveys', async (_, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ success: true }))
-  }),
 ]
