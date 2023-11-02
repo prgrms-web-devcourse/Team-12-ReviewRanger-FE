@@ -1,2 +1,1 @@
-export * from './test'
-export { default as CreatedReviewManageHandler } from './CreatedReviewManage'
+export { createdReviewManageHandlers } from './CreatedReviewManage'

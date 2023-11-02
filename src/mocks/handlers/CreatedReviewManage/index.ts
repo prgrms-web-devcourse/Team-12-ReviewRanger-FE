@@ -6,7 +6,7 @@ import {
   RESPONSE,
 } from './mockData'
 
-const createdReviewManagehandlers = [
+export const createdReviewManageHandlers = [
   rest.get(
     '/surveys/:surveyResultId/recipient/:recipientId',
     async (_, res, ctx) => {
@@ -27,4 +27,3 @@ const createdReviewManagehandlers = [
     return res(ctx.status(200), ctx.json(RECIPIENT))
   }),
 ]
-export default createdReviewManagehandlers

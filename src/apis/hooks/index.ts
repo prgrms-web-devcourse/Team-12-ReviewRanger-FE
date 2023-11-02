@@ -4,3 +4,4 @@ export { default as useGetSingleAuthorResponse } from './useGetSingleAuthorRespo
 export { default as useGetSingleRecipientResponse } from './useGetSingleRecipientResponse'
 export { default as useCloseSurvey } from './useCloseSurvey'
 export { default as useDeleteSurvey } from './useDeleteSurvey'
+export { default as useSaveRecipientReviewResult } from './useSaveRecipientReviewResult'
