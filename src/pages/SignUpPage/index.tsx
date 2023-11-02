@@ -1,22 +1,18 @@
-import { useState, ChangeEvent } from 'react'
 import { PasswordInput } from '@/components'
 import { useSignUp } from '@/apis/hooks'
 import { CheckIcon } from '@/assets/icons'
 import useEmailCheck from './hooks/useEmailCheck'
 import useNameCheck from './hooks/useNameCheck'
+import usePasswordCheck from './hooks/usePasswordCheck'
 
 const SingUpPage = () => {
   const { email, uniqueEmail, handleEmailChange, handleEmailDuplicatedClick } =
     useEmailCheck()
   const { name, uniqueName, handleNameChange, handleNameDuplicatedClick } =
     useNameCheck()
-  const [password, setPassword] = useState('')
+  const { password, handlePasswordChange } = usePasswordCheck()
 
   const { mutate: signUp } = useSignUp()
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
 
   const handleSignUpButtonClick = () => {
     signUp({ email, name, password })
