@@ -1,7 +1,11 @@
 import { PasswordInput } from '@/components'
-import { useSignUp } from '@/apis/hooks'
 import { CheckIcon } from '@/assets/icons'
-import { useEmailCheck, useNameCheck, usePasswordCheck } from './hooks'
+import {
+  useEmailCheck,
+  useNameCheck,
+  usePasswordCheck,
+  useSignUpCheck,
+} from './hooks'
 
 const SingUpPage = () => {
   const { email, uniqueEmail, handleEmailChange, handleEmailDuplicatedClick } =
@@ -9,12 +13,7 @@ const SingUpPage = () => {
   const { name, uniqueName, handleNameChange, handleNameDuplicatedClick } =
     useNameCheck()
   const { password, handlePasswordChange } = usePasswordCheck()
-
-  const { mutate: signUp } = useSignUp()
-
-  const handleSignUpButtonClick = () => {
-    signUp({ email, name, password })
-  }
+  const { handleSignUpButtonClick } = useSignUpCheck({ email, name, password })
 
   return (
     <div className="flex h-full items-center justify-center">
