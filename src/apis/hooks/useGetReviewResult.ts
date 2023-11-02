@@ -9,7 +9,7 @@ const useGetReviewResult = (reviewId: number) => {
   }
 
   return useQuery({
-    queryKey: ['/received-reviews', 'result'],
+    queryKey: ['/received-reviews/${reviewId}'],
     queryFn: getReviewResult,
   })
 }

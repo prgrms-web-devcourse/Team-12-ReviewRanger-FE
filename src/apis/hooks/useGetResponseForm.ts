@@ -9,7 +9,7 @@ const useGetResponseForm = (reviewId: number) => {
   }
 
   return useQuery({
-    queryKey: ['/invited-surveys', 'response'],
+    queryKey: ['/invited-surveys/${reviewId}'],
     queryFn: getResponseForm,
   })
 }
