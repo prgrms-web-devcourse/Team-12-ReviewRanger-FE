@@ -20,19 +20,17 @@ export interface Responser {
   updatedAt: string
 }
 
-export const getResponseByAuthor = async ({
-  surveyId,
-}: {
-  surveyId: string
-}) => {
-  const response = await get<AuthorResponse>(`/surveys/${surveyId}/responser`)
+const useAuthorResponse = ({ surveyId }: { surveyId: string }) => {
+  const getResponseByAuthor = async ({ surveyId }: { surveyId: string }) => {
+    const response = await get<AuthorResponse>(`/surveys/${surveyId}/responser`)
 
-  return response.data
-}
+    return response.data
+  }
 
-export const useAuthorResponse = ({ surveyId }: { surveyId: string }) => {
   return useQuery({
     queryKey: [`/surveys/${surveyId}/responser`],
     queryFn: () => getResponseByAuthor({ surveyId }),
   })
 }
+
+export default useAuthorResponse

@@ -29,29 +29,31 @@ interface ReplyAnswer {
   answer: number | string | string[] | Record<string, number>
 }
 
-export const getSingleRecipient = async ({
+const useSingleRecipientResponse = ({
   surveyResultId,
   recipientId,
 }: {
   surveyResultId: string
   recipientId: string
 }) => {
-  const response = await get<Reply>(
-    `/surveys/${surveyResultId}/recipient/${recipientId}`,
-  )
+  const getSingleRecipient = async ({
+    surveyResultId,
+    recipientId,
+  }: {
+    surveyResultId: string
+    recipientId: string
+  }) => {
+    const response = await get<Reply>(
+      `/surveys/${surveyResultId}/recipient/${recipientId}`,
+    )
 
-  return response.data
-}
+    return response.data
+  }
 
-export const useSingleRecipientResponse = ({
-  surveyResultId,
-  recipientId,
-}: {
-  surveyResultId: string
-  recipientId: string
-}) => {
   return useQuery({
     queryKey: [`/surveys/${surveyResultId}/recipient/${recipientId}`],
     queryFn: () => getSingleRecipient({ surveyResultId, recipientId }),
   })
 }
+
+export default useSingleRecipientResponse

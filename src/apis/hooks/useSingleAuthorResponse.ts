@@ -37,29 +37,30 @@ interface ReviewAnswer {
   answer: number | string
 }
 
-export const getSingleAuthorResponse = async ({
+const useSingleAuthorResponse = ({
   surveyResultId,
   responserId,
 }: {
   surveyResultId: string
   responserId: string
 }) => {
-  const singleAuthorResponse = await get<Review>(
-    `/surveys/${surveyResultId}/reonponser/${responserId}`,
-  )
+  const getSingleAuthorResponse = async ({
+    surveyResultId,
+    responserId,
+  }: {
+    surveyResultId: string
+    responserId: string
+  }) => {
+    const singleAuthorResponse = await get<Review>(
+      `/surveys/${surveyResultId}/reonponser/${responserId}`,
+    )
 
-  return singleAuthorResponse.data
-}
+    return singleAuthorResponse.data
+  }
 
-export const useSingleAuthorResponse = ({
-  surveyResultId,
-  responserId,
-}: {
-  surveyResultId: string
-  responserId: string
-}) => {
   return useQuery({
     queryKey: [`/surveys/${surveyResultId}/responser/${responserId}`],
     queryFn: () => getSingleAuthorResponse({ surveyResultId, responserId }),
   })
 }
+export default useSingleAuthorResponse

@@ -16,19 +16,17 @@ export interface Recipient {
   responserCount: number
 }
 
-export const getResponseByRecipient = async ({
-  surveyId,
-}: {
-  surveyId: string
-}) => {
-  const response = await get<RecipientList>(`/surveys/${surveyId}/recipient`)
+const useRecipientResponse = ({ surveyId }: { surveyId: string }) => {
+  const getResponseByRecipient = async ({ surveyId }: { surveyId: string }) => {
+    const response = await get<RecipientList>(`/surveys/${surveyId}/recipient`)
 
-  return response.data
-}
+    return response.data
+  }
 
-export const useRecipientResponse = ({ surveyId }: { surveyId: string }) => {
   return useQuery({
     queryKey: [`/surveys/${surveyId}/recipient`],
     queryFn: () => getResponseByRecipient({ surveyId }),
   })
 }
+
+export default useRecipientResponse
