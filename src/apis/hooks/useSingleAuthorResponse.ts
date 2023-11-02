@@ -2,15 +2,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { get } from '@/apis/apiClient'
 
-//FIXME - 타입 수정 될 여지 있음
-interface Question {
-  responserName: string
+interface Review {
   title: string
-  results: QuestionResult[]
+  description: string
+  responserId: number
+  responserName: string
+  questions: ReviewQuestion[]
+  results: ReviewResult[]
 }
 
-interface QuestionResult {
-  questionId: string
+interface ReviewQuestion {
+  questionId: number
   questionTitle: string
   questionType:
     | 'multipleChoice'
@@ -20,7 +22,19 @@ interface QuestionResult {
     | 'starRating'
     | 'hexagon'
   questionSequence: number
-  answer: number | string | string[] | Record<string, number>
+  isRequired: boolean
+}
+
+interface ReviewResult {
+  subjectId: number
+  subjectName: string
+  answers: ReviewAnswer[]
+}
+
+interface ReviewAnswer {
+  answerId: number
+  questionId: number
+  answer: number | string
 }
 
 export const getSingleAuthorResponse = async ({
@@ -30,7 +44,7 @@ export const getSingleAuthorResponse = async ({
   surveyResultId: string
   responserId: string
 }) => {
-  const singleAuthorResponse = await get<Question>(
+  const singleAuthorResponse = await get<Review>(
     `/surveys/${surveyResultId}/reonponser/${responserId}`,
   )
 

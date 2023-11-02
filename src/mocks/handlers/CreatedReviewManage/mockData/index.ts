@@ -30,58 +30,39 @@ export const SINGLE_RECIPIENT = {
 }
 
 export const SINGLE_RESPONSER = {
-  //NOTE - 작성자별 응답 결과 단일 조회
-  responserName: '홍길동',
-  title: '다양한 유형의 질문이 있는 설문조사',
-  results: [
+  title: '포켓몬을 고르는 설문조사',
+  description: '',
+  responserId: 10,
+  responserName: '김잼민',
+  questions: [
     {
       questionId: 1,
-      questionTitle: '객관식(중복 허용) 질문',
+      questionTitle: '첫 스타팅 포켓몬을 고르자면?',
       questionType: 'multipleChoice',
       questionSequence: 1,
-      answer: ['A', 'B', 'C'],
+      isRequired: true,
     },
+  ],
+  results: [
     {
-      questionId: 2,
-      questionTitle: '객관식(중복 허용X) 질문',
-      questionType: 'singleChoice',
-      questionSequence: 2,
-      answer: 'A',
-    },
-    {
-      questionId: 3,
-      questionTitle: '주관식 질문',
-      questionType: 'subjective',
-      questionSequence: 3,
-      answer: 'asdasdasdasdsad',
-    },
-    {
-      questionId: 4,
-      questionTitle: '드롭다운 질문',
-      questionType: 'dropdown',
-      questionSequence: 4,
-      answer: 'a',
-    },
-    {
-      questionId: 5,
-      questionTitle: '별점 질문',
-      questionType: 'starRating',
-      questionSequence: 5,
-      answer: 3,
-    },
-    {
-      questionId: 6,
-      questionTitle: '육각스탯 질문',
-      questionType: 'hexagonStat',
-      questionSequence: 6,
-      maxScore: 10,
-      answer: [
-        { 선택지A: 4 },
-        { 선택지B: 2 },
-        { 선택지C: 3 },
-        { 선택지4: 5 },
-        { 선택지5: 2 },
-        { 선택지6: 7 },
+      subjectId: 1,
+      subjectName: '김아무개',
+      answers: [
+        {
+          answerId: 100,
+          questionId: 1,
+          answer: '파이리',
+        },
+        {
+          answerId: 101,
+          questionId: 1,
+          answer: '치코리타',
+        },
+        {
+          answerId: 102,
+          questionId: 1,
+          answer: '아르세우스',
+        },
       ],
     },
   ],
