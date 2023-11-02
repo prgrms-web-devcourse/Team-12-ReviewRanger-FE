@@ -5,7 +5,6 @@ export { default as useGetSingleRecipientResponse } from './useGetSingleRecipien
 export { default as useCloseSurvey } from './useCloseSurvey'
 export { default as useDeleteSurvey } from './useDeleteSurvey'
 export { default as useSendReview } from './useSendReview'
-export { default as useSaveRecipientReviewResult } from './useSaveRecipientReviewResult'
 export { default as useLogin } from './useLogin'
 export { default as useSignUp } from './useSignUp'
 export { default as useCheckDuplicatedName } from './useCheckDuplicatedName'
