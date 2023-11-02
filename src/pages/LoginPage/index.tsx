@@ -4,8 +4,9 @@ import { useLogin } from '@/apis/hooks'
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [token, setToken] = useState('')
 
-  const { mutate: loginMutate, data: loginToken } = useLogin()
+  const { mutate: loginMutate } = useLogin()
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -16,7 +17,14 @@ const LoginPage = () => {
   }
 
   const handleLoginButtonClick = () => {
-    loginMutate({ email, password })
+    loginMutate(
+      { email, password },
+      {
+        onSuccess: ({ data }) => {
+          setToken(data)
+        },
+      },
+    )
   }
 
   return (
@@ -41,7 +49,7 @@ const LoginPage = () => {
       </button>
       <div className="flex flex-row gap-2">
         <p className="font-bold">JWT : </p>
-        <p>{loginToken?.data}</p>
+        <p>{token}</p>
       </div>
     </div>
   )

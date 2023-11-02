@@ -11,10 +11,7 @@ const useLogin = () => {
     return await apiClient.post('/login', user)
   }
 
-  return useMutation({
-    mutationFn: login,
-    onSuccess: () => console.log('로그인 성공'),
-  })
+  return useMutation({ mutationFn: login })
 }
 
 export default useLogin
