@@ -3,7 +3,7 @@ export const SINGLE_RECIPIENT = {
   subjectName: '김아무개',
   surveyTitle: '포켓몬을 고르는 설문조사',
   subjectResults: {
-    questionType: 'multipleChoice',
+    questionType: 'subjective',
     questionTitle: '첫 스타팅 포켓몬을 고르자면?',
     questionId: '1',
     answers: [

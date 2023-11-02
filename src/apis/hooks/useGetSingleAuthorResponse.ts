@@ -1,15 +1,6 @@
 //NOTE - 작성자별 응답 결과 단일 조회
 import { useQuery } from '@tanstack/react-query'
-import { get } from '@/apis/apiClient'
-
-interface Review {
-  title: string
-  description: string
-  responserId: number
-  responserName: string
-  questions: ReviewQuestion[]
-  results: ReviewResult[]
-}
+import apiClient from '@/apis/apiClient'
 
 interface ReviewQuestion {
   questionId: number
@@ -25,16 +16,25 @@ interface ReviewQuestion {
   isRequired: boolean
 }
 
+interface ReviewAnswer {
+  answerId: number
+  questionId: number
+  answer: number | string
+}
+
 interface ReviewResult {
   subjectId: number
   subjectName: string
   answers: ReviewAnswer[]
 }
 
-interface ReviewAnswer {
-  answerId: number
-  questionId: number
-  answer: number | string
+interface Response {
+  title: string
+  description: string
+  responserId: number
+  responserName: string
+  questions: ReviewQuestion[]
+  results: ReviewResult[]
 }
 
 const useGetSingleAuthorResponse = ({
@@ -44,15 +44,9 @@ const useGetSingleAuthorResponse = ({
   surveyResultId: string
   responserId: string
 }) => {
-  const getSingleAuthorResponse = async ({
-    surveyResultId,
-    responserId,
-  }: {
-    surveyResultId: string
-    responserId: string
-  }) => {
-    const singleAuthorResponse = await get<Review>(
-      `/surveys/${surveyResultId}/reonponser/${responserId}`,
+  const getSingleAuthorResponse = async () => {
+    const singleAuthorResponse = await apiClient.get<Response>(
+      `/surveys/${surveyResultId}/responser/${responserId}`,
     )
 
     return singleAuthorResponse.data
@@ -60,7 +54,7 @@ const useGetSingleAuthorResponse = ({
 
   return useQuery({
     queryKey: [`/surveys/${surveyResultId}/responser/${responserId}`],
-    queryFn: () => getSingleAuthorResponse({ surveyResultId, responserId }),
+    queryFn: getSingleAuthorResponse,
   })
 }
 export default useGetSingleAuthorResponse

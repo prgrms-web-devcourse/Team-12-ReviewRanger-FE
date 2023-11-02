@@ -1,24 +1,17 @@
 import { useMutation } from '@tanstack/react-query'
-import { post } from '@/apis/apiClient'
+import apiClient from '@/apis/apiClient'
 
-interface SurveyCloseResponse {
+interface Response {
   success: boolean
 }
 
-const usePostSurveyClose = ({ surveyId }: { surveyId: string }) => {
-  const postSurveyClose = async () => {
-    const surveyCloseResponse = await post<SurveyCloseResponse>(
-      `/surveys/${surveyId}/closed`,
-      {
-        surveyId,
-      },
-    )
-
-    return surveyCloseResponse.data
+const useCloseSurvey = () => {
+  const closeSurvey = async ({ surveyId }: { surveyId: string }) => {
+    return await apiClient.post<Response>(`/surveys/${surveyId}/closed`, {
+      surveyId,
+    })
   }
 
-  return useMutation({
-    mutationFn: postSurveyClose,
-  })
+  return useMutation({ mutationFn: closeSurvey })
 }
-export default usePostSurveyClose
+export default useCloseSurvey

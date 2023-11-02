@@ -1,1 +1,1 @@
-export { createdReviewManageHandlers } from './CreatedReviewManage'
+export { manageHandlers } from './manageHandler'

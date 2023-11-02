@@ -1,4 +1,4 @@
 import { setupWorker } from 'msw'
-import { createdReviewManageHandlers } from './handlers'
+import { manageHandlers } from './handlers'
 
-export const worker = setupWorker(...createdReviewManageHandlers)
+export const worker = setupWorker(...manageHandlers)
