@@ -1,1 +1,1 @@
-export * from './test'
+export { mainHandlers } from './main'
