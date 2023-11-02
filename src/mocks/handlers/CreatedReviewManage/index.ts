@@ -2,8 +2,45 @@ import { rest } from 'msw'
 
 const createdReviewManagehandlers = [
   rest.get(
+    '/surveys/:surveyResultId/recipient/:recipientId',
+    async (_, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          subjectName: '김아무개',
+          surveyTitle: '포켓몬을 고르는 설문조사',
+          subjectResults: {
+            questionType: 'multipleChoice',
+            questionTitle: '첫 스타팅 포켓몬을 고르자면?',
+            questionId: '1',
+            answers: [
+              {
+                responserId: 10,
+                responserName: '김잼민',
+                responseId: '100',
+                answer: '파이리',
+              },
+              {
+                responserId: 11,
+                responserName: '김하게',
+                responseId: '101',
+                answer: '치코리타',
+              },
+              {
+                responserId: 12,
+                responserName: '김빡빡',
+                responseId: '102',
+                answer: '아르세우스',
+              },
+            ],
+          },
+        }),
+      )
+    },
+  ),
+  rest.get(
     '/surveys/:surveyResultId/reonponser/:responserId',
-    async (req, res, ctx) => {
+    async (_, res, ctx) => {
       const data = {
         responserName: '홍길동',
         title: '다양한 유형의 질문이 있는 설문조사',
@@ -64,7 +101,7 @@ const createdReviewManagehandlers = [
       return res(ctx.status(200), ctx.json(data))
     },
   ),
-  rest.get('/surveys/:surveyId/responser', async (req, res, ctx) => {
+  rest.get('/surveys/:surveyId/responser', async (_, res, ctx) => {
     const data = {
       surveyId: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
       title: '데브코스 1차 피어리뷰',
@@ -89,7 +126,7 @@ const createdReviewManagehandlers = [
     return res(ctx.status(201), ctx.json(data))
   }),
 
-  rest.get('/surveys/:surveyId/recipient', async (req, res, ctx) => {
+  rest.get('/surveys/:surveyId/recipient', async (_, res, ctx) => {
     const data = {
       recipientList: Array(5)
         .fill(0)
