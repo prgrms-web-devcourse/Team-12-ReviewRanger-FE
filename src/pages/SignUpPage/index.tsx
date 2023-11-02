@@ -1,9 +1,7 @@
 import { PasswordInput } from '@/components'
 import { useSignUp } from '@/apis/hooks'
 import { CheckIcon } from '@/assets/icons'
-import useEmailCheck from './hooks/useEmailCheck'
-import useNameCheck from './hooks/useNameCheck'
-import usePasswordCheck from './hooks/usePasswordCheck'
+import { useEmailCheck, useNameCheck, usePasswordCheck } from './hooks'
 
 const SingUpPage = () => {
   const { email, uniqueEmail, handleEmailChange, handleEmailDuplicatedClick } =
