@@ -178,3 +178,18 @@ export const REVIEW_RESULT = {
 }
 
 export const REVIEW_RESPONSE = {}
+
+export const ALL_USERS = [
+  {
+    userId: 1,
+    name: '김아무개',
+  },
+  {
+    userId: 2,
+    name: '김잼민',
+  },
+  {
+    userId: 3,
+    name: '김빡빡',
+  },
+]
