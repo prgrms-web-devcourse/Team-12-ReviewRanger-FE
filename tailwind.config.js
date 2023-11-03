@@ -13,7 +13,7 @@ export default {
             300: '#220000',
           },
           ivory: '#FFFAEA',
-          yellow: '#FFF0C2',
+          yellow: '#FFF4D1',
           gray: '#1F1F1F',
         },
         gray: {
