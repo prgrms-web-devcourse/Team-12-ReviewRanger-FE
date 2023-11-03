@@ -1,57 +1,24 @@
-import { useState, ChangeEvent } from 'react'
+import { useRef } from 'react'
 import { useLogin } from '@/apis/hooks'
+import { LoginGroup } from './components'
+
+export interface LoginProps {
+  email: string
+  password: string
+}
 
 const LoginPage = () => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [token, setToken] = useState('')
+  const loginGroup = useRef<{ getValues: () => LoginProps } | null>(null)
 
   const { mutate: login } = useLogin()
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
-  }
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
-
   const handleLoginButtonClick = () => {
-    login(
-      { email, password },
-      {
-        onSuccess: ({ data }) => {
-          setToken(data.token)
-        },
-      },
-    )
+    if (loginGroup.current?.getValues) {
+      const { email, password } = loginGroup.current.getValues()
+      login({ email, password })
+    }
   }
 
-  return (
-    <div className="flex w-fit flex-col gap-2">
-      <div>로그인 페이지</div>
-      <input
-        value={email}
-        type="text"
-        className="border border-black"
-        onChange={handleEmailChange}
-        placeholder="email"
-      />
-      <input
-        value={password}
-        type="text"
-        className="border border-black"
-        onChange={handlePasswordChange}
-        placeholder="password"
-      />
-      <button className="btn" onClick={handleLoginButtonClick}>
-        로그인
-      </button>
-      <div className="flex flex-row gap-2">
-        <p className="font-bold">JWT : </p>
-        <p>{token}</p>
-      </div>
-    </div>
-  )
+  return <LoginGroup ref={loginGroup} handleLogin={handleLoginButtonClick} />
 }
 export default LoginPage
