@@ -1,32 +1,30 @@
-import { useState, ChangeEvent } from 'react'
-import { useCheckDuplicatedName } from '@/apis/hooks'
+import { useState, ChangeEvent, Dispatch, SetStateAction, useRef } from 'react'
+import { checkNamePattern } from '@/utils'
 
-const useNameCheck = () => {
+interface UseNameCheckProps {
+  setNameFailMsg: Dispatch<SetStateAction<string>>
+}
+
+const useNameCheck = ({ setNameFailMsg }: UseNameCheckProps) => {
+  const nameRef = useRef(null)
   const [name, setName] = useState('')
-  const [uniqueName, setUniqueName] = useState(false)
-  const { mutate: checkDuplicatedName } = useCheckDuplicatedName()
 
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUniqueName(false)
-    setName(e.currentTarget.value)
+  const handleNameFocusChange = () => {
+    if (nameRef.current !== document.activeElement) {
+      const msg = checkNamePattern({ name })
+      setNameFailMsg(msg)
+    }
   }
 
-  const handleNameDuplicatedClick = () => {
-    checkDuplicatedName(
-      { name },
-      {
-        onSuccess: ({ data }) => {
-          setUniqueName(data.success)
-        },
-      },
-    )
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.currentTarget.value.trim())
   }
 
   return {
     name,
-    uniqueName,
+    nameRef,
     handleNameChange,
-    handleNameDuplicatedClick,
+    handleNameFocusChange,
   }
 }
 
