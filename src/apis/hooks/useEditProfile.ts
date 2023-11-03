@@ -5,9 +5,13 @@ interface Profile {
   name: string
 }
 
+interface Response {
+  success: boolean
+}
+
 const useEditProfile = () => {
   const editProfile = async (name: Profile) => {
-    return await apiClient.put('/members/profile', name)
+    return await apiClient.put<Response>('/members/profile', name)
   }
 
   return useMutation({ mutationFn: editProfile })

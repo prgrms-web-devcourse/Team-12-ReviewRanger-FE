@@ -6,9 +6,13 @@ interface loginProps {
   password: string
 }
 
+interface Response {
+  token: string
+}
+
 const useLogin = () => {
   const login = async (user: loginProps) => {
-    return await apiClient.post('/login', user)
+    return await apiClient.post<Response>('/login', user)
   }
 
   return useMutation({ mutationFn: login })

@@ -21,7 +21,7 @@ const LoginPage = () => {
       { email, password },
       {
         onSuccess: ({ data }) => {
-          setToken(data)
+          setToken(data.token)
         },
       },
     )
