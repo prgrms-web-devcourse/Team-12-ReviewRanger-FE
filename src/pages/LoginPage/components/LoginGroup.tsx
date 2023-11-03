@@ -54,7 +54,11 @@ const LoginGroup = forwardRef(
           type="password"
           placeholder="password"
         />
-        <button className="btn" onClick={props.handleLogin}>
+        <button
+          className="rounded-5 btn h-[54px]  w-[350px] max-w-[350px] dark:bg-active-orange "
+          onClick={props.handleLogin}
+          disabled={!validEmail}
+        >
           로그인
         </button>
       </div>
