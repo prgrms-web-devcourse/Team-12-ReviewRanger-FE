@@ -26,7 +26,7 @@ const useLocalStorage = <T>(
     return () => {
       window.removeEventListener('storage', handler)
     }
-  }, [])
+  }, [defaultValue, key])
 
   const setLocalStorageValue = (value: T) => {
     try {
