@@ -16,6 +16,11 @@ interface CheckPasswordPatternProps {
   password: string
 }
 
+interface CheckPasswordConfirmPatternProps {
+  password: string
+  passwordConfirm: string
+}
+
 export const checkEmailPattern = ({ email }: CheckEmailPatternProps) => {
   const trimmedEmail = email.trim()
 
@@ -47,6 +52,20 @@ export const checkPasswordPattern = ({
 
   if (!PASSWORD_REGEXP.test(trimmedPassword)) {
     return '5 ~ 15자로 문자와 숫자를 포함해야 만들라구!'
+  } else {
+    return ''
+  }
+}
+
+export const checkPasswordConfirmPattern = ({
+  password,
+  passwordConfirm,
+}: CheckPasswordConfirmPatternProps) => {
+  const trimmedPassword = password.trim()
+  const trimmedPasswordConfirm = passwordConfirm.trim()
+
+  if (trimmedPassword !== trimmedPasswordConfirm) {
+    return '비밀번호가 일치하지 않는군!'
   } else {
     return ''
   }
