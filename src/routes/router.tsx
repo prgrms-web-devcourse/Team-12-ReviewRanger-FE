@@ -8,7 +8,7 @@ import {
   ReviewReplyPage,
   ReviewResultPage,
   SignUpPage,
-} from '@/pages'
+} from '@/Pages'
 import Layout from './Layout'
 import { PATH } from './constants'
 
