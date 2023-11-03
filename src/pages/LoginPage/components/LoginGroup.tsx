@@ -35,7 +35,7 @@ const LoginGroup = forwardRef(
     }))
 
     return (
-      <div className="flex flex-col items-center justify-center gap-4">
+      <div className="bg-ivory flex h-full flex-col items-center justify-center gap-4 dark:bg-main-red-100">
         <input
           className="rounded-5 w-[350px] max-w-[350px] border-2 border-black dark:h-[60px] dark:border-white dark:bg-main-red-100 dark:text-white"
           ref={emailRef}

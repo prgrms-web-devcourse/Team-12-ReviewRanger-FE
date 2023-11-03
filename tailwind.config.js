@@ -49,5 +49,8 @@ export default {
       },
     },
   },
+  rippleui: {
+    removeThemes: ['dark', 'light', 'whateverTheme'],
+  },
   plugins: [rippleui],
 }
