@@ -16,7 +16,6 @@ const usePasswordCheck = ({
 
   const handlePasswordFocusChange = () => {
     if (passwordRef.current !== document.activeElement) {
-      // const msg = checkPasswordPattern({ password })
       setPasswordFailMsg(checkPasswordPattern({ password }))
       setPasswordConfirmFailMsg(
         checkPasswordConfirmPattern({ password, passwordConfirm }),

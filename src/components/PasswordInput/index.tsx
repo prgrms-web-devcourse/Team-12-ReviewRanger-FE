@@ -2,7 +2,7 @@ import { ChangeEvent, FocusEvent, RefObject, useState } from 'react'
 import { EyeOffIcon, EyeOnIcon } from '@/assets/icons'
 
 interface PasswordInputProps {
-  ref?: RefObject<HTMLInputElement>
+  passwordRef?: RefObject<HTMLInputElement>
   handlePasswordChange?: (e: ChangeEvent<HTMLInputElement>) => void
   handlePasswordBlur?: (e: FocusEvent<HTMLInputElement>) => void
   disabled?: boolean
@@ -12,7 +12,7 @@ interface PasswordInputProps {
 }
 
 const PasswordInput = ({
-  ref,
+  passwordRef,
   placeholder = '비밀번호를 입력하세요.',
   disabled,
   type,
@@ -37,7 +37,7 @@ const PasswordInput = ({
       </div>
       <div className="flex flex-row">
         <input
-          ref={ref}
+          ref={passwordRef}
           className="h-4 flex-1 border-0 text-xs text-black focus:outline-none"
           placeholder={placeholder}
           disabled={disabled}
