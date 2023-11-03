@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const useLocalStorage = <T>(
   key: string,
-  defaultValue: T,
-): [T, (value: T) => void] => {
-  const [value, setValue] = useState(defaultValue)
+  defaultValue?: T,
+): [T | undefined, (value: T | undefined) => void] => {
+  const [value, setValue] = useState<T | undefined>(defaultValue)
+
   useEffect(() => {
     const item = localStorage.getItem(key)
 
-    if (!item) {
+    if (!item && defaultValue !== undefined) {
       localStorage.setItem(key, JSON.stringify(defaultValue))
     }
+
     setValue(item ? JSON.parse(item) : defaultValue)
 
     const handler = (e: StorageEvent) => {
       if (e.key !== key) {
-        //잘못된 키일 경우
         return
       }
       setValue(JSON.parse(localStorage.getItem(key) ?? ''))
@@ -28,10 +29,14 @@ const useLocalStorage = <T>(
     }
   }, [defaultValue, key])
 
-  const setLocalStorageValue = (value: T) => {
+  const setLocalStorageValue = (value: T | undefined) => {
     try {
       setValue(value)
-      localStorage.setItem(key, JSON.stringify(value))
+      if (value === undefined) {
+        localStorage.removeItem(key)
+      } else {
+        localStorage.setItem(key, JSON.stringify(value))
+      }
       window.dispatchEvent(
         new StorageEvent('storage', {
           key,
