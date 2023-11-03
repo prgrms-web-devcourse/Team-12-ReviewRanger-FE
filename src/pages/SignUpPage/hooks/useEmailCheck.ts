@@ -1,32 +1,30 @@
-import { useState, ChangeEvent } from 'react'
-import { useCheckDuplicatedEmail } from '@/apis/hooks'
+import { useState, ChangeEvent, useRef, Dispatch, SetStateAction } from 'react'
+import { checkEmailPattern } from '@/utils'
 
-const useEmailCheck = () => {
+interface UseEmailCheckProps {
+  setEmailFailMsg: Dispatch<SetStateAction<string>>
+}
+
+const useEmailCheck = ({ setEmailFailMsg }: UseEmailCheckProps) => {
+  const emailRef = useRef(null)
   const [email, setEmail] = useState('')
-  const [uniqueEmail, setUniqueEmail] = useState(false)
-  const { mutate: checkDuplicatedEmail } = useCheckDuplicatedEmail()
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUniqueEmail(false)
-    setEmail(e.currentTarget.value)
+  const handleEmailFocusChange = () => {
+    if (emailRef.current !== document.activeElement) {
+      const msg = checkEmailPattern({ email })
+      setEmailFailMsg(msg)
+    }
   }
 
-  const handleEmailDuplicatedClick = () => {
-    checkDuplicatedEmail(
-      { email },
-      {
-        onSuccess: ({ data }) => {
-          setUniqueEmail(data.success)
-        },
-      },
-    )
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value)
   }
 
   return {
     email,
-    uniqueEmail,
+    emailRef,
     handleEmailChange,
-    handleEmailDuplicatedClick,
+    handleEmailFocusChange,
   }
 }
 
