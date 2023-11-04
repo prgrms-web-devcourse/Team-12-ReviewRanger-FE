@@ -37,9 +37,9 @@ const LoginGroup = forwardRef(
     return (
       <div className="bg-ivory flex h-full flex-col items-center justify-center gap-4 dark:bg-main-red-100">
         <div className="flex h-[60px] w-[350px] max-w-[350px] flex-col border-2  border-black dark:border-white dark:text-white">
-          <label className="text-gray-100">이메일</label>
+          <label className="fontSize-xs text-gray-100">이메일</label>
           <input
-            className="rounded-5 border-0  outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
+            className="fontSize-sm rounded-5 border-0  outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
             ref={emailRef}
             type="text"
             placeholder="email"
@@ -51,9 +51,9 @@ const LoginGroup = forwardRef(
           <ErrorAlert errortext="올바른 이메일 형식이 아닙니다" />
         )}
         <div className="flex h-[60px] w-[350px] max-w-[350px] flex-col border-2  border-black dark:border-white dark:text-white">
-          <label className="text-gray-100">비밀번호</label>
+          <label className="fontSize-xs text-gray-100">비밀번호</label>
           <input
-            className="rounded-5 border-0  outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
+            className="fontSize-sm rounded-5 border-0  outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
             ref={passWordRef}
             type="password"
             placeholder="password"
@@ -61,7 +61,7 @@ const LoginGroup = forwardRef(
         </div>
 
         <button
-          className="rounded-5 btn h-[54px]  w-[350px] max-w-[350px] text-white dark:bg-active-orange dark:text-black"
+          className="rounded-5 fontSize-lg btn h-[54px] w-[350px] max-w-[350px] text-white dark:bg-active-orange dark:text-black"
           onClick={props.handleLogin}
           disabled={!validEmail}
         >
