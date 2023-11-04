@@ -42,12 +42,14 @@ const SingUpPage = () => {
   })
 
   return (
-    <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100">
+    <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 lg:px-64">
       <div className="items-around flex h-full flex-col gap-14 pt-14">
         <div className="flex flex-col items-center justify-center">
-          <Review />
-          <Ranger />
-          <RangersIcon />
+          <div className="lg:hidden">
+            <Review />
+            <Ranger />
+          </div>
+          <RangersIcon className="lg:h-[10rem] lg:w-[10rem]" />
         </div>
         <div className="flex flex-col gap-5">
           <Input
