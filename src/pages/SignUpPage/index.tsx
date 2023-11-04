@@ -42,7 +42,7 @@ const SingUpPage = () => {
   })
 
   return (
-    <div className="h-full w-full items-center justify-center bg-main-ivory px-5">
+    <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100">
       <div className="items-around flex h-full flex-col gap-14 pt-14">
         <div className="flex flex-col items-center justify-center">
           <Review />
@@ -80,7 +80,7 @@ const SingUpPage = () => {
           />
           <button
             disabled={!email || !name || !password || !passwordConfirm}
-            className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50"
+            className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black"
             onClick={handleSignUpButtonClick}
           >
             회원가입 완료

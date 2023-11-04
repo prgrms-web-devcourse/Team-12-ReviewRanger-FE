@@ -27,17 +27,21 @@ const Input = ({
   }
 
   return (
-    <div className="flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black">
+    <div className="flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:bg-main-red-200 dark:focus-within:border-white">
       <div className="flex flex-row justify-between">
         <div className="h-4 text-xs text-gray-100">
           {INPUT_TYPE[type].TITLE}
         </div>
-        {msg && <div className="text-xs text-sub-red-200">{msg}</div>}
+        {msg && (
+          <div className="text-xs text-sub-red-200 dark:text-sub-yellow">
+            {msg}
+          </div>
+        )}
       </div>
       <div className="flex flex-row">
         <input
           ref={inputRef}
-          className="h-4 flex-1 border-0 text-sm text-black focus:outline-none"
+          className="h-4 flex-1 border-0 bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white"
           placeholder={INPUT_TYPE[type].PLACEHOLDER}
           disabled={disabled}
           onChange={handleInputChange}
