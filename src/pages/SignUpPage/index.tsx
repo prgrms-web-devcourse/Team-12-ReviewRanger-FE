@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PasswordInput } from '@/components'
+import { Input } from '@/components'
 import {
   useEmailCheck,
   useNameCheck,
@@ -44,47 +44,32 @@ const SingUpPage = () => {
       <div className="flex flex-col gap-6">
         <div>회원가입 페이지</div>
         <div className="flex flex-col gap-2">
-          <div className="flex gap-2">
-            <div className="flex h-fit items-center border-2 border-black">
-              <input
-                ref={emailRef}
-                onFocus={handleEmailFocusChange}
-                onBlur={handleEmailFocusChange}
-                type="text"
-                onChange={handleEmailChange}
-                className="p-0 py-1.5 pl-3 focus:outline-none"
-                placeholder="email"
-              />
-              {emailFailMsg && (
-                <div className="text-red-400">{emailFailMsg}</div>
-              )}
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <div className="flex h-fit items-center border-2 border-black">
-              <input
-                ref={nameRef}
-                onBlur={handleNameFocusChange}
-                type="text"
-                onChange={handleNameChange}
-                className="p-0 py-1.5 pl-3 focus:outline-none"
-                placeholder="name"
-              />
-              {nameFailMsg && <div className="text-red-400">{nameFailMsg}</div>}
-            </div>
-          </div>
-          <PasswordInput
-            passwordRef={passwordRef}
-            handlePasswordBlur={handlePasswordFocusChange}
-            handlePasswordChange={handlePasswordChange}
+          <Input
+            type="email"
+            inputRef={emailRef}
+            handleInputBlur={handleEmailFocusChange}
+            handleInputChange={handleEmailChange}
+            msg={emailFailMsg}
+          />
+          <Input
+            type="name"
+            inputRef={nameRef}
+            handleInputBlur={handleNameFocusChange}
+            handleInputChange={handleNameChange}
+            msg={nameFailMsg}
+          />
+          <Input
             type="password"
+            inputRef={passwordRef}
+            handleInputBlur={handlePasswordFocusChange}
+            handleInputChange={handlePasswordChange}
             msg={passwordFailMsg}
           />
-          <PasswordInput
-            passwordRef={passwordRef}
-            handlePasswordChange={handlePasswordConfirmChange}
-            handlePasswordBlur={handlePasswordFocusChange}
+          <Input
             type="passwordConfirm"
+            inputRef={passwordRef}
+            handleInputChange={handlePasswordConfirmChange}
+            handleInputBlur={handlePasswordFocusChange}
             msg={passwordConfirmFailMsg}
           />
         </div>
