@@ -1,0 +1,5 @@
+export { default as Review } from './review.svg?react'
+export { default as Ranger } from './ranger.svg?react'
+export { default as RangerIcon } from './rangerIcon.svg?react'
+export { default as RangersIcon } from './rangersIcon.svg?react'
+export { default as RR } from './RR.svg?react'
