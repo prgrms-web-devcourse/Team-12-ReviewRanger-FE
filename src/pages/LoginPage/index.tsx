@@ -33,7 +33,7 @@ const LoginPage = () => {
   return (
     <div className="w-50% flex h-full flex-col items-center gap-4 bg-main-ivory dark:bg-main-red-100">
       <LogoGroup />
-      <LoginGroup ref={loginGroup} handleLogin={handleLoginButtonClick} />
+      <LoginGroup handleLogin={handleLoginButtonClick} />
     </div>
   )
 }
