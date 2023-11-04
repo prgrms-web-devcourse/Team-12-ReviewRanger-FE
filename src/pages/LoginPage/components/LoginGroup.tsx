@@ -1,6 +1,7 @@
 import { Ref, useRef, useImperativeHandle, forwardRef, useState } from 'react'
 import { LoginProps } from '@/Pages/LoginPage'
 import { ErrorAlert } from '@/Pages/LoginPage/components'
+import { PATH } from '@/routes/constants'
 import { validateEmail } from '@/utils'
 
 //TODO - 비밀번호 유효성 검사 필요
@@ -60,12 +61,18 @@ const LoginGroup = forwardRef(
         </div>
 
         <button
-          className="rounded-5 btn h-[54px]  w-[350px] max-w-[350px] dark:bg-active-orange "
+          className="rounded-5 btn h-[54px]  w-[350px] max-w-[350px] text-white dark:bg-active-orange dark:text-black"
           onClick={props.handleLogin}
           disabled={!validEmail}
         >
           로그인
         </button>
+        <a
+          href={PATH.SIGN_UP}
+          className="fontSize-sm flex w-[350px] max-w-[350px] justify-end text-xs text-active-orange"
+        >
+          회원가입
+        </a>
       </div>
     )
   },
