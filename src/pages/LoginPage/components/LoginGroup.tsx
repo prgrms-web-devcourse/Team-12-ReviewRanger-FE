@@ -35,7 +35,7 @@ const LoginGroup = forwardRef(
     }))
 
     return (
-      <div className="bg-ivory flex h-full flex-col items-center justify-center gap-4 dark:bg-main-red-100">
+      <>
         <div className="flex h-[60px] w-[350px] max-w-[350px] flex-col border-2  border-black dark:border-white dark:text-white">
           <label className="fontSize-xs text-gray-100">이메일</label>
           <input
@@ -73,7 +73,7 @@ const LoginGroup = forwardRef(
         >
           회원가입
         </a>
-      </div>
+      </>
     )
   },
 )

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useLocalStorage } from '@/hooks'
 import { useLogin } from '@/apis/hooks'
-import { LoginGroup } from './components'
+import { LoginGroup, LogoGroup } from './components'
 
 export interface LoginProps {
   email: string
@@ -34,6 +34,11 @@ const LoginPage = () => {
     }
   }
 
-  return <LoginGroup ref={loginGroup} handleLogin={handleLoginButtonClick} />
+  return (
+    <div className="w-50% flex h-full flex-col items-center gap-4 bg-main-ivory dark:bg-main-red-100">
+      <LogoGroup />
+      <LoginGroup ref={loginGroup} handleLogin={handleLoginButtonClick} />
+    </div>
+  )
 }
 export default LoginPage
