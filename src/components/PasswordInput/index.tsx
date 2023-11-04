@@ -13,7 +13,7 @@ interface PasswordInputProps {
 
 const PasswordInput = ({
   passwordRef,
-  placeholder = '비밀번호를 입력하세요.',
+  placeholder = '비밀번호를 입력하라구!',
   disabled,
   type,
   handlePasswordChange,
