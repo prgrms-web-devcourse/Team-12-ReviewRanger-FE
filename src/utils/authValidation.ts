@@ -1,4 +1,4 @@
-const EMAIL_REGEXP = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/
+const EMAIL_REGEXP = /[a-z0-9]+@[a-z]+\.[a-z]{2,8}$/
 const PASSWORD_REGEXP = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,15}$/
 const NAME_REGEXP = /^[a-zA-Z0-9가-힣[\]-]+$/
 const NAME_MIN_LENGTH = 3
