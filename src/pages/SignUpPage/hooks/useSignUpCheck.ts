@@ -49,7 +49,7 @@ const useSignUpCheck = ({
                 {
                   onSuccess: ({ data }) => {
                     if (data.success) {
-                      console.log('회원가입 환료!')
+                      console.log('회원가입 완료!')
                       signUp({ email, name, password })
                     } else {
                       setNameFailMsg('이미 존재하는 이름이라구.')

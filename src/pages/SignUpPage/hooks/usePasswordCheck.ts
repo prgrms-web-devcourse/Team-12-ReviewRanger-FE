@@ -33,6 +33,7 @@ const usePasswordCheck = ({
 
   return {
     password,
+    passwordConfirm,
     passwordRef,
     handlePasswordChange,
     handlePasswordConfirmChange,
