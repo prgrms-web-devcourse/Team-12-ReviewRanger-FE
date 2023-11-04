@@ -1,8 +1,8 @@
 const EMAIL_REGEXP = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/
 const PASSWORD_REGEXP = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,15}$/
-const NAME_REGEXP = /^[a-zA-Z0-9가-힣]+$/
+const NAME_REGEXP = /^[a-zA-Z0-9가-힣[\]-]+$/
 const NAME_MIN_LENGTH = 3
-const NAME_MAX_LENGTH = 10
+const NAME_MAX_LENGTH = 12
 
 interface CheckEmailPatternProps {
   email: string
@@ -39,7 +39,7 @@ export const checkNamePattern = ({ name }: CheckNamePatternProps) => {
     trimmedName.length < NAME_MIN_LENGTH ||
     trimmedName.length > NAME_MAX_LENGTH
   ) {
-    return '3 ~ 10자의 문자 또는 숫자로만 만들라구!'
+    return '3 ~ 12자의 문자 또는 숫자로만 만들라구!'
   } else {
     return ''
   }
