@@ -1,6 +1,6 @@
 import { Ref, useRef, useImperativeHandle, forwardRef, useState } from 'react'
-import { LoginProps } from '@/Pages/LoginPage'
-import { ErrorAlert } from '@/Pages/LoginPage/components'
+import { LoginProps } from '@/pages/LoginPage'
+import { ErrorAlert } from '@/pages/LoginPage/components'
 import { PATH } from '@/routes/constants'
 import { validateEmail } from '@/utils'
 
