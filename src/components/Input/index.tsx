@@ -27,7 +27,7 @@ const Input = ({
   }
 
   return (
-    <div className="flex flex-col justify-center gap-[0.44rem] border-2 border-black px-[0.63rem] pb-[0.69rem] pt-[0.31rem]">
+    <div className="flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black">
       <div className="flex flex-row justify-between">
         <div className="h-4 text-xs text-gray-100">
           {INPUT_TYPE[type].TITLE}
