@@ -30,46 +30,38 @@ const useSignUpCheck = ({
   passwordConfirmFailMsg,
 }: useSignUpCheckProps) => {
   const navigate = useNavigate()
-  const { mutate: signUp } = useSignUp()
-  const { mutate: checkDuplicatedEmail } = useCheckDuplicatedEmail()
-  const { mutate: checkDuplicatedName } = useCheckDuplicatedName()
+  const { mutateAsync: signUp } = useSignUp()
+  const { mutateAsync: checkDuplicatedEmail } = useCheckDuplicatedEmail()
+  const { mutateAsync: checkDuplicatedName } = useCheckDuplicatedName()
 
-  const handleSignUpButtonClick = () => {
-    !(
-      emailFailMsg ||
-      nameFailMsg ||
-      passwordFailMsg ||
-      passwordConfirmFailMsg
-    ) &&
-      checkDuplicatedEmail(
-        { email },
-        {
-          onSuccess: ({ data }) => {
-            if (data.success) {
-              checkDuplicatedName(
-                { name },
-                {
-                  onSuccess: ({ data }) => {
-                    if (data.success) {
-                      console.log('회원가입 완료!')
-                      signUp(
-                        { email, name, password },
-                        {
-                          onSuccess: () => navigate('/login'),
-                        },
-                      )
-                    } else {
-                      setNameFailMsg('이미 존재하는 이름이라구.')
-                    }
-                  },
-                },
-              )
-            } else {
-              setEmailFailMsg('이미 존재하는 이메일이라구.')
-            }
-          },
-        },
-      )
+  const handleSignUpButtonClick = async () => {
+    if (
+      !emailFailMsg &&
+      !nameFailMsg &&
+      !passwordFailMsg &&
+      !passwordConfirmFailMsg
+    ) {
+      try {
+        const { data: emailData } = await checkDuplicatedEmail({ email })
+        if (!emailData.success) {
+          setEmailFailMsg('이미 존재하는 이메일이라구.')
+
+          return
+        }
+
+        const { data: nameData } = await checkDuplicatedName({ name })
+        if (!nameData.success) {
+          setNameFailMsg('이미 존재하는 이름이라구.')
+
+          return
+        }
+
+        await signUp({ email, name, password })
+        navigate('/login')
+      } catch (e) {
+        console.error('axios 통신 오류', e)
+      }
+    }
   }
 
   return { handleSignUpButtonClick }
