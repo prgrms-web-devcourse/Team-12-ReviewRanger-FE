@@ -8,14 +8,10 @@ export interface LoginProps {
   password: string
 }
 
-interface User {
-  name: string
-  email: string
-}
 const LoginPage = () => {
   const loginGroup = useRef<{ getValues: () => LoginProps } | null>(null)
 
-  const [user, setUser] = useLocalStorage<User>('user')
+  const [user, setUser] = useLocalStorage('user')
   const { mutate: login } = useLogin()
 
   const handleLoginButtonClick = () => {

@@ -36,10 +36,11 @@ const LoginGroup = forwardRef(
 
     return (
       <>
-        <div className="flex h-[60px] w-[350px] max-w-[350px] flex-col border-2  border-black dark:border-white dark:text-white">
+        <div className="flex h-[60px] w-[350px] max-w-[350px] flex-col border-2  border-black bg-white dark:border-white dark:bg-main-red-100 dark:text-white ">
           <label className="fontSize-xs text-gray-100">이메일</label>
           <input
-            className="fontSize-sm rounded-5 border-0  outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
+            className="fontSize-sm rounded-5 border-0  bg-white 
+            text-black outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
             ref={emailRef}
             type="text"
             placeholder="email"
@@ -50,10 +51,11 @@ const LoginGroup = forwardRef(
         {!validEmail && (
           <ErrorAlert errortext="올바른 이메일 형식이 아닙니다" />
         )}
-        <div className="flex h-[60px] w-[350px] max-w-[350px] flex-col border-2  border-black dark:border-white dark:text-white">
+        <div className="flex h-[60px] w-[350px] max-w-[350px] flex-col border-2  border-black bg-white dark:border-white dark:bg-main-red-100 dark:text-white ">
           <label className="fontSize-xs text-gray-100">비밀번호</label>
           <input
-            className="fontSize-sm rounded-5 border-0  outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
+            className="fontSize-sm rounded-5 border-0  bg-white 
+            text-black outline-0 dark:border-white dark:bg-main-red-100 dark:text-white"
             ref={passWordRef}
             type="password"
             placeholder="password"
@@ -61,7 +63,7 @@ const LoginGroup = forwardRef(
         </div>
 
         <button
-          className="rounded-5 fontSize-lg btn h-[54px] w-[350px] max-w-[350px] text-white dark:bg-active-orange dark:text-black"
+          className="rounded-5 fontSize-lg btn h-[54px] w-[350px] max-w-[350px]  bg-active-orange text-white dark:text-black"
           onClick={props.handleLogin}
           disabled={!validEmail}
         >
