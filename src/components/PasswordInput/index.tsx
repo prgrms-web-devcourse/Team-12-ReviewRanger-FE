@@ -38,7 +38,7 @@ const PasswordInput = ({
       <div className="flex flex-row">
         <input
           ref={passwordRef}
-          className="h-4 flex-1 border-0 text-xs text-black focus:outline-none"
+          className="h-4 flex-1 border-0 text-sm text-black focus:outline-none"
           placeholder={placeholder}
           disabled={disabled}
           onChange={handlePasswordChange}
