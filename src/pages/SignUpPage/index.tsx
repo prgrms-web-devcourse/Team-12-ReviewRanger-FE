@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Input } from '@/components'
+import { Review, Ranger, RangersIcon } from '@/assets/logos'
 import {
   useEmailCheck,
   useNameCheck,
@@ -19,6 +20,7 @@ const SingUpPage = () => {
     useNameCheck({ setNameFailMsg })
   const {
     password,
+    passwordConfirm,
     passwordRef,
     handlePasswordChange,
     handlePasswordConfirmChange,
@@ -40,10 +42,14 @@ const SingUpPage = () => {
   })
 
   return (
-    <div className="h-full w-full items-center justify-center px-5">
-      <div className="flex flex-col gap-6">
-        <div>회원가입 페이지</div>
-        <div className="flex flex-col gap-2">
+    <div className="h-full w-full items-center justify-center bg-main-ivory px-5">
+      <div className="items-around flex h-full flex-col gap-14 pt-14">
+        <div className="flex flex-col items-center justify-center">
+          <Review />
+          <Ranger />
+          <RangersIcon />
+        </div>
+        <div className="flex flex-col gap-5">
           <Input
             type="email"
             inputRef={emailRef}
@@ -72,14 +78,14 @@ const SingUpPage = () => {
             handleInputBlur={handlePasswordFocusChange}
             msg={passwordConfirmFailMsg}
           />
+          <button
+            disabled={!email || !name || !password || !passwordConfirm}
+            className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50"
+            onClick={handleSignUpButtonClick}
+          >
+            회원가입 완료
+          </button>
         </div>
-        <button
-          disabled={password === ''}
-          className="btn bg-green-200 text-black hover:bg-blue-300"
-          onClick={handleSignUpButtonClick}
-        >
-          회원가입
-        </button>
       </div>
     </div>
   )
