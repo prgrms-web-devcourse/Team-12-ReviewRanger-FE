@@ -7,9 +7,13 @@ interface signUpProps {
   password: string
 }
 
+interface Response {
+  success: boolean
+}
+
 const useSignUp = () => {
   const signUp = async (user: signUpProps) => {
-    return await apiClient.post('/sign-up', user)
+    return await apiClient.post<Response>('/sign-up', user)
   }
 
   return useMutation({ mutationFn: signUp })

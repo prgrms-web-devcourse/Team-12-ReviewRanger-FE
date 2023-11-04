@@ -6,8 +6,8 @@ interface Response {
 }
 
 const useLogout = () => {
-  const logout = async (): Promise<Response> => {
-    const response = await apiClient.get('/members/logout')
+  const logout = async () => {
+    const response = await apiClient.get<Response>('/members/logout')
 
     return response.data
   }

@@ -1,13 +1,17 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface checkDuplicatedNameProps {
+interface Name {
   name: string
 }
 
+interface Response {
+  success: boolean
+}
+
 const useCheckDuplicatedName = () => {
-  const checkDuplicatedName = async (name: checkDuplicatedNameProps) => {
-    return await apiClient.post('/members/check-name', name)
+  const checkDuplicatedName = async (name: Name) => {
+    return await apiClient.post<Response>('/members/check-name', name)
   }
 
   return useMutation({ mutationFn: checkDuplicatedName })

@@ -18,9 +18,13 @@ interface Survey {
   responserIdList: number[]
 }
 
+interface Response {
+  success: boolean
+}
+
 const useCreateSurvey = () => {
   const createSurvey = async (survey: Survey) => {
-    return await apiClient.post('/surveys', survey)
+    return await apiClient.post<Response>('/surveys', survey)
   }
 
   return useMutation({ mutationFn: createSurvey })
