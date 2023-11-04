@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   useSignUp,
   useCheckDuplicatedEmail,
@@ -28,6 +29,7 @@ const useSignUpCheck = ({
   passwordFailMsg,
   passwordConfirmFailMsg,
 }: useSignUpCheckProps) => {
+  const navigate = useNavigate()
   const { mutate: signUp } = useSignUp()
   const { mutate: checkDuplicatedEmail } = useCheckDuplicatedEmail()
   const { mutate: checkDuplicatedName } = useCheckDuplicatedName()
@@ -50,7 +52,12 @@ const useSignUpCheck = ({
                   onSuccess: ({ data }) => {
                     if (data.success) {
                       console.log('회원가입 완료!')
-                      signUp({ email, name, password })
+                      signUp(
+                        { email, name, password },
+                        {
+                          onSuccess: () => navigate('/login'),
+                        },
+                      )
                     } else {
                       setNameFailMsg('이미 존재하는 이름이라구.')
                     }
