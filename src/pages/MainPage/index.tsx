@@ -1,6 +1,97 @@
-//메인 페이지
+import { useState } from 'react'
+import {
+  useGetCreatedReview,
+  useGetInvitedReview,
+  useGetReceivedReview,
+} from '@/apis/hooks'
+import { rangerIdle } from '@/assets/images'
+import {
+  CreatedReviewItem,
+  InvitedReviewItem,
+  PageIntro,
+  ReceivedReviewItem,
+  ReviewList,
+  Tabs,
+} from './components'
+import { INTRO } from './constants'
+
 const MainPage = () => {
-  return <>메인 페이지</>
+  const { data: invitedReviews } = useGetInvitedReview()
+  const { data: createdReviews } = useGetCreatedReview()
+  const { data: receivedReviews } = useGetReceivedReview()
+
+  const [activeTab, setActiveTab] = useState<
+    'invited' | 'created' | 'received'
+  >('invited')
+
+  const TAB_REVIEWS = {
+    invited: invitedReviews,
+    created: createdReviews,
+    received: receivedReviews,
+  }
+
+  const handleInvitedReviewClick = (id: number) => {
+    console.log('응답 리뷰 클릭', id)
+  }
+
+  const handleCreatedReviewClick = (id: number) => {
+    console.log('생성 리뷰 클릭', id)
+  }
+
+  const handleReceivedReviewClick = (id: number) => {
+    console.log('결과 리뷰 클릭', id)
+  }
+
+  const { desc1, desc2, title, titleColor } = INTRO[activeTab]
+
+  return (
+    <>
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      <div className="p-5 md:p-10">
+        <PageIntro
+          imageSrc={rangerIdle}
+          className="mb-5 rounded-lg bg-main-ivory py-4 pr-4 dark:bg-main-red-200 md:mb-10"
+        >
+          <div className="text-sm dark:text-sub-red-100 md:text-xl">
+            <span>{desc1}</span>
+            <span className={titleColor}>{title}</span>
+            <span>{desc2}</span>
+          </div>
+        </PageIntro>
+
+        <ReviewList
+          reviews={TAB_REVIEWS[activeTab]}
+          RenderComponent={(review) => {
+            if ('isCompleted' in review) {
+              return (
+                <InvitedReviewItem
+                  {...review}
+                  handleReviewClick={handleInvitedReviewClick}
+                />
+              )
+            }
+
+            if ('responserCount' in review) {
+              return (
+                <CreatedReviewItem
+                  {...review}
+                  handleReviewClick={handleCreatedReviewClick}
+                />
+              )
+            }
+
+            return (
+              <ReceivedReviewItem
+                {...review}
+                handleReviewClick={handleReceivedReviewClick}
+              />
+            )
+          }}
+        />
+      </div>
+    </>
+  )
 }
 
 export default MainPage
