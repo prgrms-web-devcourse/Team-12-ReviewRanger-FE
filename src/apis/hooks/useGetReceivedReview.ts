@@ -1,24 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { ReceivedReview } from '@/types'
 import apiClient from '../apiClient'
-
-interface Review {
-  id: number
-  title: string
-  createdAt: string
-}
-
-interface Response {
-  data: Review[]
-}
 
 const useGetReceivedReview = () => {
   const getReceivedReview = async () => {
-    const response = await apiClient.get<Response>('/received-reviews')
+    const response = await apiClient.get<ReceivedReview[]>('/received-reviews')
 
     return response.data
   }
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['/received-reviews'],
     queryFn: getReceivedReview,
   })
