@@ -42,14 +42,14 @@ const SingUpPage = () => {
   })
 
   return (
-    <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 lg:px-64">
+    <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
       <div className="items-around flex h-full flex-col gap-14 pt-14">
         <div className="flex flex-col items-center justify-center">
-          <div className="lg:hidden">
+          <div className="md:hidden">
             <Review />
             <Ranger />
           </div>
-          <RangersIcon className="lg:h-[10rem] lg:w-[10rem]" />
+          <RangersIcon className="md:h-40 md:w-40" />
         </div>
         <div className="flex flex-col gap-5">
           <Input
@@ -82,7 +82,7 @@ const SingUpPage = () => {
           />
           <button
             disabled={!email || !name || !password || !passwordConfirm}
-            className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black"
+            className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
             onClick={handleSignUpButtonClick}
           >
             회원가입 완료
