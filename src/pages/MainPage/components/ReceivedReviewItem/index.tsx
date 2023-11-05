@@ -27,7 +27,7 @@ const ReceivedReviewItem = ({
         )}
       </div>
 
-      <p className="line-clamp-2 text-center text-base dark:text-sub-red-100 md:text-xl">
+      <p className="line-clamp-2 text-center text-base text-black dark:text-sub-red-100 md:text-xl">
         {title}
       </p>
       <p className="text-right text-xs text-black dark:text-sub-red-100 md:text-sm">
