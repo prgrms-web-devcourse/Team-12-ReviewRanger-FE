@@ -48,7 +48,7 @@ const LoginGroup = (props: LoginGroupProps) => {
           <input
             {...register('password')}
             className="h-4 flex-1 border-0 bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
-            type="password"
+            type={showPassword ? 'password' : 'text'}
             placeholder="password"
           />
           <i className="mx-2 w-fit cursor-pointer">
