@@ -1,43 +1,43 @@
-import { useState, ChangeEvent, Dispatch, SetStateAction, useRef } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { checkPasswordConfirmPattern, checkPasswordPattern } from '@/utils'
 
-interface UsePasswordCheckProps {
-  setPasswordFailMessage: Dispatch<SetStateAction<string>>
-  setPasswordConfirmFailMessage: Dispatch<SetStateAction<string>>
-}
-
-const usePasswordCheck = ({
-  setPasswordFailMessage,
-  setPasswordConfirmFailMessage,
-}: UsePasswordCheckProps) => {
-  const passwordRef = useRef(null)
+const usePasswordCheck = () => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
-
-  const handlePasswordFocusChange = () => {
-    if (passwordRef.current !== document.activeElement) {
-      setPasswordFailMessage(checkPasswordPattern({ password }))
-      setPasswordConfirmFailMessage(
-        checkPasswordConfirmPattern({ password, passwordConfirm }),
-      )
-    }
-  }
+  const [passwordFailMessage, setPasswordFailMessage] = useState('')
+  const [passwordConfirmFailMessage, setPasswordConfirmFailMessage] =
+    useState('')
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value.trim())
+    const value = e.currentTarget.value.trim()
+    setPasswordFailMessage(checkPasswordPattern({ password: value }))
+    setPasswordConfirmFailMessage(
+      checkPasswordConfirmPattern({
+        password: value,
+        passwordConfirm,
+      }),
+    )
+    setPassword(value)
   }
 
   const handlePasswordConfirmChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPasswordConfirm(e.target.value.trim())
+    const value = e.currentTarget.value.trim()
+    setPasswordConfirmFailMessage(
+      checkPasswordConfirmPattern({
+        password,
+        passwordConfirm: value,
+      }),
+    )
+    setPasswordConfirm(value)
   }
 
   return {
     password,
     passwordConfirm,
-    passwordRef,
+    passwordFailMessage,
+    passwordConfirmFailMessage,
     handlePasswordChange,
     handlePasswordConfirmChange,
-    handlePasswordFocusChange,
   }
 }
 

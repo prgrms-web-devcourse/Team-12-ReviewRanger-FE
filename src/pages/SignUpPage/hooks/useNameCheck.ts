@@ -1,30 +1,21 @@
-import { useState, ChangeEvent, Dispatch, SetStateAction, useRef } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { checkNamePattern } from '@/utils'
 
-interface UseNameCheckProps {
-  setNameFailMessage: Dispatch<SetStateAction<string>>
-}
-
-const useNameCheck = ({ setNameFailMessage }: UseNameCheckProps) => {
-  const nameRef = useRef(null)
+const useNameCheck = () => {
   const [name, setName] = useState('')
-
-  const handleNameFocusChange = () => {
-    if (nameRef.current !== document.activeElement) {
-      const message = checkNamePattern({ name })
-      setNameFailMessage(message)
-    }
-  }
+  const [nameFailMessage, setNameFailMessage] = useState('')
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.currentTarget.value.trim())
+    const value = e.currentTarget.value.trim()
+    setNameFailMessage(checkNamePattern({ name: value }))
+    setName(value)
   }
 
   return {
     name,
-    nameRef,
+    nameFailMessage,
+    setNameFailMessage,
     handleNameChange,
-    handleNameFocusChange,
   }
 }
 

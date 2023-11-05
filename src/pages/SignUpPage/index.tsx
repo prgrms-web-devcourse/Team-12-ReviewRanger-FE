@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Input } from '@/components'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
@@ -10,27 +9,18 @@ import {
 } from './hooks'
 
 const SingUpPage = () => {
-  const [emailFailMessage, setEmailFailMessage] = useState('')
-  const [nameFailMessage, setNameFailMessage] = useState('')
-  const [passwordFailMessage, setPasswordFailMessage] = useState('')
-  const [passwordConfirmFailMessage, setPasswordConfirmFailMessage] =
-    useState('')
-
-  const { email, emailRef, handleEmailChange, handleEmailFocusChange } =
-    useEmailCheck({ setEmailFailMessage })
-  const { name, nameRef, handleNameChange, handleNameFocusChange } =
-    useNameCheck({ setNameFailMessage })
+  const { email, emailFailMessage, setEmailFailMessage, handleEmailChange } =
+    useEmailCheck()
+  const { name, nameFailMessage, setNameFailMessage, handleNameChange } =
+    useNameCheck()
   const {
     password,
     passwordConfirm,
-    passwordRef,
+    passwordFailMessage,
+    passwordConfirmFailMessage,
     handlePasswordChange,
     handlePasswordConfirmChange,
-    handlePasswordFocusChange,
-  } = usePasswordCheck({
-    setPasswordFailMessage,
-    setPasswordConfirmFailMessage,
-  })
+  } = usePasswordCheck()
   const { handleSignUpButtonClick } = useSignUpCheck({
     email,
     emailFailMessage,
@@ -59,30 +49,22 @@ const SingUpPage = () => {
         <div className="flex flex-col gap-5">
           <Input
             type="email"
-            inputRef={emailRef}
-            handleInputBlur={handleEmailFocusChange}
             handleInputChange={handleEmailChange}
             message={emailFailMessage}
           />
           <Input
             type="name"
-            inputRef={nameRef}
-            handleInputBlur={handleNameFocusChange}
             handleInputChange={handleNameChange}
             message={nameFailMessage}
           />
           <Input
             type="password"
-            inputRef={passwordRef}
-            handleInputBlur={handlePasswordFocusChange}
             handleInputChange={handlePasswordChange}
             message={passwordFailMessage}
           />
           <Input
             type="passwordConfirm"
-            inputRef={passwordRef}
             handleInputChange={handlePasswordConfirmChange}
-            handleInputBlur={handlePasswordFocusChange}
             message={passwordConfirmFailMessage}
           />
           <button

@@ -1,22 +1,18 @@
-import { ChangeEvent, FocusEvent, RefObject, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { EyeOffIcon, EyeOnIcon } from '@/assets/icons'
 import { INPUT_TYPE } from './constants'
 
 interface InputProps {
-  inputRef?: RefObject<HTMLInputElement>
   handleInputChange?: (e: ChangeEvent<HTMLInputElement>) => void
-  handleInputBlur?: (e: FocusEvent<HTMLInputElement>) => void
   disabled?: boolean
   type: keyof typeof INPUT_TYPE
   message?: string
 }
 
 const Input = ({
-  inputRef,
   disabled,
   type,
   handleInputChange,
-  handleInputBlur,
   message,
   ...rest
 }: InputProps) => {
@@ -40,12 +36,10 @@ const Input = ({
       </div>
       <div className="flex flex-row">
         <input
-          ref={inputRef}
           className="h-4 flex-1 border-0 bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
           placeholder={INPUT_TYPE[type].PLACEHOLDER}
           disabled={disabled}
           onChange={handleInputChange}
-          onBlur={handleInputBlur}
           type={
             type.includes('password') && !showPassword ? 'password' : 'text'
           }
