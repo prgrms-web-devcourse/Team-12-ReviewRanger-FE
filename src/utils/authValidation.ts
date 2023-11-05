@@ -1,13 +1,4 @@
-const EMAIL_REGEXP = /[a-z0-9]+@[a-z]+\.[a-z]{2,8}$/
-const PASSWORD_REGEXP = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,15}$/
-const NAME_REGEXP = /^[a-zA-Z0-9가-힣[\]-]+$/
-const NAME_MIN_LENGTH = 3
-const NAME_MAX_LENGTH = 12
-const VALID_MESSAGE = ''
-const INVALID_EMAIL_MESSAGE = '유효한 이메일 주소가 아니야!'
-const INVALID_NAME_MESSAGE = '3 ~ 12자의 문자 또는 숫자로만 만들라구!'
-const INVALID_PASSWORD_MESSAGE = '5 ~ 15자로 문자와 숫자를 포함해야 만들라구!'
-const INVALID_PASSWORD_CONFIRM_MESSAGE = '비밀번호가 일치하지 않는군!'
+import { AUTH_VALIDATION } from './constants'
 
 interface CheckEmailPatternProps {
   email: string
@@ -29,10 +20,10 @@ interface CheckPasswordConfirmPatternProps {
 export const checkEmailPattern = ({ email }: CheckEmailPatternProps) => {
   const trimmedEmail = email.trim()
 
-  if (!EMAIL_REGEXP.test(trimmedEmail)) {
-    return INVALID_EMAIL_MESSAGE
+  if (!AUTH_VALIDATION.EMAIL_REGEXP.test(trimmedEmail)) {
+    return AUTH_VALIDATION.MESSAGE.INVALID.EMAIL
   } else {
-    return VALID_MESSAGE
+    return AUTH_VALIDATION.MESSAGE.VALID
   }
 }
 
@@ -40,13 +31,13 @@ export const checkNamePattern = ({ name }: CheckNamePatternProps) => {
   const trimmedName = name.trim()
 
   if (
-    !NAME_REGEXP.test(trimmedName) ||
-    trimmedName.length < NAME_MIN_LENGTH ||
-    trimmedName.length > NAME_MAX_LENGTH
+    !AUTH_VALIDATION.NAME_REGEXP.test(trimmedName) ||
+    trimmedName.length < AUTH_VALIDATION.NAME_MIN_LENGTH ||
+    trimmedName.length > AUTH_VALIDATION.NAME_MAX_LENGTH
   ) {
-    return INVALID_NAME_MESSAGE
+    return AUTH_VALIDATION.MESSAGE.INVALID.NAME
   } else {
-    return VALID_MESSAGE
+    return AUTH_VALIDATION.MESSAGE.VALID
   }
 }
 
@@ -55,10 +46,10 @@ export const checkPasswordPattern = ({
 }: CheckPasswordPatternProps) => {
   const trimmedPassword = password.trim()
 
-  if (!PASSWORD_REGEXP.test(trimmedPassword)) {
-    return INVALID_PASSWORD_MESSAGE
+  if (!AUTH_VALIDATION.PASSWORD_REGEXP.test(trimmedPassword)) {
+    return AUTH_VALIDATION.MESSAGE.INVALID.PASSWORD
   } else {
-    return VALID_MESSAGE
+    return AUTH_VALIDATION.MESSAGE.VALID
   }
 }
 
@@ -70,8 +61,8 @@ export const checkPasswordConfirmPattern = ({
   const trimmedPasswordConfirm = passwordConfirm.trim()
 
   if (trimmedPassword !== trimmedPasswordConfirm) {
-    return INVALID_PASSWORD_CONFIRM_MESSAGE
+    return AUTH_VALIDATION.MESSAGE.INVALID.PASSWORD_CONFIRM
   } else {
-    return VALID_MESSAGE
+    return AUTH_VALIDATION.MESSAGE.VALID
   }
 }
