@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
 import { EyeOffIcon, EyeOnIcon } from '@/assets/icons'
 import { INPUT_TYPE } from './constants'
 
-interface InputProps {
+interface InputProps
+  extends Omit<ComponentPropsWithoutRef<'input'>, 'disabled'> {
   handleInputChange?: (e: ChangeEvent<HTMLInputElement>) => void
   disabled?: boolean
   type: keyof typeof INPUT_TYPE
