@@ -10,15 +10,16 @@ import {
 } from './hooks'
 
 const SingUpPage = () => {
-  const [emailFailMsg, setEmailFailMsg] = useState('')
-  const [nameFailMsg, setNameFailMsg] = useState('')
-  const [passwordFailMsg, setPasswordFailMsg] = useState('')
-  const [passwordConfirmFailMsg, setPasswordConfirmFailMsg] = useState('')
+  const [emailFailMessage, setEmailFailMessage] = useState('')
+  const [nameFailMessage, setNameFailMessage] = useState('')
+  const [passwordFailMessage, setPasswordFailMessage] = useState('')
+  const [passwordConfirmFailMessage, setPasswordConfirmFailMessage] =
+    useState('')
 
   const { email, emailRef, handleEmailChange, handleEmailFocusChange } =
-    useEmailCheck({ setEmailFailMsg })
+    useEmailCheck({ setEmailFailMessage })
   const { name, nameRef, handleNameChange, handleNameFocusChange } =
-    useNameCheck({ setNameFailMsg })
+    useNameCheck({ setNameFailMessage })
   const {
     password,
     passwordConfirm,
@@ -27,19 +28,19 @@ const SingUpPage = () => {
     handlePasswordConfirmChange,
     handlePasswordFocusChange,
   } = usePasswordCheck({
-    setPasswordFailMsg,
-    setPasswordConfirmFailMsg,
+    setPasswordFailMessage,
+    setPasswordConfirmFailMessage,
   })
   const { handleSignUpButtonClick } = useSignUpCheck({
     email,
-    emailFailMsg,
-    setEmailFailMsg,
-    nameFailMsg,
-    setNameFailMsg,
+    emailFailMessage,
+    setEmailFailMessage,
+    nameFailMessage,
+    setNameFailMessage,
     name,
     password,
-    passwordFailMsg,
-    passwordConfirmFailMsg,
+    passwordFailMessage,
+    passwordConfirmFailMessage,
   })
 
   return (
@@ -61,28 +62,28 @@ const SingUpPage = () => {
             inputRef={emailRef}
             handleInputBlur={handleEmailFocusChange}
             handleInputChange={handleEmailChange}
-            msg={emailFailMsg}
+            message={emailFailMessage}
           />
           <Input
             type="name"
             inputRef={nameRef}
             handleInputBlur={handleNameFocusChange}
             handleInputChange={handleNameChange}
-            msg={nameFailMsg}
+            message={nameFailMessage}
           />
           <Input
             type="password"
             inputRef={passwordRef}
             handleInputBlur={handlePasswordFocusChange}
             handleInputChange={handlePasswordChange}
-            msg={passwordFailMsg}
+            message={passwordFailMessage}
           />
           <Input
             type="passwordConfirm"
             inputRef={passwordRef}
             handleInputChange={handlePasswordConfirmChange}
             handleInputBlur={handlePasswordFocusChange}
-            msg={passwordConfirmFailMsg}
+            message={passwordConfirmFailMessage}
           />
           <button
             disabled={!email || !name || !password || !passwordConfirm}

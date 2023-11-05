@@ -8,26 +8,26 @@ import {
 
 interface useSignUpCheckProps {
   email: string
-  emailFailMsg: string
-  setEmailFailMsg: Dispatch<SetStateAction<string>>
-  nameFailMsg: string
-  setNameFailMsg: Dispatch<SetStateAction<string>>
+  emailFailMessage: string
+  setEmailFailMessage: Dispatch<SetStateAction<string>>
+  nameFailMessage: string
+  setNameFailMessage: Dispatch<SetStateAction<string>>
   name: string
   password: string
-  passwordFailMsg: string
-  passwordConfirmFailMsg: string
+  passwordFailMessage: string
+  passwordConfirmFailMessage: string
 }
 
 const useSignUpCheck = ({
   email,
-  emailFailMsg,
-  setEmailFailMsg,
-  nameFailMsg,
-  setNameFailMsg,
+  emailFailMessage,
+  setEmailFailMessage,
+  nameFailMessage,
+  setNameFailMessage,
   name,
   password,
-  passwordFailMsg,
-  passwordConfirmFailMsg,
+  passwordFailMessage,
+  passwordConfirmFailMessage,
 }: useSignUpCheckProps) => {
   const navigate = useNavigate()
   const { mutateAsync: signUp } = useSignUp()
@@ -36,22 +36,22 @@ const useSignUpCheck = ({
 
   const handleSignUpButtonClick = async () => {
     if (
-      !emailFailMsg &&
-      !nameFailMsg &&
-      !passwordFailMsg &&
-      !passwordConfirmFailMsg
+      !emailFailMessage &&
+      !nameFailMessage &&
+      !passwordFailMessage &&
+      !passwordConfirmFailMessage
     ) {
       try {
         const { data: emailData } = await checkDuplicatedEmail({ email })
         if (!emailData.success) {
-          setEmailFailMsg('이미 존재하는 이메일이라구.')
+          setEmailFailMessage('이미 존재하는 이메일이라구.')
 
           return
         }
 
         const { data: nameData } = await checkDuplicatedName({ name })
         if (!nameData.success) {
-          setNameFailMsg('이미 존재하는 이름이라구.')
+          setNameFailMessage('이미 존재하는 이름이라구.')
 
           return
         }

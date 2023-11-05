@@ -8,7 +8,7 @@ interface InputProps {
   handleInputBlur?: (e: FocusEvent<HTMLInputElement>) => void
   disabled?: boolean
   type: keyof typeof INPUT_TYPE
-  msg?: string
+  message?: string
 }
 
 const Input = ({
@@ -17,7 +17,7 @@ const Input = ({
   type,
   handleInputChange,
   handleInputBlur,
-  msg,
+  message,
   ...rest
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -32,9 +32,9 @@ const Input = ({
         <div className="h-4 text-xs text-gray-100 md:text-sm">
           {INPUT_TYPE[type].TITLE}
         </div>
-        {msg && (
+        {message && (
           <div className="text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
-            {msg}
+            {message}
           </div>
         )}
       </div>

@@ -2,17 +2,17 @@ import { useState, ChangeEvent, useRef, Dispatch, SetStateAction } from 'react'
 import { checkEmailPattern } from '@/utils'
 
 interface UseEmailCheckProps {
-  setEmailFailMsg: Dispatch<SetStateAction<string>>
+  setEmailFailMessage: Dispatch<SetStateAction<string>>
 }
 
-const useEmailCheck = ({ setEmailFailMsg }: UseEmailCheckProps) => {
+const useEmailCheck = ({ setEmailFailMessage }: UseEmailCheckProps) => {
   const emailRef = useRef(null)
   const [email, setEmail] = useState('')
 
   const handleEmailFocusChange = () => {
     if (emailRef.current !== document.activeElement) {
-      const msg = checkEmailPattern({ email })
-      setEmailFailMsg(msg)
+      const message = checkEmailPattern({ email })
+      setEmailFailMessage(message)
     }
   }
 

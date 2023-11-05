@@ -2,13 +2,13 @@ import { useState, ChangeEvent, Dispatch, SetStateAction, useRef } from 'react'
 import { checkPasswordConfirmPattern, checkPasswordPattern } from '@/utils'
 
 interface UsePasswordCheckProps {
-  setPasswordFailMsg: Dispatch<SetStateAction<string>>
-  setPasswordConfirmFailMsg: Dispatch<SetStateAction<string>>
+  setPasswordFailMessage: Dispatch<SetStateAction<string>>
+  setPasswordConfirmFailMessage: Dispatch<SetStateAction<string>>
 }
 
 const usePasswordCheck = ({
-  setPasswordFailMsg,
-  setPasswordConfirmFailMsg,
+  setPasswordFailMessage,
+  setPasswordConfirmFailMessage,
 }: UsePasswordCheckProps) => {
   const passwordRef = useRef(null)
   const [password, setPassword] = useState('')
@@ -16,8 +16,8 @@ const usePasswordCheck = ({
 
   const handlePasswordFocusChange = () => {
     if (passwordRef.current !== document.activeElement) {
-      setPasswordFailMsg(checkPasswordPattern({ password }))
-      setPasswordConfirmFailMsg(
+      setPasswordFailMessage(checkPasswordPattern({ password }))
+      setPasswordConfirmFailMessage(
         checkPasswordConfirmPattern({ password, passwordConfirm }),
       )
     }
