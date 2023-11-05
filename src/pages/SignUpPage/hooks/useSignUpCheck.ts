@@ -5,6 +5,7 @@ import {
   useCheckDuplicatedEmail,
   useCheckDuplicatedName,
 } from '@/apis/hooks'
+import { DUPLICATED_MESSAGE } from './constants'
 
 interface useSignUpCheckProps {
   email: string
@@ -44,14 +45,14 @@ const useSignUpCheck = ({
       try {
         const { data: emailData } = await checkDuplicatedEmail({ email })
         if (!emailData.success) {
-          setEmailFailMessage('이미 존재하는 이메일이라구.')
+          setEmailFailMessage(DUPLICATED_MESSAGE.EMAIL)
 
           return
         }
 
         const { data: nameData } = await checkDuplicatedName({ name })
         if (!nameData.success) {
-          setNameFailMessage('이미 존재하는 이름이라구.')
+          setNameFailMessage(DUPLICATED_MESSAGE.NAME)
 
           return
         }
