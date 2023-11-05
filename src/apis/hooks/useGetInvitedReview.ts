@@ -1,30 +1,39 @@
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface Review {
-  id: number
-  title: string
-  status: '진행중' | '마감' | '종료'
-  type: string
-  isCompleted: boolean
-  createdAt: string | null
+interface Responser {
+  responserId: number
+  responserName: string
+}
+
+interface Question {
+  questionId: number
+  questionTitle: string
+  questionType: string
+  isRequired: boolean
+  options: string[]
 }
 
 interface Response {
-  data: Review[]
+  title: string
+  description: string
+  responsers: Responser[]
+  questions: Question[]
 }
 
-const useGetInvitedReview = () => {
-  const getInvitedReview = async () => {
-    const response = await apiClient.get<Response>('/invited-surveys')
+const useGetResponseForm = (reviewId: number) => {
+  const getResponseForm = async () => {
+    const response = await apiClient.get<Response>(
+      `/invited-surveys/${reviewId}`,
+    )
 
     return response.data
   }
 
   return useQuery({
-    queryKey: ['/invited-surveys'],
-    queryFn: getInvitedReview,
+    queryKey: ['/invited-surveys/${reviewId}'],
+    queryFn: getResponseForm,
   })
 }
 
-export default useGetInvitedReview
+export default useGetResponseForm

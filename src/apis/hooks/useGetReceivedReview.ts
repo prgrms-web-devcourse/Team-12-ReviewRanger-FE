@@ -1,27 +1,32 @@
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface Review {
-  id: number
-  title: string
-  createdAt: string
+interface Result {
+  questionTitle: string
+  questionType: string
+  answer: string[]
 }
 
 interface Response {
-  data: Review[]
+  title: string
+  name: string
+  createdAt: string
+  results: Result[]
 }
 
-const useGetReceivedReview = () => {
-  const getReceivedReview = async () => {
-    const response = await apiClient.get<Response>('/received-reviews')
+const useGetReviewResult = (reviewId: number) => {
+  const getReviewResult = async () => {
+    const response = await apiClient.get<Response>(
+      `/received-surveys/${reviewId}`,
+    )
 
     return response.data
   }
 
   return useQuery({
-    queryKey: ['/received-reviews'],
-    queryFn: getReceivedReview,
+    queryKey: ['/received-surveys/${reviewId}'],
+    queryFn: getReviewResult,
   })
 }
 
-export default useGetReceivedReview
+export default useGetReviewResult
