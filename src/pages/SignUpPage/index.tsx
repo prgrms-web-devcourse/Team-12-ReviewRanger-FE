@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Input } from '@/components'
-import { Review, Ranger, RangersIcon } from '@/assets/logos'
+import { LogoColIcon } from '@/assets/icons'
+import { rangers } from '@/assets/images'
 import {
   useEmailCheck,
   useNameCheck,
@@ -46,10 +47,13 @@ const SingUpPage = () => {
       <div className="items-around flex h-full flex-col gap-14 pt-14">
         <div className="flex flex-col items-center justify-center">
           <div className="md:hidden">
-            <Review />
-            <Ranger />
+            <LogoColIcon className="h-[4rem] w-[5.8rem]" />
           </div>
-          <RangersIcon className="md:h-40 md:w-40" />
+          <img
+            className="h-24 w-24 md:h-40 md:w-40"
+            src={rangers}
+            alt="리뷰레인저 모음집"
+          />
         </div>
         <div className="flex flex-col gap-5">
           <Input
