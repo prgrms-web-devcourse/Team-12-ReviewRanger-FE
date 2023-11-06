@@ -11,8 +11,8 @@ interface Response {
   data: Review[]
 }
 
-const useGetReceivedReview = () => {
-  const getReceivedReview = async () => {
+const useGetAllReceivedReview = () => {
+  const getAllReceivedReview = async () => {
     const response = await apiClient.get<Response>('/received-reviews')
 
     return response.data
@@ -20,8 +20,8 @@ const useGetReceivedReview = () => {
 
   return useQuery({
     queryKey: ['/received-reviews'],
-    queryFn: getReceivedReview,
+    queryFn: getAllReceivedReview,
   })
 }
 
-export default useGetReceivedReview
+export default useGetAllReceivedReview

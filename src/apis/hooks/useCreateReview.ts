@@ -22,7 +22,7 @@ interface Response {
   success: boolean
 }
 
-const useCreateSurvey = () => {
+const useCreateReview = () => {
   const createSurvey = async (survey: Survey) => {
     return await apiClient.post<Response>('/surveys', survey)
   }
@@ -30,4 +30,4 @@ const useCreateSurvey = () => {
   return useMutation({ mutationFn: createSurvey })
 }
 
-export default useCreateSurvey
+export default useCreateReview

@@ -37,7 +37,7 @@ interface Response {
   results: ReviewResult[]
 }
 
-const useGetSingleAuthorResponse = ({
+const useGetResponseByResponser = ({
   surveyResultId,
   responserId,
 }: {
@@ -57,4 +57,4 @@ const useGetSingleAuthorResponse = ({
     queryFn: getSingleAuthorResponse,
   })
 }
-export default useGetSingleAuthorResponse
+export default useGetResponseByResponser

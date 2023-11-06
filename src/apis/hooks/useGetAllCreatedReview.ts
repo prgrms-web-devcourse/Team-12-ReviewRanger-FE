@@ -14,8 +14,8 @@ interface Response {
   data: Data[]
 }
 
-const useGetCreatedReview = () => {
-  const getCreatedReview = async () => {
+const useGetAllCreatedReview = () => {
+  const getAllCreatedReview = async () => {
     const response = await apiClient.get<Response>('/created-surveys')
 
     return response.data
@@ -23,8 +23,8 @@ const useGetCreatedReview = () => {
 
   return useQuery({
     queryKey: ['/created-surveys'],
-    queryFn: getCreatedReview,
+    queryFn: getAllCreatedReview,
   })
 }
 
-export default useGetCreatedReview
+export default useGetAllCreatedReview

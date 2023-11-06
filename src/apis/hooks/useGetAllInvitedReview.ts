@@ -14,8 +14,8 @@ interface Response {
   data: Review[]
 }
 
-const useGetInvitedReview = () => {
-  const getInvitedReview = async () => {
+const useGetAllInvitedReview = () => {
+  const getAllInvitedReview = async () => {
     const response = await apiClient.get<Response>('/invited-surveys')
 
     return response.data
@@ -23,8 +23,8 @@ const useGetInvitedReview = () => {
 
   return useQuery({
     queryKey: ['/invited-surveys'],
-    queryFn: getInvitedReview,
+    queryFn: getAllInvitedReview,
   })
 }
 
-export default useGetInvitedReview
+export default useGetAllInvitedReview

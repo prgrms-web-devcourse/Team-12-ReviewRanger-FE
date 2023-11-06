@@ -14,7 +14,7 @@ interface Response {
   results: Result[]
 }
 
-const useGetReviewResult = (reviewId: number) => {
+const useGetReceivedReview = (reviewId: number) => {
   const getReviewResult = async () => {
     const response = await apiClient.get<Response>(
       `/received-surveys/${reviewId}`,
@@ -29,4 +29,4 @@ const useGetReviewResult = (reviewId: number) => {
   })
 }
 
-export default useGetReviewResult
+export default useGetReceivedReview
