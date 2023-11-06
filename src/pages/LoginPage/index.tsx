@@ -25,8 +25,8 @@ const LoginPage = () => {
       <div className="items-around flex h-full flex-col gap-14 pt-14">
         <div className="flex flex-col items-center justify-center">
           <LogoGroup />
-          <LoginGroup handleLogin={handleLoginButtonClick} />
         </div>
+        <LoginGroup handleLogin={handleLoginButtonClick} />
       </div>
     </div>
   )
