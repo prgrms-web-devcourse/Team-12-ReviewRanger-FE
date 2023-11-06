@@ -33,7 +33,7 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
       })}
     >
       <div className="flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:bg-main-red-200 dark:focus-within:border-white">
-        <label className="fontSize-xs text-gray-100">이메일</label>
+        <label className="h-4 text-xs text-gray-100 md:text-sm">이메일</label>
         <input
           {...register('email')}
           className="h-4 flex-1 border-0 bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
@@ -43,7 +43,7 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
       </div>
       {errors.email && <ErrorAlert errortext="올바른 이메일 형식이 아닙니다" />}
       <div className="flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:bg-main-red-200 dark:focus-within:border-white">
-        <label className="fontSize-xs text-gray-100">비밀번호</label>
+        <label className="h-4 text-xs text-gray-100 md:text-sm">비밀번호</label>
         <div className="flex items-center">
           <input
             {...register('password')}
