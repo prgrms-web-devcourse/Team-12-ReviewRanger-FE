@@ -16,7 +16,7 @@ const PageIntro = ({
     >
       {imageSrc && (
         <img
-          className="max-h-12 object-cover md:max-h-20"
+          className="max-h-12 md:max-h-20"
           src={imageSrc}
           alt="페이지를 소개하는 npc 아이콘"
         />
