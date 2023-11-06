@@ -10,22 +10,20 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
   const { register, handleSubmit } = useForm()
 
   return (
-    <>
-      <form
-        className="flex flex-col gap-5"
-        onSubmit={handleSubmit((data) => {
-          handleLogin(data.email, data.password)
-        })}
-      >
+    <form
+      className="flex flex-col gap-5"
+      onSubmit={handleSubmit((data) => {
+        handleLogin(data.email, data.password)
+      })}
+    >
+      <div>
+        <Input type="email" register={register('email')} />
+      </div>
+      <div>
         <div>
-          <Input type="email" register={register('email')} />
+          <Input type="password" register={register('password')} />
         </div>
-        <div>
-          <div>
-            <Input type="password" register={register('password')} />
-          </div>
-        </div>
-      </form>
+      </div>
       <div className="flex w-full flex-col">
         <button className="pointer-cursor h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl">
           로그인
@@ -37,7 +35,7 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
           회원가입
         </a>
       </div>
-    </>
+    </form>
   )
 }
 
