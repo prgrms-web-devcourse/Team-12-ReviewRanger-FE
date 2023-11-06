@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { EyeOnIcon, EyeOffIcon } from '@/assets/icons'
-import { ErrorAlert } from '@/pages/LoginPage/components'
 import { PATH } from '@/routes/constants'
 import { loginSchema } from './constant'
 
@@ -41,7 +40,6 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
           placeholder="email"
         />
       </div>
-      {errors.email && <ErrorAlert errortext="올바른 이메일 형식이 아닙니다" />}
       <div className="flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:bg-main-red-200 dark:focus-within:border-white">
         <label className="h-4 text-xs text-gray-100 md:text-sm">비밀번호</label>
         <div className="flex items-center">
@@ -63,10 +61,6 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
           </i>
         </div>
       </div>
-      {errors.password && (
-        <ErrorAlert errortext="영문+숫자+특수문자 조합 8~15자리를 입력해주세요" />
-      )}
-
       <button
         className="pointer-cursor h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
         disabled={!!(errors.email ?? errors.password)}
