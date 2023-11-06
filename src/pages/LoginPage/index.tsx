@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { useLocalStorage } from '@/hooks'
 import { useLogin } from '@/apis/hooks'
 import { LoginGroup, LogoGroup } from './components'
@@ -9,25 +8,18 @@ export interface LoginProps {
 }
 
 const LoginPage = () => {
-  const loginGroup = useRef<{ getValues: () => LoginProps } | null>(null)
-
   const [user, setUser] = useLocalStorage('user')
   const { mutate: login } = useLogin()
 
-  const handleLoginButtonClick = () => {
-    if (loginGroup.current?.getValues) {
-      const { email, password } = loginGroup.current.getValues()
-      login(
-        { email, password },
-        {
-          onSuccess: ({ data }) => {
-            setUser(data)
-
-            console.log(user)
-          },
+  const handleLoginButtonClick = (email: string, password: string) => {
+    login(
+      { email, password },
+      {
+        onSuccess({ data }) {
+          setUser(data)
         },
-      )
-    }
+      },
+    )
   }
 
   return (
