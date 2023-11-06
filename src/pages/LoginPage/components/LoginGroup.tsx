@@ -1,10 +1,7 @@
-import type { loginSchmaType } from './constant'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { EyeOnIcon, EyeOffIcon } from '@/assets/icons'
 import { PATH } from '@/routes/constants'
-import { loginSchema } from './constant'
 
 //TODO - 비밀번호 유효성 검사 필요
 interface LoginGroupProps {
@@ -16,13 +13,7 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
   const handleEyeClick = () => {
     setShowPassword(!showPassword)
   }
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<loginSchmaType>({
-    resolver: zodResolver(loginSchema),
-  })
+  const { register, handleSubmit } = useForm()
 
   return (
     <form
@@ -61,10 +52,7 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
           </i>
         </div>
       </div>
-      <button
-        className="pointer-cursor h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
-        disabled={!!(errors.email ?? errors.password)}
-      >
+      <button className="pointer-cursor h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl">
         로그인
       </button>
       <a
