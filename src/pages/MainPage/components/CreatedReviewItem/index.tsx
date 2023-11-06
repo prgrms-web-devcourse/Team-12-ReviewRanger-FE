@@ -17,7 +17,7 @@ const CreatedReviewItem = ({
   className,
   handleReviewClick,
 }: CreatedReviewItemProps) => {
-  console.log(responserCount)
+  console.log(`${id}번 리뷰의 응답자 수: ${responserCount}명`)
 
   /** 최근 7일 이내 생성된 데이터인지 여부 */
   const newStatus =

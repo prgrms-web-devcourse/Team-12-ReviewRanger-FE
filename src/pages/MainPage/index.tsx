@@ -1,9 +1,5 @@
 import { useState } from 'react'
-import {
-  useGetCreatedReview,
-  useGetInvitedReview,
-  useGetReceivedReview,
-} from '@/apis/hooks'
+import { useGetAllReviews } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
 import {
   CreatedReviewItem,
@@ -16,9 +12,11 @@ import {
 import { INTRO } from './constants'
 
 const MainPage = () => {
-  const { data: invitedReviews } = useGetInvitedReview()
-  const { data: createdReviews } = useGetCreatedReview()
-  const { data: receivedReviews } = useGetReceivedReview()
+  const [
+    { data: invitedReviews },
+    { data: createdReviews },
+    { data: receivedReviews },
+  ] = useGetAllReviews()
 
   const [activeTab, setActiveTab] = useState<
     'invited' | 'created' | 'received'
