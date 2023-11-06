@@ -1,4 +1,3 @@
-import { useLocalStorage } from '@/hooks'
 import { useLogin } from '@/apis/hooks'
 import { LoginGroup, LogoGroup } from './components'
 
@@ -8,7 +7,6 @@ export interface LoginProps {
 }
 
 const LoginPage = () => {
-  const [user, setUser] = useLocalStorage('user')
   const { mutate: login } = useLogin()
 
   const handleLoginButtonClick = (email: string, password: string) => {
@@ -16,7 +14,7 @@ const LoginPage = () => {
       { email, password },
       {
         onSuccess({ data }) {
-          setUser(data)
+          localStorage.setItem('user', JSON.stringify(data))
         },
       },
     )
