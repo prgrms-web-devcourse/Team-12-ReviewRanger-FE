@@ -1,8 +1,9 @@
+import { Dispatch, SetStateAction } from 'react'
 import { TAB_MENU } from '../../constants'
 
 interface TabsProps {
   activeTab: 'invited' | 'created' | 'received'
-  setActiveTab: (active: 'invited' | 'created' | 'received') => void
+  setActiveTab: Dispatch<SetStateAction<'invited' | 'created' | 'received'>>
 }
 
 const Tabs = ({ activeTab, setActiveTab }: TabsProps) => {
