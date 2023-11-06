@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { InvitedReview } from '@/types'
-import { STATUS_COLOR } from '../../constants'
+import { STATUS_STYLE } from '../../constants'
 
 interface InvitedReviewItemProps extends InvitedReview {
   className: string
@@ -25,7 +25,7 @@ const InvitedReviewItem = ({
     <div className={className} onClick={() => handleReviewClick(id)}>
       <div className="flex gap-1.5">
         <span
-          className={`${STATUS_COLOR[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
+          className={`${STATUS_STYLE[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
         >
           {status}
         </span>

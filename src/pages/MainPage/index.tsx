@@ -9,7 +9,7 @@ import {
   ReviewList,
   Tabs,
 } from './components'
-import { INTRO } from './constants'
+import { INTRO_CONTENT, INTRO_STYLE } from './constants'
 
 const MainPage = () => {
   const [
@@ -40,7 +40,7 @@ const MainPage = () => {
     console.log('결과 리뷰 클릭', id)
   }
 
-  const { desc1, desc2, title, titleColor } = INTRO[activeTab]
+  const { desc1, desc2, title } = INTRO_CONTENT[activeTab]
 
   return (
     <>
@@ -53,7 +53,7 @@ const MainPage = () => {
         >
           <div className="text-sm text-black dark:text-sub-red-100 md:text-xl">
             <span>{desc1}</span>
-            <span className={titleColor}>{title}</span>
+            <span className={INTRO_STYLE[activeTab]}>{title}</span>
             <span>{desc2}</span>
           </div>
         </PageIntro>

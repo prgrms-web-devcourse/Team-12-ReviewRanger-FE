@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { MenuIcon } from '@/assets/icons'
 import { CreatedReview } from '@/types'
-import { STATUS_COLOR } from '../../constants'
+import { STATUS_STYLE } from '../../constants'
 
 interface CreatedReviewItemProps extends CreatedReview {
   className: string
@@ -28,7 +28,7 @@ const CreatedReviewItem = ({
       <div className="flex items-center justify-between">
         <div className="flex gap-1.5">
           <span
-            className={`${STATUS_COLOR[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
+            className={`${STATUS_STYLE[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
           >
             {status}
           </span>
