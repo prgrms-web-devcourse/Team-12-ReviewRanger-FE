@@ -43,22 +43,22 @@ const useSignUpCheck = ({
       !passwordConfirmFailMessage
     ) {
       try {
-        const { data: emailData } = await checkDuplicatedEmail({ email })
+        const [{ data: emailData }, { data: nameData }] = await Promise.all([
+          checkDuplicatedEmail({ email }),
+          checkDuplicatedName({ name }),
+        ])
+
         if (!emailData.success) {
           setEmailFailMessage(DUPLICATED_MESSAGE.EMAIL)
-
-          return
         }
-
-        const { data: nameData } = await checkDuplicatedName({ name })
         if (!nameData.success) {
           setNameFailMessage(DUPLICATED_MESSAGE.NAME)
-
-          return
         }
 
-        await signUp({ email, name, password })
-        navigate('/login')
+        if (emailData.success && nameData.success) {
+          await signUp({ email, name, password })
+          navigate('/login')
+        }
       } catch (e) {
         console.error('axios 통신 오류', e)
       }
