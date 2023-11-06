@@ -10,13 +10,7 @@ interface InputProps
   message?: string
 }
 
-const Input = ({
-  disabled,
-  type,
-  handleInputChange,
-  message,
-  ...rest
-}: InputProps) => {
+const Input = ({ disabled, type, handleInputChange, message }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleEyeClick = () => {
@@ -44,7 +38,6 @@ const Input = ({
           type={
             type.includes('password') && !showPassword ? 'password' : 'text'
           }
-          {...rest}
         />
         {type.includes('password') && (
           <i className="mx-2 w-fit cursor-pointer">
