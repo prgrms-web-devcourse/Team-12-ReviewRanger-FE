@@ -60,6 +60,7 @@ const MainPage = () => {
 
         <ReviewList
           reviews={TAB_REVIEWS[activeTab]}
+          addButtonExistence={activeTab === 'created'}
           RenderComponent={(review) => {
             if ('isCompleted' in review) {
               return (
