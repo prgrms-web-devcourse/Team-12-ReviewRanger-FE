@@ -12,7 +12,7 @@ interface LoginGroupProps {
   handleLogin: (email: string, password: string) => void
 }
 
-const LoginGroup = (props: LoginGroupProps) => {
+const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const handleEyeClick = () => {
     setShowPassword(!showPassword)
@@ -29,10 +29,10 @@ const LoginGroup = (props: LoginGroupProps) => {
     <form
       className="flex flex-col gap-5"
       onSubmit={handleSubmit((data) => {
-        props.handleLogin(data.email, data.password)
+        handleLogin(data.email, data.password)
       })}
     >
-      <div className="dark:focus-within:border-white\ flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:bg-main-red-200">
+      <div className="flex flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-white px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:bg-main-red-200 dark:focus-within:border-white">
         <label className="fontSize-xs text-gray-100">이메일</label>
         <input
           {...register('email')}
@@ -68,8 +68,8 @@ const LoginGroup = (props: LoginGroupProps) => {
       )}
 
       <button
-        className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
-        disabled={!!(errors.email || errors.password)}
+        className="pointer-cursor h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
+        disabled={!!(errors.email ?? errors.password)}
       >
         로그인
       </button>
