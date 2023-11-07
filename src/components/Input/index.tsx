@@ -1,4 +1,5 @@
 import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 import { EyeOffIcon, EyeOnIcon } from '@/assets/icons'
 import { INPUT_TYPE } from './constants'
 
@@ -8,6 +9,7 @@ interface InputProps
   disabled?: boolean
   type: keyof typeof INPUT_TYPE
   message?: string
+  register?: UseFormRegisterReturn
 }
 
 const Input = ({ disabled, type, handleInputChange, message }: InputProps) => {
@@ -60,3 +62,4 @@ const Input = ({ disabled, type, handleInputChange, message }: InputProps) => {
 }
 
 export default Input
+

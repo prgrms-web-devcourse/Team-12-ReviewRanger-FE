@@ -47,6 +47,9 @@ export default {
         xl: '1rem',
         '2xl': '1.125rem',
       },
+      spacing: {
+        2.5: '0.625rem',
+      },
     },
   },
   plugins: [rippleui],
