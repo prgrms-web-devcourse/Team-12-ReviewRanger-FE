@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useGetAllResponse } from '@/apis/hooks'
 import {
-  ReviewManageTabs,
+  Tabs,
   AllResponseReviewByResponser,
   AllResponseReviewByReceiver,
 } from './components'
@@ -41,7 +41,7 @@ const CreatedReviewManagePage = () => {
         {allResponseByResponser.data.title}
       </div>
 
-      <ReviewManageTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
     </h1>
   )
