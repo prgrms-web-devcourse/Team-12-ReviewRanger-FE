@@ -47,14 +47,14 @@ const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
       `/surveys/${reviewId}/responser`,
     )
 
-    return response
+    return response.data
   }
   const getResponseByReceiver = async () => {
     const response = await apiClient.get<AllReceiverResponse>(
       `/surveys/${reviewId}/recipient`,
     )
 
-    return response
+    return response.data
   }
 
   return useSuspenseQueries({
@@ -70,8 +70,8 @@ const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
     ],
     combine: (results) => {
       return {
-        allResponseByResponser: results[0].data,
-        allResponseByReceiver: results[1].data,
+        allResponseByResponser: results[0],
+        allResponseByReceiver: results[1],
       }
     },
   })
