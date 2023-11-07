@@ -9,7 +9,7 @@ interface User {
   responserCount?: number
 }
 
-interface UserListProps {
+export interface UserListProps {
   users: User[]
 }
 
