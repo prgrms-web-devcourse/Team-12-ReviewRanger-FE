@@ -70,8 +70,8 @@ const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
     ],
     combine: (results) => {
       return {
-        allResponseByResponser: results[0],
-        allResponseByReceiver: results[1],
+        allResponseByResponser: results[0].data,
+        allResponseByReceiver: results[1].data,
       }
     },
   })
