@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+case `uname` in
+  *CYGWIN*|*MINGW*|*MSYS*)
+    npx.cmd commitlint --config commitlint.config.cjs --edit $1
+  ;;
+  *)
+    npx commitlint --config commitlint.config.cjs --edit $1
+  ;;
+esac
