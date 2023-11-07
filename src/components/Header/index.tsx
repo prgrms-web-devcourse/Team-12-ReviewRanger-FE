@@ -41,7 +41,7 @@ const Header = ({ goBack = true }: { goBack: boolean }) => {
             <LogoRowIcon className="h-11 w-60" />
           )}
         </div>
-        <div className={``}>
+        <div>
           <div
             className={`${path === '/sign-up' && 'hidden'} ${
               path === '/login' && 'hidden'
