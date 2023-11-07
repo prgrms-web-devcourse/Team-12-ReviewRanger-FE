@@ -1,4 +1,4 @@
-import { Input } from '@/components'
+import { Input, Header } from '@/components'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
 import {
@@ -34,7 +34,8 @@ const SingUpPage = () => {
   })
 
   return (
-    <div className="h-screen">
+    <div className="flex h-screen flex-col">
+      <Header />
       <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
         <div className="items-around flex h-full flex-col gap-14 pt-14">
           <div className="flex flex-col items-center justify-center">

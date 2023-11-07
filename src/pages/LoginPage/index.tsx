@@ -1,3 +1,4 @@
+import { Header } from '@/components'
 import { useLogin } from '@/apis/hooks'
 import { LoginGroup, LogoGroup } from './components'
 
@@ -22,7 +23,8 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="h-screen">
+    <div className="flex h-screen flex-col">
+      <Header />
       <div className="flex h-full flex-col items-center justify-center gap-4 bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
         <div className="items-around flex h-full flex-col gap-14 pt-14">
           <div className="flex flex-col items-center justify-center">
