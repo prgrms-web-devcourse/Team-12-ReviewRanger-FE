@@ -12,14 +12,7 @@ interface InputProps
   register?: UseFormRegisterReturn
 }
 
-const Input = ({
-  disabled,
-  type,
-  handleInputChange,
-  message,
-  register,
-  ...rest
-}: InputProps) => {
+const Input = ({ disabled, type, handleInputChange, message }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleEyeClick = () => {
@@ -40,7 +33,6 @@ const Input = ({
       </div>
       <div className="flex flex-row">
         <input
-          {...register}
           className="h-4 flex-1 border-0 bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
           placeholder={INPUT_TYPE[type].PLACEHOLDER}
           disabled={disabled}
@@ -48,16 +40,18 @@ const Input = ({
           type={
             type.includes('password') && !showPassword ? 'password' : 'text'
           }
-          {...rest}
         />
         {type.includes('password') && (
           <i className="mx-2 w-fit cursor-pointer">
             {showPassword ? (
-              <EyeOnIcon onClick={handleEyeClick} className="dark:fill-white" />
+              <EyeOnIcon
+                onClick={handleEyeClick}
+                className="fill-black dark:fill-white"
+              />
             ) : (
               <EyeOffIcon
                 onClick={handleEyeClick}
-                className="dark:fill-white"
+                className="fill-black dark:fill-white"
               />
             )}
           </i>
@@ -68,3 +62,4 @@ const Input = ({
 }
 
 export default Input
+
