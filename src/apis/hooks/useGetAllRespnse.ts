@@ -68,6 +68,12 @@ const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
         queryFn: getResponseByReceiver,
       },
     ],
+    combine: (results) => {
+      return {
+        allResponseByResponser: results[0],
+        allResponseByReceiver: results[1],
+      }
+    },
   })
 }
 
