@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Header } from '@/components'
 import { useGetAllReviews } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
 import {
@@ -44,7 +45,10 @@ const MainPage = () => {
 
   return (
     <>
-      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="sticky top-0 z-10">
+        <Header />
+        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      </div>
 
       <div className="p-5 md:p-10">
         <PageIntro
