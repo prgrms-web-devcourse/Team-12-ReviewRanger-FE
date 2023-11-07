@@ -11,7 +11,7 @@ interface Response {
 
 const useEditProfile = () => {
   const editProfile = async (name: Profile) => {
-    return await apiClient.put<Response>('/members/profile', name)
+    return await apiClient.patch<Response>('/members/profile', name)
   }
 
   return useMutation({ mutationFn: editProfile })

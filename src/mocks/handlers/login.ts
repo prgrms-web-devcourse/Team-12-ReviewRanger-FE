@@ -17,6 +17,13 @@ export const loginHandlers = [
   rest.post('/login', async (_, res, ctx) => {
     const rand = Math.floor(Math.random() * 10)
 
-    return res(ctx.status(200), ctx.json(jwt[rand]))
+    return res(
+      ctx.status(200),
+      ctx.json({
+        accessToken: jwt[rand],
+        name: '효중',
+        email: '1232@naver.com',
+      }),
+    )
   }),
 ]
