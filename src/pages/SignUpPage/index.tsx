@@ -39,9 +39,7 @@ const SingUpPage = () => {
       <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
         <div className="items-around flex h-full flex-col gap-14 pt-14">
           <div className="flex flex-col items-center justify-center">
-            <div className="md:hidden">
-              <LogoColIcon className="h-[4rem] w-[5.8rem]" />
-            </div>
+            <LogoColIcon className="h-[4rem] w-[5.8rem] md:hidden" />
             <img
               className="h-24 w-24 md:h-40 md:w-40"
               src={rangers}
