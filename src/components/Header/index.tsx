@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
   LogoRowIcon,
   LogoShortIcon,
@@ -7,9 +8,11 @@ import {
 } from '@/assets/icons'
 import { rangerHead } from '@/assets/images'
 
-const Header = ({ goBack = true }: { goBack: boolean }) => {
+const Header = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-  const path = window.location.pathname
+  const path = useLocation().pathname
+  const avatarVisible = path !== '/sign-up' && path !== '/login'
+  const goBackVisible = path !== '/login' && path !== '/'
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,18 +26,19 @@ const Header = ({ goBack = true }: { goBack: boolean }) => {
   }, [])
 
   return (
-    <div className="sticky top-0 z-10 flex h-12 justify-center bg-main-red-300 py-4 md:h-20">
+    <div className="sticky top-0 z-10 flex h-12 shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
       <div className="flex w-full items-center justify-between px-6">
         <div>
-          <ArrowLeftIcon className={`md:hidden" ${!goBack && 'hidden'}`} />
+          <ArrowLeftIcon
+            className={`md:hidden" ${!goBackVisible && 'hidden'}`}
+          />
         </div>
-        <div className="flex items-center gap-1">
+        <div className="fixed left-1/2 flex -translate-x-1/2 transform items-center gap-1">
           <img
             src={rangerHead}
             alt="ranger-header"
             className="h-8 w-8 md:h-11 md:w-10"
           />
-
           {windowWidth < 768 ? (
             <LogoShortIcon className="h-7 w-8" />
           ) : (
@@ -42,13 +46,13 @@ const Header = ({ goBack = true }: { goBack: boolean }) => {
           )}
         </div>
         <div>
-          <div
-            className={`${path === '/sign-up' && 'hidden'} ${
-              path === '/login' && 'hidden'
-            } avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black`}
-          >
-            <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
-          </div>
+          {avatarVisible && (
+            <div
+              className={`avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black`}
+            >
+              <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
+            </div>
+          )}
         </div>
       </div>
     </div>
