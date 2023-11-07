@@ -8,7 +8,7 @@ interface TabsProps {
   setActiveTab: React.Dispatch<React.SetStateAction<'responser' | 'receiver'>>
 }
 
-const ReviewManageTabs = ({ activeTab, setActiveTab }: TabsProps) => {
+const Tabs = ({ activeTab, setActiveTab }: TabsProps) => {
   const tabBorder = `after:absolute after:bottom-0 after:h-1 after:w-full after:bg-white after-duration-[400ms] after:content-[''] after:transition-transform after:scale-x-[0.25] after:rounded-full ${REVIEW_MANAGE_TAB_MENU_STYLE[activeTab]}`
 
   return (
@@ -25,4 +25,4 @@ const ReviewManageTabs = ({ activeTab, setActiveTab }: TabsProps) => {
   )
 }
 
-export default ReviewManageTabs
+export default Tabs
