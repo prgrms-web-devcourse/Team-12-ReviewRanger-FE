@@ -1,4 +1,4 @@
-import { useGetAllUser, useCreateSurvey } from '@/apis/hooks'
+import { useGetAllUser, useCreateReview } from '@/apis/hooks'
 
 const surveyDummy = {
   title: 'Survey 1',
@@ -19,10 +19,10 @@ const surveyDummy = {
 
 const ReviewCreatePage = () => {
   const { data: allUsers } = useGetAllUser()
-  const { mutate: createSurvey } = useCreateSurvey()
+  const { mutate: createReview } = useCreateReview()
 
   const handleButtonClick = () => {
-    createSurvey(surveyDummy, {
+    createReview(surveyDummy, {
       onSuccess: ({ data }) => {
         console.log(data)
       },
