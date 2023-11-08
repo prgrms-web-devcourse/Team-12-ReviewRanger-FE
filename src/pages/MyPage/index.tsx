@@ -3,6 +3,7 @@ import { Header, Input } from '@/components'
 import { BasicProfileIcon, CheckInTheCircleIcon, Edit } from '@/assets/icons'
 import { useEditNameCheck, useEditPasswordCheck } from './hooks'
 
+// TODO: 삭제할 mock 데이터 (현재 유저)
 const user = {
   name: '[프롱이/4기]김주하',
   email: 'email@naver.com',
