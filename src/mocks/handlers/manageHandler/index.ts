@@ -8,7 +8,7 @@ import {
 
 export const manageHandlers = [
   rest.get(
-    '/surveys/:surveyResultId/recipient/:recipientId',
+    '/created-surveys/:surveyResultId/recipient/:recipientId',
     async (_, res, ctx) => {
       return res(ctx.status(200), ctx.json(SINGLE_RECIPIENT))
     },

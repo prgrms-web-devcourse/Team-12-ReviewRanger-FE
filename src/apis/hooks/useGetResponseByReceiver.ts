@@ -4,32 +4,25 @@ import apiClient from '@/apis/apiClient'
 //NOTE - 수신자별 응답 결과 단일 조회
 
 //NOTE - 응답에 관한 필드
-interface ReplyAnswer {
-  responserId: number
-  responserName: string
-  responseId: string
-  answer: number | string | string[] | Record<string, number>
+interface Question {
+  id: string
+  title: string
 }
 
-interface ReplyResult {
-  questionType:
-    | 'subjective'
-    | 'objective_unique'
-    | 'objective_duplicate'
-    | 'rating'
-    | 'dropdown'
-    | 'hexastat'
-  questionTitle: string
+interface AllReply {
+  subject_id: string
+  question_id: string
+  replies: Reply[]
+}
+
+interface Reply {
+  id: string
+  responser_id: string
   questionId: string
-  answers: ReplyAnswer[]
+  objectOptionId: null | string
+  answerText: null | string
+  rating: null | number
 }
-
-export interface Response {
-  subjectName: string
-  surveyTitle: string
-  subjectResults: ReplyResult
-}
-
 const useGetResponseByReceiver = ({
   surveyResultId,
   recipientId,
@@ -37,16 +30,18 @@ const useGetResponseByReceiver = ({
   surveyResultId: string
   recipientId: string
 }) => {
-  const getSingleRecipient = async () => {
-    const response = await apiClient.get<Response>(
-      `/surveys/${surveyResultId}/recipient/${recipientId}`,
+  const getAllQuestion = async () => {
+    const response = await apiClient.get<Question>(
+      `/created-surveys/${surveyResultId}/recipient/${recipientId}`,
     )
 
     return response.data
   }
 
+  const getAllReply = 
+
   return useQuery({
-    queryKey: [`/surveys/${surveyResultId}/recipient/${recipientId}`],
+    queryKey: [`/created-surveys/${surveyResultId}/recipient/${recipientId}`],
     queryFn: getSingleRecipient,
   })
 }
