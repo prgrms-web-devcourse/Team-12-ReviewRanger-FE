@@ -5,7 +5,7 @@ import {
   useCheckDuplicatedEmail,
   useCheckDuplicatedName,
 } from '@/apis/hooks'
-import { DUPLICATED_MESSAGE } from './constants'
+import { DUPLICATED_MESSAGE } from '@/constants'
 
 interface useSignUpCheckProps {
   email: string

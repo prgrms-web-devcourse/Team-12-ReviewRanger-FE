@@ -1,12 +1,8 @@
+import { useEmailCheck, useNameCheck, usePasswordCheck } from '@/hooks'
 import { Input, Header } from '@/components'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
-import {
-  useEmailCheck,
-  useNameCheck,
-  usePasswordCheck,
-  useSignUpCheck,
-} from './hooks'
+import { useSignUpCheck } from './hooks'
 
 const SingUpPage = () => {
   const { email, emailFailMessage, setEmailFailMessage, handleEmailChange } =
