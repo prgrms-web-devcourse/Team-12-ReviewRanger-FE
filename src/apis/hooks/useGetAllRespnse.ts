@@ -1,8 +1,9 @@
 //작성자별 응답결과 전체조회와 수신자별 응답결과 전체 조회 모두 가져오기
+//TODO - API 호출 실패 시 대응하기(구현 다 하고)
 import { useSuspenseQueries } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-interface AllReceiverResponse {
+export interface AllReceiverResponse {
   recipientList: Receiver[]
 }
 
@@ -16,7 +17,7 @@ export interface Receiver {
   responserCount: number
 }
 
-interface AllResponserResponse {
+export interface AllResponserResponse {
   surveyId: string
   title: string
   responserCount: number

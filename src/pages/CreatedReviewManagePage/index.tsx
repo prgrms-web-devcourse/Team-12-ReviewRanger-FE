@@ -1,6 +1,8 @@
 //생성한 리뷰 관리 페이지
 import { useLocation } from 'react-router-dom'
+import { IconButton } from '@/components'
 import { useGetAllResponse } from '@/apis/hooks'
+import { SendIcon } from '@/assets/icons'
 import useActiveTab from '@/pages/CreatedReviewManagePage/hooks/useReviewTab'
 import {
   Tabs,
@@ -41,6 +43,12 @@ const CreatedReviewManagePage = () => {
 
       <Tabs activeTab={activeTab} setActiveTab={changeTab} />
       <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
+      <div>
+        <IconButton text="설문 마감" />
+        <IconButton text="설문 마감">
+          <SendIcon />
+        </IconButton>
+      </div>
     </h1>
   )
 }
