@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom'
+import { useUser, useLogout } from '@/apis/hooks'
 import {
   LogoRowIcon,
   LogoShortIcon,
@@ -8,6 +9,9 @@ import {
 import { rangerHead } from '@/assets/images'
 
 const Header = () => {
+  const { data } = useUser()
+  const { mutate } = useLogout()
+
   const path = useLocation().pathname
   const avatarVisible = path !== '/sign-up' && path !== '/login'
   const goBackVisible = path !== '/login' && path !== '/'
@@ -30,11 +34,26 @@ const Header = () => {
           <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
         <div>
-          {avatarVisible && (
-            <div
-              className={`avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black`}
-            >
-              <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
+          {avatarVisible && data && (
+            <div className="dropdown-hover dropdown z-40">
+              <div
+                className={`avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black `}
+              >
+                <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
+              </div>
+              <div className="dropdown-menu dropdown-menu-left">
+                <a className="dropdown-item text-sm">Profile</a>
+                <a tabIndex={0} className="dropdown-item text-sm">
+                  설문만들기
+                </a>
+                <a
+                  tabIndex={1}
+                  className="dropdown-item text-sm"
+                  onClick={() => mutate()}
+                >
+                  로그아웃
+                </a>
+              </div>
             </div>
           )}
         </div>
