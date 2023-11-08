@@ -10,6 +10,7 @@ interface InputProps
   type: keyof typeof INPUT_TYPE
   message?: string
   register?: UseFormRegisterReturn
+  placeholder?: string
 }
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
   handleInputChange,
   message,
   register,
+  placeholder = INPUT_TYPE[type].PLACEHOLDER,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -41,7 +43,7 @@ const Input = ({
         <input
           {...register}
           className="h-4 flex-1 border-0 bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
-          placeholder={INPUT_TYPE[type].PLACEHOLDER}
+          placeholder={placeholder}
           disabled={disabled}
           onChange={handleInputChange}
           type={
