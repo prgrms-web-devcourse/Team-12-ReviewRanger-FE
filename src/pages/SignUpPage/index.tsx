@@ -1,116 +1,82 @@
-import { useState, ChangeEvent } from 'react'
-import { PasswordInput } from '@/components'
+import { Input, Header } from '@/components'
+import { LogoColIcon } from '@/assets/icons'
+import { rangers } from '@/assets/images'
 import {
-  useSignUp,
-  useCheckDuplicatedName,
-  useCheckDuplicatedEmail,
-} from '@/apis/hooks'
-import { CheckIcon } from '@/assets/icons'
+  useEmailCheck,
+  useNameCheck,
+  usePasswordCheck,
+  useSignUpCheck,
+} from './hooks'
 
 const SingUpPage = () => {
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-  const [uniqueEmail, setUniqueEmail] = useState(false)
-  const [uniqueName, setUniqueName] = useState(false)
-
-  const { mutate: signUp } = useSignUp()
-  const { mutate: checkDuplicatedEmail } = useCheckDuplicatedEmail()
-  const { mutate: checkDuplicatedName } = useCheckDuplicatedName()
-
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUniqueEmail(false)
-    setEmail(e.currentTarget.value)
-  }
-
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUniqueName(false)
-    setName(e.currentTarget.value)
-  }
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
-
-  const handleEmailDuplicatedClick = () => {
-    checkDuplicatedEmail(
-      { email },
-      {
-        onSuccess: ({ data }) => {
-          setUniqueEmail(data.success)
-        },
-      },
-    )
-  }
-
-  const handleNameDuplicatedClick = () => {
-    checkDuplicatedName(
-      { name },
-      {
-        onSuccess: ({ data }) => {
-          setUniqueName(data.success)
-        },
-      },
-    )
-  }
-
-  const handleSignUpButtonClick = () => {
-    signUp({ email, name, password })
-  }
+  const { email, emailFailMessage, setEmailFailMessage, handleEmailChange } =
+    useEmailCheck()
+  const { name, nameFailMessage, setNameFailMessage, handleNameChange } =
+    useNameCheck()
+  const {
+    password,
+    passwordConfirm,
+    passwordFailMessage,
+    passwordConfirmFailMessage,
+    handlePasswordChange,
+    handlePasswordConfirmChange,
+  } = usePasswordCheck()
+  const { handleSignUpButtonClick } = useSignUpCheck({
+    email,
+    emailFailMessage,
+    setEmailFailMessage,
+    nameFailMessage,
+    setNameFailMessage,
+    name,
+    password,
+    passwordFailMessage,
+    passwordConfirmFailMessage,
+  })
 
   return (
-    <div className="flex w-fit flex-col gap-4">
-      <div>회원가입 페이지</div>
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
-          <div className="flex h-fit w-fit items-center border-2 border-black">
-            <input
-              type="text"
-              onChange={handleEmailChange}
-              className="p-0 py-1.5 pl-3 focus:outline-none"
-              placeholder="email"
-              value={email}
+    <div className="flex h-screen flex-col">
+      <Header />
+      <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
+        <div className="items-around flex h-full flex-col gap-14 pt-14">
+          <div className="flex flex-col items-center justify-center">
+            <LogoColIcon className="h-[4rem] w-[5.8rem] md:hidden" />
+            <img
+              className="h-24 w-24 md:h-40 md:w-40"
+              src={rangers}
+              alt="리뷰레인저 모음집"
             />
-            <i className={`mx-1.5 ${uniqueEmail ? 'none' : 'hidden'}`}>
-              <CheckIcon fill="#5dbb63" />
-            </i>
           </div>
-          <button
-            className="btn h-fit py-1 hover:bg-yellow-200"
-            onClick={handleEmailDuplicatedClick}
-          >
-            중복 확인
-          </button>
-        </div>
-        <div className="flex gap-2">
-          <div className="flex h-fit w-fit items-center border-2 border-black">
-            <input
-              type="text"
-              onChange={handleNameChange}
-              className="p-0 py-1.5 pl-3 focus:outline-none"
-              placeholder="name"
-              value={name}
+          <div className="flex flex-col gap-5">
+            <Input
+              type="email"
+              handleInputChange={handleEmailChange}
+              message={emailFailMessage}
             />
-            <i className={`${uniqueName ? 'none' : 'hidden'} mx-1.5`}>
-              <CheckIcon fill="#5dbb63" />
-            </i>
+            <Input
+              type="name"
+              handleInputChange={handleNameChange}
+              message={nameFailMessage}
+            />
+            <Input
+              type="password"
+              handleInputChange={handlePasswordChange}
+              message={passwordFailMessage}
+            />
+            <Input
+              type="passwordConfirm"
+              handleInputChange={handlePasswordConfirmChange}
+              message={passwordConfirmFailMessage}
+            />
+            <button
+              disabled={!email || !name || !password || !passwordConfirm}
+              className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
+              onClick={handleSignUpButtonClick}
+            >
+              회원가입 완료
+            </button>
           </div>
-          <button
-            className="btn h-fit py-1 hover:bg-yellow-200"
-            onClick={handleNameDuplicatedClick}
-          >
-            중복 확인
-          </button>
         </div>
-        <PasswordInput handlePasswordChange={handlePasswordChange} />
       </div>
-      <button
-        disabled={!(uniqueEmail && uniqueName && password !== '')}
-        className="btn bg-green-200 text-black hover:bg-blue-300"
-        onClick={handleSignUpButtonClick}
-      >
-        회원가입
-      </button>
     </div>
   )
 }

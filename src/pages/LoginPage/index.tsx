@@ -1,55 +1,37 @@
-import { useState, ChangeEvent } from 'react'
+import { Header } from '@/components'
 import { useLogin } from '@/apis/hooks'
+import { LoginGroup, LogoGroup } from './components'
+
+export interface LoginProps {
+  email: string
+  password: string
+}
 
 const LoginPage = () => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [token, setToken] = useState('')
-
   const { mutate: login } = useLogin()
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
-  }
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
-
-  const handleLoginButtonClick = () => {
+  const handleLoginButtonClick = (email: string, password: string) => {
     login(
       { email, password },
       {
-        onSuccess: ({ data }) => {
-          setToken(data.token)
+        //TODO - 로그인 성공,실패 처리 추가 필요
+        onSuccess({ data }) {
+          localStorage.setItem('user', JSON.stringify(data))
         },
       },
     )
   }
 
   return (
-    <div className="flex w-fit flex-col gap-2">
-      <div>로그인 페이지</div>
-      <input
-        value={email}
-        type="text"
-        className="border border-black"
-        onChange={handleEmailChange}
-        placeholder="email"
-      />
-      <input
-        value={password}
-        type="text"
-        className="border border-black"
-        onChange={handlePasswordChange}
-        placeholder="password"
-      />
-      <button className="btn" onClick={handleLoginButtonClick}>
-        로그인
-      </button>
-      <div className="flex flex-row gap-2">
-        <p className="font-bold">JWT : </p>
-        <p>{token}</p>
+    <div className="flex h-screen flex-col">
+      <Header />
+      <div className="flex h-full flex-col items-center justify-center gap-4 bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
+        <div className="items-around flex h-full flex-col gap-14 pt-14">
+          <div className="flex flex-col items-center justify-center">
+            <LogoGroup />
+          </div>
+          <LoginGroup handleLogin={handleLoginButtonClick} />
+        </div>
       </div>
     </div>
   )
