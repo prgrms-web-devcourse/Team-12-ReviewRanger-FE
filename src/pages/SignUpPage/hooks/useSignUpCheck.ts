@@ -7,7 +7,7 @@ import {
 } from '@/apis/hooks'
 import { DUPLICATED_MESSAGE } from '@/constants'
 
-interface useSignUpCheckProps {
+interface UseSignUpCheckProps {
   email: string
   emailFailMessage: string
   setEmailFailMessage: Dispatch<SetStateAction<string>>
@@ -29,7 +29,7 @@ const useSignUpCheck = ({
   password,
   passwordFailMessage,
   passwordConfirmFailMessage,
-}: useSignUpCheckProps) => {
+}: UseSignUpCheckProps) => {
   const navigate = useNavigate()
   const { mutateAsync: signUp } = useSignUp()
   const { mutateAsync: checkDuplicatedEmail } = useCheckDuplicatedEmail()
