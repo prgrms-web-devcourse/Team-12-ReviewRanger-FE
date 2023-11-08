@@ -46,7 +46,7 @@ const SingUpPage = () => {
               alt="리뷰레인저 모음집"
             />
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col items-center gap-5">
             <Input
               type="email"
               handleInputChange={handleEmailChange}
@@ -69,7 +69,7 @@ const SingUpPage = () => {
             />
             <button
               disabled={!email || !name || !password || !passwordConfirm}
-              className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
+              className="h-14 w-80 max-w-xs rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
               onClick={handleSignUpButtonClick}
             >
               회원가입 완료
