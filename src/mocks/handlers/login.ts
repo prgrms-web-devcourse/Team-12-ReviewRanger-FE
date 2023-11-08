@@ -20,10 +20,35 @@ export const loginHandlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        accessToken: jwt[rand],
+        token: jwt[rand],
         name: '효중',
         email: '1232@naver.com',
       }),
     )
+  }),
+
+  rest.get('/user', async (req, res, ctx) => {
+    const accessToken = req.headers.get('Authorization')
+    if (accessToken && accessToken?.length > 10) {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          name: '효중',
+          id: '123123',
+        }),
+      )
+    }
+  }),
+
+  rest.post('/members/logout', async (req, res, ctx) => {
+    const accessToken = req.headers.get('Authorization')
+    if (accessToken && accessToken.length > 16) {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          success: 'true',
+        }),
+      )
+    }
   }),
 ]
