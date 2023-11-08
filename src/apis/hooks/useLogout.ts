@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '@/routes/constants'
+import { TOKEN_KEY } from '@/constants'
 import apiClient from '../apiClient'
 
 interface Response {
@@ -26,7 +27,7 @@ const useLogout = () => {
       queryClient.removeQueries({
         queryKey: ['/user'],
       })
-      localStorage.removeItem('accessToken')
+      localStorage.removeItem(TOKEN_KEY)
       navigate(PATH.LOGIN)
     },
     //TODO - 로그아웃 실패 처리 추가 필요

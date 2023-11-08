@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { TOKEN_KEY } from '@/constants'
 
 const apiClient = axios.create({
   baseURL: '',
@@ -6,7 +7,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken')
+    const accessToken = localStorage.getItem(TOKEN_KEY)
     if (accessToken) {
       config.headers.Authorization = accessToken
     }

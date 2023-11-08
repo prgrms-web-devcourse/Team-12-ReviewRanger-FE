@@ -3,6 +3,7 @@ import apiClient from '@/apis/apiClient'
 
 interface User {
   id: string
+  email: string
   name: string
 }
 

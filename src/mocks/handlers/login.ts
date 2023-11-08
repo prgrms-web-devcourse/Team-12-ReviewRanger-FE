@@ -35,6 +35,7 @@ export const loginHandlers = [
         ctx.json({
           name: '효중',
           id: '123123',
+          email: 'asdasd@naver.com',
         }),
       )
     }
