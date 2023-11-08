@@ -13,6 +13,7 @@ const useNameCheck = () => {
 
   return {
     name,
+    setName,
     nameFailMessage,
     setNameFailMessage,
     handleNameChange,
