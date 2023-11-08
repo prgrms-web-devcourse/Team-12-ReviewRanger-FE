@@ -1,7 +1,7 @@
 //생성한 리뷰 관리 페이지
-import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useGetAllResponse } from '@/apis/hooks'
+import useActiveTab from '@/pages/CreatedReviewManagePage/hooks/useReviewTab'
 import {
   Tabs,
   AllResponseReviewByResponser,
@@ -17,9 +17,7 @@ const CreatedReviewManagePage = () => {
     reviewId,
   })
 
-  const [activeTab, setActiveTab] = useState<'responser' | 'receiver'>(
-    'responser',
-  )
+  const { activeTab, changeTab } = useActiveTab('responser')
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
@@ -41,7 +39,7 @@ const CreatedReviewManagePage = () => {
         {allResponseByResponser.data.title}
       </div>
 
-      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Tabs activeTab={activeTab} setActiveTab={changeTab} />
       <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
     </h1>
   )
