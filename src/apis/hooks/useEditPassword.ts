@@ -6,7 +6,10 @@ interface Password {
 }
 
 interface Response {
-  success: boolean
+  status?: string
+  errorCode?: string
+  message?: string
+  success?: boolean
 }
 
 const useEditPassword = () => {
