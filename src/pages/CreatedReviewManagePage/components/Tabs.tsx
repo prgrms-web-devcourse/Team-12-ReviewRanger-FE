@@ -5,7 +5,7 @@ import {
 
 interface TabsProps {
   activeTab: 'responser' | 'receiver'
-  setActiveTab: React.Dispatch<React.SetStateAction<'responser' | 'receiver'>>
+  setActiveTab: (tabs: 'responser' | 'receiver') => void
 }
 
 const Tabs = ({ activeTab, setActiveTab }: TabsProps) => {
