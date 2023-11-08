@@ -21,8 +21,8 @@ interface Response {
   questions: Question[]
 }
 
-const useGetResponseForm = (reviewId: number) => {
-  const getResponseForm = async () => {
+const useGetInvitedReview = (reviewId: number) => {
+  const getInvitedReview = async () => {
     const response = await apiClient.get<Response>(
       `/invited-surveys/${reviewId}`,
     )
@@ -32,8 +32,8 @@ const useGetResponseForm = (reviewId: number) => {
 
   return useQuery({
     queryKey: ['/invited-surveys/${reviewId}'],
-    queryFn: getResponseForm,
+    queryFn: getInvitedReview,
   })
 }
 
-export default useGetResponseForm
+export default useGetInvitedReview

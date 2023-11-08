@@ -30,7 +30,7 @@ export interface Response {
   subjectResults: ReplyResult
 }
 
-const useGetSingleRecipientResponse = ({
+const useGetResponseByReceiver = ({
   surveyResultId,
   recipientId,
 }: {
@@ -51,4 +51,4 @@ const useGetSingleRecipientResponse = ({
   })
 }
 
-export default useGetSingleRecipientResponse
+export default useGetResponseByReceiver
