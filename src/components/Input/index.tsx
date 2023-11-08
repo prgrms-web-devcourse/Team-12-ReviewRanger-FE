@@ -11,6 +11,7 @@ interface InputProps
   message?: string
   register?: UseFormRegisterReturn
   placeholder?: string
+  value?: string
 }
 
 const Input = ({
@@ -20,6 +21,7 @@ const Input = ({
   message,
   register,
   placeholder = INPUT_TYPE[type].PLACEHOLDER,
+  value,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -41,6 +43,7 @@ const Input = ({
       </div>
       <div className="flex flex-row">
         <input
+          value={value}
           {...register}
           className="h-4 flex-1 border-0 bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
           placeholder={placeholder}
