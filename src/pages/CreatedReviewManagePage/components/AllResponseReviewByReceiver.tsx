@@ -18,7 +18,7 @@ const AllResponseReviewByResponser = ({ data }: ResponseByReceiver) => {
   return (
     <div className="flex flex-col gap-5">
       <SearchBar handleChangeKeyword={handleChangeKeyword} />
-      <div className="max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black dark:bg-main-red-200 dark:text-white">
+      <div className="scrollbar-hide max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black dark:bg-main-red-200 dark:text-white">
         <UserList
           users={filteredUsers ?? []}
           title={
