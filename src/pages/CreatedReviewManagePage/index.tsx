@@ -33,10 +33,8 @@ const CreatedReviewManagePage = () => {
   return (
     <div className="flex flex-col gap-2 text-black dark:text-white">
       <Tabs activeTab={activeTab} setActiveTab={changeTab} />
-      <div className="px-5">
-        <div className="text-base">
-          {allResponseByResponser.data.data.title}
-        </div>
+      <div className="flex flex-col gap-5 px-5">
+        <div>{allResponseByResponser.data.data.title}</div>
 
         <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
         <div>
