@@ -29,9 +29,9 @@ const CreatedReviewManagePage = () => {
   }
 
   return (
-    <div className="flex h-auto min-h-screen flex-col gap-2 bg-main-ivory text-black dark:bg-main-red-100 dark:text-white">
+    <div className="flex h-auto min-h-screen flex-col gap-2 bg-main-ivory  text-black dark:bg-main-red-100 dark:text-white ">
       <Tabs activeTab={activeTab} setActiveTab={changeTab} />
-      <div className="m-0 flex  w-full justify-center ">
+      <div className="m-0 flex  w-full justify-center p-5 md:p-10">
         <div className="m-0 flex w-[550px] max-w-[550px] flex-col">
           <div>{allResponseByResponser.data.data.title}</div>
           <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
