@@ -2,14 +2,14 @@ import dayjs from 'dayjs'
 import { Profile } from '..'
 
 interface User {
-  surveyResultId: number
   id: number
+  image?: string
   name: string
-  updatedAt?: string
-  responserCount?: number
+  updated_at?: string
+  responser_count?: number
 }
 
-export interface UserListProps {
+interface UserListProps {
   users: User[]
 }
 
@@ -17,7 +17,7 @@ const UserList = ({ users }: UserListProps) => {
   return (
     <div className="flex flex-col">
       {users.map((user, index) => {
-        const date = dayjs(user.updatedAt?.replace('Y', ' ')).format(
+        const date = dayjs(user?.updated_at?.replace('Y', ' ')).format(
           'YYYY. MM. DD, HH:mm',
         )
 
@@ -30,9 +30,9 @@ const UserList = ({ users }: UserListProps) => {
           >
             <Profile name={user.name} />
             <div className="text-gray-500">
-              {user.updatedAt
+              {user.updated_at
                 ? `답변날짜: ${date}`
-                : `응답자 수: ${user.responserCount}`}
+                : `응답자 수: ${user?.responser_count}`}
             </div>
           </div>
         )

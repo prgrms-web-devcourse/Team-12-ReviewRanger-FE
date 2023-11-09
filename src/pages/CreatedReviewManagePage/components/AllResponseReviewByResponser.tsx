@@ -1,13 +1,10 @@
 //NOTE - 작성자별 탭
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
+import { Response } from '@/apis/hooks/useGetAllResponseByResponser'
 
-import { AllResponserResponse } from '@/apis/hooks/useGetAllRespnse'
-
-const AllResponseReviewByResponser = ({
-  responserCount,
-  responsers,
-}: Partial<AllResponserResponse>) => {
+const AllResponseReviewByResponser = ({ data }: Response) => {
+  const { responserCount, responsers } = data
   const [keyword, setKeyword] = useState('')
 
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +12,7 @@ const AllResponseReviewByResponser = ({
   }
 
   const filteredUsers = responsers?.filter((user) => {
-    return user.responserName.includes(keyword)
+    return user.name.includes(keyword)
   })
 
   return (

@@ -1,7 +1,6 @@
 //NOTE - 수신자 탭
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
-
 import { AllReceiverResponse } from '@/apis/hooks/useGetAllRespnse'
 
 const AllResponseReviewByResponser = ({

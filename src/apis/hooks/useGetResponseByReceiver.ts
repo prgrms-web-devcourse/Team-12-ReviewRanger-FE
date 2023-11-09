@@ -4,11 +4,32 @@ import apiClient from '@/apis/apiClient'
 //NOTE - 수신자별 응답 결과 단일 조회
 
 //NOTE - 응답에 관한 필드
-interface Question {
-  id: string
-  title: string
+interface AllQuestion {
+  sucess: boolean
+  data: {
+    reviewId: string
+    title: string
+    //TODO - 타입 유니온으로 받기
+    status: string
+    questions: Question[]
+  }
 }
 
+interface Question {
+  questionId: string
+  title: string
+  //TODO - 타입 유니온으로 받기
+  type: string
+  isRequired: boolean
+
+  questionOptions: QuestionOptions[]
+}
+
+interface QuestionOptions {
+  questionOptionId: number
+  optionName: string
+}
+/*
 interface AllReply {
   subject_id: string
   question_id: string
@@ -23,26 +44,23 @@ interface Reply {
   answerText: null | string
   rating: null | number
 }
+*/
 const useGetResponseByReceiver = ({
   surveyResultId,
-  recipientId,
 }: {
   surveyResultId: string
-  recipientId: string
 }) => {
   const getAllQuestion = async () => {
-    const response = await apiClient.get<Question>(
-      `/created-surveys/${surveyResultId}/recipient/${recipientId}`,
+    const response = await apiClient.get<AllQuestion>(
+      `/reviews/${surveyResultId}`,
     )
 
     return response.data
   }
 
-  const getAllReply = 
-
   return useQuery({
-    queryKey: [`/created-surveys/${surveyResultId}/recipient/${recipientId}`],
-    queryFn: getSingleRecipient,
+    queryKey: [`/reviews/${surveyResultId}`],
+    queryFn: getAllQuestion,
   })
 }
 

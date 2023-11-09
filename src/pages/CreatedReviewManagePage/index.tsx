@@ -23,10 +23,7 @@ const CreatedReviewManagePage = () => {
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
-      <AllResponseReviewByResponser
-        responsers={allResponseByResponser.data.responsers}
-        responserCount={allResponseByResponser.data.responserCount}
-      />
+      <AllResponseReviewByResponser data={allResponseByResponser.data.data} />
     ),
     receiver: (
       <AllResponseReviewByReceiver
@@ -38,7 +35,7 @@ const CreatedReviewManagePage = () => {
   return (
     <h1>
       <div className="flex justify-center text-4xl">
-        {allResponseByResponser.data.title}
+        {allResponseByResponser.data.data.title}
       </div>
 
       <Tabs activeTab={activeTab} setActiveTab={changeTab} />
