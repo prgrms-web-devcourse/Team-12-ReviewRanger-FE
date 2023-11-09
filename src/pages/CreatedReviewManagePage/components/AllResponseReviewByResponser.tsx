@@ -20,16 +20,16 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
     <div className="flex flex-col gap-5">
       <SearchBar
         handleChangeKeyword={handleChangeKeyword}
-        className="flex w-full "
+        className="flex w-full"
       />
-      <div className="max-h-[30rem] overflow-auto bg-white text-black">
+      <div className="max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black dark:bg-main-red-200 dark:text-white">
         <UserList
           users={filteredUsers ?? []}
           title={
             <div className="flex w-full justify-between">
               <div className="flex">
                 응답완료:
-                <span className="text-sub-blue">
+                <span className="text-sub-blue dark:text-sub-skyblue">
                   {responserCount}/{responsers.length}
                 </span>
                 명

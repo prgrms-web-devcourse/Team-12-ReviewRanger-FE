@@ -9,9 +9,9 @@ const SortDropDown = () => {
           tabIndex={0}
           text="정렬"
           className="
-        flex h-6 w-14 rounded-none border-2 border-gray-200 p-0 text-xs"
+        flex h-6 w-14 rounded-none border-2 border-gray-200 p-0 text-xs dark:bg-main-gray dark:text-white"
         >
-          <ReviewAlignIcon />
+          <ReviewAlignIcon className="fill-black dark:fill-white" />
         </IconButton>
         <div
           className="w-25 dropdown-menu dropdown-menu-bottom-left rounded-none border-2 bg-white
