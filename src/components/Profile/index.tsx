@@ -9,7 +9,7 @@ const Profile = ({ image = <BasicProfileIcon />, name }: ProfileProps) => {
   return (
     <>
       <div className="flex flex-row items-center gap-2">
-        <div className="flex h-[30px] w-[30px]">
+        <div className="flex h-[30px] w-[30px] items-center">
           {typeof image === 'string' ? <img src={image} /> : image}
         </div>
         <div>{name}</div>
