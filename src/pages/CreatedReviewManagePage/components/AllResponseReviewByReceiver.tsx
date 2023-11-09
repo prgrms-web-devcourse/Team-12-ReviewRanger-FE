@@ -1,19 +1,17 @@
 //NOTE - 수신자 탭
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
-import { AllReceiverResponse } from '@/apis/hooks/useGetAllRespnse'
+import { ResponseByReceiver } from '@/apis/hooks/useGetAllResponseByReceiver'
 
-const AllResponseReviewByResponser = ({
-  recipientList,
-}: AllReceiverResponse) => {
+const AllResponseReviewByResponser = ({ data }: ResponseByReceiver) => {
   const [keyword, setKeyword] = useState('')
 
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
 
-  const filteredUsers = recipientList.filter((user) => {
-    return user.recipientName.includes(keyword)
+  const filteredUsers = data.receiverResponses.filter((user) => {
+    return user.receiverName.includes(keyword)
   })
 
   return (

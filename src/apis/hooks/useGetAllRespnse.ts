@@ -2,33 +2,20 @@
 //TODO - API 호출 실패 시 대응하기(구현 다 하고)
 import { useSuspenseQueries } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
-import { Response } from './useGetAllResponseByResponser'
-
-export interface AllReceiverResponse {
-  recipientList: Receiver[]
-}
-
-export interface Receiver {
-  surveyResultId: number
-  // TODO: 통일 필요함
-  id: number
-  name: string
-  recipientId: number
-  recipientName: string
-  responserCount: number
-}
+import { ResponseByReceiver } from './useGetAllResponseByReceiver'
+import { ResponseByResponser } from './useGetAllResponseByResponser'
 
 const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
   const getAllResponseByResponser = async () => {
-    const response = await apiClient.get<Response>(
+    const response = await apiClient.get<ResponseByResponser>(
       `/reviews/${reviewId}/responser`,
     )
 
     return response.data
   }
   const getResponseByReceiver = async () => {
-    const response = await apiClient.get<AllReceiverResponse>(
-      `/surveys/${reviewId}/recipient`,
+    const response = await apiClient.get<ResponseByReceiver>(
+      `/reviews/${reviewId}/receiver`,
     )
 
     return response.data
@@ -41,7 +28,7 @@ const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
         queryFn: getAllResponseByResponser,
       },
       {
-        queryKey: [`/surveys/${reviewId}/recipient`],
+        queryKey: [`/reviews/${reviewId}/receiver`],
         queryFn: getResponseByReceiver,
       },
     ],

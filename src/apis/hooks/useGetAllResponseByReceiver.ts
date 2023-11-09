@@ -2,31 +2,33 @@
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-interface Response {
-  recipientList: Recipient[]
+export interface ResponseByReceiver {
+  success?: boolean
+  data: {
+    receiverResponses: Receiver[]
+  }
 }
 
-export interface Recipient {
-  surveyResultId: number
-  // TODO: 통일 필요함
+interface Receiver {
   id: number
   name: string
-  recipientId: number
-  recipientName: string
-  responserCount: number
+  receiverId: string
+  receiverName: string
+  responserCount: string
+  responserIds: string[]
 }
 
 const useGetAllResponseByReceiver = ({ surveyId }: { surveyId: string }) => {
   const getResponseByRecipient = async () => {
-    const response = await apiClient.get<Response>(
-      `/surveys/${surveyId}/recipient`,
+    const response = await apiClient.get<ResponseByReceiver>(
+      `/reviews/${surveyId}/receiver`,
     )
 
     return response.data
   }
 
   return useQuery({
-    queryKey: [`/surveys/${surveyId}/recipient`],
+    queryKey: [`/reviews/${surveyId}/receiver`],
     queryFn: getResponseByRecipient,
   })
 }

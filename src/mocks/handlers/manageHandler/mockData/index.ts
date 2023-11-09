@@ -225,19 +225,23 @@ export const RESPONSE = {
 }
 
 export const RECIPIENT = {
-  //NOTE - 수신자별 응답 결과 전체 조회
-  recipientList: Array(5)
-    .fill(0)
-    .map((_, index) => ({
-      surveyResultId: `${Math.random()
-        .toString(36)
-        .substring(2, 10)}${Date.now()}`,
-      recipientId: `${Math.random()
-        .toString(36)
-        .substring(2, 10)}${Date.now()}`,
-      id: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
-      name: `김빡빡${index}`,
-      recipientName: `김빡빡${index}`,
-      responserCount: index,
-    })),
+  success: true,
+  data: {
+    receiverResponses: Array(5)
+      .fill(0)
+      .map((_, index) => ({
+        id: `${Math.random().toString(36).substring(2, 10)}`,
+        name: `김빡빡${index}`,
+        receiverId: `${Math.random()
+          .toString(36)
+          .substring(2, 10)}${Date.now()}`,
+        receiverName: `김빡빡${index}`,
+        responserCount: `${index}`,
+        responserIds: Array(index)
+          .fill(0)
+          .map(
+            () => `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
+          ),
+      })),
+  },
 }

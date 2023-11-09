@@ -7,6 +7,7 @@ interface SearchBarProps {
   handleChangeKeyword?: (e: ChangeEvent<HTMLInputElement>) => void
   handleResetKeyword?: () => void
   placeholder?: string
+  className?: string
 }
 
 const SearchBar = ({
@@ -14,13 +15,14 @@ const SearchBar = ({
   handleSubmitKeyword,
   handleChangeKeyword,
   handleResetKeyword,
+  className,
   placeholder = '검색어를 입력하세요.',
 }: SearchBarProps) => {
   return (
     <form
       onSubmit={handleSubmitKeyword}
       onReset={handleResetKeyword}
-      className="relative flex w-fit flex-row items-center"
+      className={`relative flex w-fit flex-row items-center ${className}`}
     >
       <SearchIcon className="absolute ml-3" />
       <input

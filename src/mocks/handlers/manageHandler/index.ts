@@ -20,7 +20,7 @@ export const manageHandlers = [
     return res(ctx.status(201), ctx.json(RESPONSE))
   }),
 
-  rest.get('/surveys/:surveyId/recipient', async (_, res, ctx) => {
+  rest.get('/reviews/:surveyId/receiver', async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(RECIPIENT))
   }),
 ]

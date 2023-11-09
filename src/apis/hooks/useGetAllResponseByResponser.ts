@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-export interface Response {
+export interface ResponseByResponser {
   success?: true
   data: {
     reviewId: string
@@ -21,7 +21,7 @@ export interface Responser {
 
 const useGetAllResponseByResponser = ({ surveyId }: { surveyId: string }) => {
   const getResponseByAuthor = async () => {
-    const response = await apiClient.get<Response>(
+    const response = await apiClient.get<ResponseByResponser>(
       `/reviews/${surveyId}/responser`,
     )
 

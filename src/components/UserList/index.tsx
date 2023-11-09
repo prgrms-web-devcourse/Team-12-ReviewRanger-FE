@@ -5,8 +5,8 @@ interface User {
   id: number
   image?: string
   name: string
-  updated_at?: string
-  responser_count?: number
+  submitAt?: string
+  responserCount?: number
 }
 
 interface UserListProps {
@@ -17,7 +17,7 @@ const UserList = ({ users }: UserListProps) => {
   return (
     <div className="flex flex-col">
       {users.map((user, index) => {
-        const date = dayjs(user?.updated_at?.replace('Y', ' ')).format(
+        const date = dayjs(user?.submitAt?.replace('Y', ' ')).format(
           'YYYY. MM. DD, HH:mm',
         )
 
@@ -30,9 +30,9 @@ const UserList = ({ users }: UserListProps) => {
           >
             <Profile name={user.name} />
             <div className="text-gray-500">
-              {user.updated_at
+              {user.submitAt
                 ? `답변날짜: ${date}`
-                : `응답자 수: ${user?.responser_count}`}
+                : `응답자 수: ${user?.responserCount}`}
             </div>
           </div>
         )

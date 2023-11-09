@@ -26,9 +26,7 @@ const CreatedReviewManagePage = () => {
       <AllResponseReviewByResponser data={allResponseByResponser.data.data} />
     ),
     receiver: (
-      <AllResponseReviewByReceiver
-        recipientList={allResponseByReceiver.data.recipientList}
-      />
+      <AllResponseReviewByReceiver data={allResponseByReceiver.data.data} />
     ),
   }
 

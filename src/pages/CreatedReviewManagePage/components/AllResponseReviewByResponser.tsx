@@ -1,9 +1,9 @@
 //NOTE - 작성자별 탭
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
-import { Response } from '@/apis/hooks/useGetAllResponseByResponser'
+import { ResponseByResponser } from '@/apis/hooks/useGetAllResponseByResponser'
 
-const AllResponseReviewByResponser = ({ data }: Response) => {
+const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
   const { responserCount, responsers } = data
   const [keyword, setKeyword] = useState('')
 
@@ -18,7 +18,7 @@ const AllResponseReviewByResponser = ({ data }: Response) => {
   return (
     <>
       <div>responsers : {responserCount}</div>
-      <SearchBar handleChangeKeyword={handleChangeKeyword} />
+      <SearchBar handleChangeKeyword={handleChangeKeyword} className="w-full" />
       <UserList users={filteredUsers ?? []} />
     </>
   )
