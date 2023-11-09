@@ -2,6 +2,7 @@
 //TODO - API 호출 실패 시 대응하기(구현 다 하고)
 import { useSuspenseQueries } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
+import { Response } from './useGetAllResponseByResponser'
 
 export interface AllReceiverResponse {
   recipientList: Receiver[]
@@ -17,35 +18,10 @@ export interface Receiver {
   responserCount: number
 }
 
-export interface AllResponserResponse {
-  surveyId: string
-  title: string
-  responserCount: number
-  surveyType:
-    | 'subjective'
-    | 'objective_unique'
-    | 'objective_duplicate'
-    | 'rating'
-    | 'dropdown'
-    | 'hexastat'
-
-  responsers: Responser[]
-}
-
-export interface Responser {
-  surveyResultId: number
-  // TODO: 통일 필요함
-  id: number
-  name: string
-  responserId: number
-  responserName: string
-  updatedAt: string
-}
-
 const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
   const getAllResponseByResponser = async () => {
-    const response = await apiClient.get<AllResponserResponse>(
-      `/surveys/${reviewId}/responser`,
+    const response = await apiClient.get<Response>(
+      `/reviews/${reviewId}/responser`,
     )
 
     return response.data
@@ -61,7 +37,7 @@ const useGetAllResponse = ({ reviewId }: { reviewId: string }) => {
   return useSuspenseQueries({
     queries: [
       {
-        queryKey: [`/surveys/${reviewId}/responser`],
+        queryKey: [`/reviews/${reviewId}/responser`],
         queryFn: getAllResponseByResponser,
       },
       {

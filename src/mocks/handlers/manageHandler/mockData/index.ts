@@ -1,24 +1,45 @@
 export const SINGLE_RECIPIENT_QUESTION = {
-  //NOTE - 수신자별 응답 결과 단일 조회-질문 조회
-
-  questions: [
-    {
-      id: '1',
-      title: '가장 좋아하는 동물은?',
-    },
-    {
-      id: '2',
-      title: '가장 좋아하는 음식은?',
-    },
-    {
-      id: '3',
-      title: '가장 좋아하는 나라는?',
-    },
-    {
-      id: '4',
-      title: '영화 A의 평점?',
-    },
-  ],
+  success: true,
+  data: {
+    reviewId: 1,
+    title: 'Sample Review 1',
+    status: 'END',
+    questions: [
+      {
+        id: '1',
+        title: 'Question 1',
+        type: 'SINGLE_CHOICE',
+        isRequired: true,
+        questionOptions: [
+          {
+            questionOptionId: 1,
+            optionName: 'Option 1',
+          },
+          {
+            questionOptionId: 2,
+            optionName: 'Option 2',
+          },
+        ],
+      },
+      {
+        id: '2',
+        title: 'Question 2',
+        type: 'SINGLE_CHOICE',
+        isRequired: false,
+        isDuplicated: true,
+        options: [
+          {
+            questionOptionId: 3,
+            optionName: 'Option A',
+          },
+          {
+            questionOptionId: 4,
+            optionName: 'Option B',
+          },
+        ],
+      },
+    ],
+  },
 }
 
 export const SINGLE_RECIPIENT_ANSWER = {
@@ -185,25 +206,22 @@ export const SINGLE_RESPONSER = {
 }
 
 export const RESPONSE = {
-  //NOTE - 작성자별 응답 결과 전체조회
-  surveyId: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
-  title: '데브코스 1차 피어리뷰',
-  responserCount: 5,
-  surveyType: '피어리뷰',
-  responsers: Array(5)
-    .fill(0)
-    .map((_, index) => ({
-      surveyResultId: `${Math.random()
-        .toString(36)
-        .substring(2, 10)}${Date.now()}`,
-      responserId: `${Math.random()
-        .toString(36)
-        .substring(2, 10)}${Date.now()}`,
-      id: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
-      name: `김효중${index}`,
-      responserName: `김효중${index}`,
-      updatedAt: new Date().toUTCString(),
-    })),
+  success: true,
+  data: {
+    reviewId: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
+    title: '데브코스 1차 피어리뷰',
+    responserCount: 5,
+    responsers: Array(5)
+      .fill(0)
+      .map((_, index) => ({
+        participationId: `${Math.random()
+          .toString(36)
+          .substring(2, 10)}${Date.now()}`,
+        id: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
+        name: `김효중${index}`,
+        submitAt: new Date().toUTCString(),
+      })),
+  },
 }
 
 export const RECIPIENT = {

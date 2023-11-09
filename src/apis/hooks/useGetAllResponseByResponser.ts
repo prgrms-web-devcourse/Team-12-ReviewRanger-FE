@@ -2,42 +2,34 @@
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-interface Response {
-  surveyId: string
-  title: string
-  responserCount: number
-  surveyType:
-    | 'subjective'
-    | 'objective_unique'
-    | 'objective_duplicate'
-    | 'rating'
-    | 'dropdown'
-    | 'hexastat'
-
-  responsers: Responser[]
+export interface Response {
+  success?: true
+  data: {
+    reviewId: string
+    title: string
+    responserCount: number
+    responsers: Responser[]
+  }
 }
 
 export interface Responser {
-  surveyResultId: number
-  // TODO: 통일 필요함
+  participationId: string
   id: number
   name: string
-  responserId: number
-  responserName: string
-  updatedAt: string
+  submitAt: string
 }
 
 const useGetAllResponseByResponser = ({ surveyId }: { surveyId: string }) => {
   const getResponseByAuthor = async () => {
     const response = await apiClient.get<Response>(
-      `/surveys/${surveyId}/responser`,
+      `/reviews/${surveyId}/responser`,
     )
 
     return response.data
   }
 
   return useQuery({
-    queryKey: [`/surveys/${surveyId}/responser`],
+    queryKey: [`/reviews/${surveyId}/responser`],
     queryFn: getResponseByAuthor,
   })
 }
