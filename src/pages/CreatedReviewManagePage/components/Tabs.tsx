@@ -13,7 +13,7 @@ const Tabs = ({ activeTab, setActiveTab }: TabsProps) => {
 
   return (
     <div
-      className={`relative flex h-11 bg-main-red-300 text-lg text-white md:h-[3.125rem] md:text-2xl ${tabBorder} sticky top-0 shadow-md`}
+      className={`relative z-20 flex h-11 bg-main-red-300 text-lg text-white md:h-[3.125rem] md:text-2xl ${tabBorder} sticky top-0 shadow-md`}
     >
       <button className="grow" onClick={() => setActiveTab('responser')}>
         {REVIEW_MANAGE_TAB_TITLE.responser}

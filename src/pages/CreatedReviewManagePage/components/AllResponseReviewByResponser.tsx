@@ -22,7 +22,7 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
         handleChangeKeyword={handleChangeKeyword}
         className="flex w-full "
       />
-      <div className="bg-white">
+      <div className="max-h-[30rem] overflow-auto bg-white">
         <UserList
           users={filteredUsers ?? []}
           title={

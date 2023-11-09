@@ -211,7 +211,7 @@ export const RESPONSE = {
     reviewId: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
     title: '데브코스 1차 피어리뷰',
     responserCount: 3,
-    responsers: Array(5)
+    responsers: Array(50)
       .fill(0)
       .map((_, index) => ({
         participationId: `${Math.random()
