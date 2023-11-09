@@ -16,7 +16,7 @@ const IconButton = ({
 }: PropsWithChildren<IconButtonProps>) => {
   return (
     <button
-      className={`btn flex h-14 w-36 items-center gap-2 border border-black bg-white text-black  ${
+      className={`btn flex h-14 items-center border border-black bg-white text-black  ${
         disabled ? 'btn-disabled' : ''
       } ${className} `}
       onClick={rest.onClick}

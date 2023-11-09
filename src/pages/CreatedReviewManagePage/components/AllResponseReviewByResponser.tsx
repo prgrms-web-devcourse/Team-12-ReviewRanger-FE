@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { ResponseByResponser } from '@/apis/hooks/useGetAllResponseByResponser'
+import { SortDropDown } from '../components'
 
 const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
   const { responserCount, responsers } = data
@@ -25,12 +26,15 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
         <UserList
           users={filteredUsers ?? []}
           title={
-            <div>
-              응답완료:
-              <span className="text-sub-blue">
-                {responserCount}/{responsers.length}
-              </span>
-              명
+            <div className="flex w-full justify-between">
+              <div className="flex">
+                응답완료:
+                <span className="text-sub-blue">
+                  {responserCount}/{responsers.length}
+                </span>
+                명
+              </div>
+              <SortDropDown />
             </div>
           }
         />
