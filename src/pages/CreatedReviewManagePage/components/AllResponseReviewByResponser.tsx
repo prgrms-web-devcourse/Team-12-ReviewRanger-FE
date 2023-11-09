@@ -16,11 +16,15 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
   })
 
   return (
-    <>
-      <div>responsers : {responserCount}</div>
-      <SearchBar handleChangeKeyword={handleChangeKeyword} className="w-full" />
-      <UserList users={filteredUsers ?? []} />
-    </>
+    <div className="flex flex-col gap-2">
+      <SearchBar
+        handleChangeKeyword={handleChangeKeyword}
+        className="flex w-full "
+      />
+      <div className="bg-white">
+        <UserList users={filteredUsers ?? []} />
+      </div>
+    </div>
   )
 }
 

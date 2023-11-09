@@ -14,7 +14,7 @@ interface Receiver {
   name: string
   receiverId: string
   receiverName: string
-  responserCount: string
+  responserCount: number
   responserIds: string[]
 }
 

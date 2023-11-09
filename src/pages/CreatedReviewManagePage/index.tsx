@@ -31,20 +31,22 @@ const CreatedReviewManagePage = () => {
   }
 
   return (
-    <h1>
-      <div className="flex justify-center text-4xl">
-        {allResponseByResponser.data.data.title}
-      </div>
-
+    <div className="flex flex-col gap-2 text-black dark:text-white">
       <Tabs activeTab={activeTab} setActiveTab={changeTab} />
-      <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-      <div>
-        <IconButton text="설문 마감" />
-        <IconButton text="설문 마감">
-          <SendIcon />
-        </IconButton>
+      <div className="px-5">
+        <div className="text-base">
+          {allResponseByResponser.data.data.title}
+        </div>
+
+        <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
+        <div>
+          <IconButton text="설문 마감" />
+          <IconButton text="설문 마감">
+            <SendIcon />
+          </IconButton>
+        </div>
       </div>
-    </h1>
+    </div>
   )
 }
 export default CreatedReviewManagePage
