@@ -13,9 +13,6 @@ const useLogout = () => {
   const queryClient = useQueryClient()
   //NOTE - 쿼리 무효화
   const logout = async () => {
-    queryClient.removeQueries({
-      queryKey: ['/user'],
-    })
     const response = await apiClient.post<Response>('/members/logout')
 
     return response.data
