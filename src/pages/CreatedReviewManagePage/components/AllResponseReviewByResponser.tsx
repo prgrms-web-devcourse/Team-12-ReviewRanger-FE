@@ -22,7 +22,18 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
         className="flex w-full "
       />
       <div className="bg-white">
-        <UserList users={filteredUsers ?? []} />
+        <UserList
+          users={filteredUsers ?? []}
+          title={
+            <div>
+              응답완료:
+              <span className="text-sub-blue">
+                {responserCount}/{responsers.length}
+              </span>
+              명
+            </div>
+          }
+        />
       </div>
     </div>
   )

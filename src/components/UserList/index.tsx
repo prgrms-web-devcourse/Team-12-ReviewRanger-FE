@@ -11,11 +11,14 @@ interface User {
 
 interface UserListProps {
   users: User[]
+  //NOTE - 유저리스트 위에 표시될 문자들 ex)응답완료 몇명
+  title?: React.ReactNode
 }
 
-const UserList = ({ users }: UserListProps) => {
+const UserList = ({ users, title }: UserListProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col rounded-md border border-x-gray-200 ">
+      <div className="px-3 py-4">{title}</div>
       {users.map((user, index) => {
         const date = dayjs(user?.submitAt?.replace('Y', ' ')).format(
           'YYYY. MM. DD, HH:mm',
@@ -24,9 +27,12 @@ const UserList = ({ users }: UserListProps) => {
         return (
           <div
             key={user.id}
-            className={`flex items-center justify-between border border-x-black p-2 ${
-              index === users.length - 1 ? 'border-y-black' : 'border-t-black'
-            }`}
+            className={`flex items-center justify-between border
+             border-x-gray-400 p-2 ${
+               index === users.length - 1
+                 ? 'border-y-gray-400'
+                 : 'border-t-gray-400'
+             }`}
           >
             <Profile name={user.name} />
             <div className="text-gray-500">
