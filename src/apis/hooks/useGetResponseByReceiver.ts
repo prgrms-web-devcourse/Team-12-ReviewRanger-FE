@@ -5,10 +5,11 @@ import apiClient from '@/apis/apiClient'
 
 //NOTE - 응답에 관한 필드
 interface AllQuestion {
-  sucess: boolean
+  success: boolean
   data: {
-    reviewId: string
+    id: string
     title: string
+    description: string
     //TODO - 타입 유니온으로 받기
     status: string
     questions: Question[]
@@ -16,7 +17,7 @@ interface AllQuestion {
 }
 
 interface Question {
-  questionId: string
+  id: string
   title: string
   //TODO - 타입 유니온으로 받기
   type: string
@@ -26,7 +27,7 @@ interface Question {
 }
 
 interface QuestionOptions {
-  questionOptionId: number
+  optionId: number
   optionName: string
 }
 /*

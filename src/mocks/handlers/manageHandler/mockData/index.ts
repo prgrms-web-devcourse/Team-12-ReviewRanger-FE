@@ -1,7 +1,7 @@
 export const SINGLE_RECIPIENT_QUESTION = {
   success: true,
   data: {
-    reviewId: 1,
+    id: 1,
     title: 'Sample Review 1',
     status: 'END',
     questions: [
@@ -12,11 +12,11 @@ export const SINGLE_RECIPIENT_QUESTION = {
         isRequired: true,
         questionOptions: [
           {
-            questionOptionId: 1,
+            optionId: 1,
             optionName: 'Option 1',
           },
           {
-            questionOptionId: 2,
+            optionId: 2,
             optionName: 'Option 2',
           },
         ],
@@ -26,14 +26,13 @@ export const SINGLE_RECIPIENT_QUESTION = {
         title: 'Question 2',
         type: 'SINGLE_CHOICE',
         isRequired: false,
-        isDuplicated: true,
         options: [
           {
-            questionOptionId: 3,
+            optionId: 3,
             optionName: 'Option A',
           },
           {
-            questionOptionId: 4,
+            optionId: 4,
             optionName: 'Option B',
           },
         ],
