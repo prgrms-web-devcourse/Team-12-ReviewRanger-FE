@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
 import { useLogin } from '@/apis/hooks'
+import { TOKEN_KEY } from '@/constants'
 import { LoginGroup, LogoGroup } from './components'
 
 export interface LoginProps {
@@ -9,14 +11,16 @@ export interface LoginProps {
 
 const LoginPage = () => {
   const { mutate: login } = useLogin()
+  const navigate = useNavigate()
 
   const handleLoginButtonClick = (email: string, password: string) => {
     login(
       { email, password },
       {
-        //TODO - 로그인 성공,실패 처리 추가 필요
+        //TODO - 로그인 성공시 메인 페이지로 이동,실패 처리 추가 필요
         onSuccess({ data }) {
-          localStorage.setItem('user', JSON.stringify(data))
+          localStorage.setItem(TOKEN_KEY, data.token)
+          navigate('/')
         },
       },
     )
