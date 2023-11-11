@@ -22,7 +22,7 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
         handleChangeKeyword={handleChangeKeyword}
         className="flex w-full"
       />
-      <div className="scrollbar-hide max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black dark:bg-main-red-200 dark:text-white">
+      <div className="max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black scrollbar-hide dark:bg-main-red-200 dark:text-white">
         <UserList
           users={filteredUsers ?? []}
           title={
