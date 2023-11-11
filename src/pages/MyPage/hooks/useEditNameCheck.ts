@@ -26,12 +26,12 @@ const useEditNameCheck = ({
   }
 
   const handleEditNameEndingClick = () => {
-    if (nameFailMessage) {
-      return
-    }
-    if (currentName === name) {
+    if (currentName === name || !name) {
       setEditNameButton(false)
 
+      return
+    }
+    if (nameFailMessage) {
       return
     }
     editName(

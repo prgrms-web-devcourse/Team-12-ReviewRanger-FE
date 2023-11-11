@@ -1,10 +1,6 @@
 import { useNameCheck, usePasswordCheck } from '@/hooks'
 import { Header, Input } from '@/components'
-import {
-  BasicProfileIcon,
-  CheckInTheCircleIcon,
-  EditIcon,
-} from '@/assets/icons'
+import { BasicProfileIcon, CheckIcon, EditIcon } from '@/assets/icons'
 import { useEditNameCheck, useEditPasswordCheck } from './hooks'
 
 // TODO: 삭제할 mock 데이터 (현재 유저)
@@ -58,58 +54,72 @@ const MyPage = () => {
   return (
     <div className="flex h-screen flex-col">
       <Header />
-      <div className="flex h-full flex-col items-center justify-center gap-4">
-        <div
-          className={`avatar avatar-ring-success avatar-xl flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black`}
-        >
-          <BasicProfileIcon className="h-20 w-20 md:h-9 md:w-9" />
+      <div className="flex h-full flex-col items-center gap-6 bg-main-ivory pt-28 dark:bg-main-red-100 md:pt-48">
+        <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border bg-white dark:bg-black">
+          <BasicProfileIcon className="h-20 w-20" />
         </div>
-        <div className="flex gap-2">
+        <div className="mb-4 flex flex-col items-center gap-2">
           {editNameButton ? (
-            <div className="flex items-center gap-2">
+            <div className="relative flex items-center">
               <Input
+                className="w-64 !bg-main-yellow dark:!bg-main-red-200"
                 type="name"
                 placeholder="변경할 이름을 입력하라구!"
                 handleInputChange={handleNameChange}
                 message={nameFailMessage}
                 value={name}
               />
-              <CheckInTheCircleIcon
-                className="h-8 w-8 cursor-pointer"
-                fill="green"
-                onClick={handleEditNameEndingClick}
-              />
+              <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
+                <CheckIcon
+                  className="h-4 w-4 cursor-pointer fill-sub-green"
+                  onClick={handleEditNameEndingClick}
+                />
+              </div>
             </div>
           ) : (
-            <>
-              <div className="font-bold text-black">{user.name}</div>
-              <EditIcon
-                className="cursor-pointer"
-                onClick={handleEditNameStartingClick}
-              />
-            </>
+            <div className="relative flex items-center">
+              <div className="text-xl font-bold text-black dark:text-white">
+                {user.name}
+              </div>
+              <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
+                <EditIcon
+                  className="h-4 w-4 cursor-pointer dark:stroke-white"
+                  onClick={handleEditNameStartingClick}
+                />
+              </div>
+            </div>
           )}
+          <div className="text-sm text-gray-300 dark:text-white">
+            {user.email}
+          </div>
         </div>
-        <div className="text-sm text-black">{user.email}</div>
 
         {editPasswordButton ? (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-center justify-center gap-5">
             <Input
+              className="w-64 !bg-main-yellow dark:!bg-main-red-200"
               type="password"
               handleInputChange={handlePasswordChange}
               message={passwordFailMessage}
             />
             <Input
+              className="w-64 !bg-main-yellow dark:!bg-main-red-200"
               type="passwordConfirm"
               handleInputChange={handlePasswordConfirmChange}
               message={passwordConfirmFailMessage}
             />
-            <button className="btn" onClick={handleEditPasswordEndingClick}>
-              비밀번호 변경 완료
+            <button
+              className="h-10 w-64 max-w-xs rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
+              onClick={handleEditPasswordEndingClick}
+            >
+              변경 완료
             </button>
           </div>
         ) : (
-          <button className="btn" onClick={handleEditPasswordStartingClick}>
+          <button
+            className="h-10 w-64 max-w-xs rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
+            onClick={handleEditPasswordStartingClick}
+          >
             비밀번호 변경
           </button>
         )}

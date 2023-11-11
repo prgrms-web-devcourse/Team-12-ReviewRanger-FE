@@ -22,12 +22,12 @@ const useEditPasswordCheck = ({
   }
 
   const handleEditPasswordEndingClick = () => {
-    if (passwordFailMessage || passwordConfirmFailMessage) {
-      return
-    }
     if (!password && !passwordConfirm) {
       setEditPasswordButton(false)
 
+      return
+    }
+    if (passwordFailMessage || passwordConfirmFailMessage) {
       return
     }
     editPassword(
