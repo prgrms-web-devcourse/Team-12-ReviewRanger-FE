@@ -13,7 +13,7 @@ interface ResponseFail {
 
 const useEditPassword = () => {
   const editPassword = async (password: string) => {
-    return await apiClient.patch<Response>(
+    return await apiClient.patch<ResponseSuccess | ResponseFail>(
       '/members/profile-password',
       password,
     )
