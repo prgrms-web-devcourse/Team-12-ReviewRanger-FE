@@ -62,10 +62,10 @@ const MyPage = () => {
           {editNameButton ? (
             <div className="relative flex items-center">
               <Input
-                className="w-64 !bg-main-yellow dark:!bg-main-red-200"
+                className="!w-64"
                 type="name"
                 placeholder="변경할 이름을 입력하라구!"
-                handleInputChange={handleNameChange}
+                onChange={handleNameChange}
                 message={nameFailMessage}
                 value={name}
               />
@@ -97,15 +97,15 @@ const MyPage = () => {
         {editPasswordButton ? (
           <div className="flex flex-col items-center justify-center gap-5">
             <Input
-              className="w-64 !bg-main-yellow dark:!bg-main-red-200"
+              className="!w-64"
               type="password"
-              handleInputChange={handlePasswordChange}
+              onChange={handlePasswordChange}
               message={passwordFailMessage}
             />
             <Input
-              className="w-64 !bg-main-yellow dark:!bg-main-red-200"
+              className="!w-64"
               type="passwordConfirm"
-              handleInputChange={handlePasswordConfirmChange}
+              onChange={handlePasswordConfirmChange}
               message={passwordConfirmFailMessage}
             />
             <button

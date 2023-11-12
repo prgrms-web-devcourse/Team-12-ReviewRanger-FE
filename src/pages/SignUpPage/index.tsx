@@ -45,22 +45,22 @@ const SingUpPage = () => {
           <div className="flex flex-col items-center gap-5">
             <Input
               type="email"
-              handleInputChange={handleEmailChange}
+              onChange={handleEmailChange}
               message={emailFailMessage}
             />
             <Input
               type="name"
-              handleInputChange={handleNameChange}
+              onChange={handleNameChange}
               message={nameFailMessage}
             />
             <Input
               type="password"
-              handleInputChange={handlePasswordChange}
+              onChange={handlePasswordChange}
               message={passwordFailMessage}
             />
             <Input
               type="passwordConfirm"
-              handleInputChange={handlePasswordConfirmChange}
+              onChange={handlePasswordConfirmChange}
               message={passwordConfirmFailMessage}
             />
             <button
