@@ -1,5 +1,5 @@
 //NOTE - 수신자별 응답 결과 전체 조회
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
 export interface ResponseByReceiver {
@@ -27,7 +27,7 @@ const useGetAllResponseByReceiver = ({ surveyId }: { surveyId: string }) => {
     return response.data
   }
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [`/reviews/${surveyId}/receiver`],
     queryFn: getResponseByRecipient,
   })

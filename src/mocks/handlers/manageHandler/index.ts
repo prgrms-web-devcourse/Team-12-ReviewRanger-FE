@@ -21,6 +21,6 @@ export const manageHandlers = [
   }),
 
   rest.get('/reviews/:surveyId/receiver', async (_, res, ctx) => {
-    return res(ctx.status(200), ctx.json(RECIPIENT))
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(RECIPIENT))
   }),
 ]

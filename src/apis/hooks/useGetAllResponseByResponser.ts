@@ -1,8 +1,8 @@
 //NOTE - 작성자별 응답 결과 전체조회
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-export interface ResponseByResponser {
+export interface Response {
   success?: true
   data: {
     reviewId: string
@@ -21,14 +21,14 @@ export interface Responser {
 
 const useGetAllResponseByResponser = ({ surveyId }: { surveyId: string }) => {
   const getResponseByAuthor = async () => {
-    const response = await apiClient.get<ResponseByResponser>(
+    const response = await apiClient.get<Response>(
       `/reviews/${surveyId}/responser`,
     )
 
     return response.data
   }
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [`/reviews/${surveyId}/responser`],
     queryFn: getResponseByAuthor,
   })

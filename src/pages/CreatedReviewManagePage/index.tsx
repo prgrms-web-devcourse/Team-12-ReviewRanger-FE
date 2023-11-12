@@ -1,7 +1,8 @@
 //생성한 리뷰 관리 페이지
+import { Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
-import { useGetAllResponse } from '@/apis/hooks'
+import { useGetReviewQuestion } from '@/apis/hooks'
 import useActiveTab from '@/pages/CreatedReviewManagePage/hooks/useReviewTab'
 import {
   Tabs,
@@ -14,18 +15,31 @@ const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
   const reviewId = pathname.replace(`${PATH.REVIEW_MANAGEMENT}`, '')
 
-  const { allResponseByReceiver, allResponseByResponser } = useGetAllResponse({
-    reviewId,
-  })
-
+  const { data } = useGetReviewQuestion({ id: reviewId })
   const { activeTab, changeTab } = useActiveTab('responser')
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
-      <AllResponseReviewByResponser data={allResponseByResponser.data.data} />
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center">
+            <div className="spinner-simple"></div>
+          </div>
+        }
+      >
+        <AllResponseReviewByResponser surveyId={reviewId} />
+      </Suspense>
     ),
     receiver: (
-      <AllResponseReviewByReceiver data={allResponseByReceiver.data.data} />
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center">
+            <div className="spinner-simple"></div>
+          </div>
+        }
+      >
+        <AllResponseReviewByReceiver surveyId={reviewId} />
+      </Suspense>
     ),
   }
 
@@ -37,7 +51,7 @@ const CreatedReviewManagePage = () => {
       </div>
       <div className="m-0 flex w-full justify-center p-5 md:p-10">
         <div className="m-0 flex w-[550px] max-w-[550px] flex-col">
-          <div>{allResponseByResponser.data.data.title}</div>
+          <div>{data.data.title}</div>
           <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
           <div className="mt-[50px] flex w-full justify-end">
             <button className="w-25 btn h-10 rounded bg-active-orange text-white">

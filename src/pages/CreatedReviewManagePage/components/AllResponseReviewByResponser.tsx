@@ -1,10 +1,11 @@
 //NOTE - 작성자별 탭
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
-import { ResponseByResponser } from '@/apis/hooks/useGetAllResponseByResponser'
+import { useGetAllResponseByResponser } from '@/apis/hooks'
 import { SortDropDown } from '../components'
 
-const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
+const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
+  const { data } = useGetAllResponseByResponser({ surveyId }).data
   const { responserCount, responsers } = data
   const [keyword, setKeyword] = useState('')
 

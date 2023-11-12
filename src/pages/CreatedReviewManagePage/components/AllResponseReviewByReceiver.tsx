@@ -1,18 +1,19 @@
 //NOTE - 수신자 탭
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
-import { ResponseByReceiver } from '@/apis/hooks/useGetAllResponseByReceiver'
+import { useGetAllResponseByReceiver } from '@/apis/hooks'
 import { SortDropDown } from '../components'
 
-const AllResponseReviewByResponser = ({ data }: ResponseByReceiver) => {
+const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const [keyword, setKeyword] = useState('')
 
+  const { data } = useGetAllResponseByReceiver({ surveyId })
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
 
-  const filteredUsers = data.receiverResponses.filter((user) => {
-    return user.receiverName.includes(keyword)
+  const filteredUsers = data.data.receiverResponses.filter((user) => {
+    return user.name.includes(keyword)
   })
 
   return (
@@ -23,7 +24,7 @@ const AllResponseReviewByResponser = ({ data }: ResponseByReceiver) => {
           <div className="flex px-3 py-4">
             수신자:
             <span className="text-sub-blue dark:text-sub-skyblue">
-              {data.receiverResponses.length}
+              {data.data.receiverResponses.length}
             </span>
             명
           </div>
