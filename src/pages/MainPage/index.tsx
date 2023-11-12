@@ -50,10 +50,10 @@ const MainPage = () => {
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
 
-      <div className="p-5 md:p-10">
+      <div className="mx-auto max-w-[1000px] p-5 md:p-10">
         <PageIntro
           imageSrc={rangerIdle}
-          className="mb-5 rounded-lg bg-main-ivory py-4 pr-4 dark:bg-main-red-200 md:mb-10"
+          className="mb-5 rounded-sm bg-main-ivory py-4 pr-4 dark:bg-main-red-200 md:mb-10"
         >
           <div className="text-sm text-black dark:text-sub-red-100 md:text-xl">
             <span>{desc1}</span>
