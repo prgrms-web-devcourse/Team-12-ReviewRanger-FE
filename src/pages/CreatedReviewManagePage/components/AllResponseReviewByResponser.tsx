@@ -24,7 +24,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
         className="flex w-full"
       />
       <div className="scrollbar-hide max-h-[30rem] max-w-[550px] overflow-auto rounded-md border-gray-200 bg-main-yellow text-black dark:bg-main-red-200 dark:text-white">
-        <div className="flex w-full items-center justify-between border-l border-r border-t border-gray-200">
+        <div className="z-5 sticky top-0 flex w-full items-center justify-between border-l border-r border-t border-gray-200">
           <div className="flex px-3 py-4">
             응답완료:
             <span className="text-sub-blue dark:text-sub-skyblue">
@@ -34,7 +34,11 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
           </div>
           <SortDropDown />
         </div>
-        <UserList users={filteredUsers ?? []} />
+        <div className="overflow-auto">
+          {' '}
+          {/* 이 부분을 추가했습니다. */}
+          <UserList users={filteredUsers ?? []} />
+        </div>
       </div>
     </div>
   )

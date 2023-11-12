@@ -226,7 +226,7 @@ export const RESPONSE = {
 export const RECIPIENT = {
   success: true,
   data: {
-    receiverResponses: Array(5)
+    receiverResponses: Array(50)
       .fill(0)
       .map((_, index) => ({
         id: `${Math.random().toString(36).substring(2, 10)}`,
