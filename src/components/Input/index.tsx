@@ -58,7 +58,7 @@ const Input = ({
           }
         />
         {type.includes('password') && (
-          <i className="mx-2 w-fit cursor-pointer">
+          <i className="cursor-pointer">
             {showPassword ? (
               <EyeOnIcon
                 onClick={handleEyeClick}
