@@ -1,5 +1,6 @@
 //생성한 리뷰 관리 페이지
 import { useLocation } from 'react-router-dom'
+import { Header } from '@/components'
 import { useGetAllResponse } from '@/apis/hooks'
 import useActiveTab from '@/pages/CreatedReviewManagePage/hooks/useReviewTab'
 import {
@@ -29,16 +30,19 @@ const CreatedReviewManagePage = () => {
   }
 
   return (
-    <div className="flex h-auto min-h-screen flex-col gap-2 bg-main-ivory  text-black dark:bg-main-red-100 dark:text-white ">
-      <Tabs activeTab={activeTab} setActiveTab={changeTab} />
-      <div className="m-0 flex  w-full justify-center p-5 md:p-10">
-        <div className="m-0 flex w-[550px] max-w-[550px] flex-col">
-          <div>{allResponseByResponser.data.data.title}</div>
-          <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-          <div className="mt-[50px] flex w-full justify-end">
-            <button className="w-25 btn h-10 rounded bg-active-orange text-white">
-              설문 마감
-            </button>
+    <div className="sticky top-0 z-10 flex h-auto min-h-screen flex-col bg-main-ivory  text-black dark:bg-main-red-100 dark:text-white">
+      <Header />
+      <div className=" gap-2">
+        <Tabs activeTab={activeTab} setActiveTab={changeTab} />
+        <div className="m-0 flex w-full justify-center p-5 md:p-10">
+          <div className="m-0 flex w-[550px] max-w-[550px] flex-col">
+            <div>{allResponseByResponser.data.data.title}</div>
+            <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
+            <div className="mt-[50px] flex w-full justify-end">
+              <button className="w-25 btn h-10 rounded bg-active-orange text-white">
+                설문 마감
+              </button>
+            </div>
           </div>
         </div>
       </div>

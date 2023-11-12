@@ -22,7 +22,7 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
         handleChangeKeyword={handleChangeKeyword}
         className="flex w-full"
       />
-      <div className="max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black scrollbar-hide dark:bg-main-red-200 dark:text-white">
+      <div className="scrollbar-hide max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black dark:bg-main-red-200 dark:text-white">
         <div className="flex w-full items-center justify-between">
           <div className="flex px-3 py-4">
             응답완료:
