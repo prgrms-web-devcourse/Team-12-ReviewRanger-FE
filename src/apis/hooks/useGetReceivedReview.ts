@@ -4,7 +4,7 @@ import apiClient from '../apiClient'
 interface Result {
   questionTitle: string
   questionType: string
-  answer: string[]
+  answers: string[]
 }
 
 interface Response {
@@ -16,15 +16,13 @@ interface Response {
 
 const useGetReceivedReview = (reviewId: number) => {
   const getReviewResult = async () => {
-    const response = await apiClient.get<Response>(
-      `/received-surveys/${reviewId}`,
-    )
+    const response = await apiClient.get<Response>(`/final-results/${reviewId}`)
 
     return response.data
   }
 
   return useQuery({
-    queryKey: ['/received-surveys/${reviewId}'],
+    queryKey: ['/final-results/${reviewId}'],
     queryFn: getReviewResult,
   })
 }
