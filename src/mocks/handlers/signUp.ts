@@ -6,7 +6,9 @@ interface userType {
   password: string
 }
 
-const users: userType[] = []
+const users: userType[] = [
+  { email: 'email@naver.com', name: '이름', password: 'a123456' },
+]
 
 export const signUpHandlers = [
   rest.post('/sign-up', async (req, res, ctx) => {
