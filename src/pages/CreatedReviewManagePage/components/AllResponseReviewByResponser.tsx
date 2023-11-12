@@ -34,11 +34,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
           </div>
           <SortDropDown />
         </div>
-        <div className="overflow-auto">
-          {' '}
-          {/* 이 부분을 추가했습니다. */}
-          <UserList users={filteredUsers ?? []} />
-        </div>
+        <UserList users={filteredUsers} />
       </div>
     </div>
   )

@@ -7,12 +7,12 @@ import { SortDropDown } from '../components'
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const [keyword, setKeyword] = useState('')
 
-  const { data } = useGetAllResponseByReceiver({ surveyId })
+  const { data } = useGetAllResponseByReceiver({ surveyId }).data
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
 
-  const filteredUsers = data.data.receiverResponses.filter((user) => {
+  const filteredUsers = data.receiverResponses.filter((user) => {
     return user.name.includes(keyword)
   })
 
@@ -24,13 +24,13 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
           <div className="sticky flex px-3 py-4">
             수신자:
             <span className="text-sub-blue dark:text-sub-skyblue">
-              {data.data.receiverResponses.length}
+              {data.receiverResponses.length}
             </span>
             명
           </div>
           <SortDropDown />
         </div>
-        <UserList users={filteredUsers ?? []} />
+        <UserList users={filteredUsers} />
       </div>
     </div>
   )
