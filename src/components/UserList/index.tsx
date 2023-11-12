@@ -15,7 +15,7 @@ interface UserListProps {
 
 const UserList = ({ users }: UserListProps) => {
   return (
-    <div className="flex flex-col rounded-md border border-x-gray-200">
+    <div className="flex flex-col">
       {users.map((user, index) => {
         const date = dayjs(user?.submitAt?.replace('Y', ' ')).format(
           'YYYY. MM. DD, HH:mm',
@@ -24,11 +24,11 @@ const UserList = ({ users }: UserListProps) => {
         return (
           <div
             key={user.id}
-            className={`flex items-center justify-between border border-x-gray-400 p-2 pl-4
+            className={`flex items-center justify-between p-2 pl-4
              text-sm md:text-xl ${
                index === users.length - 1
-                 ? 'border-y-gray-400'
-                 : 'border-t-gray-400'
+                 ? 'border border-y-gray-400'
+                 : 'border border-t-gray-400'
              }`}
           >
             <Profile name={user.name} />

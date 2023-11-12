@@ -3,7 +3,7 @@ import { ReviewAlignIcon } from '@/assets/icons'
 
 const SortDropDown = () => {
   return (
-    <div className="dropdown-container justify-center">
+    <div className="dropdown-container justify-center p-2">
       <div className="dropdown">
         <IconButton
           tabIndex={0}
