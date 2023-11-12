@@ -1,20 +1,22 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface Name {
-  name: string
+interface ResponseSuccess {
+  success: boolean
 }
 
-interface Response {
-  status?: string
-  errorCode?: string
-  message?: string
-  success?: boolean
+interface ResponseFail {
+  status: string
+  errorCode: string
+  message: string
 }
 
 const useEditName = () => {
-  const editName = async (name: Name) => {
-    return await apiClient.patch<Response>('/members/profile-name', name)
+  const editName = async (name: string) => {
+    return await apiClient.patch<ResponseSuccess | ResponseFail>(
+      '/members/profile-name',
+      name,
+    )
   }
 
   return useMutation({ mutationFn: editName })
