@@ -12,7 +12,7 @@ interface ResponseFail {
 }
 
 const useEditName = () => {
-  const editName = async (name: string) => {
+  const editName = async ({ name }: { name: string }) => {
     return await apiClient.patch<ResponseSuccess | ResponseFail>(
       '/members/profile-name',
       name,

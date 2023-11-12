@@ -38,7 +38,7 @@ const useEditNameCheck = ({
       { name },
       {
         onSuccess: ({ data }) => {
-          if (data.status === 'CONFLICT') {
+          if ('status' in data && data.status === 'CONFLICT') {
             setNameFailMessage(DUPLICATED_MESSAGE.NAME)
 
             return
