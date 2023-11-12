@@ -1,12 +1,8 @@
+import { useEmailCheck, useNameCheck, usePasswordCheck } from '@/hooks'
 import { Input, Header } from '@/components'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
-import {
-  useEmailCheck,
-  useNameCheck,
-  usePasswordCheck,
-  useSignUpCheck,
-} from './hooks'
+import { useSignUpCheck } from './hooks'
 
 const SingUpPage = () => {
   const { email, emailFailMessage, setEmailFailMessage, handleEmailChange } =
@@ -46,30 +42,30 @@ const SingUpPage = () => {
               alt="리뷰레인저 모음집"
             />
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col items-center gap-5">
             <Input
               type="email"
-              handleInputChange={handleEmailChange}
+              onChange={handleEmailChange}
               message={emailFailMessage}
             />
             <Input
               type="name"
-              handleInputChange={handleNameChange}
+              onChange={handleNameChange}
               message={nameFailMessage}
             />
             <Input
               type="password"
-              handleInputChange={handlePasswordChange}
+              onChange={handlePasswordChange}
               message={passwordFailMessage}
             />
             <Input
               type="passwordConfirm"
-              handleInputChange={handlePasswordConfirmChange}
+              onChange={handlePasswordConfirmChange}
               message={passwordConfirmFailMessage}
             />
             <button
               disabled={!email || !name || !password || !passwordConfirm}
-              className="h-14 rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
+              className="h-14 w-80 max-w-xs rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
               onClick={handleSignUpButtonClick}
             >
               회원가입 완료
