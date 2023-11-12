@@ -15,7 +15,7 @@ const useEditPassword = () => {
   const editPassword = async ({ password }: { password: string }) => {
     return await apiClient.patch<ResponseSuccess | ResponseFail>(
       '/members/profile-password',
-      password,
+      { password },
     )
   }
 
