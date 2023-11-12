@@ -3,13 +3,13 @@ import { ReviewAlignIcon } from '@/assets/icons'
 
 const SortDropDown = () => {
   return (
-    <div className="dropdown-container justify-center p-2">
+    <div className="dropdown-container grow justify-end">
       <div className="dropdown">
         <IconButton
           tabIndex={0}
           text="정렬"
           className="
-        flex h-6 w-14 rounded-none border-2 border-gray-200 p-0 text-xs dark:bg-main-gray dark:text-white"
+        flex h-6 w-14 gap-0.5 rounded-none border-2 border-gray-200 p-0 text-xs dark:bg-main-gray dark:text-white"
         >
           <ReviewAlignIcon className="fill-black dark:fill-white" />
         </IconButton>

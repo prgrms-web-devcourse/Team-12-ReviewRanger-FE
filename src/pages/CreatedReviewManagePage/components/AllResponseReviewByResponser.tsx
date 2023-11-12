@@ -13,7 +13,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
     setKeyword(e.target.value)
   }
 
-  const filteredUsers = responsers?.filter((user) => {
+  const filteredUsers = responsers.filter((user) => {
     return user.name.includes(keyword)
   })
 
@@ -23,18 +23,17 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
         handleChangeKeyword={handleChangeKeyword}
         className="flex w-full"
       />
-      <div className="scrollbar-hide max-h-[30rem] max-w-[550px] overflow-auto rounded-md border-gray-200 bg-main-yellow text-black dark:bg-main-red-200 dark:text-white">
-        <div className="z-5 sticky top-0 flex w-full items-center justify-between border-l border-r border-t border-gray-200">
-          <div className="flex px-3 py-4">
-            응답완료:
-            <span className="text-sub-blue dark:text-sub-skyblue">
-              {responserCount}/{responsers.length}
-            </span>
-            명
-          </div>
+      <div className="max-h-[30rem] max-w-[550px] overflow-auto rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-700 dark:bg-main-red-200 dark:text-white">
+        <div className="z-5 sticky top-0 flex items-center whitespace-pre-wrap border-b border-gray-200 bg-main-yellow p-3">
+          <span>응답완료: </span>
+          <span className="text-sub-blue dark:text-sub-skyblue">
+            {responserCount}/{responsers.length}
+          </span>
+          <span>명</span>
           <SortDropDown />
         </div>
-        <UserList users={filteredUsers} />
+
+        <UserList users={filteredUsers ?? []} />
       </div>
     </div>
   )
