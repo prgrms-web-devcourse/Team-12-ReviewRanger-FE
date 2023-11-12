@@ -11,14 +11,11 @@ interface User {
 
 interface UserListProps {
   users: User[]
-  //NOTE - 유저리스트 위에 표시될 문자들 ex)응답완료 몇명
-  title?: React.ReactNode
 }
 
-const UserList = ({ users, title }: UserListProps) => {
+const UserList = ({ users }: UserListProps) => {
   return (
     <div className="flex flex-col rounded-md border border-x-gray-200">
-      <div className="px-3 py-4">{title}</div>
       {users.map((user, index) => {
         const date = dayjs(user?.submitAt?.replace('Y', ' ')).format(
           'YYYY. MM. DD, HH:mm',

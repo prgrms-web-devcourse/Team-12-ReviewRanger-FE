@@ -57,5 +57,5 @@ export default {
     },
   },
   // eslint-disable-next-line no-undef
-  plugins: [rippleui, require('tailwind-scrollbar-hide')],
+  plugins: [rippleui],
 }

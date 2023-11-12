@@ -23,21 +23,17 @@ const AllResponseReviewByResponser = ({ data }: ResponseByResponser) => {
         className="flex w-full"
       />
       <div className="max-h-[30rem] max-w-[550px] overflow-auto bg-main-yellow text-black scrollbar-hide dark:bg-main-red-200 dark:text-white">
-        <UserList
-          users={filteredUsers ?? []}
-          title={
-            <div className="flex w-full justify-between">
-              <div className="flex">
-                응답완료:
-                <span className="text-sub-blue dark:text-sub-skyblue">
-                  {responserCount}/{responsers.length}
-                </span>
-                명
-              </div>
-              <SortDropDown />
-            </div>
-          }
-        />
+        <div className="flex w-full items-center justify-between">
+          <div className="flex px-3 py-4">
+            응답완료:
+            <span className="text-sub-blue dark:text-sub-skyblue">
+              {responserCount}/{responsers.length}
+            </span>
+            명
+          </div>
+          <SortDropDown />
+        </div>
+        <UserList users={filteredUsers ?? []} />
       </div>
     </div>
   )
