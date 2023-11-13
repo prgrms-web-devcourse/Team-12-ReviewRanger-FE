@@ -27,7 +27,7 @@ const UserList = ({ users, submitAt, responserCount }: UserListProps) => {
         return (
           <div
             key={user.id}
-            className={`flex items-center justify-between p-2 pl-4
+            className={`hover:bg-main-hover-yellow flex cursor-pointer items-center justify-between p-2 pl-4
             text-sm md:text-xl ${
               index === users.length - 1
                 ? 'border border-y-gray-400'

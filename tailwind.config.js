@@ -15,6 +15,9 @@ export default {
           },
           ivory: '#FFFAEA',
           yellow: '#FFF4D1',
+          hover: {
+            yellow: '#FFE8A3',
+          },
           gray: '#1F1F1F',
         },
         gray: {
