@@ -41,6 +41,10 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
     )
   }
 
+  const findUserBySearchKeyword = filteredUsers
+    .map((value) => value.user)
+    .filter((user) => user.name.trim().includes(keyword))
+
   return (
     <div className="flex flex-col gap-5">
       <SearchBar
@@ -66,9 +70,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
         </div>
 
         <UserList
-          users={filteredUsers
-            .map((value) => value.user)
-            .filter((user) => user.name.trim().includes(keyword))}
+          users={findUserBySearchKeyword}
           submitAt={filteredUsers.map((value) => value.submitAt)}
         />
       </div>
