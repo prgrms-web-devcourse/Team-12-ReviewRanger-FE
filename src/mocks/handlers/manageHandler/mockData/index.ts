@@ -206,21 +206,21 @@ export const SINGLE_RESPONSER = {
 
 export const RESPONSE = {
   success: true,
-  data: {
-    reviewId: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
-    title: '데브코스 1차 피어리뷰',
-    responserCount: 3,
-    responsers: Array(50)
-      .fill(0)
-      .map((_, index) => ({
-        participationId: `${Math.random()
-          .toString(36)
-          .substring(2, 10)}${Date.now()}`,
+  data: Array(50)
+    .fill(0)
+    .map((_, index) => ({
+      id: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
+      user: {
         id: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
+        email: `user${index}@devcourse.com`,
         name: `김효중${index}`,
-        submitAt: new Date().toUTCString(),
-      })),
-  },
+      },
+      ReviewStatus: '진행중',
+      isAnswered: index % 2 === 0, // 홀수 인덱스는 false로 설정
+      submitAt: new Date().toUTCString(),
+      createdAt: new Date().toUTCString(),
+      updateAt: new Date().toUTCString(),
+    })),
 }
 
 export const RECIPIENT = {

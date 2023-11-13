@@ -5,18 +5,21 @@ import apiClient from '@/apis/apiClient'
 export interface Response {
   success?: true
   data: {
-    reviewId: string
-    title: string
-    responserCount: number
-    responsers: Responser[]
+    id: string
+    user: User
+    //TODO - review필드 추가
+    ReviewStatus: string
+    isAnswered: boolean
+    submitAt: string
+    createdAt: string
+    updatedAt: string
   }
 }
 
-export interface Responser {
-  participationId: string
-  id: number
+interface User {
+  id: string
   name: string
-  submitAt: string
+  email: string
 }
 
 const useGetAllResponseByResponser = ({ surveyId }: { surveyId: string }) => {
