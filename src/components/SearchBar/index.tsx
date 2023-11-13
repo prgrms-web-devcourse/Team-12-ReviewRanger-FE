@@ -20,18 +20,18 @@ const SearchBar = ({
     <form
       onSubmit={handleSubmitKeyword}
       onReset={handleResetKeyword}
-      className="relative flex w-fit flex-row items-center"
+      className="flex items-center gap-2 rounded-md border bg-main-yellow p-3"
     >
-      <SearchIcon className="absolute ml-3" />
+      <SearchIcon className="h-4 w-4" />
       <input
-        className="input bg-white pl-8 text-black"
+        className="h-4 w-full bg-main-yellow text-black focus:outline-none"
         onChange={handleChangeKeyword}
         type="text"
         value={keyword}
         placeholder={placeholder}
       />
-      <button className="absolute right-3" type="reset">
-        <CloseIcon />
+      <button type="reset">
+        <CloseIcon className="h-4 w-4" />
       </button>
     </form>
   )
