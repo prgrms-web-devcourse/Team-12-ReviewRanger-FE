@@ -1,7 +1,17 @@
 import { IconButton } from '@/components'
 import { ReviewAlignIcon } from '@/assets/icons'
 
-const SortDropDown = () => {
+interface SortDropDownProps {
+  sortByName: () => void
+  sortByResponse: () => void
+  sortByNoResponse: () => void
+}
+
+const SortDropDown = ({
+  sortByName,
+  sortByNoResponse,
+  sortByResponse,
+}: SortDropDownProps) => {
   return (
     <div className="dropdown-container grow justify-end">
       <div className="dropdown">
@@ -21,18 +31,21 @@ const SortDropDown = () => {
           <a
             tabIndex={1}
             className="dropdown-item w-full text-sm hover:bg-gray-200"
+            onClick={sortByName}
           >
             이름순
           </a>
           <a
             tabIndex={2}
             className="dropdown-item w-full text-sm hover:bg-gray-200"
+            onClick={sortByNoResponse}
           >
             응답순
           </a>
           <a
             tabIndex={3}
             className="dropdown-item w-full text-sm hover:bg-gray-200"
+            onClick={sortByResponse}
           >
             미응답순
           </a>

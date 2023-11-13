@@ -10,12 +10,17 @@ export interface ResponseByReceiver {
 }
 
 interface Receiver {
-  id: number
+  user: User
+  id: string
   name: string
-  receiverId: string
-  receiverName: string
   responserCount: number
   responserIds: string[]
+}
+
+interface User {
+  id: string
+  email: string
+  name: string
 }
 
 const useGetAllResponseByReceiver = ({ surveyId }: { surveyId: string }) => {

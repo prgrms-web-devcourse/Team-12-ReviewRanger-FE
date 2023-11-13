@@ -217,7 +217,7 @@ export const RESPONSE = {
       },
       ReviewStatus: '진행중',
       isAnswered: index % 2 === 0, // 홀수 인덱스는 false로 설정
-      submitAt: new Date().toUTCString(),
+      submitAt: index % 2 === 1 ? new Date().toUTCString() : null,
       createdAt: new Date().toUTCString(),
       updateAt: new Date().toUTCString(),
     })),
@@ -229,13 +229,12 @@ export const RECIPIENT = {
     receiverResponses: Array(50)
       .fill(0)
       .map((_, index) => ({
-        id: `${Math.random().toString(36).substring(2, 10)}`,
-        name: `김빡빡${index}`,
-        receiverId: `${Math.random()
-          .toString(36)
-          .substring(2, 10)}${Date.now()}`,
-        receiverName: `김빡빡${index}`,
-        responserCount: `${index}`,
+        user: {
+          id: `${Math.random().toString(36).substring(2, 10)}${Date.now()}`,
+          email: `kimbbang${index}@example.com`,
+          name: `김빡빡${index}`,
+        },
+        responserCount: index,
         responserIds: Array(index)
           .fill(0)
           .map(

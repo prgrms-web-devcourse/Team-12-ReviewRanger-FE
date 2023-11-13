@@ -4,16 +4,18 @@ import apiClient from '@/apis/apiClient'
 
 export interface Response {
   success?: true
-  data: {
-    id: string
-    user: User
-    //TODO - review필드 추가
-    ReviewStatus: string
-    isAnswered: boolean
-    submitAt: string
-    createdAt: string
-    updatedAt: string
-  }
+  data: Data[]
+}
+
+interface Data {
+  id: string
+  user: User
+  //TODO - review필드 추가하기
+  ReviewStatus: string
+  isAnswered: boolean
+  submitAt: string
+  createdAt: string
+  updatedAt: string
 }
 
 interface User {

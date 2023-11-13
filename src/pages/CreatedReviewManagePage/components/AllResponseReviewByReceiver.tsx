@@ -7,14 +7,37 @@ import { SortDropDown } from '../components'
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const [keyword, setKeyword] = useState('')
 
-  const { data } = useGetAllResponseByReceiver({ surveyId }).data
+  const { data: responseByReceiver } = useGetAllResponseByReceiver({
+    surveyId,
+  }).data
+
+  const [filteredUsers, setFilteredUsers] = useState(
+    responseByReceiver.receiverResponses.filter((user) => {
+      return user.user.name.includes(keyword)
+    }),
+  )
+
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
 
-  const filteredUsers = data.receiverResponses.filter((user) => {
-    return user.name.includes(keyword)
-  })
+  const sortByName = () => {
+    setFilteredUsers(() =>
+      [...filteredUsers].sort((a, b) => a.user.name.localeCompare(b.name)),
+    )
+  }
+
+  const sortByResponse = () => {
+    setFilteredUsers(() =>
+      [...filteredUsers].sort((a, b) => a.responserCount - b.responserCount),
+    )
+  }
+
+  const sortByNoResponse = () => {
+    setFilteredUsers(() =>
+      [...filteredUsers].sort((a, b) => b.responserCount - a.responserCount),
+    )
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -23,12 +46,19 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
         <div className="z-5 sticky top-0 flex items-center whitespace-pre-wrap border-b border-gray-200 bg-main-yellow p-3">
           <span>수신자: </span>
           <span className="text-sub-blue dark:text-sub-skyblue">
-            {data.receiverResponses.length}
+            {responseByReceiver.receiverResponses.length}
           </span>
           <span>명</span>
-          <SortDropDown />
+          <SortDropDown
+            sortByName={sortByName}
+            sortByNoResponse={sortByNoResponse}
+            sortByResponse={sortByResponse}
+          />
         </div>
-        <UserList users={filteredUsers} />
+        <UserList
+          users={filteredUsers.map((value) => value.user)}
+          responserCount={filteredUsers.map((value) => value.responserCount)}
+        />
       </div>
     </div>
   )

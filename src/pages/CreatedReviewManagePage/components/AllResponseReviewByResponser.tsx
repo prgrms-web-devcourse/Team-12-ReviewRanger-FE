@@ -5,17 +5,41 @@ import { useGetAllResponseByResponser } from '@/apis/hooks'
 import { SortDropDown } from '../components'
 
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
-  const { data } = useGetAllResponseByResponser({ surveyId }).data
-  const { responserCount, responsers } = data
+  const { data: responseByResponser } = useGetAllResponseByResponser({
+    surveyId,
+  }).data
   const [keyword, setKeyword] = useState('')
+  const [filteredUsers, setFilteredUsers] = useState(
+    responseByResponser.filter(({ user }) => {
+      return user.name.includes(keyword)
+    }),
+  )
 
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
 
-  const filteredUsers = responsers.filter((user) => {
-    return user.name.includes(keyword)
-  })
+  const sortByName = () => {
+    setFilteredUsers(() =>
+      [...filteredUsers].sort((a, b) => a.user.name.localeCompare(b.user.name)),
+    )
+  }
+
+  const sortByResponse = () => {
+    setFilteredUsers(() =>
+      [...filteredUsers].sort(
+        (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
+      ),
+    )
+  }
+
+  const sortByNoResponse = () => {
+    setFilteredUsers(() =>
+      [...filteredUsers].sort(
+        (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
+      ),
+    )
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -27,13 +51,24 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
         <div className="z-5 sticky top-0 flex items-center whitespace-pre-wrap border-b border-gray-200 bg-main-yellow p-3">
           <span>응답완료: </span>
           <span className="text-sub-blue dark:text-sub-skyblue">
-            {responserCount}/{responsers.length}
+            {
+              responseByResponser.filter((value) => value.isAnswered === true)
+                .length
+            }
+            /{responseByResponser.length}
           </span>
           <span>명</span>
-          <SortDropDown />
+          <SortDropDown
+            sortByName={sortByName}
+            sortByNoResponse={sortByNoResponse}
+            sortByResponse={sortByResponse}
+          />
         </div>
 
-        <UserList users={filteredUsers ?? []} />
+        <UserList
+          users={filteredUsers.map((value) => value.user)}
+          submitAt={filteredUsers.map((value) => value.submitAt)}
+        />
       </div>
     </div>
   )
