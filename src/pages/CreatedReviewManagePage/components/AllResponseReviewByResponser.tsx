@@ -10,9 +10,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   }).data
   const [keyword, setKeyword] = useState('')
   const [filteredUsers, setFilteredUsers] = useState(
-    responseByResponser.filter(({ user }) => {
-      return user.name.includes(keyword)
-    }),
+    responseByResponser.sort((a, b) => a.user.name.localeCompare(b.user.name)),
   )
 
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
