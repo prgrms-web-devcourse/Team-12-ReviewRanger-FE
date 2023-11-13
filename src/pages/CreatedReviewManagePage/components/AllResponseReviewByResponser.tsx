@@ -28,7 +28,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const sortByResponse = () => {
     setFilteredUsers(() =>
       [...filteredUsers].sort(
-        (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
+        (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
       ),
     )
   }
@@ -36,7 +36,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const sortByNoResponse = () => {
     setFilteredUsers(() =>
       [...filteredUsers].sort(
-        (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
+        (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
       ),
     )
   }
