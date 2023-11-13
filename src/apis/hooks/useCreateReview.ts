@@ -1,19 +1,27 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
+interface Option {
+  optionName: string
+}
+
 interface Question {
   title: string
-  type: string
-  options: string
-  sequence: number
-  isDuplicated: boolean
+  type:
+    | 'MULTIPLE_CHOICE'
+    | 'SINGLE_CHOICE'
+    | 'SUBJECTIVE'
+    | 'STAR_RATING'
+    | 'DROPDOWN'
+    | 'HEXASTAT'
+  options: Option[]
   isRequired: boolean
 }
 
-interface Survey {
+export interface Survey {
   title: string
   description: string
-  type: string
+  type: 'PEER_REVIEW'
   questions: Question[]
   responserIdList: number[]
 }
