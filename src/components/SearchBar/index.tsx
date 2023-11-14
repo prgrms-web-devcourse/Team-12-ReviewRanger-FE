@@ -26,7 +26,7 @@ const SearchBar = ({
     >
       <SearchIcon className="h-4 w-4 dark:fill-white" />
       <input
-        className="h-4 w-full bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white"
+        className="h-4 w-full bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
         onChange={handleChangeKeyword}
         onFocus={onFocus}
         type="text"
