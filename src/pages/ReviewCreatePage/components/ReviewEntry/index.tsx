@@ -7,7 +7,7 @@ interface ReviewEntryProps {
   setReviewStep: Dispatch<SetStateAction<number>>
 }
 
-type Inputs = {
+interface Inputs {
   title: string
   description: string
 }
@@ -56,6 +56,11 @@ const ReviewEntry = ({
                 message: '30자 이내로 작성해주세요.',
               },
             })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+              }
+            }}
           />
           {errors.title && (
             <p className="mt-1 text-xs text-sub-red-200">
@@ -85,7 +90,7 @@ const ReviewEntry = ({
         </div>
 
         <div className="relative grow">
-          <button className="font-lg btn absolute bottom-0 w-full bg-active-orange text-black dark:text-white">
+          <button className="font-lg btn absolute bottom-0 w-full bg-active-orange text-white dark:text-black">
             다음
           </button>
         </div>
