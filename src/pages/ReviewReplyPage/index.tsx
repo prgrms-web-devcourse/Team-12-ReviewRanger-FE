@@ -68,13 +68,17 @@ const ReviewReplyPage = () => {
   }
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-screen flex-col items-center bg-main-ivory dark:bg-main-red-100">
       <Header />
-      <div className="flex h-full flex-col justify-between bg-main-ivory p-5 text-black dark:bg-main-red-100">
+      <div className="flex h-full max-w-[550px] flex-col justify-between justify-self-center p-5 text-black">
         {isSuccess && reviewData && (
           <div className="flex flex-col gap-5">
-            <h1 className="text-lg dark:text-white">{reviewData.title}</h1>
-            <p className="text-sm dark:text-white">{reviewData.description}</p>
+            <h1 className="text-lg dark:text-white md:text-2xl">
+              {reviewData.title}
+            </h1>
+            <p className="text-sm dark:text-white md:text-lg">
+              {reviewData.description}
+            </p>
             <div className="dropdown relative w-full">
               <SearchBar
                 keyword={name}
@@ -82,11 +86,10 @@ const ReviewReplyPage = () => {
                 onFocus={handleInputFocus}
                 handleChangeKeyword={handleChangeName}
                 handleResetKeyword={handleResetName}
-                className="rounded-b-none"
                 tabIndex={0}
               />
               {focus && (
-                <ul className="dropdown-menu absolute flex max-h-[252px] w-full flex-col overflow-y-auto rounded-none border border-t-0 bg-white p-0 dark:bg-main-gray">
+                <ul className="dropdown-menu absolute flex max-h-[252px] w-full flex-col overflow-y-auto rounded-none border border-t-0 bg-white p-0 dark:bg-main-gray md:max-h-[258px]">
                   {receivers.length > 0 ? (
                     receivers
                       .filter((receiver) => receiver.name.includes(name))
@@ -96,7 +99,7 @@ const ReviewReplyPage = () => {
                           key={index}
                           className={`${index !== 0 && 'border-t'} ${
                             index != receivers.length - 1 && 'border-b'
-                          } border-gray-400 px-2.5 py-2 hover:bg-main-ivory dark:border-gray-300 dark:hover:bg-gray-300`}
+                          } border-gray-400 px-2.5 py-2.5 hover:bg-main-ivory dark:border-gray-300 dark:hover:bg-gray-300`}
                         >
                           <Profile name={receiver.name} />
                         </li>
@@ -109,12 +112,12 @@ const ReviewReplyPage = () => {
                 </ul>
               )}
             </div>
-            <div className="h-80 rounded-md border bg-main-yellow p-2.5 dark:bg-main-red-200">
+            <div className="h-80 overflow-auto rounded-md border bg-main-yellow p-2.5 dark:bg-main-red-200">
               <ul className="flex flex-wrap justify-start gap-2.5">
                 {selectedReceivers.map(({ id, name }) => (
                   <li
                     key={id}
-                    className="flex h-fit w-fit items-center justify-center gap-2 rounded-md border bg-white p-2 dark:bg-main-gray"
+                    className="flex h-fit w-fit items-center justify-center gap-2 rounded-md border bg-white px-2 py-1.5 dark:bg-main-gray"
                   >
                     <Profile name={name} />
                     <CloseIcon
@@ -127,9 +130,11 @@ const ReviewReplyPage = () => {
             </div>
           </div>
         )}
-        <button className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl">
-          리뷰 시작하기
-        </button>
+        <div className="flex justify-center md:justify-end">
+          <button className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl">
+            리뷰 시작하기
+          </button>
+        </div>
       </div>
     </div>
   )
