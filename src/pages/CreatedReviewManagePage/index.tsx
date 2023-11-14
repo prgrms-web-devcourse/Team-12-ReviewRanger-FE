@@ -59,7 +59,7 @@ const CreatedReviewManagePage = () => {
           </h2>
           <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
           <div className="mt-[50px] flex w-full justify-end">
-            <button className="w-25 btn h-10 rounded bg-active-orange text-white">
+            <button className="w-25 btn h-10 rounded bg-active-orange text-white dark:text-black">
               설문 마감
             </button>
           </div>
