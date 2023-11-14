@@ -92,7 +92,7 @@ const surveyDummy: Survey = {
 }
 
 const ReviewCreatePage = () => {
-  const { data: allUsers } = useGetAllUser()
+  // const { data: allUsers } = useGetAllUser()
   const { mutate: createReview } = useCreateReview()
 
   const [title, setTitle] = useState('')
@@ -106,8 +106,6 @@ const ReviewCreatePage = () => {
       },
     })
   }
-
-  console.log(allUsers)
 
   return (
     <div className="flex h-screen flex-col">
