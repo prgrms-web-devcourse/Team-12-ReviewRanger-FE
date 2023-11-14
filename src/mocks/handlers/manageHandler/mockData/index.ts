@@ -3,6 +3,7 @@ export const SINGLE_RECIPIENT_QUESTION = {
   data: {
     id: 1,
     title: 'Sample Review 1',
+    description: 'Sample Review 1 Description',
     status: 'END',
     questions: [
       {

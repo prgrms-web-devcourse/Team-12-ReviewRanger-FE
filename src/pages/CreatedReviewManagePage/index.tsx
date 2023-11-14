@@ -15,7 +15,9 @@ const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
   const reviewId = pathname.replace(`${PATH.REVIEW_MANAGEMENT}`, '')
 
-  const { data } = useGetReviewQuestion({ id: reviewId })
+  const { data: getReviewQuestion } = useGetReviewQuestion({
+    id: reviewId,
+  }).data
   const { activeTab, changeTab } = useActiveTab('responser')
 
   const REVIEW_MANAGE_TAB_CONTENT = {
@@ -50,8 +52,11 @@ const CreatedReviewManagePage = () => {
         <Tabs activeTab={activeTab} setActiveTab={changeTab} />
       </div>
       <div className="m-0 flex w-full justify-center p-5 md:p-10">
-        <div className="m-0 flex w-[550px] max-w-[550px] flex-col">
-          <div>{data.data.title}</div>
+        <div className="m-0 flex w-[550px] max-w-[550px] flex-col gap-6">
+          <h1 className="text-xl md:text-2xl">{getReviewQuestion.title}</h1>
+          <h2 className="mt-2.5 text-sm md:text-xl">
+            {getReviewQuestion.description}
+          </h2>
           <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
           <div className="mt-[50px] flex w-full justify-end">
             <button className="w-25 btn h-10 rounded bg-active-orange text-white">
