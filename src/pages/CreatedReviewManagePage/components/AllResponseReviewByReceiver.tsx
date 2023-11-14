@@ -47,7 +47,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
     <div className="flex flex-col gap-5">
       <SearchBar handleChangeKeyword={handleChangeKeyword} />
       <div className="max-h-[30rem] max-w-[550px] overflow-auto rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-700 dark:bg-main-red-200 dark:text-white">
-        <div className="z-5 sticky top-0 flex items-center whitespace-pre-wrap border-b border-gray-200 bg-main-yellow p-3">
+        <div className="z-5 sticky top-0 flex items-center whitespace-pre-wrap border-b border-gray-200 bg-main-yellow p-3 dark:bg-main-red-200">
           <span>수신자: </span>
           <span className="text-sub-blue dark:text-sub-skyblue">
             {responseByReceiver.receiverResponses.length}
