@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { useGetAllResponseByResponser } from '@/apis/hooks'
-import { NoSearchResultIcon } from '@/assets/icons'
-import { SortDropDown } from '../components'
+import { SortDropDown, NotFoundSearchUser } from '../components'
 
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const { data: responseByResponser } = useGetAllResponseByResponser({
@@ -76,10 +75,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
             />
           </>
         ) : (
-          <div className="flex h-[9.375rem] flex-col items-center justify-center">
-            <NoSearchResultIcon className="fill-black dark:fill-white" />
-            <p>검색 결과가 없다!</p>
-          </div>
+          <NotFoundSearchUser />
         )}
       </div>
     </div>
