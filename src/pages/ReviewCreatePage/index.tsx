@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
 import { useCreateReview, useGetAllUser } from '@/apis/hooks'
 import { ResponserSelect, ReviewEntry, ReviewQuestionAdder } from './components'
 import { Review } from './types'
 
 export const ReviewCreatePage = () => {
-  const { data: allUsers } = useGetAllUser()
+  const navigate = useNavigate()
 
+  const { data: allUsers } = useGetAllUser()
   const { mutate: createReview } = useCreateReview()
 
   const [reviewStep, setReviewStep] = useState(1)
@@ -41,6 +43,7 @@ export const ReviewCreatePage = () => {
     createReview(requestData, {
       onSuccess: ({ data }) => {
         console.log(data)
+        navigate('/')
       },
     })
   }

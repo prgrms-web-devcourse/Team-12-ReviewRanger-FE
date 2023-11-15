@@ -1,5 +1,4 @@
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { Profile } from '@/components'
 import { CheckInTheCircleIcon } from '@/assets/icons'
 import { Review } from '../../types'
@@ -37,8 +36,6 @@ const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
     name: 'nonResponserIdList',
   })
 
-  const navigate = useNavigate()
-
   const onSubmit: SubmitHandler<Review> = () => {
     if (!responsers.length) {
       setError('responserIdList', {
@@ -50,7 +47,6 @@ const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
     }
 
     handleClickButton()
-    navigate('/')
   }
 
   return (
