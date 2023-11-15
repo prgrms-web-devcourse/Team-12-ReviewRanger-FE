@@ -34,7 +34,7 @@ export const QUESTION_TYPES = [
   },
   {
     label: '별점',
-    value: 'STAR_RATING',
+    value: 'RATING',
     Icon: <StarRatingIcon />,
     iconStyle: 'stroke',
   },

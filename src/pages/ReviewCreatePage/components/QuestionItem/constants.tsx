@@ -28,7 +28,7 @@ export const QUESTION_TYPES = {
     Icon: <SubjectiveIcon />,
     iconStyle: 'fill',
   },
-  STAR_RATING: {
+  RATING: {
     label: '별점',
     Icon: <StarRatingIcon />,
     iconStyle: 'stroke',

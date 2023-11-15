@@ -1,7 +1,7 @@
 export type QuestionType =
   | 'SINGLE_CHOICE'
   | 'MULTIPLE_CHOICE'
-  | 'STAR_RATING'
+  | 'RATING'
   | 'SUBJECTIVE'
   | 'DROPDOWN'
   | 'HEXASTAT'

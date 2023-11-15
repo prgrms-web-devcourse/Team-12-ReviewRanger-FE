@@ -12,7 +12,7 @@ const QuestionTypeModal = ({ append }: QuestionTypeModalProps) => {
 
   const handleClickType = (type: QuestionType) => {
     const questionOptions =
-      type === 'SUBJECTIVE' || type === 'STAR_RATING'
+      type === 'SUBJECTIVE' || type === 'RATING'
         ? []
         : type === 'HEXASTAT'
         ? [

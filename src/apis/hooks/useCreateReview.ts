@@ -11,7 +11,7 @@ interface Question {
     | 'MULTIPLE_CHOICE'
     | 'SINGLE_CHOICE'
     | 'SUBJECTIVE'
-    | 'STAR_RATING'
+    | 'RATING'
     | 'DROPDOWN'
     | 'HEXASTAT'
   questionOptions: Option[]
