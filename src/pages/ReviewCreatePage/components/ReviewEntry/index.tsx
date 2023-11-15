@@ -13,9 +13,9 @@ const ReviewEntry = ({ setReviewStep }: ReviewEntryProps) => {
     formState: { errors },
   } = useFormContext<Review>()
 
-  const TITLE_STYLE = 'text-lg text-black dark:text-white'
+  const TITLE_STYLE = 'text-lg text-black dark:text-white md:text-xl'
   const INPUT_STYLE =
-    'border-gray-200 w-full rounded-md border bg-white p-3 text-sm text-black outline-none dark:bg-main-gray dark:text-white mt-2.5 placeholder:text-gray-100'
+    'border-gray-200 w-full rounded-md border bg-white p-3 text-sm text-black outline-none dark:bg-main-gray dark:text-white mt-2.5 placeholder:text-gray-100 md:text-base'
 
   const onSubmit: SubmitHandler<Review> = () => {
     setReviewStep(2)
@@ -23,7 +23,7 @@ const ReviewEntry = ({ setReviewStep }: ReviewEntryProps) => {
 
   return (
     <form
-      className="mx-auto flex h-full w-full max-w-[1000px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
+      className="mx-auto flex h-full w-full max-w-[880px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-[1.88rem]">

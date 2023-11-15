@@ -43,7 +43,7 @@ const QuestionItem = ({
 
   return (
     <li className="flex flex-col gap-y-5 rounded-md border border-gray-200 bg-white p-2.5 dark:border-gray-100 dark:bg-main-gray">
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <i
             className={`${
@@ -54,7 +54,9 @@ const QuestionItem = ({
           >
             {Icon}
           </i>
-          <p className="text-lg text-black dark:text-white">{label}</p>
+          <p className="text-lg text-black dark:text-white md:text-xl">
+            {label}
+          </p>
         </div>
 
         {/* NOTE 메뉴 컴포넌트 만들어야 함 :):):) */}
@@ -87,7 +89,7 @@ const QuestionItem = ({
       <div>
         <input
           placeholder="질문 제목을 입력해주세요."
-          className="w-full border border-gray-200 bg-white p-2.5 text-sm text-black outline-none placeholder:text-gray-100 dark:bg-main-gray dark:text-white"
+          className="w-full border border-gray-200 bg-white p-2.5 text-sm text-black outline-none placeholder:text-gray-100 dark:bg-main-gray dark:text-white md:text-base"
           {...register(`questions.${index}.title`, {
             required: '제목을 입력해주세요.',
             maxLength: {
@@ -119,7 +121,7 @@ const QuestionItem = ({
               <li className="mb-2.5 w-full border border-gray-200 last:mb-0 dark:border-gray-100">
                 <div className="flex items-center pr-2.5">
                   <input
-                    className="grow p-2.5 text-sm text-black outline-none  placeholder:text-gray-100 dark:bg-main-gray dark:text-white"
+                    className="grow p-2.5 text-sm text-black outline-none  placeholder:text-gray-100 dark:bg-main-gray dark:text-white md:text-base"
                     placeholder={`옵션 ${optionIndex + 1}`}
                     {...register(
                       `questions.${index}.questionOptions.${optionIndex}.optionName`,
@@ -153,7 +155,7 @@ const QuestionItem = ({
             </Fragment>
           ))}
           <li
-            className="mt-2.5 cursor-pointer border border-gray-200 p-2.5 text-center text-sm text-black dark:border-gray-100 dark:text-white"
+            className="btn mt-2.5 w-full cursor-pointer rounded-md border border-gray-200 bg-main-yellow p-2.5 text-center text-sm text-black dark:border-gray-100 dark:bg-gray-300 dark:text-white md:text-base"
             onClick={() => appendOption({ optionName: '' })}
           >
             옵션 추가
@@ -167,7 +169,7 @@ const QuestionItem = ({
             <Fragment key={questionOption.id}>
               <li>
                 <input
-                  className="w-full border border-gray-200 bg-white p-2.5 text-sm text-black outline-none placeholder:text-gray-100 dark:bg-main-gray dark:text-white"
+                  className="w-full border border-gray-200 bg-white p-2.5 text-sm text-black outline-none placeholder:text-gray-100 dark:bg-main-gray dark:text-white md:text-base"
                   placeholder={`스탯 ${optionIndex + 1}`}
                   {...register(
                     `questions.${index}.questionOptions.${optionIndex}.optionName`,
@@ -201,7 +203,7 @@ const QuestionItem = ({
           defaultChecked={question.isRequired}
           {...register(`questions.${index}.isRequired`)}
         />
-        <p className="text-sm dark:text-white">필수 질문 여부</p>
+        <p className="text-sm dark:text-white md:text-base">필수 질문 여부</p>
       </div>
     </li>
   )

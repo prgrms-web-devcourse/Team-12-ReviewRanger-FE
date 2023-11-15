@@ -45,12 +45,14 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto flex h-full w-full max-w-[1000px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
+      className="mx-auto flex h-full w-full max-w-[880px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
     >
       <div className="flex flex-col gap-8">
         <div>
-          <h1 className="text-xl text-black dark:text-white">{title}</h1>
-          <p className="mt-[0.63rem] whitespace-pre-line text-sm text-black dark:text-white">
+          <h1 className="text-xl text-black dark:text-white md:text-2xl">
+            {title}
+          </h1>
+          <p className="mt-[0.63rem] whitespace-pre-line text-sm text-black dark:text-white md:text-base">
             {description}
           </p>
         </div>
@@ -71,11 +73,11 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
 
         <div>
           <label
-            className="btn relative w-full rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white"
+            className="btn relative w-full rounded-md border border-gray-200 bg-main-yellow text-lg text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:text-xl"
             htmlFor="modal-2"
           >
             <PlusIcon className="fill:black absolute left-2.5 dark:fill-white" />
-            질문 추가하기
+            <p>질문 추가하기</p>
           </label>
           <input className="modal-state" id="modal-2" type="checkbox" />
           <QuestionTypeModal append={append} />
