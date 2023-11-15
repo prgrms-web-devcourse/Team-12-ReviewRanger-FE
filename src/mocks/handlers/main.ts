@@ -5,6 +5,7 @@ import {
   RECEIVED_REVIEWS,
   REVIEW_QUESTION,
   REVIEW_RESULT,
+  REVIEW_RESULT_QNA,
 } from './dummyData'
 
 export const mainHandlers = [
@@ -20,7 +21,22 @@ export const mainHandlers = [
   rest.get('/invited-surveys/:surveyResultId', async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(REVIEW_QUESTION))
   }),
-  rest.get('/final-results/:afterResultId', async (_, res, ctx) => {
-    return res(ctx.status(200), ctx.json(REVIEW_RESULT))
+  rest.get('/final-results/:finalReviewId', async (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        success: true,
+        data: REVIEW_RESULT,
+      }),
+    )
+  }),
+  rest.get('/final-results/:finalReviewId/qna', async (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        success: true,
+        data: REVIEW_RESULT_QNA,
+      }),
+    )
   }),
 ]
