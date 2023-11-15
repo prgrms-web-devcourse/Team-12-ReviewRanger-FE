@@ -27,12 +27,12 @@ const UserList = ({
             ? dayjs(submitAt && submitAt[index].replace('Y', ' ')).format(
                 'YYYY. MM. DD, HH:mm',
               )
-            : '미응답'
+            : null
 
         return (
           <div
             key={user.id}
-            className="block cursor-pointer hover:bg-main-hover-yellow"
+            className="block cursor-pointer hover:bg-main-hover-yellow dark:hover:bg-main-red-100"
           >
             <div
               onClick={() => onClickUser && onClickUser(user.id)}
@@ -44,12 +44,14 @@ const UserList = ({
             >
               <Profile name={user.name} />
 
-              <div className="text-sm text-gray-500 md:text-xl">
-                {!submitAt && !responserCount
-                  ? '미응답'
-                  : submitAt
-                  ? `답변날짜: ${date}`
-                  : `응답자 수: ${responserCount && responserCount[index]}`}
+              <div className="text-sm text-gray-500 md:text-xl ">
+                {date ? (
+                  `답변일시: ${date}`
+                ) : responserCount ? (
+                  `응답자: ${responserCount && responserCount[index]}명`
+                ) : (
+                  <p className="text-sub-red-200">미응답</p>
+                )}
               </div>
             </div>
           </div>
