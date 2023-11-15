@@ -1,8 +1,8 @@
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { Profile } from '@/components'
 import { CheckInTheCircleIcon } from '@/assets/icons'
 import { Review } from '../../types'
-import { useNavigate } from 'react-router-dom'
 
 interface ResponserSelectProps {
   handleClickButton: () => void
