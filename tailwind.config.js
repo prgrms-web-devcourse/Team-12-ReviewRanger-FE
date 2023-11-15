@@ -24,6 +24,7 @@ export default {
           100: '#BABABA',
           200: '#636363',
           300: '#454545',
+          400: '#DBDBDB',
         },
         active: {
           orange: '#FF9900',
