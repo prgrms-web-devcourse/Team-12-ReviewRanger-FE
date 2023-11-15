@@ -263,6 +263,14 @@ export const REVIEW_QUESTION = {
         isRequired: false,
         questionOptions: [],
       },
+      {
+        id: 3,
+        title: '너의 지금 감정을 알려줘',
+        description: '솔직하게 말해라.',
+        type: 'SUBJECTIVE',
+        isRequired: true,
+        questionOptions: [],
+      },
     ],
     receivers: [
       {
@@ -300,62 +308,6 @@ export const REVIEW_QUESTION = {
     ],
   },
 }
-
-// TODO: api 변경으로 인해 REVIEW_QUESTION 데이터 변경하므로, 아래는 삭제 필요
-// export const REVIEW_QUESTION = {
-//   title: 'title',
-//   description: 'description',
-//   responsers: [
-//     { responderId: 1, responderName: '[프론트엔드]김아무개' },
-//     { responderId: 2, responderName: '[프론트엔드]김잼민' },
-//     { responderId: 3, responderName: '[프론트엔드]김빡빡' },
-//   ],
-//   questions: [
-//     {
-//       questionId: 1,
-//       questionTitle: '이 사람의 강점은?',
-//       questionType: 'multipleChoice',
-//       isRequired: true,
-//       options: ['협업', '커뮤니케이션', '스킬', '소통'],
-//     },
-//     {
-//       questionId: 2,
-//       questionTitle: '이 사람의 단점은?',
-//       questionType: 'subjective',
-//       isRequired: true,
-//       options: [],
-//     },
-//     {
-//       questionId: 3,
-//       questionTitle: '이 사람의 성향은?',
-//       questionType: 'singleChoice',
-//       isRequired: true,
-//       options: ['섬세', '리더십', '차분', '잼민'],
-//     },
-//     {
-//       questionId: 4,
-//       questionTitle: '답변자의 성별을 선택해주세요.',
-//       questionType: 'dropdown',
-//       isRequired: true,
-//       options: ['남자', '여자'],
-//     },
-//     {
-//       questionId: 5,
-//       questionTitle: '이 사람의 코딩 점수는 몇점?',
-//       questionType: 'starRating',
-//       isRequired: true,
-//       options: [],
-//     },
-//     {
-//       questionId: 6,
-//       questionTitle: '이 사람의 스탯을 선택 부탁드려유',
-//       questionType: 'hexagonStat',
-//       isRequired: true,
-//       maxScore: 5,
-//       options: ['협업', '커뮤니케이션', '스킬', '소통'],
-//     },
-//   ],
-// }
 
 export const REVIEW_RESULT = {
   title: '데브코스 1차 피어리뷰',

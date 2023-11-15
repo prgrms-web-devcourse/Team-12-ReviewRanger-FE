@@ -1,7 +1,10 @@
 import { useState, ChangeEvent } from 'react'
+// import { useFormContext } from 'react-hook-form'
+// import { ReplyType } from '@/pages/ReviewReplyPage/types'
 
 const ReplyText = () => {
   const [textCount, setTextCount] = useState<number>(0)
+  // const { register } = useFormContext<ReplyType>()
 
   const handleChangeReplyText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextCount(e.currentTarget.value.length)
