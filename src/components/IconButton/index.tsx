@@ -1,7 +1,6 @@
-import { ComponentPropsWithoutRef, PropsWithChildren } from 'react'
+import { ButtonHTMLAttributes } from 'react'
 
-interface IconButtonProps
-  extends Omit<ComponentPropsWithoutRef<'button'>, 'disabled' & 'className'> {
+interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean
   className?: string
   text?: string
@@ -13,14 +12,13 @@ const IconButton = ({
   children,
   text,
   ...rest
-}: PropsWithChildren<IconButtonProps>) => {
+}: IconButtonProps) => {
   return (
     <button
       className={`${className} btn flex h-14 items-center border border-black bg-white text-black  ${
         disabled ? 'btn-disabled' : ''
       }  `}
-      onClick={rest.onClick}
-      type={rest.type}
+      {...rest}
     >
       {children}
       {text ?? 'Default'}
