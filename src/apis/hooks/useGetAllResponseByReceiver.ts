@@ -2,7 +2,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-export interface ResponseByReceiver {
+export interface Response {
   success?: boolean
   data: {
     receiverResponses: Receiver[]
@@ -25,7 +25,7 @@ interface User {
 
 const useGetAllResponseByReceiver = ({ surveyId }: { surveyId: string }) => {
   const getResponseByRecipient = async () => {
-    const response = await apiClient.get<ResponseByReceiver>(
+    const response = await apiClient.get<Response>(
       `/reviews/${surveyId}/receiver`,
     )
 
