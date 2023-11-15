@@ -23,5 +23,5 @@ export interface Review {
   description: string
   questions: Question[]
   responserIdList: User[]
-  nonResponderIdList: User[]
+  nonResponserIdList: User[]
 }
