@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface QuestionOption {
+export interface QuestionOption {
   optionId: number
   optionName: string
 }
 
-interface Question {
+export interface Question {
   id: number
   title: string
   description: string
@@ -20,7 +20,7 @@ export interface Receiver {
   name: string
 }
 
-interface Data {
+export interface Data {
   id: number
   title: string
   receivers: Receiver[]
