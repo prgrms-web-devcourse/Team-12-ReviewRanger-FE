@@ -38,9 +38,11 @@ const QuestionTypeModal = ({ append }: QuestionTypeModalProps) => {
   return (
     <div className="modal">
       <label className="modal-overlay" htmlFor="modal-2"></label>
-      <div className="modal-content flex w-5/6 max-w-[550px] flex-col rounded-md bg-white p-[0.63rem] dark:bg-main-gray">
-        <div className="flex items-center justify-between border-b border-b-gray-200 dark:border-b-gray-100">
-          <p className="text-lg text-black dark:text-white">질문 형식 선택</p>
+      <div className="modal-content flex w-11/12 max-w-[400px] flex-col rounded-md bg-white p-0 pb-2 dark:bg-main-gray">
+        <div className="flex items-center justify-between border-b border-b-gray-400 p-[0.63rem] dark:border-b-gray-100">
+          <p className="text-lg text-black dark:text-white md:text-xl">
+            질문 형식 선택
+          </p>
           <label htmlFor="modal-2" className="btn p-0">
             <CloseIcon className="fill-black dark:fill-white" />
           </label>
@@ -53,11 +55,11 @@ const QuestionTypeModal = ({ append }: QuestionTypeModalProps) => {
                 <label
                   key={value}
                   htmlFor="modal-2"
-                  className="menu-item relative cursor-pointer py-4 text-black dark:text-white"
+                  className="menu-item relative cursor-pointer p-4 text-black hover:bg-main-ivory dark:text-white dark:hover:bg-gray-300"
                   onClick={() => handleClickType(value)}
                 >
                   <i
-                    className={`absolute left-0 ${
+                    className={`absolute left-4 ${
                       iconStyle === 'fill'
                         ? 'fill-black dark:fill-white'
                         : 'stroke-black dark:stroke-white'
@@ -65,7 +67,7 @@ const QuestionTypeModal = ({ append }: QuestionTypeModalProps) => {
                   >
                     {Icon}
                   </i>
-                  <p className="grow text-center">{label}</p>
+                  <p className="grow text-center text-lg md:text-xl">{label}</p>
                 </label>
               ))}
             </a>
