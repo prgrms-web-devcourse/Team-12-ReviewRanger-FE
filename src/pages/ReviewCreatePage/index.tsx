@@ -1,106 +1,44 @@
-import { useGetAllUser, useCreateReview } from '@/apis/hooks'
-import { Survey } from '@/apis/hooks/useCreateReview'
-import { ReviewEntry, ReviewQuestionAdder } from './components'
 import { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { Header } from '@/components'
+import { useCreateReview, useGetAllUser } from '@/apis/hooks'
+import { ResponserSelect, ReviewEntry, ReviewQuestionAdder } from './components'
+import { Review } from './types'
 
-const surveyDummy: Survey = {
-  title: '7, 8월 두 달 간 함께 했던 1차 팀 피어들에 대한 리뷰를 작성해주세요.',
-  description: '',
-  type: 'PEER_REVIEW',
-  questions: [
-    {
-      title: 'Question 1',
-      type: 'MULTIPLE_CHOICE',
-      options: [
-        {
-          optionName: 'Option 1',
-        },
-        {
-          optionName: 'Option 2',
-        },
-        {
-          optionName: 'Option 3',
-        },
-        {
-          optionName: 'Option 4',
-        },
-        {
-          optionName: 'Option 5',
-        },
-      ],
-      isRequired: true,
-    },
-    {
-      title: 'Question 2',
-      type: 'SINGLE_CHOICE',
-      options: [
-        {
-          optionName: 'Option 1',
-        },
-        {
-          optionName: 'Option 2',
-        },
-        {
-          optionName: 'Option 3',
-        },
-        {
-          optionName: 'Option 4',
-        },
-        {
-          optionName: 'Option 5',
-        },
-      ],
-      isRequired: true,
-    },
-    {
-      title: 'Question 3',
-      type: 'DROPDOWN',
-      options: [
-        {
-          optionName: 'Option 1',
-        },
-        {
-          optionName: 'Option 2',
-        },
-        {
-          optionName: 'Option 3',
-        },
-        {
-          optionName: 'Option 4',
-        },
-        {
-          optionName: 'Option 5',
-        },
-      ],
-      isRequired: true,
-    },
-    {
-      title: 'Question 4',
-      type: 'SUBJECTIVE',
-      options: [],
-      isRequired: true,
-    },
-    {
-      title: 'Question 5',
-      type: 'STAR_RATING',
-      options: [],
-      isRequired: true,
-    },
-  ],
-  responserIdList: [1, 2, 3, 4, 5],
-}
+export const ReviewCreatePage = () => {
+  const { data: allUsers } = useGetAllUser()
 
-const ReviewCreatePage = () => {
-  // const { data: allUsers } = useGetAllUser()
   const { mutate: createReview } = useCreateReview()
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
   const [reviewStep, setReviewStep] = useState(1)
 
-  const handleButtonClick = () => {
-    createReview(surveyDummy, {
+  const methods = useForm<Review>({
+    defaultValues: {
+      nonResponserIdList: allUsers,
+    },
+  })
+
+  const handleCreateReview = () => {
+    const responserIdList = methods.getValues('responserIdList')
+
+    if (!responserIdList.length) {
+      methods.setError('responserIdList', {
+        type: 'required',
+        message: '응답자를 선택해주세요.',
+      })
+
+      return
+    }
+
+    const requestData = {
+      title: methods.getValues('title'),
+      description: methods.getValues('description'),
+      type: 'PEER_REVIEW',
+      questions: methods.getValues('questions'),
+      responserIdList: methods.getValues('responserIdList').map(({ id }) => id),
+    } as const
+
+    createReview(requestData, {
       onSuccess: ({ data }) => {
         console.log(data)
       },
@@ -108,30 +46,32 @@ const ReviewCreatePage = () => {
   }
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <Header />
 
-      <div className="mx-auto w-full max-w-[1000px] grow px-5 pb-10 pt-[1.87rem]">
-        {reviewStep === 1 && (
-          <ReviewEntry
-            setTitle={setTitle}
-            setDescription={setDescription}
-            setReviewStep={setReviewStep}
-          />
-        )}
+      <button
+        onClick={(e) => {
+          e.preventDefault()
+
+          if (reviewStep === 1) return
+          setReviewStep(reviewStep - 1)
+        }}
+        className="btn w-fit self-center bg-pink-300"
+      >
+        이전 (임시 버튼)
+      </button>
+
+      <FormProvider {...methods}>
+        {reviewStep === 1 && <ReviewEntry setReviewStep={setReviewStep} />}
 
         {reviewStep === 2 && (
-          <ReviewQuestionAdder
-            title={title}
-            description={description}
-            setReviewStep={setReviewStep}
-          />
+          <ReviewQuestionAdder setReviewStep={setReviewStep} />
         )}
 
-        {/* <button className="btn" onClick={handleButtonClick}>
-      리뷰 생성
-    </button> */}
-      </div>
+        {reviewStep === 3 && (
+          <ResponserSelect handleClickButton={handleCreateReview} />
+        )}
+      </FormProvider>
     </div>
   )
 }

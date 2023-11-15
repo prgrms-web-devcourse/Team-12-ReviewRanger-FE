@@ -1,22 +1,27 @@
-export interface Inputs {
-  title: string
-  description: string
-  options: string[]
-  optionName: string
-  stats: string[]
-  statName: string
-}
+export type QuestionType =
+  | 'SINGLE_CHOICE'
+  | 'MULTIPLE_CHOICE'
+  | 'STAR_RATING'
+  | 'SUBJECTIVE'
+  | 'DROPDOWN'
+  | 'HEXASTAT'
 
 export interface Question {
   title: string
-  type:
-    | 'SINGLE_CHOICE'
-    | 'MULTIPLE_CHOICE'
-    | 'STAR_RATING'
-    | 'SUBJECTIVE'
-    | 'DROPDOWN'
-    | 'HEXASTAT'
-    | ''
+  type: QuestionType
   isRequired: boolean
   questionOptions: { optionName: string }[]
+}
+
+interface User {
+  id: number
+  name: string
+}
+
+export interface Review {
+  title: string
+  description: string
+  questions: Question[]
+  responserIdList: User[]
+  nonResponderIdList: User[]
 }

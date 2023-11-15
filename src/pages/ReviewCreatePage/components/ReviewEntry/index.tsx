@@ -1,46 +1,32 @@
 import { Dispatch, SetStateAction } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useFormContext } from 'react-hook-form'
+import { Review } from '../../types'
 
 interface ReviewEntryProps {
-  setTitle: Dispatch<SetStateAction<string>>
-  setDescription: Dispatch<SetStateAction<string>>
   setReviewStep: Dispatch<SetStateAction<number>>
 }
 
-interface Inputs {
-  title: string
-  description: string
-}
-
-const ReviewEntry = ({
-  setTitle,
-  setDescription,
-  setReviewStep,
-}: ReviewEntryProps) => {
+const ReviewEntry = ({ setReviewStep }: ReviewEntryProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>()
-
-  const onSubmit: SubmitHandler<Inputs> = ({ title, description }) => {
-    console.log(title, description)
-
-    setTitle(title)
-    setDescription(description)
-    setReviewStep(2)
-  }
+  } = useFormContext<Review>()
 
   const TITLE_STYLE = 'text-lg text-black dark:text-white'
   const INPUT_STYLE =
-    'broder-gray-200 w-full rounded-md border bg-white p-3 text-sm text-black outline-none dark:bg-main-gray dark:text-white mt-2.5'
+    'border-gray-200 w-full rounded-md border bg-white p-3 text-sm text-black outline-none dark:bg-main-gray dark:text-white mt-2.5 placeholder:text-gray-100'
+
+  const onSubmit: SubmitHandler<Review> = () => {
+    setReviewStep(2)
+  }
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex h-full flex-col justify-between gap-[1.88rem]"
-      >
+    <form
+      className="mx-auto flex h-full w-full max-w-[1000px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex flex-col gap-[1.88rem]">
         <div>
           <label htmlFor="title" className={TITLE_STYLE}>
             설문 제목
@@ -55,6 +41,7 @@ const ReviewEntry = ({
                 value: 30,
                 message: '30자 이내로 작성해주세요.',
               },
+              setValueAs: (value) => value.trim(),
             })}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
@@ -63,7 +50,7 @@ const ReviewEntry = ({
             }}
           />
           {errors.title && (
-            <p className="mt-1 text-xs text-sub-red-200">
+            <p className="mt-1 text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
               {errors.title.message}
             </p>
           )}
@@ -80,22 +67,21 @@ const ReviewEntry = ({
                 value: 300,
                 message: '300자 이내로 작성해주세요.',
               },
+              setValueAs: (value) => value.trim(),
             })}
           ></textarea>
           {errors.description && (
-            <p className="text-xs text-sub-red-200">
+            <p className="text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
               {errors.description.message}
             </p>
           )}
         </div>
+      </div>
 
-        <div className="relative grow">
-          <button className="font-lg btn absolute bottom-0 w-full bg-active-orange text-white dark:text-black">
-            다음
-          </button>
-        </div>
-      </form>
-    </>
+      <button className="font-lg btn sticky bottom-10 w-full self-end rounded-md bg-active-orange text-white dark:text-black md:w-fit md:px-8">
+        다음
+      </button>
+    </form>
   )
 }
 

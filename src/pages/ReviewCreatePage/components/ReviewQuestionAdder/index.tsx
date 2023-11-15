@@ -1,89 +1,103 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { v4 as getRandomId } from 'uuid'
+import { Dispatch, SetStateAction } from 'react'
+import { SubmitHandler, useFormContext, useFieldArray } from 'react-hook-form'
 import { PlusIcon } from '@/assets/icons'
-import { QuestionItem, QuestionTypeSelect } from '..'
-import { Question } from '../../types'
+import { QuestionItem, QuestionTypeModal } from '..'
+import { Review } from '../../types'
 
 interface ReviewQuestionAdderProps {
-  title: string
-  description: string
   setReviewStep: Dispatch<SetStateAction<number>>
 }
 
-type Inputs = {
-  title: string
-  description: string
-}
-
-const ReviewQuestionAdder = ({
-  title,
-  description,
-  setReviewStep,
-}: ReviewQuestionAdderProps) => {
-  const [questions, setQuestions] = useState<Question[]>([])
+const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
+  const {
+    getValues,
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useFormContext<Review>()
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>()
+    fields: questions,
+    append,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'questions',
+  })
 
-  useEffect(() => console.log(questions), [questions])
+  const onSubmit: SubmitHandler<Review> = () => {
+    if (!questions.length) {
+      setError('questions', {
+        type: 'required',
+        message: '질문을 추가해주세요.',
+      })
+
+      return
+    }
+
+    setReviewStep(3)
+  }
+
+  const title = getValues('title')
+  const description = getValues('description')
 
   return (
     <form
-      onSubmit={handleSubmit(() => console.log('등,,록,,하기,,'))}
-      className="flex h-full flex-col gap-8"
+      onSubmit={handleSubmit(onSubmit)}
+      className="mx-auto flex h-full w-full max-w-[1000px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
     >
-      <div>
-        <h1 className="text-xl text-black dark:text-white">{title}</h1>
-        <p className="mt-[0.63rem] text-sm text-black dark:text-white">
-          {description}
-        </p>
-      </div>
-
-      {/* 질문 리스트 */}
-      <div>
-        {questions.map((question, index) => (
-          <QuestionItem
-            key={getRandomId()}
-            question={question}
-            setQuestions={setQuestions}
-            register={register}
-            errors={errors}
-          />
-        ))}
-        <QuestionItem register={register} errors={errors} />
-      </div>
-
-      <div>
-        <label
-          className="btn relative w-full rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white"
-          htmlFor="modal-2"
-        >
-          <PlusIcon className="fill:black absolute left-2.5 dark:fill-white" />
-          질문 추가하기
-        </label>
-        <input className="modal-state" id="modal-2" type="checkbox" />
-        <QuestionTypeSelect setQuestions={setQuestions} />
-      </div>
-
-      <div className="relative flex grow justify-end">
-        <div className="absolute bottom-0 flex gap-x-5">
-          <button
-            className="h-10 w-24 rounded-md bg-active-orange text-lg text-white dark:text-black"
-            onClick={(e) => e.preventDefault()}
-          >
-            미리보기
-          </button>
-          <button
-            onClick={() => setReviewStep(3)}
-            className="h-10 w-24 rounded-md bg-active-orange text-lg text-white dark:text-black"
-          >
-            다음
-          </button>
+      <div className="flex flex-col gap-8">
+        <div>
+          <h1 className="text-xl text-black dark:text-white">{title}</h1>
+          <p className="mt-[0.63rem] whitespace-pre-line text-sm text-black dark:text-white">
+            {description}
+          </p>
         </div>
+
+        {/* 질문 리스트 */}
+        {questions.length !== 0 && (
+          <ul className="flex flex-col gap-7">
+            {questions.map((question, index) => (
+              <QuestionItem
+                key={question.id}
+                question={question}
+                index={index}
+                {...{ remove, append }}
+              />
+            ))}
+          </ul>
+        )}
+
+        <div>
+          <label
+            className="btn relative w-full rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white"
+            htmlFor="modal-2"
+          >
+            <PlusIcon className="fill:black absolute left-2.5 dark:fill-white" />
+            질문 추가하기
+          </label>
+          <input className="modal-state" id="modal-2" type="checkbox" />
+          <QuestionTypeModal append={append} />
+
+          {errors.questions && (
+            <p className="mt-1 text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
+              {errors.questions.message}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="sticky bottom-10 flex gap-x-5 self-end">
+        <button
+          className="h-10 w-24 rounded-md bg-active-orange text-lg text-white dark:text-black"
+          onClick={(e) => e.preventDefault()}
+        >
+          미리보기
+        </button>
+        <button className="h-10 w-24 rounded-md bg-active-orange text-lg text-white dark:text-black">
+          다음
+        </button>
       </div>
     </form>
   )
