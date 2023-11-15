@@ -4,7 +4,7 @@ const Layout = () => {
   return (
     <>
       <div className="bg-white dark:bg-black">
-        <div className="border-x-1 mx-auto min-h-screen max-w-[1000px] border-black bg-main-yellow dark:border-white dark:bg-main-red-100">
+        <div className="border-x-1 mx-auto min-h-screen border-black bg-main-ivory dark:border-white dark:bg-main-red-100">
           <Outlet />
         </div>
       </div>
