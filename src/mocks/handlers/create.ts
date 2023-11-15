@@ -10,6 +10,12 @@ export const createHandlers = [
   }),
 
   rest.get('/members', async (_, res, ctx) => {
-    return res(ctx.status(200), ctx.json(ALL_USERS))
+    return res(
+      ctx.status(200),
+      ctx.json({
+        success: true,
+        data: ALL_USERS,
+      }),
+    )
   }),
 ]

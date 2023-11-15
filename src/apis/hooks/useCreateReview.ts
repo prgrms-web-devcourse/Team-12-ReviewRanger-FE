@@ -14,7 +14,7 @@ interface Question {
     | 'STAR_RATING'
     | 'DROPDOWN'
     | 'HEXASTAT'
-  options: Option[]
+  questionOptions: Option[]
   isRequired: boolean
 }
 

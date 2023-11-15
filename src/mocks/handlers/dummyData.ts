@@ -326,15 +326,15 @@ export const REVIEW_RESPONSE = {}
 
 export const ALL_USERS = [
   {
-    userId: 1,
+    id: 1,
     name: '김아무개',
   },
   {
-    userId: 2,
+    id: 2,
     name: '김잼민',
   },
   {
-    userId: 3,
+    id: 3,
     name: '김빡빡',
   },
 ]
