@@ -32,11 +32,11 @@ const ReviewDetailAccordion = ({
       <label htmlFor="drawer" className="overlay"></label>
       <div className="drawer drawer-bottom m-0 flex h-4/5 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-[32rem]">
         <div className="flex h-[30px] w-full shrink-0 flex-col items-center justify-center bg-main-yellow dark:bg-main-red-200 sm:h-[40px]">
-          <label htmlFor="drawer-bottom z-5 sticky">
+          <label htmlFor="drawer-bottom">
             <CloseDropDown className="cursor-pointer fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
           </label>
         </div>
-        <div className="flex w-[21.875rem] max-w-[550px] flex-col gap-5 md:w-[34.375rem]">
+        <div className="accordion-group m-0 flex w-[21.875rem] max-w-[550px] flex-col gap-5 md:w-[34.375rem]">
           <ProfileGroup
             name={receiverName}
             responserSize={responserCount.size}

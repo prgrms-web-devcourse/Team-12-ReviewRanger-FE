@@ -34,7 +34,7 @@ const QuestionGroup = ({
   }, [])
 
   return (
-    <div className="ml-6 border-b-0 border-l-[1px] border-r-[1px] border-t border-gray-200 bg-white dark:bg-black">
+    <div className="border-b-0 border-l-[1px] border-r-[1px] border-t border-gray-200 bg-white dark:bg-black">
       <input
         type="checkbox"
         id={inputId.current}
@@ -53,15 +53,19 @@ const QuestionGroup = ({
           <CloseDropDown className="fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
         </div>
       </label>
-      <div className="m-t-[1.25rem] accordion-content border-t-gray-200 text-black dark:text-white">
-        {answers.map((value) => {
-          return (
-            <div className="accordion-content border-t" key={nanoid()}>
+
+      {answers.map((value) => {
+        return (
+          <div
+            className="m-t-[1.25rem] accordion-content border-t-gray-200 text-black dark:text-white"
+            key={nanoid()}
+          >
+            <div className="accordion-content border-t">
               {value.userName}: {value.name} {value.value}
             </div>
-          )
-        })}
-      </div>
+          </div>
+        )
+      })}
     </div>
   )
 }
