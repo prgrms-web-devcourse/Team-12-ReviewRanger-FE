@@ -1,6 +1,14 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
+export type QuestionType =
+  | 'SINGLE_CHOICE'
+  | 'MULTIPLE_CHOICE'
+  | 'RATING'
+  | 'SUBJECTIVE'
+  | 'DROPDOWN'
+  | 'HEXASTAT'
+
 export interface QuestionOption {
   optionId: number
   optionName: string
@@ -10,7 +18,7 @@ export interface Question {
   id: number
   title: string
   description: string
-  type: string
+  type: QuestionType
   isRequired: boolean
   questionOptions: QuestionOption[]
 }
