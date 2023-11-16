@@ -138,7 +138,9 @@ const QuestionItem = ({
                   <CloseIcon
                     className="cursor-pointer fill-black dark:fill-white"
                     onClick={() => {
-                      if (questionOptions.length <= 2) return
+                      if (questionOptions.length <= 2) {
+                        return
+                      }
                       removeOption(optionIndex)
                     }}
                   />
