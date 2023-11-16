@@ -1,9 +1,9 @@
 interface Reply {
   questionId: number
-  answerChoice: number
-  answerText: string
-  answerRating: number
-  answerHexa: number
+  answerChoice: number | null
+  answerText: string | null
+  answerRating: number | null
+  answerHexa: number | null
 }
 
 interface ReplyTarget {
