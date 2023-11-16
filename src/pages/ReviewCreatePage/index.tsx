@@ -73,15 +73,21 @@ export const ReviewCreatePage = () => {
       </button>
 
       <FormProvider {...methods}>
-        {reviewStep === 1 && <ReviewEntry setReviewStep={setReviewStep} />}
+        {(() => {
+          switch (reviewStep) {
+            case 1:
+              return <ReviewEntry setReviewStep={setReviewStep} />
 
-        {reviewStep === 2 && (
-          <ReviewQuestionAdder setReviewStep={setReviewStep} />
-        )}
+            case 2:
+              return <ReviewQuestionAdder setReviewStep={setReviewStep} />
 
-        {reviewStep === 3 && (
-          <ResponserSelect handleClickButton={handleCreateReview} />
-        )}
+            case 3:
+              return <ResponserSelect handleClickButton={handleCreateReview} />
+
+            default:
+              return null
+          }
+        })()}
       </FormProvider>
     </div>
   )
