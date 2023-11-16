@@ -46,9 +46,9 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
         <h3 className="text-sm text-gray-300 dark:text-gray-400">{`응답자: ${selectedReceiver.name}`}</h3>
         <div className="flex flex-col gap-5">
           <ul className="flex gap-2.5 overflow-x-auto">
-            {receivers.map(({ id, name }) => (
+            {receivers.map(({ receiverId, name }) => (
               <li
-                key={id}
+                key={receiverId}
                 onClick={handleClickReceiver}
                 className={`flex h-fit shrink-0 items-center justify-center gap-2 rounded-md border px-2 
               py-1.5

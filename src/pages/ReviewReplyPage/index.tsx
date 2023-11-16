@@ -10,12 +10,13 @@ const reviewId = 812
 const ReviewReplyPage = () => {
   const [reviewStep, setReviewStep] = useState<number>(1)
 
-  const { data } = useGetReviewFirst({ id: reviewId })
-  const reviewData = data?.data
+  const { data: reviewData } = useGetReviewFirst({ id: reviewId })
+  const { title, description, receivers } = reviewData
 
   const methods = useForm<ReviewReplyType>({
     defaultValues: {
       id: reviewId,
+      nonReceiverList: receivers,
     },
   })
 
@@ -24,15 +25,15 @@ const ReviewReplyPage = () => {
       <Header />
       {reviewData && (
         <div className="flex h-full w-full max-w-[550px] flex-col p-5 text-black">
-          <h1 className="text-lg dark:text-white md:text-2xl">
-            {reviewData.title}
-          </h1>
+          <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
+          {reviewStep === 1 && (
+            <p className="mt-2.5 text-sm dark:text-white md:text-lg">
+              {description}
+            </p>
+          )}
           <FormProvider {...methods}>
             {reviewStep === 1 && (
-              <ReceiverSelect
-                setReviewStep={setReviewStep}
-                reviewData={reviewData}
-              />
+              <ReceiverSelect setReviewStep={setReviewStep} />
             )}
             {reviewStep === 2 && <ReviewReply reviewData={reviewData} />}
           </FormProvider>

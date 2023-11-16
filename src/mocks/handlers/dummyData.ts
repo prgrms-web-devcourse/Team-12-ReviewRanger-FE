@@ -274,35 +274,35 @@ export const REVIEW_QUESTION = {
     ],
     receivers: [
       {
-        id: 1,
+        receiverId: 1,
         name: '김효중',
       },
       {
-        id: 2,
+        receiverId: 2,
         name: '김효리',
       },
       {
-        id: 3,
+        receiverId: 3,
         name: '김주하',
       },
       {
-        id: 4,
+        receiverId: 4,
         name: '[백엔드-4기]장수연',
       },
       {
-        id: 5,
+        receiverId: 5,
         name: '[백엔드/4기]김주웅',
       },
       {
-        id: 6,
+        receiverId: 6,
         name: '[백엔드4기]신범철',
       },
       {
-        id: 7,
+        receiverId: 7,
         name: '김주하1',
       },
       {
-        id: 8,
+        receiverId: 8,
         name: '김주하2',
       },
     ],

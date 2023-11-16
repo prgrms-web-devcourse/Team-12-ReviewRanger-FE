@@ -1,28 +1,19 @@
-import {
-  ChangeEvent,
-  useEffect,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from 'react'
+import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
 import { Profile, SearchBar } from '@/components'
-import { Data } from '@/apis/hooks/useGetReviewFirst'
 import { CloseIcon } from '@/assets/icons'
 import { ReviewReplyType } from '../../types'
 
 interface ReceiverSelectProps {
   setReviewStep: Dispatch<SetStateAction<number>>
-  reviewData: Data
 }
 
 // TODO: 지울 예정
 const userId = 812
 
-const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
+const ReceiverSelect = ({ setReviewStep }: ReceiverSelectProps) => {
   const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
-  const { receivers: allReceiverList, description } = reviewData
 
   const {
     control,
@@ -50,10 +41,6 @@ const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
     name: 'replyTargets',
   })
 
-  useEffect(() => {
-    setValue('nonReceiverList', allReceiverList)
-  }, [setValue, allReceiverList])
-
   const onSubmit: SubmitHandler<ReviewReplyType> = () => {
     if (!receivers.length) {
       setError('receiverList', {
@@ -64,12 +51,9 @@ const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
       return
     }
 
-    console.log(receivers)
-
-    receivers.map((receiver) => {
-      console.log(receiver.id)
+    receivers.map(({ receiverId }) => {
       const replyTarget = {
-        receiverId: receiver.id,
+        receiverId: receiverId,
         responserId: userId,
         replies: [],
       }
@@ -82,7 +66,7 @@ const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
   const handleInputFocus = () => {
     setValue(
       'nonReceiverList',
-      nonReceivers.sort((a, b) => (a.name < b.name ? -1 : 1)),
+      nonReceivers.sort((a, b) => a.receiverId - b.receiverId),
     )
     setFocus(true)
   }
@@ -98,7 +82,6 @@ const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
   return (
     <div className="flex h-full flex-col justify-between pt-2.5">
       <div className="flex flex-col gap-5">
-        <p className="text-sm dark:text-white md:text-lg">{description}</p>
         <div className="dropdown relative w-full">
           <SearchBar
             keyword={name}

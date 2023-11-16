@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
 export interface QuestionOption {
@@ -16,7 +16,7 @@ export interface Question {
 }
 
 export interface Receiver {
-  id: number
+  receiverId: number
   name: string
 }
 
@@ -38,10 +38,10 @@ const useGetReviewFirst = ({ id }: { id: number }) => {
   const getReviewFirst = async () => {
     const response = await apiClient.get<Response>(`/reviews/${id}/first`)
 
-    return response.data
+    return response.data.data
   }
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [`/reviews/${id}/first`],
     queryFn: getReviewFirst,
   })
