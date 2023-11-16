@@ -57,7 +57,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
       <div className="rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:max-h-[24rem]">
         {findUserBySearchKeyword.length ? (
           <>
-            <header className="flex items-center whitespace-pre-wrap rounded-md border-b border-b-gray-100 bg-main-yellow p-3 text-xs dark:border-b-gray-200 dark:bg-main-red-200 md:text-sm">
+            <header className="flex items-center whitespace-pre-wrap rounded-t-md border-b border-b-gray-100 bg-main-yellow p-3 text-xs dark:border-b-gray-200 dark:bg-main-red-200 md:text-sm">
               <span>응답완료: </span>
               <span className="text-sub-blue dark:text-sub-skyblue">
                 {completedResponses}/{totalResponses}명
