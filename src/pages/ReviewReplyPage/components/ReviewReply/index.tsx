@@ -15,6 +15,8 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
 
   const { getValues } = useFormContext<ReviewReplyType>()
   const receivers = getValues('receiverList')
+  const replyTargets = getValues('replyTargets')
+  console.log(replyTargets)
 
   const [selectedReceiver, setSelectedReceiver] = useState(receivers[0])
   const [

@@ -16,6 +16,9 @@ interface ReceiverSelectProps {
   reviewData: Data
 }
 
+// TODO: 지울 예정
+const userId = 812
+
 const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
   const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
@@ -42,6 +45,11 @@ const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
     remove: removeNonReceiver,
   } = useFieldArray({ control, name: 'nonReceiverList' })
 
+  const { append: appendReplyTarget } = useFieldArray({
+    control,
+    name: 'replyTargets',
+  })
+
   useEffect(() => {
     setValue('nonReceiverList', allReceiverList)
   }, [setValue, allReceiverList])
@@ -55,6 +63,18 @@ const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
 
       return
     }
+
+    console.log(receivers)
+
+    receivers.map((receiver) => {
+      console.log(receiver.id)
+      const replyTarget = {
+        receiverId: receiver.id,
+        responserId: userId,
+        replies: [],
+      }
+      appendReplyTarget(replyTarget)
+    })
 
     setReviewStep(2)
   }

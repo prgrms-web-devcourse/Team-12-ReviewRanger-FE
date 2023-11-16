@@ -13,7 +13,11 @@ const ReviewReplyPage = () => {
   const { data } = useGetReviewFirst({ id: reviewId })
   const reviewData = data?.data
 
-  const methods = useForm<ReviewReplyType>()
+  const methods = useForm<ReviewReplyType>({
+    defaultValues: {
+      id: reviewId,
+    },
+  })
 
   return (
     <div className="flex h-screen flex-col items-center bg-main-ivory dark:bg-main-red-100">
