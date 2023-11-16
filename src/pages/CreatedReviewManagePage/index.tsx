@@ -13,7 +13,7 @@ import { PATH } from './constants'
 
 const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
-  const reviewId = pathname.replace(`${PATH.REVIEW_MANAGEMENT}`, '')
+  const reviewId = pathname.split('/').at(-1) ?? ''
 
   const { data: getReviewQuestion } = useGetReviewQuestion({
     id: reviewId,
