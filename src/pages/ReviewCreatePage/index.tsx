@@ -20,15 +20,25 @@ export const ReviewCreatePage = () => {
     },
   })
 
-  const handleCreateReview = () => {
-    const responserIdList = methods.getValues('responserIdList')
-
+  const validateResponserIdList = (
+    responserIdList: Review['responserIdList'],
+  ) => {
     if (!responserIdList.length) {
       methods.setError('responserIdList', {
         type: 'required',
         message: '응답자를 선택해주세요.',
       })
 
+      return false
+    }
+
+    return true
+  }
+
+  const handleCreateReview = () => {
+    const responserIdList = methods.getValues('responserIdList')
+
+    if (!validateResponserIdList(responserIdList)) {
       return
     }
 
@@ -53,12 +63,10 @@ export const ReviewCreatePage = () => {
       <Header />
 
       <button
-        onClick={(e) => {
-          e.preventDefault()
-
-          if (reviewStep === 1) return
-          setReviewStep(reviewStep - 1)
+        onClick={() => {
+          reviewStep > 1 && setReviewStep(reviewStep - 1)
         }}
+        type="button"
         className="btn w-fit self-center bg-pink-300"
       >
         이전 (임시 버튼)
