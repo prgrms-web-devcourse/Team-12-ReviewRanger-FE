@@ -267,74 +267,84 @@ export const REVIEW_QUESTION = {
 }
 
 export const REVIEW_RESULT = {
+  userId: 1,
+  userName: '김잼민',
+  reviewId: 1,
   title: '데브코스 1차 피어리뷰',
-  name: '김아무개',
-  reviewDate: '어쩌구2023년날짜',
-  results: [
-    {
-      questionTitle: '첫 포켓몬 고르면?',
-      questionType: 'singleChoice',
-      answers: [
-        '파이리',
-        '파이리',
-        '꼬부기',
-        '이상해씨',
-        '이상해씨',
-        '이상해씨',
-        '피카츄',
-        '이브이',
-        '이브이',
-      ],
-    },
-    {
-      questionTitle: '이 사람의 코딩 점수는 몇점?',
-      questionType: 'starRating',
-      answers: [4, 3, 2, 2, 1, 1, 1, 0, 5],
-    },
-    {
-      questionTitle: '이 사람의 스탯을 선택 부탁드려유',
-      questionType: 'hexagonStat',
-      answers: [
-        {
-          label: '협업',
-          score: 5,
-        },
-        {
-          label: '커뮤니케이션',
-          score: 3,
-        },
-        {
-          label: '스킬',
-          score: 2,
-        },
-        {
-          label: '소통',
-          score: 1,
-        },
-      ],
-    },
-    {
-      questionTitle: '이 사람의 단점은?',
-      questionType: 'hexagonStat',
-      answers:
-        '김아무개님은 팀 프로젝트를 위해 솔선수범하는 모습을 자주 보여줍니다. 하지만 PR리뷰를 대충 작성하시고, 강한 자기주장으로 인해 팀원간에 마찰이 자주 발생하였습니다. 가끔은 좋은 자료들을 많이 공유해주셔서 팀원들의 역량을 늘리는데 기여하기도 합니다. 조금 더 팀원 입장에서 생각해주시면 훨씬 좋은 개발자가 되실 것 같습니다!',
-    },
-  ],
+  description:
+    '데브코스 1차 피어리뷰입니다. \n6, 7월 두 달 간 함께했던 피어들에 대해 객관적으로 평가해주세요. \n감정적인 평가는 자제해주세요. \n피어들의 성장을 위해 솔직한 리뷰 부탁드립니다.',
+  status: 'SENT',
+  createdAt: '2023-07-31T10:30:25',
+  updatedAt: '2023-11-15T10:30:25',
 }
+
+export const REVIEW_RESULT_QNA = [
+  {
+    questionId: 1,
+    finalQuestionType: 'SUBJECTIVE',
+    questionTitle: '주관식 질문 제목이에요!',
+    answerIdList: [1],
+    answers: [
+      '그는 뛰어난 능력과 창의력을 갖춘 탁월한 개발자로서 프로젝트에 항상 열정을 가지고 참여합니다. 그의 코드는 항상 효율적이며 가독성이 뛰어나 프로젝트 팀 전체에 긍정적인 영향을 미칩니다. 김잼민은 문제에 대한 놀라운 해결 능력을 보여주며, 팀원들과 원활한 커뮤니케이션을 통해 프로젝트의 흐름을 개선합니다. 그의 적극적인 태도와 협업 능력은 프로젝트의 성과를 높이는 데 큰 기여를 합니다. 김잼민은 항상 새로운 기술을 습득하고 적용하는 데 관심을 가지며, 그 결과 프로젝트가 최신 트렌드에 부합하게 됩니다.',
+    ],
+  },
+  {
+    questionId: 2,
+    finalQuestionType: 'MULTIPLE_CHOICE',
+    questionTitle: '객관식 질문 제목이에요!',
+    answerIdList: [2, 3, 4, 5, 6, 7],
+    answers: ['파이리', '파이리', '꼬부기', '파이리', '꼬부기', '피카츄'],
+  },
+  {
+    questionId: 3,
+    finalQuestionType: 'SINGLE_CHOICE',
+    questionTitle: '단일선택 질문 제목이에요!',
+    answerIdList: [8, 9, 10, 11, 12],
+    answers: ['마자용', '피카츄', '꼬부기', '파이리', '꼬부기'],
+  },
+  {
+    questionId: 4,
+    finalQuestionType: 'DROPDOWN',
+    questionTitle: '드롭다운 질문 제목이에요!',
+    answerIdList: [13, 14, 15, 16, 17],
+    answers: ['여자', '여자', '남자', '여자', '남자'],
+  },
+  {
+    questionId: 5,
+    finalQuestionType: 'RATING',
+    questionTitle: '별점 질문 제목이에요!',
+    answerIdList: [18, 19, 20, 21, 22],
+    answers: [5.0, 4.0, 3.0, 2.0, 1.0],
+  },
+  {
+    questionId: 6,
+    finalQuestionType: 'HEXASTAT',
+    questionTitle: '육각형 스탯 질문 제목이에요!',
+    answerIdList: [23, 24, 25, 26, 27, 28],
+    answers: [
+      { statName: '협업', statScore: 5.2 },
+      { statName: '커뮤니케이션', statScore: 4.6 },
+      { statName: '스킬', statScore: 8.8 },
+      { statName: '소통', statScore: 2.0 },
+      { statName: '일정 관리', statScore: 5.3 },
+      { statName: '리더십', statScore: 2.7 },
+    ],
+  },
+]
 
 export const REVIEW_RESPONSE = {}
 
 export const ALL_USERS = [
   {
-    userId: 1,
+    id: 1,
     name: '김아무개',
   },
   {
-    userId: 2,
+    id: 2,
     name: '김잼민',
   },
   {
-    userId: 3,
+    id: 3,
     name: '김빡빡',
   },
 ]
