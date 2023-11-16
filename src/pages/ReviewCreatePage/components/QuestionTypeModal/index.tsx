@@ -1,6 +1,6 @@
 import { UseFieldArrayAppend, useFormContext } from 'react-hook-form'
 import { CloseIcon } from '@/assets/icons'
-import { QuestionType, Review } from '../../types'
+import { Question, QuestionType, Review } from '../../types'
 import { QUESTION_TYPES } from './constants'
 
 interface QuestionTypeModalProps {
@@ -10,20 +10,20 @@ interface QuestionTypeModalProps {
 const QuestionTypeModal = ({ append }: QuestionTypeModalProps) => {
   const { clearErrors } = useFormContext<Review>()
 
+  const createOptions = (type: QuestionType): Question['questionOptions'] => {
+    switch (type) {
+      case 'SUBJECTIVE':
+      case 'RATING':
+        return []
+      case 'HEXASTAT':
+        return Array(6).fill({ optionName: '' })
+      default:
+        return Array(2).fill({ optionName: '' })
+    }
+  }
+
   const handleClickType = (type: QuestionType) => {
-    const questionOptions =
-      type === 'SUBJECTIVE' || type === 'RATING'
-        ? []
-        : type === 'HEXASTAT'
-        ? [
-            { optionName: '' },
-            { optionName: '' },
-            { optionName: '' },
-            { optionName: '' },
-            { optionName: '' },
-            { optionName: '' },
-          ]
-        : [{ optionName: '' }, { optionName: '' }]
+    const questionOptions = createOptions(type)
 
     append({
       title: '',
