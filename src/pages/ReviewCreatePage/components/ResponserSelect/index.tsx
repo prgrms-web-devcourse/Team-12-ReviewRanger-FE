@@ -150,7 +150,7 @@ const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
           </div>
         </div>
 
-        <button className="font-lg btn sticky bottom-10 w-full self-end rounded-md bg-active-orange text-white dark:text-black md:w-fit md:px-8">
+        <button className="btn sticky bottom-10 w-full self-end rounded-md bg-active-orange text-lg text-white dark:text-black md:w-fit md:px-8">
           리뷰 생성하기
         </button>
       </form>
