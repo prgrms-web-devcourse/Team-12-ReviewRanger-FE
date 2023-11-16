@@ -54,10 +54,10 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
         className="flex w-full"
       />
 
-      <div className="max-h-80 overflow-auto rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:max-h-[24rem]">
+      <div className="rounded-md border border-gray-200 bg-main-yellow text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:max-h-[24rem]">
         {findUserBySearchKeyword.length ? (
           <>
-            <header className="z-5 sticky top-0 flex items-center whitespace-pre-wrap border-b border-b-gray-100 bg-main-yellow p-3 text-xs dark:border-b-gray-200 dark:bg-main-red-200 md:text-sm">
+            <header className="flex items-center whitespace-pre-wrap rounded-md border-b border-b-gray-100 bg-main-yellow p-3 text-xs dark:border-b-gray-200 dark:bg-main-red-200 md:text-sm">
               <span>응답완료: </span>
               <span className="text-sub-blue dark:text-sub-skyblue">
                 {completedResponses}/{totalResponses}명
@@ -68,11 +68,12 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
                 sortByResponse={sortByResponse}
               />
             </header>
-
-            <UserList
-              users={findUserBySearchKeyword}
-              submitAt={filteredUsers.map((value) => value.submitAt)}
-            />
+            <div className="max-h-80 overflow-auto">
+              <UserList
+                users={findUserBySearchKeyword}
+                submitAt={filteredUsers.map((value) => value.submitAt)}
+              />
+            </div>
           </>
         ) : (
           <NotFoundSearchUser />

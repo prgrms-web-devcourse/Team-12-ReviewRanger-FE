@@ -46,7 +46,9 @@ const UserList = ({
                 ) : responserCount ? (
                   `응답자: ${responserCount && responserCount[index]}명`
                 ) : (
-                  <p className="text-sub-red-200">미응답</p>
+                  <p className="text-sub-red-200 dark:text-sub-yellow">
+                    미응답
+                  </p>
                 )}
               </div>
             </div>
