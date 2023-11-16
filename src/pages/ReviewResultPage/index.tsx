@@ -77,22 +77,30 @@ const ReviewResultPage = () => {
                 <h2 className="text-xl text-black dark:text-white md:text-2xl">
                   {index + 1}. {questionTitle}
                 </h2>
-                {(finalQuestionType === 'DROPDOWN' ||
-                  finalQuestionType === 'MULTIPLE_CHOICE' ||
-                  finalQuestionType === 'SINGLE_CHOICE') && (
-                  <DoughnutChart answers={answers} />
-                )}
-                {finalQuestionType === 'SUBJECTIVE' && (
-                  <p className="text-justify text-sm text-black dark:text-white md:text-lg ">
-                    {answers[0]}
-                  </p>
-                )}
-                {finalQuestionType === 'RATING' && (
-                  <StarChart answer={answers} />
-                )}
-                {finalQuestionType === 'HEXASTAT' && (
-                  <RadarChart answers={answers} />
-                )}
+                {(() => {
+                  switch (finalQuestionType) {
+                    case 'DROPDOWN':
+                    case 'MULTIPLE_CHOICE':
+                    case 'SINGLE_CHOICE':
+                      return <DoughnutChart answers={answers} />
+
+                    case 'RATING':
+                      return <StarChart answer={answers} />
+
+                    case 'HEXASTAT':
+                      return <RadarChart answers={answers} />
+
+                    case 'SUBJECTIVE':
+                      return (
+                        <p className="text-justify text-sm text-black dark:text-white md:text-lg ">
+                          {answers[0]}
+                        </p>
+                      )
+
+                    default:
+                      return null
+                  }
+                })()}
               </li>
             ),
           )}
