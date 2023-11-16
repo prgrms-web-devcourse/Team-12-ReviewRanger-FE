@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
 interface User {
@@ -7,6 +7,7 @@ interface User {
 }
 
 interface Response {
+  success: boolean
   data: User[]
 }
 
@@ -14,10 +15,10 @@ const useGetAllUser = () => {
   const getAllUser = async () => {
     const response = await apiClient.get<Response>('/members')
 
-    return response.data
+    return response.data.data
   }
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['/members'],
     queryFn: getAllUser,
   })
