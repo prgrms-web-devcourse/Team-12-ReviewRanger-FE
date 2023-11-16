@@ -31,7 +31,7 @@ const useGetReviewQuestion = ({ id }: { id: string }) => {
   const getReviewQuestion = async () => {
     const response = await apiClient.get<Response>(`/reviews/${id}`)
 
-    return response.data
+    return response.data.data
   }
 
   return useSuspenseQuery({

@@ -20,7 +20,7 @@ const CreatedReviewManagePage = () => {
 
   const { data: getReviewQuestion } = useGetReviewQuestion({
     id: reviewId,
-  }).data
+  })
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
