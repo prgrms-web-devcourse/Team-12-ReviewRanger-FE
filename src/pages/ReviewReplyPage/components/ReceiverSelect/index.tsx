@@ -11,14 +11,14 @@ import { Data, Receiver } from '@/apis/hooks/useGetReviewFirst'
 import { CloseIcon } from '@/assets/icons'
 
 interface ReceiverSelectProps {
-  setCheckSelectedReceiver: Dispatch<SetStateAction<boolean>>
+  setReviewStep: Dispatch<SetStateAction<number>>
   reviewData: Data
   selectedReceivers: Receiver[]
   setSelectedReceivers: Dispatch<SetStateAction<Receiver[]>>
 }
 
 const ReceiverSelect = ({
-  setCheckSelectedReceiver,
+  setReviewStep,
   reviewData,
   selectedReceivers,
   setSelectedReceivers,
@@ -83,7 +83,7 @@ const ReceiverSelect = ({
   }
 
   const handleClickReviewStart = () => {
-    setCheckSelectedReceiver(true)
+    setReviewStep(2)
   }
 
   return (

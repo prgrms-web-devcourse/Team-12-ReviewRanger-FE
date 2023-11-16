@@ -8,8 +8,7 @@ const reviewId = 812
 
 const ReviewReplyPage = () => {
   const [selectedReceivers, setSelectedReceivers] = useState<Receiver[]>([])
-  const [checkSelectedReceiver, setCheckSelectedReceiver] =
-    useState<boolean>(false)
+  const [reviewStep, setReviewStep] = useState<number>(1)
 
   const { data } = useGetReviewFirst({ id: reviewId })
   const reviewData = data?.data
@@ -22,20 +21,19 @@ const ReviewReplyPage = () => {
           <h1 className="text-lg dark:text-white md:text-2xl">
             {reviewData.title}
           </h1>
-          {!checkSelectedReceiver ? (
+          {reviewStep === 1 && (
             <ReceiverSelect
-              setCheckSelectedReceiver={setCheckSelectedReceiver}
+              setReviewStep={setReviewStep}
               reviewData={reviewData}
               selectedReceivers={selectedReceivers}
               setSelectedReceivers={setSelectedReceivers}
             />
-          ) : (
-            <>
-              <ReviewReply
-                receivers={selectedReceivers}
-                reviewData={reviewData}
-              />
-            </>
+          )}
+          {reviewStep === 2 && (
+            <ReviewReply
+              receivers={selectedReceivers}
+              reviewData={reviewData}
+            />
           )}
         </div>
       )}
