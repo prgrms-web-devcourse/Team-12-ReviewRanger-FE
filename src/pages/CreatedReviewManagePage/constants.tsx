@@ -22,10 +22,22 @@ export const REVIEW_MANAGE_TAB_TITLE = {
 }
 
 export const QUESTION_TYPE = {
-  SINGLE_CHOICE: <SingleChoiceIcon className="fill-dark dark:fill-white" />,
-  MULTIPLE_CHOICE: <MultipleChoiceIcon className="fill-dark dark:fill-white" />,
-  DROPDOWN: <DropdownIcon className="fill-dark dark:fill-white" />,
-  SUBJECTIVE: <TextIcon className="fill-dark dark:fill-white" />,
-  STAR_RATING: <StarRatingIcon className="fill-dark dark:fill-white" />,
-  HEXASTAT: <HexagonICon className="fill-dark dark:fill-white" />,
+  SINGLE_CHOICE: (
+    <SingleChoiceIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+  ),
+  MULTIPLE_CHOICE: (
+    <MultipleChoiceIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+  ),
+  DROPDOWN: (
+    <DropdownIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+  ),
+  SUBJECTIVE: (
+    <TextIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+  ),
+  STAR_RATING: (
+    <StarRatingIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+  ),
+  HEXASTAT: (
+    <HexagonICon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+  ),
 }

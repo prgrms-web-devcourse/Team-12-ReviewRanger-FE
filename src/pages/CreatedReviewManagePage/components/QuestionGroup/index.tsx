@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import { useRef, useEffect } from 'react'
-import { ArrowBelowIcon } from '@/assets/icons'
+import { CloseDropDown } from '@/assets/icons'
 import { QUESTION_TYPE } from '../../constants'
 
 interface QuestionGroupProps {
@@ -50,7 +50,7 @@ const QuestionGroup = ({
             {QUESTION_TYPE[questionType]}
             <span className="ml-[0.63rem]"> {questionTitle}</span>
           </span>
-          <ArrowBelowIcon className="fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
+          <CloseDropDown className="fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
         </div>
       </label>
       <div className="m-t-[1.25rem] accordion-content border-t-gray-200 text-black dark:text-white">
