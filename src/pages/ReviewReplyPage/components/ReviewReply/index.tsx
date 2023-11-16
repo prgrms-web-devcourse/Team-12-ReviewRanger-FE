@@ -1,26 +1,26 @@
 import { useState, MouseEvent } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data, Receiver, Question } from '@/apis/hooks/useGetReviewFirst'
-import { ReplyType } from '@/pages/ReviewReplyPage/types'
+import { ReviewReplyType } from '../../types'
 import { ReplyText } from '../ReplyCategory'
 import ReplyChoice from '../ReplyCategory/ReplyChoice/index'
 
 interface ReviewReplyProps {
-  receivers: Receiver[]
   reviewData: Data
 }
 
-const ReviewReply = ({ receivers, reviewData }: ReviewReplyProps) => {
+const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
   const questions = reviewData.questions
+
+  const { getValues } = useFormContext<ReviewReplyType>()
+  const receivers = getValues('receiverList')
 
   const [selectedReceiver, setSelectedReceiver] = useState(receivers[0])
   const [
     { type, title, description, isRequired, questionOptions, id },
     setSelectedQuestion,
   ] = useState(questions[0])
-
-  const methods = useForm<ReplyType>()
 
   const handleClickReceiver = (e: MouseEvent<HTMLLIElement>) => {
     const selectedTarget = receivers.find(
@@ -97,12 +97,10 @@ const ReviewReply = ({ receivers, reviewData }: ReviewReplyProps) => {
           <p className="text-sm text-gray-300 dark:text-gray-400">
             {description}
           </p>
-          <FormProvider {...methods}>
-            {type === 'SUBJECTIVE' && <ReplyText />}
-            {type === 'SINGLE_CHOICE' && (
-              <ReplyChoice options={questionOptions} type="MULTIPLE_CHOICE" />
-            )}
-          </FormProvider>
+          {type === 'SUBJECTIVE' && <ReplyText />}
+          {type === 'SINGLE_CHOICE' && (
+            <ReplyChoice options={questionOptions} type="MULTIPLE_CHOICE" />
+          )}
         </div>
       </div>
       <div className="flex justify-center md:justify-end">

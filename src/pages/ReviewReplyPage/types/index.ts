@@ -12,7 +12,14 @@ interface ReplyTarget {
   replies: Reply[]
 }
 
-export interface ReplyType {
+interface User {
+  id: number
+  name: string
+}
+
+export interface ReviewReplyType {
   id: number
   replyTargets: ReplyTarget[]
+  receiverList: User[]
+  nonReceiverList: User[]
 }

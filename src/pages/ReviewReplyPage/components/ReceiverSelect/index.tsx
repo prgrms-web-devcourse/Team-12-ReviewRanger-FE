@@ -2,38 +2,68 @@ import {
   ChangeEvent,
   useEffect,
   useState,
-  MouseEvent,
   Dispatch,
   SetStateAction,
 } from 'react'
+import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
 import { Profile, SearchBar } from '@/components'
-import { Data, Receiver } from '@/apis/hooks/useGetReviewFirst'
+import { Data } from '@/apis/hooks/useGetReviewFirst'
 import { CloseIcon } from '@/assets/icons'
+import { ReviewReplyType } from '../../types'
 
 interface ReceiverSelectProps {
   setReviewStep: Dispatch<SetStateAction<number>>
   reviewData: Data
-  selectedReceivers: Receiver[]
-  setSelectedReceivers: Dispatch<SetStateAction<Receiver[]>>
 }
 
-const ReceiverSelect = ({
-  setReviewStep,
-  reviewData,
-  selectedReceivers,
-  setSelectedReceivers,
-}: ReceiverSelectProps) => {
-  const [receiverList, setReceiverList] = useState<Receiver[]>([])
+const ReceiverSelect = ({ setReviewStep, reviewData }: ReceiverSelectProps) => {
   const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
+  const { receivers: allReceiverList, description } = reviewData
 
-  const { receivers, description } = reviewData
+  const {
+    control,
+    setError,
+    setValue,
+    handleSubmit,
+    clearErrors,
+    formState: { errors },
+  } = useFormContext<ReviewReplyType>()
+
+  const {
+    fields: receivers,
+    append: appendReceiver,
+    remove: removeReceiver,
+  } = useFieldArray({ control, name: 'receiverList' })
+
+  const {
+    fields: nonReceivers,
+    append: appendNonReceiver,
+    remove: removeNonReceiver,
+  } = useFieldArray({ control, name: 'nonReceiverList' })
 
   useEffect(() => {
-    setReceiverList(receivers)
-  }, [receivers])
+    setValue('nonReceiverList', allReceiverList)
+  }, [setValue, allReceiverList])
+
+  const onSubmit: SubmitHandler<ReviewReplyType> = () => {
+    if (!receivers.length) {
+      setError('receiverList', {
+        type: 'required',
+        message: '대상자를 선택해주세요.',
+      })
+
+      return
+    }
+
+    setReviewStep(2)
+  }
 
   const handleInputFocus = () => {
+    setValue(
+      'nonReceiverList',
+      nonReceivers.sort((a, b) => (a.name < b.name ? -1 : 1)),
+    )
     setFocus(true)
   }
 
@@ -43,47 +73,6 @@ const ReceiverSelect = ({
 
   const handleResetName = () => {
     setName('')
-  }
-
-  const handleClickSelectReceiver = (e: MouseEvent<HTMLLIElement>) => {
-    const selectedTarget = receivers.find(
-      (receiver) => receiver.name === e.currentTarget.innerText,
-    )
-
-    if (!selectedTarget) {
-      return
-    }
-
-    setSelectedReceivers([...selectedReceivers, selectedTarget])
-    setReceiverList(
-      receiverList.filter((receiver) => receiver.name !== selectedTarget.name),
-    )
-    setName('')
-    setFocus(false)
-  }
-
-  const handleClickSelectCancel = (e: MouseEvent<SVGSVGElement>) => {
-    const canceledReceiverName = e.currentTarget.parentElement?.innerText
-    const canceledReceiver = selectedReceivers.find(
-      (selectedReceiver) => selectedReceiver.name === canceledReceiverName,
-    )
-
-    if (!canceledReceiver) {
-      return
-    }
-
-    setReceiverList(
-      [...receiverList, canceledReceiver].sort((a, b) => a.id - b.id),
-    )
-    setSelectedReceivers(
-      selectedReceivers.filter(
-        (selectedReceiver) => selectedReceiver != canceledReceiver,
-      ),
-    )
-  }
-
-  const handleClickReviewStart = () => {
-    setReviewStep(2)
   }
 
   return (
@@ -101,18 +90,22 @@ const ReceiverSelect = ({
           />
           {focus && (
             <ul className="dropdown-menu absolute flex max-h-[252px] w-full flex-col overflow-y-auto rounded-none border border-t-0 bg-white p-0 dark:bg-main-gray md:max-h-[258px]">
-              {receiverList.length > 0 ? (
-                receiverList
-                  .filter((receiver) => receiver.name.includes(name))
-                  .map(({ id, name }, index) => (
+              {nonReceivers.length > 0 ? (
+                nonReceivers
+                  .filter((nonReceiver) => nonReceiver.name.includes(name))
+                  .map((nonReceiver, index) => (
                     <li
-                      onClick={handleClickSelectReceiver}
-                      key={id}
+                      onClick={() => {
+                        appendReceiver(nonReceiver)
+                        removeNonReceiver(index)
+                        clearErrors('receiverList')
+                      }}
+                      key={nonReceiver.id}
                       className={`${index !== 0 && 'border-t'} ${
-                        index != receiverList.length - 1 && 'border-b'
+                        index != nonReceivers.length - 1 && 'border-b'
                       } border-gray-400 px-2.5 py-2.5 hover:bg-main-ivory dark:border-gray-300 dark:hover:bg-gray-300`}
                     >
-                      <Profile name={name} />
+                      <Profile name={nonReceiver.name} />
                     </li>
                   ))
               ) : (
@@ -123,27 +116,36 @@ const ReceiverSelect = ({
             </ul>
           )}
         </div>
-        <div className="h-80 overflow-auto rounded-md border bg-main-yellow p-2.5 dark:bg-main-red-200">
+
+        <div className="relative h-80 overflow-auto rounded-md border bg-main-yellow p-2.5 dark:bg-main-red-200">
           <ul className="flex flex-wrap justify-start gap-2.5">
-            {selectedReceivers.map(({ id, name }) => (
+            {receivers.map((receiver, index) => (
               <li
-                key={id}
+                key={receiver.id}
                 className="flex h-fit w-fit items-center justify-center gap-2 rounded-md border bg-white px-2 py-1.5 dark:bg-main-gray"
               >
-                <Profile name={name} />
+                <Profile name={receiver.name} />
                 <CloseIcon
-                  onClick={handleClickSelectCancel}
+                  onClick={() => {
+                    appendNonReceiver(receiver)
+                    removeReceiver(index)
+                  }}
                   className="h-4 w-4 cursor-pointer dark:fill-white"
                 />
               </li>
             ))}
           </ul>
+          {errors.receiverList && (
+            <p className="absolute bottom-5 right-5 text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
+              {errors.receiverList.message}
+            </p>
+          )}
         </div>
       </div>
 
       <div className="flex justify-center md:justify-end">
         <button
-          onClick={handleClickReviewStart}
+          onClick={handleSubmit(onSubmit)}
           className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl"
         >
           리뷰 시작하기
