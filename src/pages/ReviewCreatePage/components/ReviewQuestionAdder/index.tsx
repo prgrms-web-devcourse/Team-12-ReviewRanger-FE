@@ -93,7 +93,7 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
       <div className="sticky bottom-10 flex gap-x-5 self-end">
         <button
           className="h-10 w-24 rounded-md bg-active-orange text-lg text-white dark:text-black"
-          onClick={(e) => e.preventDefault()}
+          type="button"
         >
           미리보기
         </button>
