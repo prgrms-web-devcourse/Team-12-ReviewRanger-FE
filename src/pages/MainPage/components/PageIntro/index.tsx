@@ -12,7 +12,7 @@ const PageIntro = ({
 }: PropsWithChildren<PageIntroProps>) => {
   return (
     <div
-      className={`flex items-center whitespace-pre-line border border-black dark:border-white ${className}`}
+      className={`flex items-center whitespace-pre-line border border-gray-100 dark:border-white ${className}`}
     >
       {imageSrc && (
         <img
