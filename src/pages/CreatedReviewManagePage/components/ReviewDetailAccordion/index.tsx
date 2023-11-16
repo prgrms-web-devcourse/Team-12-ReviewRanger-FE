@@ -14,6 +14,7 @@ const ReviewDetailAccordion = ({
   reviewId,
   receiverName,
 }: ReviewDetailAccordionProps) => {
+  //NOTE - 하나라도 응답 실패했을 떄 처리
   const { data: getReviewQuestion } = useGetReviewQuestion({
     id: reviewId,
   }).data
