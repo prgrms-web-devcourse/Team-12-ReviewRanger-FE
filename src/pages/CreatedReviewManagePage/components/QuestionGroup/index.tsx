@@ -1,7 +1,11 @@
 import { nanoid } from 'nanoid'
 import { useRef, useEffect } from 'react'
-import { StarRatingList } from '@/components'
-import { CloseDropDown, BasicProfileIcon } from '@/assets/icons'
+import { IconButton, StarRatingList } from '@/components'
+import {
+  CloseDropDownIcon,
+  BasicProfileIcon,
+  FilterReplyIcon,
+} from '@/assets/icons'
 import { QUESTION_TYPE } from '../../constants'
 
 interface QuestionGroupProps {
@@ -16,6 +20,7 @@ interface QuestionGroupProps {
   questionDescription?: string
   answers: Answer[]
 }
+
 interface Answer {
   name?: string
   value: string | number | null
@@ -50,15 +55,15 @@ const QuestionGroup = ({
 
     return (
       <>
-        <h2>{value?.name}</h2>
+        <h2 className="flex h-[1.375rem] w-[3rem] items-center justify-center bg-gray-300 text-sm text-white">
+          {value?.name}
+        </h2>
         {filteredAnswers.map((value) => (
-          <>
-            <h3 className="flex">
-              <BasicProfileIcon />
-              {value.userName}
-            </h3>
+          <div className="flex" key={nanoid()}>
+            <BasicProfileIcon />
+            <p>{value.userName}</p>
             <p>{value.value}</p>
-          </>
+          </div>
         ))}
       </>
     )
@@ -70,7 +75,7 @@ const QuestionGroup = ({
         <BasicProfileIcon />
         {value?.userName}
       </h3>
-      <p>{value?.value}</p>
+      <p className="leading-5">{value?.value}</p>
     </>
   )
 
@@ -91,31 +96,40 @@ const QuestionGroup = ({
             {QUESTION_TYPE[questionType]}
             <span className="ml-[0.63rem]"> {questionTitle}</span>
           </h1>
-          <CloseDropDown className="fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
+          <CloseDropDownIcon className="fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
         </div>
       </label>
 
-      {answers.map((value) => {
-        return (
-          <article
-            className="m-t-[1.25rem] accordion-content border-gray-200 text-black dark:text-white"
-            key={nanoid()}
-          >
-            <div className="accordion-content ml-[0.63rem]">
-              {(() => {
-                switch (questionType) {
-                  case 'STAR_RATING':
-                    return renderStarRating(value)
-                  case 'HEXASTAT':
-                    return renderHexaStat(value)
-                  default:
-                    return renderDefault(value)
-                }
-              })()}
-            </div>
-          </article>
-        )
-      })}
+      {answers.map((value, index) => (
+        <article
+          className="m-t-[1.25rem] accordion-content border-gray-200 text-black dark:text-white"
+          key={nanoid()}
+        >
+          <div className="accordion-content ml-[0.63rem]">
+            {(() => {
+              switch (questionType) {
+                case 'STAR_RATING':
+                  return renderStarRating(value)
+                case 'HEXASTAT':
+                  return renderHexaStat(value)
+                default:
+                  return renderDefault(value)
+              }
+            })()}
+            {questionType === 'SUBJECTIVE' && answers.length - 1 === index && (
+              <div className="mr-[0.62rem] flex items-end justify-end">
+                <IconButton
+                  disabled
+                  className=" m-0 h-[1.875rem] w-[5rem] rounded-md bg-gray-400 text-sm"
+                  text="정제"
+                >
+                  <FilterReplyIcon className="h-[1rem] w-[1rem] fill-white stroke-black dark:fill-black dark:stroke-white" />
+                </IconButton>
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
     </section>
   )
 }

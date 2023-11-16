@@ -1,5 +1,5 @@
 import { useGetReviewQuestion, useGetResponseByReceiver } from '@/apis/hooks'
-import { CloseDropDown } from '@/assets/icons'
+import { CloseDropDownIcon } from '@/assets/icons'
 import { ProfileGroup, QuestionGroup } from '../../components'
 import { getAnswer } from '../../utils'
 
@@ -34,7 +34,7 @@ const ReviewDetailAccordion = ({
       <div className="drawer drawer-bottom m-0 flex h-4/5 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-[32rem]">
         <div className="flex h-[30px] w-full shrink-0 flex-col items-center justify-center bg-main-yellow dark:bg-main-red-200 sm:h-[40px]">
           <label htmlFor="drawer-bottom">
-            <CloseDropDown className="cursor-pointer fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
+            <CloseDropDownIcon className="cursor-pointer fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
           </label>
         </div>
         <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
@@ -54,6 +54,11 @@ const ReviewDetailAccordion = ({
               )}
             />
           ))}
+          <div className="flex justify-end">
+            <button className="btn h-[40px] w-[100px] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
+              미리 보기
+            </button>
+          </div>
         </div>
       </div>
     </>
