@@ -3,24 +3,19 @@ import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
 import { useGetReviewQuestion } from '@/apis/hooks'
-
 import {
   Tabs,
   AllResponseReviewByResponser,
   AllResponseReviewByReceiver,
 } from './components'
+import { PATH } from './constants'
 
 const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
-  const reviewId = pathname.split('/').at(-1) ?? ''
+  const reviewId = pathname.replace(`${PATH.REVIEW_MANAGEMENT}`, '')
 
-  const [activeTab, setActiveTab] = useState<'responser' | 'receiver'>(
-    'responser',
-  )
-
-  const { data: getReviewQuestion } = useGetReviewQuestion({
-    id: reviewId,
-  })
+  const { data } = useGetReviewQuestion({ id: reviewId })
+  const [activeTab, changeTab] = useState<'responser' | 'receiver'>('responser')
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
@@ -48,21 +43,21 @@ const CreatedReviewManagePage = () => {
   }
 
   return (
-    <div className="flex h-auto min-h-screen flex-col bg-main-ivory text-black dark:bg-main-red-100 dark:text-white">
+    <div className="flex h-auto min-h-screen flex-col bg-main-ivory  text-black dark:bg-main-red-100 dark:text-white">
       <div className="sticky top-0 z-10">
         <Header />
-        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Tabs activeTab={activeTab} setActiveTab={changeTab} />
       </div>
-      <div className="mx-auto flex w-full max-w-[800px] flex-col px-5 py-7 md:p-10">
-        <h1 className="text-xl md:text-2xl">{getReviewQuestion.title}</h1>
-        <h2 className="mt-3 text-sm md:mt-4 md:text-xl">
-          {getReviewQuestion.description}
-        </h2>
-        <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-
-        <button className="btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black">
-          설문 마감
-        </button>
+      <div className="m-0 flex w-full justify-center p-5 md:p-10">
+        <div className="m-0 flex w-[550px] max-w-[550px] flex-col">
+          <div>{data?.data.title}</div>
+          <div>{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
+          <div className="mt-[50px] flex w-full justify-end">
+            <button className="w-25 btn h-10 rounded bg-active-orange text-white">
+              설문 마감
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )

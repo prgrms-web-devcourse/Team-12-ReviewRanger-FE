@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { useGetAllResponseByReceiver } from '@/apis/hooks'
-import { NotFoundSearchUser } from '../components'
+import { NotFoundSearchUser } from '../../components'
 
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const [keyword, setKeyword] = useState('')
