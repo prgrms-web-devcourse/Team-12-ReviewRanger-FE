@@ -17,6 +17,7 @@ const ReviewReplyPage = () => {
     defaultValues: {
       id: reviewId,
       nonReceiverList: receivers,
+      // replyComplete: Array(reviewData.questions.length).fill(false),
     },
   })
 
@@ -33,7 +34,10 @@ const ReviewReplyPage = () => {
           )}
           <FormProvider {...methods}>
             {reviewStep === 1 && (
-              <ReceiverSelect setReviewStep={setReviewStep} />
+              <ReceiverSelect
+                setReviewStep={setReviewStep}
+                questions={reviewData.questions}
+              />
             )}
             {reviewStep === 2 && <ReviewReply reviewData={reviewData} />}
           </FormProvider>

@@ -1,17 +1,19 @@
 import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
 import { Profile, SearchBar } from '@/components'
+import { Question } from '@/apis/hooks/useGetReviewFirst'
 import { CloseIcon } from '@/assets/icons'
 import { ReviewReplyType } from '../../types'
 
 interface ReceiverSelectProps {
   setReviewStep: Dispatch<SetStateAction<number>>
+  questions: Question[]
 }
 
 // TODO: 지울 예정
 const userId = 812
 
-const ReceiverSelect = ({ setReviewStep }: ReceiverSelectProps) => {
+const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
   const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
 
@@ -55,7 +57,21 @@ const ReceiverSelect = ({ setReviewStep }: ReceiverSelectProps) => {
       const replyTarget = {
         receiverId: receiverId,
         responserId: userId,
-        replies: [],
+        replies: questions.map(({ id, type }) => {
+          return {
+            questionId: id,
+            answerText: type === 'SUBJECTIVE' ? '' : null,
+            answerChoice: [
+              'MULTIPLE_CHOICE',
+              'SINGLE_CHOICE',
+              'DROPDOWN',
+            ].includes(type)
+              ? 0
+              : null,
+            answerRating: type === 'RATING' ? 0 : null,
+            answerHexa: type === 'HEXASTAT' ? 0 : null,
+          }
+        }),
       }
       appendReplyTarget(replyTarget)
     })
