@@ -36,7 +36,7 @@ const ReviewDetailAccordion = ({
             <CloseDropDown className="cursor-pointer fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
           </label>
         </div>
-        <div className="accordion-group m-0 flex w-[21.875rem] max-w-[550px] flex-col gap-5 md:w-[34.375rem]">
+        <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
           <ProfileGroup
             name={receiverName}
             responserSize={responserCount.size}

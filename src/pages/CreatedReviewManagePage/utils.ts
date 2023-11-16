@@ -75,6 +75,8 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
 }
 
 //NOTE - 육각스텟일 떄 항목별로 뺴야함
+//NOTE - 옵션별로 누가답변했는지, 몇점인지 여부가 필요
+
 const getRemainAnswer = (questionId: string, reply: Data[]) => {
   return reply
     ?.map(
@@ -92,7 +94,8 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
                 value: reply?.hexastat,
                 userName: value?.responser?.name,
               }
-            } else {
+            }
+            {
               return {
                 value: reply.questionOption?.optionName ?? null,
                 userName: value?.responser?.name,

@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 import { useRef, useEffect } from 'react'
+import { StarRatingList } from '@/components'
 import { CloseDropDown } from '@/assets/icons'
 import { QUESTION_TYPE } from '../../constants'
 
@@ -33,6 +34,38 @@ const QuestionGroup = ({
     inputId.current = nanoid()
   }, [])
 
+  const renderStarRating = (value: Answer) => (
+    <span>
+      {value.userName}
+      <StarRatingList rate={Number(value.value)} fixed={true} />
+    </span>
+  )
+
+  const renderHexaStat = (value: Answer) => {
+    const filteredAnswers = answers.filter(
+      (answer) => answer?.name === value.name,
+    )
+
+    return (
+      <>
+        <p>{value?.name}</p>
+        {filteredAnswers.map((value) => (
+          <>
+            <span>{value.userName}</span>
+            <span>{value.value}</span>
+          </>
+        ))}
+      </>
+    )
+  }
+
+  const renderDefault = (value: Answer) => (
+    <>
+      <span>{value?.userName}</span>
+      <span>{value?.value}</span>
+    </>
+  )
+
   return (
     <div className="border-b-0 border-l-[1px] border-r-[1px] border-t border-gray-200 bg-white dark:bg-black">
       <input
@@ -43,7 +76,7 @@ const QuestionGroup = ({
       />
       <label
         htmlFor={inputId.current}
-        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center border-none border-r-gray-200 bg-white text-lg dark:bg-black"
+        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center bg-white text-lg dark:bg-black"
       >
         <div className="flex items-center justify-between">
           <span className="flex items-center pl-[0.63rem]">
@@ -57,11 +90,20 @@ const QuestionGroup = ({
       {answers.map((value) => {
         return (
           <div
-            className="m-t-[1.25rem] accordion-content border-t-gray-200 text-black dark:text-white"
+            className="m-t-[1.25rem] accordion-content border-gray-200 text-black dark:text-white"
             key={nanoid()}
           >
-            <div className="accordion-content border-t">
-              {value.userName}: {value.name} {value.value}
+            <div className="accordion-content">
+              {(() => {
+                switch (questionType) {
+                  case 'STAR_RATING':
+                    return renderStarRating(value)
+                  case 'HEXASTAT':
+                    return renderHexaStat(value)
+                  default:
+                    return renderDefault(value)
+                }
+              })()}
             </div>
           </div>
         )
