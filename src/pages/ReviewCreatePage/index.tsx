@@ -1,42 +1,94 @@
-import { useGetAllUser, useCreateReview } from '@/apis/hooks'
+import { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { Header } from '@/components'
+import { useCreateReview, useGetAllUser } from '@/apis/hooks'
+import { ResponserSelect, ReviewEntry, ReviewQuestionAdder } from './components'
+import { Review } from './types'
 
-const surveyDummy = {
-  title: 'Survey 1',
-  description: 'Description 1',
-  type: 'Type 1',
-  questions: [
-    {
-      title: 'Question 1',
-      type: 'Question Type 1',
-      options: 'Option 1, Option 2, Option 3',
-      sequence: 1,
-      isDuplicated: true,
-      isRequired: true,
-    },
-  ],
-  responserIdList: [1, 2, 3, 4, 5],
-}
+export const ReviewCreatePage = () => {
+  const navigate = useNavigate()
 
-const ReviewCreatePage = () => {
   const { data: allUsers } = useGetAllUser()
   const { mutate: createReview } = useCreateReview()
 
-  const handleButtonClick = () => {
-    createReview(surveyDummy, {
+  const [reviewStep, setReviewStep] = useState(1)
+
+  const methods = useForm<Review>({
+    defaultValues: {
+      nonResponserIdList: allUsers,
+    },
+  })
+
+  const validateResponserIdList = (
+    responserIdList: Review['responserIdList'],
+  ) => {
+    if (!responserIdList.length) {
+      methods.setError('responserIdList', {
+        type: 'required',
+        message: '응답자를 선택해주세요.',
+      })
+
+      return false
+    }
+
+    return true
+  }
+
+  const handleCreateReview = () => {
+    const responserIdList = methods.getValues('responserIdList')
+
+    if (!validateResponserIdList(responserIdList)) {
+      return
+    }
+
+    const requestData = {
+      title: methods.getValues('title'),
+      description: methods.getValues('description'),
+      type: 'PEER_REVIEW',
+      questions: methods.getValues('questions'),
+      responserIdList: methods.getValues('responserIdList').map(({ id }) => id),
+    } as const
+
+    createReview(requestData, {
       onSuccess: ({ data }) => {
         console.log(data)
+        navigate('/')
       },
     })
   }
 
-  console.log(allUsers)
-
   return (
-    <div>
-      <h1>리뷰 생성 페이지</h1>
-      <button className="btn" onClick={handleButtonClick}>
-        리뷰 생성
+    <div className="flex min-h-screen flex-col">
+      <Header />
+
+      <button
+        onClick={() => {
+          reviewStep > 1 && setReviewStep(reviewStep - 1)
+        }}
+        type="button"
+        className="btn w-fit self-center bg-pink-300"
+      >
+        이전 (임시 버튼)
       </button>
+
+      <FormProvider {...methods}>
+        {(() => {
+          switch (reviewStep) {
+            case 1:
+              return <ReviewEntry setReviewStep={setReviewStep} />
+
+            case 2:
+              return <ReviewQuestionAdder setReviewStep={setReviewStep} />
+
+            case 3:
+              return <ResponserSelect handleClickButton={handleCreateReview} />
+
+            default:
+              return null
+          }
+        })()}
+      </FormProvider>
     </div>
   )
 }
