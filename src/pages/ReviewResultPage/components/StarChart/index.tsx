@@ -11,19 +11,10 @@ const StarChart = ({ answer }: StarChartProps) => {
     let totalScore = average
 
     return Array.from({ length: 5 }, () => {
-      if (totalScore >= 1) {
-        totalScore -= 1
+      const point = Math.min(totalScore, 1)
+      totalScore = Math.max(0, totalScore - 1)
 
-        return SIZE
-      }
-      if (totalScore > 0) {
-        const point = totalScore
-        totalScore = 0
-
-        return SIZE * point
-      }
-
-      return 0
+      return SIZE * point
     })
   }
 
