@@ -58,18 +58,20 @@ const QuestionGroup = ({
 
     return (
       <>
-        <h2 className="flex h-[1.375rem] w-[3rem] items-center justify-center bg-gray-300 text-sm text-white">
-          {value?.name}
-        </h2>
-        {filteredAnswers.map((value) => (
-          <div className="flex" key={nanoid()}>
-            <BasicProfileIcon />
-            <p className="ml-[1.31rem] text-sm">{value.userName}</p>
-            <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
-              {value.value}
-            </p>
-          </div>
-        ))}
+        <div>
+          <h2 className="mb-[0.81rem] h-[1.375rem] w-[3rem] items-center justify-center bg-gray-300 text-sm text-white">
+            {value?.name}
+          </h2>
+        </div>
+        <div className="flex">
+          {filteredAnswers.map((value) => (
+            <div className="flex w-3/6 gap-[0.31rem]" key={nanoid()}>
+              <BasicProfileIcon />
+              <p className="text-sm">{value.userName}</p>
+              <p className="text-sm">{value.value}</p>
+            </div>
+          ))}
+        </div>
       </>
     )
   }
