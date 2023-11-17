@@ -3,7 +3,7 @@ import apiClient from '@/apis/apiClient'
 
 //NOTE - 수신자별 응답 결과 단일 조회
 
-interface Response {
+export interface Response {
   success: boolean
   data: Data[]
 }

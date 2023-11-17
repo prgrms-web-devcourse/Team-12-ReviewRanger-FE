@@ -12,6 +12,10 @@ export const manageHandlers = [
     return res(ctx.status(200), ctx.json(SINGLE_RECIPIENT_ANSWER))
   }),
 
+  rest.get(`/reviewed-targets/:id/responser`, async (_, res, ctx) => {
+    return res(ctx.status(200), ctx.json(SINGLE_RECIPIENT_ANSWER))
+  }),
+
   rest.get('/reviews/:reviewId', async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(SINGLE_RECIPIENT_QUESTION))
   }),

@@ -54,7 +54,7 @@ const ReviewDetailAccordion = ({
               )}
             />
           ))}
-          <div className="flex justify-end">
+          <div className="flex h-auto justify-end">
             <button className="btn h-[40px] w-[100px] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
               미리 보기
             </button>

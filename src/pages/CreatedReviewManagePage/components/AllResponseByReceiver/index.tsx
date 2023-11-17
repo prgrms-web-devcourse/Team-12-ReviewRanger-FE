@@ -61,7 +61,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
                 (value) => value.responserCount,
               )}
             />
-            <Suspense fallback={<div>홀호</div>}>
+            <Suspense fallback={<div className="spinner"></div>}>
               <ReviewDetailAccordion
                 reviewId={surveyId}
                 receiverId={selectedUser.id}
