@@ -53,7 +53,7 @@ const QuestionGroup = ({
 
   const renderHexaStat = (value: Answer) => {
     const filteredAnswers = answers.filter(
-      (answer) => answer?.name === value.name,
+      (answer) => answer.name === value.name,
     )
 
     return (
@@ -67,8 +67,8 @@ const QuestionGroup = ({
           {filteredAnswers.map((value) => (
             <div className="flex w-3/6 flex-wrap gap-[0.31rem]" key={nanoid()}>
               <BasicProfileIcon />
-              <p className="text-sm">{value.userName}</p>
-              <p className="text-sm">{value.value}</p>
+              <p className="text-sm">{value?.userName}</p>
+              <p className="text-sm">{value?.value}</p>
             </div>
           ))}
         </div>
@@ -129,7 +129,7 @@ const QuestionGroup = ({
               <div className="mr-[0.62rem] flex items-end justify-end">
                 <IconButton
                   disabled
-                  className="m-0 h-[1.875rem] w-[5rem] rounded-md bg-[#636363] text-sm"
+                  className="m-0 h-[1.875rem] w-[5rem] rounded-md border-0 bg-gray-200 text-sm"
                   text="정제"
                 >
                   <FilterReplyIcon className="h-[1rem] w-[1rem] fill-white stroke-black dark:fill-black dark:stroke-white" />
