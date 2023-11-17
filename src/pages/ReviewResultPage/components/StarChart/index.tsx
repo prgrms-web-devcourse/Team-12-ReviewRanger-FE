@@ -22,7 +22,7 @@ const StarChart = ({ answer }: StarChartProps) => {
   const fillWidthList = calculateFillWidthList(average)
 
   return (
-    <div className="mx-auto flex items-center gap-2 md:gap-4">
+    <div className="mx-auto flex flex-wrap items-center gap-2 md:gap-4">
       {ID_LIST.map((id, index) => {
         return (
           <svg
@@ -45,7 +45,7 @@ const StarChart = ({ answer }: StarChartProps) => {
           </svg>
         )
       })}
-      <p className="text-sm text-gray-200 md:text-lg">
+      <p className="text-sm dark:text-white md:text-lg">
         {average.toFixed(2)} 점
       </p>
     </div>
