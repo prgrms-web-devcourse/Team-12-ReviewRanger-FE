@@ -17,7 +17,12 @@ const ReviewReplyPage = () => {
     defaultValues: {
       id: reviewId,
       nonReceiverList: receivers,
-      // replyComplete: Array(reviewData.questions.length).fill(false),
+      replyComplete: receivers.map(({ receiverId }) => {
+        return {
+          receiverId,
+          complete: Array(reviewData.questions.length).fill(false),
+        }
+      }),
     },
   })
 

@@ -17,9 +17,15 @@ interface User {
   name: string
 }
 
+interface ReplyComplete {
+  receiverId: number
+  complete: boolean[]
+}
+
 export interface ReviewReplyType {
   id: number
   replyTargets: ReplyTarget[]
   receiverList: User[]
   nonReceiverList: User[]
+  replyComplete: ReplyComplete[]
 }

@@ -1,4 +1,6 @@
+import { useFormContext } from 'react-hook-form'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
+import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 import { ReplyText, ReplyChoice } from '../ReplyCategory'
 
 interface QuestionsProps {
@@ -7,7 +9,8 @@ interface QuestionsProps {
   receiverIndex: number
 }
 
-type RegisterTargets = `replyTargets.${number}.replies.${number}`
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+type ReplyCompletePath = `replyComplete.${number}.complete.${number}`
 
 const Questions = ({
   question,
@@ -15,11 +18,21 @@ const Questions = ({
   receiverIndex,
 }: QuestionsProps) => {
   const { title, description, type, questionOptions, isRequired } = question
+  const { setValue } = useFormContext<ReviewReplyType>()
 
-  const registerPath: RegisterTargets = `replyTargets.${receiverIndex}.replies.${questionIndex}`
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
+  const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${questionIndex}`
+
+  const handleCheckReplyText = ({ text }: { text: string }) => {
+    if (text.trim().length > 0) {
+      setValue(replyCompletePath, true)
+    } else {
+      setValue(replyCompletePath, false)
+    }
+  }
 
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className={`flex flex-col gap-2.5`}>
       <div className="flex justify-between">
         <h2 className="text-lg dark:text-white">{title}</h2>
         {isRequired && (
@@ -29,7 +42,14 @@ const Questions = ({
         )}
       </div>
       <p className="text-sm text-gray-300 dark:text-gray-400">{description}</p>
-      {type === 'SUBJECTIVE' && <ReplyText registerPath={registerPath} />}
+      {type === 'SUBJECTIVE' && (
+        <ReplyText
+          registerPath={registerPath}
+          receiverIndex={receiverIndex}
+          questionIndex={questionIndex}
+          handleCheckReply={handleCheckReplyText}
+        />
+      )}
       {type === 'SINGLE_CHOICE' && (
         <ReplyChoice options={questionOptions} type="MULTIPLE_CHOICE" />
       )}
