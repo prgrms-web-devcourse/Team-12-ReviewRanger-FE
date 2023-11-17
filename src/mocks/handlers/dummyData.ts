@@ -313,8 +313,8 @@ export const REVIEW_RESULT_QNA = [
     questionId: 5,
     finalQuestionType: 'RATING',
     questionTitle: '별점 질문 제목이에요!',
-    answerIdList: [18, 19, 20, 21, 22],
-    answers: [5.0, 4.0, 3.0, 2.0, 1.0],
+    answerIdList: [18, 19, 20, 21, 22, 29, 30, 31],
+    answers: [5.0, 2.0, 2.0, 2.0, 1.0, 3.0, 3.0, 3.0],
   },
   {
     questionId: 6,
