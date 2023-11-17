@@ -25,7 +25,7 @@ const ReviewDetailAccordion = ({
 
   //NOTE - 전체 몇 명이 응답했는지 여부
   const responserCount = new Set(
-    responseByReceiver.map((data) => data.receiver?.id.toString()),
+    responseByReceiver.map((data) => data.responser?.id.toString()),
   )
 
   return (

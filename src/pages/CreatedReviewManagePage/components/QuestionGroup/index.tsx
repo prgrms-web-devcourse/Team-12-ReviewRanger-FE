@@ -65,7 +65,7 @@ const QuestionGroup = ({
         </div>
         <div className="flex">
           {filteredAnswers.map((value) => (
-            <div className="flex w-3/6 gap-[0.31rem]" key={nanoid()}>
+            <div className="flex w-3/6 flex-wrap gap-[0.31rem]" key={nanoid()}>
               <BasicProfileIcon />
               <p className="text-sm">{value.userName}</p>
               <p className="text-sm">{value.value}</p>
