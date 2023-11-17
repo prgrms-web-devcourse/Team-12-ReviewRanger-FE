@@ -1,5 +1,6 @@
 import type { ChartData, ChartOptions } from 'chart.js'
 import { Radar } from 'react-chartjs-2'
+import { useDarkMode } from '@/hooks'
 
 interface RadarChartProps {
   answers: {
@@ -9,6 +10,8 @@ interface RadarChartProps {
 }
 
 const RadarChart = ({ answers }: RadarChartProps) => {
+  const { darkMode } = useDarkMode()
+
   const labels = answers.map((answer) => answer.statName)
   const data = answers.map((answer) => answer.statScore)
 
@@ -28,11 +31,6 @@ const RadarChart = ({ answers }: RadarChartProps) => {
   const radarOptions: ChartOptions<'radar'> = {
     scales: {
       r: {
-        // NOTE: 거미줄 일직선
-        // angleLines: {
-        //   display: false,
-        //   color: 'rgba(0, 0, 0, 0.5)',
-        // },
         ticks: {
           stepSize: 10,
           count: 4,
@@ -40,8 +38,15 @@ const RadarChart = ({ answers }: RadarChartProps) => {
         },
         pointLabels: {
           font: {
-            size: 14,
+            size: 12,
           },
+          color: darkMode ? '#fff' : '#000',
+        },
+        grid: {
+          color: darkMode ? '#636363' : '#BABABA',
+        },
+        angleLines: {
+          color: darkMode ? '#454545' : '#DBDBDB',
         },
       },
     },
@@ -62,11 +67,9 @@ const RadarChart = ({ answers }: RadarChartProps) => {
   }
 
   return (
-    <>
-      <div className="mx-auto w-fit max-w-full">
-        <Radar data={radarData} options={radarOptions} />
-      </div>
-    </>
+    <div className="mx-auto w-fit max-w-full">
+      <Radar data={radarData} options={radarOptions} />
+    </div>
   )
 }
 

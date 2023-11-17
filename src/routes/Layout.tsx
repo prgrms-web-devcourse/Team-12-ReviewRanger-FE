@@ -1,6 +1,9 @@
 import { Outlet } from 'react-router-dom'
+import { useDarkMode } from '@/hooks'
 
 const Layout = () => {
+  const { toggle } = useDarkMode()
+
   return (
     <>
       <div className="bg-white dark:bg-black">
@@ -10,10 +13,8 @@ const Layout = () => {
       </div>
 
       <button
-        className="btn fixed bottom-10  right-20 bg-pink-800 text-white"
-        onClick={() => {
-          document.documentElement.classList.toggle('dark')
-        }}
+        className="btn fixed bottom-10 right-20 bg-pink-800 text-white"
+        onClick={toggle}
       >
         토글
       </button>

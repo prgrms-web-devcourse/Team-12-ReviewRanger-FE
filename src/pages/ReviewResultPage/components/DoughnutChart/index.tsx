@@ -1,11 +1,14 @@
 import type { ChartData, ChartOptions } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
+import { useDarkMode } from '@/hooks'
 
 interface DoughnutChartProps {
   answers: string[]
 }
 
 const DoughnutChart = ({ answers }: DoughnutChartProps) => {
+  const { darkMode } = useDarkMode()
+
   const answerMap = new Map<string, number>()
 
   answers.forEach((answer) => {
@@ -46,8 +49,9 @@ const DoughnutChart = ({ answers }: DoughnutChartProps) => {
         labels: {
           padding: 20,
           font: {
-            size: 14,
+            size: 12,
           },
+          color: darkMode ? '#fff' : '#000',
           usePointStyle: true,
         },
       },
