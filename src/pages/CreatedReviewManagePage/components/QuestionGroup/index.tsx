@@ -42,9 +42,12 @@ const QuestionGroup = ({
   const renderStarRating = (value: Answer) => (
     <div>
       <h3 className="flex">
-        <BasicProfileIcon /> {value.userName}
+        <BasicProfileIcon />
+        <p className="ml-[1.31rem] text-sm">{value.userName}</p>
       </h3>
-      <StarRatingList rate={Number(value.value)} fixed={true} />
+      <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
+        <StarRatingList rate={Number(value.value)} fixed={true} />
+      </p>
     </div>
   )
 
@@ -61,8 +64,10 @@ const QuestionGroup = ({
         {filteredAnswers.map((value) => (
           <div className="flex" key={nanoid()}>
             <BasicProfileIcon />
-            <p>{value.userName}</p>
-            <p>{value.value}</p>
+            <p className="ml-[1.31rem] text-sm">{value.userName}</p>
+            <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
+              {value.value}
+            </p>
           </div>
         ))}
       </>
@@ -71,11 +76,13 @@ const QuestionGroup = ({
 
   const renderDefault = (value: Answer) => (
     <>
-      <h3 className="flex">
+      <h3 className="flex items-center ">
         <BasicProfileIcon />
-        {value?.userName}
+        <p className="ml-[1.31rem] text-sm">{value?.userName}</p>
       </h3>
-      <p className="leading-5">{value?.value}</p>
+      <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
+        {value?.value}
+      </p>
     </>
   )
 
@@ -120,7 +127,7 @@ const QuestionGroup = ({
               <div className="mr-[0.62rem] flex items-end justify-end">
                 <IconButton
                   disabled
-                  className=" m-0 h-[1.875rem] w-[5rem] rounded-md bg-gray-400 text-sm"
+                  className="m-0 h-[1.875rem] w-[5rem] rounded-md bg-[#636363] text-sm"
                   text="정제"
                 >
                   <FilterReplyIcon className="h-[1rem] w-[1rem] fill-white stroke-black dark:fill-black dark:stroke-white" />
