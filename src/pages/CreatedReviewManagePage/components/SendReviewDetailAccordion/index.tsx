@@ -16,6 +16,9 @@ const SendReviewDetailAccordion = ({
   const { data: getResponseByResponser } = useGetResponseByResponser({
     id,
   }).data
+
+  //NOTE - 작성자별 상세 보기에서 나오는 부분 구현 필요
+  console.log(getResponseByResponser, getReviewQuestion)
 }
 
 export default SendReviewDetailAccordion
