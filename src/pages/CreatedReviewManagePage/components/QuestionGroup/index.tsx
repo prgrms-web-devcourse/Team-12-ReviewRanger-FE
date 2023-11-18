@@ -129,7 +129,7 @@ const QuestionGroup = ({
               <div className="mr-[0.62rem] flex items-end justify-end">
                 <IconButton
                   disabled
-                  className="m-0 h-[1.875rem] w-[5rem] rounded-md border-0 bg-gray-200 text-sm"
+                  className="0m-0 h-[1.875rem] w-[5rem] rounded-md border-0 bg-gray-200 text-sm text-black dark:text-white"
                   text="정제"
                 >
                   <FilterReplyIcon className="h-[1rem] w-[1rem] fill-white stroke-black dark:fill-black dark:stroke-white" />
