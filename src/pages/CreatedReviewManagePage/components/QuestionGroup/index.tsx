@@ -29,8 +29,8 @@ interface Answer {
 
 const renderStarRating = (value: Answer) => (
   <div>
-    <h3 className="flex">
-      <BasicProfileIcon />
+    <h3 className="flex items-center">
+      <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
       <p className="ml-[1.31rem] text-sm">{value.userName}</p>
     </h3>
     <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
@@ -45,14 +45,14 @@ const renderHexaStat = (value: Answer, answers: Answer[]) => {
   return (
     <>
       <div>
-        <h2 className="mb-[0.81rem] h-[1.375rem] w-[3rem] items-center justify-center bg-gray-300 text-sm text-white">
+        <h2 className="mb-[0.81rem] flex h-[1.375rem] w-[3rem] items-center justify-center bg-gray-300 text-sm text-white">
           {value?.name}
         </h2>
       </div>
       <div className="flex">
         {filteredAnswers.map((value) => (
           <div className="flex w-3/6 flex-wrap gap-[0.31rem]" key={nanoid()}>
-            <BasicProfileIcon />
+            <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
             <p className="text-sm">{value?.userName}</p>
             <p className="text-sm">{`${value?.value}점`}</p>
           </div>
@@ -65,7 +65,7 @@ const renderHexaStat = (value: Answer, answers: Answer[]) => {
 const renderDefault = (value: Answer) => (
   <>
     <h3 className="flex items-center ">
-      <BasicProfileIcon />
+      <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
       <p className="ml-[1.31rem] text-sm">{value?.userName}</p>
     </h3>
     <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
@@ -99,7 +99,7 @@ const renderArticle = (
         <div className="mr-[0.62rem] flex items-end justify-end">
           <IconButton
             disabled
-            className="0m-0 h-[1.875rem] w-[5rem] rounded-md bg-gray-200 text-sm text-black dark:text-white"
+            className="h-[1.875rem] w-[5rem] rounded-md border-0 bg-gray-200 text-sm text-black "
             text="정제"
           >
             <FilterReplyIcon className="h-[1rem] w-[1rem] fill-white stroke-black dark:fill-black dark:stroke-white" />

@@ -44,7 +44,7 @@ const UserList = ({
             {hasDrawer ? (
               <label
                 htmlFor="drawer-bottom"
-                className="block cursor-pointer hover:bg-main-hover-yellow"
+                className="block cursor-pointer hover:bg-main-hover-yellow hover:dark:bg-main-red-100"
               >
                 <div
                   onClick={() => handleClick(user.id, user.name)}
