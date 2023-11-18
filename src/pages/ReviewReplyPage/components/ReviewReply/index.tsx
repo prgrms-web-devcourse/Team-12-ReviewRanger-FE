@@ -92,7 +92,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
                       ? // TODO: bg-main-yellow -> bg-yellow-200으로 변경하기
                         'border-black bg-main-yellow text-black dark:border-white dark:bg-main-red-300 dark:text-white'
                       : 'border-gray-100 bg-white text-gray-300 dark:border-gray-300 dark:bg-main-red-200 dark:text-gray-100'
-                  } ${complete && 'border-sub-green'}`}
+                  } ${complete && 'border-sub-green dark:border-sub-green'}`}
                 >
                   {index + 1}
                 </li>
