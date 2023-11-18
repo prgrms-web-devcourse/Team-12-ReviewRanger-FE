@@ -101,7 +101,7 @@ const QuestionGroup = ({
         className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center bg-white text-lg dark:bg-black"
       >
         <div className="flex items-center justify-between">
-          <h1 className="flex items-center pl-[0.63rem]">
+          <h1 className="flex h-[2.75rem] items-center pl-[0.63rem]">
             {QUESTION_TYPE[questionType]}
             <span className="ml-[0.63rem]"> {questionTitle}</span>
           </h1>

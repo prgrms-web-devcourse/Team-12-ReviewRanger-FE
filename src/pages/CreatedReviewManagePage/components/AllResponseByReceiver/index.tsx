@@ -55,6 +55,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
               id="drawer-bottom"
             />
             <UserList
+              hasDrawer
               users={findUserBySearchKeyword}
               onClickUser={({ id, name }) => setSelectedUser({ id, name })}
               responserCount={filteredUsers.map(
