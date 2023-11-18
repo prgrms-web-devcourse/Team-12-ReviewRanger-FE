@@ -125,9 +125,12 @@ const QuestionGroup = ({
         className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center bg-white text-lg dark:bg-black"
       >
         <div className="flex items-center justify-between">
-          <h1 className="flex h-[2.75rem] items-center pl-[0.63rem]">
+          <h1 className="flex h-[2.75rem] items-center pl-[0.63rem] text-lg md:text-xl">
             {QUESTION_TYPE[questionType]}
-            <span className="ml-[0.63rem]"> {questionTitle}</span>
+            <span className="ml-[0.63rem] text-lg md:text-xl">
+              {' '}
+              {questionTitle}
+            </span>
           </h1>
           <CloseDropDownIcon className="fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
         </div>
