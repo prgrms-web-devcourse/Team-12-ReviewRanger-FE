@@ -136,17 +136,17 @@ const QuestionGroup = ({
       </label>
 
       {questionType !== 'HEXASTAT' &&
-        answers.map((value, index) =>
+        answers?.map((value, index) =>
           renderArticle(value, answers, questionType, index),
         )}
 
       {questionType === 'HEXASTAT' &&
         answers
-          .filter(
+          ?.filter(
             (answer, index, self) =>
-              index === self.findIndex((a) => a.name === answer.name),
+              index === self?.findIndex((a) => a.name === answer.name),
           )
-          .map((value) => renderArticle(value, answers, questionType))}
+          ?.map((value) => renderArticle(value, answers, questionType))}
     </section>
   )
 }

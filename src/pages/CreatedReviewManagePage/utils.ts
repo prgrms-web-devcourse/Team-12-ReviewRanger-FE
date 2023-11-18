@@ -35,7 +35,7 @@ interface Reply {
 
 const getTextAnswer = (questionId: string, reply: Data[]) => {
   const res = reply
-    .map(
+    ?.map(
       (data) =>
         data?.replies
           ?.filter(
@@ -58,7 +58,7 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
 
 const getRatingAnswer = (questionId: string, reply: Data[]) => {
   return reply
-    .map(
+    ?.map(
       (data) =>
         data?.replies
           ?.filter(

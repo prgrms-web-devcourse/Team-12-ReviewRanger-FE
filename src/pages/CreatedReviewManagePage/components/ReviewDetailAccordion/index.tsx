@@ -25,7 +25,7 @@ const ReviewDetailAccordion = ({
 
   //NOTE - 전체 몇 명이 응답했는지 여부
   const responserCount = new Set(
-    responseByReceiver.map((data) => data.responser?.id.toString()),
+    responseByReceiver?.map((data) => data?.responser?.id.toString()),
   )
 
   return (
@@ -40,16 +40,16 @@ const ReviewDetailAccordion = ({
         <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
           <ProfileGroup
             name={receiverName}
-            responserSize={responserCount.size}
+            responserSize={responserCount?.size}
           />
-          {getReviewQuestion.questions.map((question) => (
+          {getReviewQuestion?.questions?.map((question) => (
             <QuestionGroup
-              questionType={question.type}
-              questionTitle={question.title}
-              key={question.id}
+              questionType={question?.type}
+              questionTitle={question?.title}
+              key={question?.id}
               answers={getAnswer(
-                question.type,
-                question.id,
+                question?.type,
+                question?.id,
                 responseByReceiver,
               )}
             />
