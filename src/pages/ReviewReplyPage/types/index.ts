@@ -1,5 +1,6 @@
 interface Reply {
   questionId: number
+  isRequired: boolean
   answerChoice: number | null
   answerText: string | null
   answerRating: number | null
