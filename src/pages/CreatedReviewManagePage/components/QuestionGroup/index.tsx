@@ -118,15 +118,11 @@ const QuestionGroup = ({
   const [inputId] = useState(nanoid())
 
   return (
-    <section className="border-b-[1px] border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
-      <input
-        type="checkbox"
-        id={inputId}
-        className="accordion-toggle border-b-0"
-      />
+    <section className=" border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
+      <input type="checkbox" id={inputId} className="accordion-toggle " />
       <label
         htmlFor={inputId}
-        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center border-b-0 border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
+        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center border-b-[1px] border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
       >
         <div className="flex items-center justify-between">
           <h1 className="flex h-[2.75rem] items-center pl-[0.63rem] text-lg md:text-xl">
