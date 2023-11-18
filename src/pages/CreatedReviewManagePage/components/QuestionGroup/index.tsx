@@ -81,7 +81,7 @@ const renderArticle = (
   index?: number,
 ) => (
   <article
-    className="m-t-[1.25rem] accordion-content border-gray-200 text-black dark:text-white"
+    className="m-t-[1.25rem] accordion-content text-black dark:text-white"
     key={nanoid()}
   >
     <div className="accordion-content ml-[0.63rem]">
@@ -99,7 +99,7 @@ const renderArticle = (
         <div className="mr-[0.62rem] flex items-end justify-end">
           <IconButton
             disabled
-            className="0m-0 h-[1.875rem] w-[5rem] rounded-md border-0 bg-gray-200 text-sm text-black dark:text-white"
+            className="0m-0 h-[1.875rem] w-[5rem] rounded-md bg-gray-200 text-sm text-black dark:text-white"
             text="정제"
           >
             <FilterReplyIcon className="h-[1rem] w-[1rem] fill-white stroke-black dark:fill-black dark:stroke-white" />
@@ -118,11 +118,15 @@ const QuestionGroup = ({
   const [inputId] = useState(nanoid())
 
   return (
-    <section className="border-b-0 border-l-[1px] border-r-[1px] border-t border-gray-200 bg-white dark:bg-black">
-      <input type="checkbox" id={inputId} className="accordion-toggle" />
+    <section className="border-b-[1px] border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
+      <input
+        type="checkbox"
+        id={inputId}
+        className="accordion-toggle border-b-0"
+      />
       <label
         htmlFor={inputId}
-        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center bg-white text-lg dark:bg-black"
+        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center border-b-0 border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
       >
         <div className="flex items-center justify-between">
           <h1 className="flex h-[2.75rem] items-center pl-[0.63rem] text-lg md:text-xl">
