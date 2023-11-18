@@ -128,7 +128,6 @@ const QuestionGroup = ({
           <h1 className="flex h-[2.75rem] items-center pl-[0.63rem] text-lg md:text-xl">
             {QUESTION_TYPE[questionType]}
             <span className="ml-[0.63rem] text-lg md:text-xl">
-              {' '}
               {questionTitle}
             </span>
           </h1>
