@@ -57,13 +57,14 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       const replyTarget = {
         receiverId: receiverId,
         responserId: userId,
-        replies: questions.map(({ id, type }) => {
+        replies: questions.map(({ id, type, isRequired }) => {
           return {
             questionId: id,
+            isRequired,
             answerText: type === 'SUBJECTIVE' ? '' : null,
             answerChoice: [
-              'MULTIPLE_CHOICE',
               'SINGLE_CHOICE',
+              'MULTIPLE_CHOICE',
               'DROPDOWN',
             ].includes(type)
               ? 0

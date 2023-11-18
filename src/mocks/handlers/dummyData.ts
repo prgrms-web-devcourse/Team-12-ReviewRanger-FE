@@ -271,6 +271,35 @@ export const REVIEW_QUESTION = {
         isRequired: true,
         questionOptions: [],
       },
+      {
+        id: 4,
+        title: '너와 함께하고 있는 포켓몬은?',
+        description: '',
+        type: 'MULTIPLE_CHOICE',
+        isRequired: true,
+        questionOptions: [
+          {
+            optionId: 1,
+            optionName: '리자몽',
+          },
+          {
+            optionId: 2,
+            optionName: '이상해씨',
+          },
+          {
+            optionId: 3,
+            optionName: '닥트리오',
+          },
+          {
+            optionId: 4,
+            optionName: '피카츄',
+          },
+          {
+            optionId: 5,
+            optionName: '뮤츠',
+          },
+        ],
+      },
     ],
     receivers: [
       {

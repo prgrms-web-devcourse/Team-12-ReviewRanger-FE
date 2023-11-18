@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
 import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
-import { ReplyText, ReplyChoice } from '../ReplyCategory'
+import { ReplyText, ReplyChoice, ReplyChoices } from '../ReplyCategory'
 
 interface QuestionsProps {
   question: Question
@@ -31,6 +31,14 @@ const Questions = ({
     }
   }
 
+  const handleChangeReplyChoice = ({ choice }: { choice: number }) => {
+    setValue(replyCompletePath, choice !== 0)
+  }
+
+  const handleChangeReplyChoices = ({ choices }: { choices: number[] }) => {
+    setValue(replyCompletePath, choices.length > 0)
+  }
+
   return (
     <div className={`flex flex-col gap-2.5`}>
       <div className="flex justify-between">
@@ -45,13 +53,26 @@ const Questions = ({
       {type === 'SUBJECTIVE' && (
         <ReplyText
           registerPath={registerPath}
-          receiverIndex={receiverIndex}
-          questionIndex={questionIndex}
           handleCheckReply={handleCheckReplyText}
         />
       )}
       {type === 'SINGLE_CHOICE' && (
-        <ReplyChoice options={questionOptions} type="MULTIPLE_CHOICE" />
+        <ReplyChoice
+          registerPath={registerPath}
+          options={questionOptions}
+          receiverIndex={receiverIndex}
+          questionIndex={questionIndex}
+          handleCheckReply={handleChangeReplyChoice}
+        />
+      )}
+      {(type === 'MULTIPLE_CHOICE' || type === 'DROPDOWN') && (
+        <ReplyChoices
+          registerPath={registerPath}
+          options={questionOptions}
+          receiverIndex={receiverIndex}
+          questionIndex={questionIndex}
+          handleCheckReply={handleChangeReplyChoices}
+        />
       )}
     </div>
   )

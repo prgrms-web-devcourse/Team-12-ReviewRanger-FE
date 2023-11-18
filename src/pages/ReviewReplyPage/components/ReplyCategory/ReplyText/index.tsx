@@ -4,8 +4,6 @@ import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyTextProps {
   registerPath: `replyTargets.${number}.replies.${number}`
-  receiverIndex: number
-  questionIndex: number
   handleCheckReply: ({ text }: { text: string }) => void
 }
 
@@ -32,7 +30,6 @@ const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
         placeholder="답변을 입력해주세요."
         maxLength={500}
         {...register(`${registerPath}.answerText`, {
-          required: '내용을 입력해주세요.',
           setValueAs: (value) => value.trim(),
           onChange: handleChangeReplyText,
           onBlur: () => handleCheckReply({ text }),
