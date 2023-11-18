@@ -26,7 +26,7 @@ const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
     <div className="relative flex flex-col">
       <textarea
         value={text}
-        className="h-80 rounded-md border border-gray-200 p-5 text-sm focus:outline-none dark:bg-main-red-200 dark:text-white"
+        className="h-80 rounded-md border border-gray-200 p-5 text-sm leading-5 focus:outline-none dark:bg-main-red-200 dark:text-white"
         placeholder="답변을 입력해주세요."
         maxLength={500}
         {...register(`${registerPath}.answerText`, {
