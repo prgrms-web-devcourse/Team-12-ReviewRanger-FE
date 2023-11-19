@@ -76,7 +76,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
               </li>
             ))}
           </ul>
-          <ul className="flex gap-5">
+          <ul className="flex gap-5 overflow-x-auto">
             {questions.map((question, index) => {
               const complete = getValues(
                 `replyComplete.${selectedReceiverIndex}.complete.${index}`,
@@ -87,7 +87,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
                   value={question.id}
                   onClick={handleClickQuestion}
                   key={question.id}
-                  className={`flex h-9 w-9 items-center justify-center rounded-full border text-sm ${
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm ${
                     index === selectedQuestionIndex
                       ? // TODO: bg-main-yellow -> bg-yellow-200으로 변경하기
                         'border-black bg-main-yellow text-black dark:border-white dark:bg-main-red-300 dark:text-white'
