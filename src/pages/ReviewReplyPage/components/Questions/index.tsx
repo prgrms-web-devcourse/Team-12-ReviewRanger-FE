@@ -49,23 +49,26 @@ const Questions = ({
           </h3>
         )}
       </div>
-      <p className="text-sm text-gray-300 dark:text-gray-400">{description}</p>
+      <p className="min-h-[2.5rem] text-sm text-gray-300 dark:text-gray-400">
+        {description}
+      </p>
       {type === 'SUBJECTIVE' && (
         <ReplyText
           registerPath={registerPath}
           handleCheckReply={handleCheckReplyText}
         />
       )}
-      {type === 'SINGLE_CHOICE' && (
+      {(type === 'SINGLE_CHOICE' || type === 'DROPDOWN') && (
         <ReplyChoice
           registerPath={registerPath}
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
+          type={type}
           handleCheckReply={handleChangeReplyChoice}
         />
       )}
-      {(type === 'MULTIPLE_CHOICE' || type === 'DROPDOWN') && (
+      {type === 'MULTIPLE_CHOICE' && (
         <ReplyChoices
           registerPath={registerPath}
           options={questionOptions}

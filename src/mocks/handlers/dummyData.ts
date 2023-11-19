@@ -300,6 +300,31 @@ export const REVIEW_QUESTION = {
           },
         ],
       },
+      {
+        id: 5,
+        title: '너의 모국은?',
+        description: '이제 너의 국적을 밝힐 시간이야.',
+        type: 'DROPDOWN',
+        isRequired: false,
+        questionOptions: [
+          {
+            optionId: 1,
+            optionName: '일본',
+          },
+          {
+            optionId: 2,
+            optionName: '중국',
+          },
+          {
+            optionId: 3,
+            optionName: '몽골',
+          },
+          {
+            optionId: 4,
+            optionName: '오스트레일리아',
+          },
+        ],
+      },
     ],
     receivers: [
       {
