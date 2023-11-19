@@ -17,7 +17,13 @@ interface Review {
 interface Question {
   id: string
   title: string
-  type: string
+  type:
+    | 'MULTIPLE_CHOICE'
+    | 'SINGLE_CHOICE'
+    | 'SUBJECTIVE'
+    | 'STAR_RATING'
+    | 'DROPDOWN'
+    | 'HEXASTAT'
   isRequired: boolean
   questionOptions: QuestionOption[]
 }
@@ -31,7 +37,7 @@ const useGetReviewQuestion = ({ id }: { id: string }) => {
   const getReviewQuestion = async () => {
     const response = await apiClient.get<Response>(`/reviews/${id}`)
 
-    return response.data.data
+    return response.data
   }
 
   return useSuspenseQuery({
