@@ -325,6 +325,14 @@ export const REVIEW_QUESTION = {
           },
         ],
       },
+      {
+        id: 6,
+        title: '12팀의 프론트엔드 평가는?',
+        description: '당신이 생각했을때 진솔한 답변이 뭐냐고요',
+        type: 'RATING',
+        isRequired: true,
+        questionOptions: [],
+      },
     ],
     receivers: [
       {

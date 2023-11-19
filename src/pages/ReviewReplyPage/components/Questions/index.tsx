@@ -1,7 +1,12 @@
 import { useFormContext } from 'react-hook-form'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
 import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
-import { ReplyText, ReplyChoice, ReplyChoices } from '../ReplyCategory'
+import {
+  ReplyText,
+  ReplyChoice,
+  ReplyChoices,
+  ReplyRating,
+} from '../ReplyCategory'
 
 interface QuestionsProps {
   question: Question
@@ -79,6 +84,7 @@ const Questions = ({
           handleCheckReply={handleChangeReplyChoices}
         />
       )}
+      {type === 'RATING' && <ReplyRating registerPath={registerPath} />}
     </div>
   )
 }
