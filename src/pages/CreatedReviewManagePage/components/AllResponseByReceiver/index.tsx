@@ -44,7 +44,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
               hasDrawer
               users={findUserBySearchKeyword}
               onClickUser={({ id, name }) => setSelectedUser({ id, name })}
-              responserCount={responseByReceiver.receiverResponses.map(
+              responserCount={responseByReceiver?.receiverResponses.map(
                 (value) => value.responserCount,
               )}
             />

@@ -96,13 +96,13 @@ const renderArticle = (
         }
       })()}
       {questionType === 'SUBJECTIVE' && answers.length - 1 === index && (
-        <div className="mr-[0.62rem] flex items-end justify-end">
+        <div className="flex justify-end p-[0.62rem]">
           <IconButton
             disabled
-            className="h-[1.875rem] w-[5rem] rounded-md border-0 bg-gray-200 text-sm text-black "
+            className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
             text="정제"
           >
-            <FilterReplyIcon className="h-[1rem] w-[1rem] fill-white stroke-black dark:fill-black dark:stroke-white" />
+            <FilterReplyIcon className="h-[1rem] w-[1rem] " />
           </IconButton>
         </div>
       )}
