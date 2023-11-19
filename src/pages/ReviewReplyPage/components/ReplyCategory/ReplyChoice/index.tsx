@@ -21,18 +21,15 @@ const ReplyChoice = ({
   type,
   handleCheckReply,
 }: ReplyChoiceProps) => {
+  const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
   const { getValues, setValue, register } = useFormContext<ReviewReplyType>()
 
   const prevSelectedOptions = useMemo(
     () =>
       getValues(`replyTargets.${receiverIndex}.replies`).find(
         (reply) => reply.questionId === questionIndex + 1,
-      )?.answerChoice as number,
+      )?.answerChoice || 0,
     [receiverIndex, questionIndex, getValues],
-  )
-
-  const [selectedOptionId, setSelectedOptionId] = useState<number>(
-    prevSelectedOptions || 0,
   )
 
   useEffect(() => {
@@ -41,7 +38,7 @@ const ReplyChoice = ({
 
   useEffect(() => {
     setSelectedOptionId(prevSelectedOptions)
-  }, [prevSelectedOptions])
+  }, [prevSelectedOptions, questionIndex])
 
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,

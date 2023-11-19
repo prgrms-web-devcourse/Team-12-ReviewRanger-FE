@@ -1,4 +1,4 @@
-import { useState, useEffect, MouseEvent, ReactNode } from 'react'
+import { useState, useEffect, MouseEvent, ReactNode, useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data, Receiver } from '@/apis/hooks/useGetReviewFirst'
@@ -27,6 +27,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
   const [individualReplyCompletes, setIndividualReplyCompletes] = useState<
     boolean[]
   >(Array(receivers.length).fill(false))
+  const [allReplyComplete, setAllReplyComplete] = useState<boolean>(false)
 
   const questionArray = questions.map((question, index) => (
     <Questions
@@ -36,25 +37,28 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
     />
   ))
 
-  useEffect(() => {
-    const individualReviewComplete = !getValues(
-      `replyComplete.${selectedReceiverIndex}`,
-    ).complete.includes(false)
+  const checkReplyComplete = useCallback(async () => {
+    const checkIndividualReplyComplete = getValues(
+      `replyComplete.${selectedReceiverIndex}.complete`,
+    ).every((value) => value)
 
-    if (individualReviewComplete) {
-      setIndividualReplyCompletes((individualReplyCompletes) =>
-        individualReplyCompletes.map((status, index) =>
-          index === selectedReceiverIndex ? true : status,
-        ),
-      )
-    }
-  }, [selectedReceiverIndex, selectedQuestionIndex, getValues])
+    setIndividualReplyCompletes((individualReplyCompletes) =>
+      individualReplyCompletes.map((status, index) =>
+        index === selectedReceiverIndex ? checkIndividualReplyComplete : status,
+      ),
+    )
+  }, [selectedReceiverIndex, getValues])
+
+  useEffect(() => {
+    setAllReplyComplete(individualReplyCompletes.every((value) => value))
+  }, [individualReplyCompletes])
 
   const handleClickReceiver = (e: MouseEvent<HTMLLIElement>) => {
     receivers.forEach((receiver, index) => {
       if (receiver.receiverId === e.currentTarget.value) {
         setSelectedReceiver(receiver)
         setSelectedReceiverIndex(index)
+        checkReplyComplete()
       }
     })
   }
@@ -64,7 +68,39 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
       (question) => question.id === e.currentTarget.value,
     )
     setSelectedQuestionIndex(selectedTarget)
+    checkReplyComplete()
   }
+
+  const handleClickNextButton = () => {
+    checkReplyComplete()
+
+    if (selectedQuestionIndex < questions.length - 1) {
+      setSelectedQuestionIndex((prevQuestion) => prevQuestion + 1)
+
+      return
+    }
+
+    if (selectedReceiverIndex < receivers.length - 1) {
+      const nextReceiver = receivers.find(
+        (_, index) => index === selectedReceiverIndex + 1,
+      )
+
+      if (!nextReceiver) {
+        return
+      }
+
+      setSelectedReceiver(nextReceiver)
+      setSelectedReceiverIndex((prevReceiver) => prevReceiver + 1)
+    } else {
+      const firstReceiver = receivers[0]
+
+      setSelectedReceiver(firstReceiver)
+      setSelectedReceiverIndex(0)
+    }
+    setSelectedQuestionIndex(0)
+  }
+
+  const handleSubmitReply = () => {}
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -127,9 +163,22 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
         {questionArray[selectedQuestionIndex] as ReactNode}
       </div>
       <div className="flex justify-center md:justify-end">
-        <button className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl">
-          다음
-        </button>
+        {allReplyComplete ? (
+          <button
+            onClick={handleSubmitReply}
+            className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl"
+          >
+            답변 제출하기
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={handleClickNextButton}
+            className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl"
+          >
+            다음
+          </button>
+        )}
       </div>
     </div>
   )
