@@ -49,9 +49,11 @@ const Questions = ({
           </h3>
         )}
       </div>
-      <p className="min-h-[2.5rem] text-sm text-gray-300 dark:text-gray-400">
-        {description}
-      </p>
+      {description && (
+        <p className="min-h-[2.5rem] text-sm text-gray-300 dark:text-gray-400">
+          {description}
+        </p>
+      )}
       {type === 'SUBJECTIVE' && (
         <ReplyText
           registerPath={registerPath}

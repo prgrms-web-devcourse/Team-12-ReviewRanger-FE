@@ -35,7 +35,7 @@ const SearchBar = ({
         placeholder={placeholder}
       />
       <button type="reset">
-        <CloseIcon className="h-4 w-4 dark:fill-white" />
+        <CloseIcon className="h-4 w-4 fill-black dark:fill-white" />
       </button>
     </form>
   )
