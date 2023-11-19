@@ -1,4 +1,11 @@
-import { useState, useEffect, MouseEvent, ReactNode, useCallback } from 'react'
+import {
+  useState,
+  useEffect,
+  MouseEvent,
+  ReactNode,
+  useCallback,
+  useMemo,
+} from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data, Receiver } from '@/apis/hooks/useGetReviewFirst'
@@ -12,13 +19,9 @@ interface ReviewReplyProps {
 }
 
 const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
-  const questions = reviewData.questions
-
   const { getValues } = useFormContext<ReviewReplyType>()
-
-  const receivers = getValues('receiverList')
-  const replyTargets = getValues('replyTargets')
-  console.log(replyTargets)
+  const receivers = useMemo(() => getValues('receiverList'), [getValues])
+  const questions = reviewData.questions
 
   const [selectedReceiver, setSelectedReceiver] = useState<Receiver>(
     receivers[0],
