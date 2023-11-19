@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useEffect } from 'react'
+import { useState, MouseEvent, useEffect, useMemo } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import { CheckIcon } from '@/assets/icons'
@@ -19,7 +19,6 @@ const ReplyChoices = ({
   options,
   handleCheckReply,
 }: ReplyChoicesProps) => {
-  const [selectedOptionIds, setSelectedOptionIds] = useState<number[]>([])
   const { getValues, setValue, control } = useFormContext<ReviewReplyType>()
   const { append: appendChoiceReply, remove: removeChoiceReply } =
     useFieldArray({
@@ -27,20 +26,28 @@ const ReplyChoices = ({
       name: `replyTargets.${receiverIndex}.replies`,
     })
 
-  useEffect(() => {
-    handleCheckReply({ choices: selectedOptionIds })
-  }, [selectedOptionIds, handleCheckReply])
-
-  useEffect(() => {
-    setSelectedOptionIds(
+  const prevSelectedOptions = useMemo(
+    () =>
       getValues(`replyTargets.${receiverIndex}.replies`)
         .filter(
           (reply) =>
             reply.questionId === questionIndex + 1 && reply.answerChoice !== 0,
         )
         .map((reply) => reply.answerChoice as number),
-    )
-  }, [receiverIndex, questionIndex, getValues])
+    [receiverIndex, questionIndex, getValues],
+  )
+
+  const [selectedOptionIds, setSelectedOptionIds] = useState<number[]>(
+    prevSelectedOptions || [],
+  )
+
+  useEffect(() => {
+    handleCheckReply({ choices: selectedOptionIds })
+  }, [selectedOptionIds, handleCheckReply])
+
+  useEffect(() => {
+    setSelectedOptionIds(prevSelectedOptions)
+  }, [prevSelectedOptions])
 
   const handleClickOption = (e: MouseEvent<HTMLLIElement>) => {
     const selectedTarget = options.find(

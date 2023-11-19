@@ -1,4 +1,4 @@
-import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
+import { useState, MouseEvent, ChangeEvent, useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import { CheckIcon } from '@/assets/icons'
@@ -21,20 +21,27 @@ const ReplyChoice = ({
   type,
   handleCheckReply,
 }: ReplyChoiceProps) => {
-  const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
   const { getValues, setValue, register } = useFormContext<ReviewReplyType>()
+
+  const prevSelectedOptions = useMemo(
+    () =>
+      getValues(`replyTargets.${receiverIndex}.replies`).find(
+        (reply) => reply.questionId === questionIndex + 1,
+      )?.answerChoice as number,
+    [receiverIndex, questionIndex, getValues],
+  )
+
+  const [selectedOptionId, setSelectedOptionId] = useState<number>(
+    prevSelectedOptions || 0,
+  )
 
   useEffect(() => {
     handleCheckReply({ choice: selectedOptionId })
   }, [selectedOptionId, handleCheckReply])
 
   useEffect(() => {
-    setSelectedOptionId(
-      getValues(`replyTargets.${receiverIndex}.replies`).find(
-        (reply) => reply.questionId === questionIndex + 1,
-      )?.answerChoice as number,
-    )
-  }, [receiverIndex, questionIndex, getValues])
+    setSelectedOptionId(prevSelectedOptions)
+  }, [prevSelectedOptions])
 
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,

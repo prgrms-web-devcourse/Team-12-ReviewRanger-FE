@@ -1,7 +1,7 @@
 import { useState, useEffect, MouseEvent, ReactNode } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
-import { Data } from '@/apis/hooks/useGetReviewFirst'
+import { Data, Receiver } from '@/apis/hooks/useGetReviewFirst'
 import { CheckInTheCircleIcon } from '@/assets/icons'
 import { ReviewReplyType } from '../../types'
 import Questions from '../Questions'
@@ -13,15 +13,20 @@ interface ReviewReplyProps {
 const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
   const questions = reviewData.questions
 
-  const { getValues, setValue } = useFormContext<ReviewReplyType>()
+  const { getValues } = useFormContext<ReviewReplyType>()
 
   const receivers = getValues('receiverList')
   const replyTargets = getValues('replyTargets')
   console.log(replyTargets)
 
-  const [selectedReceiver, setSelectedReceiver] = useState(receivers[0])
-  const [selectedReceiverIndex, setSelectedReceiverIndex] = useState(0)
-  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
+  const [selectedReceiver, setSelectedReceiver] = useState<Receiver>(
+    receivers[0],
+  )
+  const [selectedReceiverIndex, setSelectedReceiverIndex] = useState<number>(0)
+  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0)
+  const [individualReplyCompletes, setIndividualReplyCompletes] = useState<
+    boolean[]
+  >(Array(receivers.length).fill(false))
 
   const questionArray = questions.map((question, index) => (
     <Questions
@@ -37,9 +42,13 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
     ).complete.includes(false)
 
     if (individualReviewComplete) {
-      setValue(`individualReplyComplete.${selectedReceiverIndex}`, true)
+      setIndividualReplyCompletes((individualReplyCompletes) =>
+        individualReplyCompletes.map((status, index) =>
+          index === selectedReceiverIndex ? true : status,
+        ),
+      )
     }
-  }, [selectedReceiverIndex, getValues, setValue])
+  }, [selectedReceiverIndex, selectedQuestionIndex, getValues])
 
   const handleClickReceiver = (e: MouseEvent<HTMLLIElement>) => {
     receivers.forEach((receiver, index) => {
@@ -63,40 +72,34 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
         <h3 className="text-sm text-gray-300 dark:text-gray-400">{`응답자: ${selectedReceiver.name}`}</h3>
         <div className="flex flex-col gap-5">
           <ul className="flex gap-2.5 overflow-x-auto">
-            {receivers.map(({ receiverId, name }, index) => {
-              const individualReviewComplete = getValues(
-                `individualReplyComplete.${index}`,
-              )
-
-              return (
-                <li
-                  value={receiverId}
-                  key={receiverId}
-                  onClick={handleClickReceiver}
-                  className={`flex h-fit shrink-0 items-center justify-center gap-2 rounded-md border px-2 
+            {receivers.map(({ receiverId, name }, index) => (
+              <li
+                value={receiverId}
+                key={receiverId}
+                onClick={handleClickReceiver}
+                className={`flex h-fit shrink-0 items-center justify-center gap-2 rounded-md border px-2 
               py-1.5
               ${
                 selectedReceiver.receiverId === receiverId
                   ? 'border-black bg-main-yellow dark:border-white dark:bg-main-red-300'
                   : 'border-gray-100 bg-white dark:border-gray-300 dark:bg-main-red-200'
-              } ${individualReviewComplete && 'border-sub-green'}`}
-                >
-                  <Profile
-                    name={name}
-                    className={`${
-                      selectedReceiver.name === name
-                        ? 'text-black dark:text-white'
-                        : 'text-gray-300 dark:text-gray-100'
-                    }`}
-                  />
-                  <div className="h-4 w-4">
-                    {individualReviewComplete && (
-                      <CheckInTheCircleIcon className="h-4 w-4 fill-sub-green" />
-                    )}
-                  </div>
-                </li>
-              )
-            })}
+              } ${individualReplyCompletes[index] && 'border-sub-green'}`}
+              >
+                <Profile
+                  name={name}
+                  className={`${
+                    selectedReceiver.name === name
+                      ? 'text-black dark:text-white'
+                      : 'text-gray-300 dark:text-gray-100'
+                  }`}
+                />
+                <div className="h-4 w-4">
+                  {individualReplyCompletes[index] && (
+                    <CheckInTheCircleIcon className="h-4 w-4 fill-sub-green" />
+                  )}
+                </div>
+              </li>
+            ))}
           </ul>
           <ul className="flex gap-5 overflow-x-auto">
             {questions.map((question, index) => {
@@ -111,8 +114,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
                   key={question.id}
                   className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm ${
                     index === selectedQuestionIndex
-                      ? // TODO: bg-main-yellow -> bg-yellow-200으로 변경하기
-                        'border-black bg-main-yellow text-black dark:border-white dark:bg-main-red-300 dark:text-white'
+                      ? 'border-black bg-main-hover-yellow text-black dark:border-white dark:bg-main-red-300 dark:text-white'
                       : 'border-gray-100 bg-white text-gray-300 dark:border-gray-300 dark:bg-main-red-200 dark:text-gray-100'
                   } ${complete && 'border-sub-green dark:border-sub-green'}`}
                 >
