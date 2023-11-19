@@ -6,9 +6,10 @@ import StarRatingList from './StarRatingList'
 
 interface ReplyRatingProps {
   registerPath: `replyTargets.${number}.replies.${number}`
+  handleCheckReply: ({ score }: { score: number }) => void
 }
 
-const ReplyRating = ({ registerPath }: ReplyRatingProps) => {
+const ReplyRating = ({ registerPath, handleCheckReply }: ReplyRatingProps) => {
   const { changeStar, rates, setRates, score } = useStarRate()
   const { setValue, getValues } = useFormContext<ReviewReplyType>()
 
@@ -24,6 +25,10 @@ const ReplyRating = ({ registerPath }: ReplyRatingProps) => {
   useEffect(() => {
     score && setValue(`${registerPath}.answerRating`, score)
   }, [score, registerPath, setValue])
+
+  useEffect(() => {
+    score && handleCheckReply({ score })
+  }, [score, handleCheckReply])
 
   return (
     <div>

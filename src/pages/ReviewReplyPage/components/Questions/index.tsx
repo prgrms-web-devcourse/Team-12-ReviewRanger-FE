@@ -36,12 +36,16 @@ const Questions = ({
     }
   }
 
-  const handleChangeReplyChoice = ({ choice }: { choice: number }) => {
+  const handleCheckReplyChoice = ({ choice }: { choice: number }) => {
     setValue(replyCompletePath, choice !== 0)
   }
 
-  const handleChangeReplyChoices = ({ choices }: { choices: number[] }) => {
+  const handleCheckReplyChoices = ({ choices }: { choices: number[] }) => {
     setValue(replyCompletePath, choices.length > 0)
+  }
+
+  const handleCheckReplyRating = ({ score }: { score: number }) => {
+    setValue(replyCompletePath, score !== 0)
   }
 
   return (
@@ -72,7 +76,7 @@ const Questions = ({
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
           type={type}
-          handleCheckReply={handleChangeReplyChoice}
+          handleCheckReply={handleCheckReplyChoice}
         />
       )}
       {type === 'MULTIPLE_CHOICE' && (
@@ -81,10 +85,15 @@ const Questions = ({
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
-          handleCheckReply={handleChangeReplyChoices}
+          handleCheckReply={handleCheckReplyChoices}
         />
       )}
-      {type === 'RATING' && <ReplyRating registerPath={registerPath} />}
+      {type === 'RATING' && (
+        <ReplyRating
+          registerPath={registerPath}
+          handleCheckReply={handleCheckReplyRating}
+        />
+      )}
     </div>
   )
 }
