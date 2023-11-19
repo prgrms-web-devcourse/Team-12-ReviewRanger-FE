@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
-import { useGetReviewFirst } from '@/apis/hooks'
+import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
 import { ReceiverSelect, ReviewReply } from './components'
 import { ReviewReplyType } from './types/index'
 
-const reviewId = 812
+const reviewId = 123
 
 const ReviewReplyPage = () => {
+  const navigate = useNavigate()
   const [reviewStep, setReviewStep] = useState<number>(1)
 
   const { data: reviewData } = useGetReviewFirst({ id: reviewId })
+  const { mutate: createResponse } = useCreateResponse()
   const { title, description, receivers } = reviewData
 
   const methods = useForm<ReviewReplyType>({
@@ -19,6 +22,17 @@ const ReviewReplyPage = () => {
       nonReceiverList: receivers,
     },
   })
+
+  const handleSubmitReply = () => {
+    const requestData = {
+      id: methods.getValues('id'),
+      replyTargets: methods.getValues('replyTargets'),
+    }
+
+    createResponse(requestData, {
+      onSuccess: () => navigate('/'),
+    })
+  }
 
   return (
     <div className="flex h-screen flex-col items-center bg-main-ivory dark:bg-main-red-100">
@@ -38,7 +52,12 @@ const ReviewReplyPage = () => {
                 questions={reviewData.questions}
               />
             )}
-            {reviewStep === 2 && <ReviewReply reviewData={reviewData} />}
+            {reviewStep === 2 && (
+              <ReviewReply
+                reviewData={reviewData}
+                handleSubmit={handleSubmitReply}
+              />
+            )}
           </FormProvider>
         </div>
       )}

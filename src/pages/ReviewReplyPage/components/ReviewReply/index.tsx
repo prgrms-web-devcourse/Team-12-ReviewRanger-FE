@@ -8,9 +8,10 @@ import Questions from '../Questions'
 
 interface ReviewReplyProps {
   reviewData: Data
+  handleSubmit: () => void
 }
 
-const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
+const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   const questions = reviewData.questions
 
   const { getValues } = useFormContext<ReviewReplyType>()
@@ -100,8 +101,6 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
     setSelectedQuestionIndex(0)
   }
 
-  const handleSubmitReply = () => {}
-
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="flex flex-col gap-8 pt-2.5">
@@ -165,14 +164,13 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
       <div className="flex justify-center md:justify-end">
         {allReplyComplete ? (
           <button
-            onClick={handleSubmitReply}
+            onClick={handleSubmit}
             className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl"
           >
             답변 제출하기
           </button>
         ) : (
           <button
-            type="button"
             onClick={handleClickNextButton}
             className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl"
           >
