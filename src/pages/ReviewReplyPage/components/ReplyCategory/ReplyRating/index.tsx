@@ -31,7 +31,7 @@ const ReplyRating = ({ registerPath, handleCheckReply }: ReplyRatingProps) => {
   }, [score, handleCheckReply])
 
   return (
-    <div>
+    <div className="flex justify-center">
       <StarRatingList handleClickStar={changeStar} rates={rates} />
     </div>
   )
