@@ -53,7 +53,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       return
     }
 
-    receivers.map(({ receiverId }) => {
+    receivers.forEach(({ receiverId }) => {
       const replyTarget = {
         receiverId: receiverId,
         responserId: userId,
@@ -85,6 +85,21 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       }
       appendReplyTarget(replyTarget)
     })
+
+    setValue(
+      'replyComplete',
+      receivers.map(({ receiverId }) => {
+        return {
+          receiverId,
+          complete: Array(questions.length).fill(false),
+        }
+      }),
+    )
+
+    setValue(
+      'individualReplyComplete',
+      receivers.map(() => false),
+    )
 
     setReviewStep(2)
   }
