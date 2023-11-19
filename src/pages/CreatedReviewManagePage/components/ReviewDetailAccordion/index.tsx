@@ -87,11 +87,11 @@ const ReviewDetailAccordion = ({
               )}
             />
           ))}
-          <div className="flex h-auto justify-end">
-            <button className="btn h-[40px] w-[100px] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
+          <div className="flex h-auto justify-end gap-2">
+            <button className="btn h-[2.5rem] w-[6.25rem] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
               미리 보기
             </button>
-            <button className="btn h-[40px] w-[100px] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
+            <button className="btn h-[2.5rem] w-[6.25rem] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
               저장 하기
             </button>
           </div>

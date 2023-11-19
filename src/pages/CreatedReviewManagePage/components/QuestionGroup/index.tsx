@@ -54,7 +54,7 @@ const renderHexaStat = (value: Answer, answers: Answer[]) => {
           <div className="flex w-3/6 flex-wrap gap-[0.31rem]" key={nanoid()}>
             <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
             <p className="text-sm">{value?.userName}</p>
-            <p className="text-sm">{`${value?.value}점`}</p>
+            <p className="text-sm text-sub-wine">{value?.value}</p>
           </div>
         ))}
       </div>

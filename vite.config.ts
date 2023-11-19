@@ -14,7 +14,10 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            return 'third-party-library'
+            return id.split('node_modules/').pop()
+          }
+          if (id.includes('pages/')) {
+            console.log(id)
           }
         },
       },
