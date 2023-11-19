@@ -15,6 +15,7 @@ export const useStarRate = () => {
 
   return {
     changeStar,
+    setRates,
     score: rates.filter((value) => value).length,
     rates,
   }
