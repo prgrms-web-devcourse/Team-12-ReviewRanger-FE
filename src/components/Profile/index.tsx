@@ -16,9 +16,7 @@ const Profile = ({
       <div className="flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border">
         {typeof image === 'string' ? <img src={image} /> : image}
       </div>
-      <p className={`${className} text-sm dark:text-white md:text-lg`}>
-        {name}
-      </p>
+      <p className={`${className} text-sm md:text-lg`}>{name}</p>
     </div>
   )
 }

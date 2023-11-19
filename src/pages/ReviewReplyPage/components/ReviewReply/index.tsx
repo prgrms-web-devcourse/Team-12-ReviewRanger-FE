@@ -62,7 +62,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
               ${
                 selectedReceiver.receiverId === receiverId
                   ? 'border-black bg-main-yellow dark:border-white dark:bg-main-red-300'
-                  : 'border-gray-100 bg-white dark:bg-main-red-200'
+                  : 'border-gray-100 bg-white dark:border-gray-300 dark:bg-main-red-200'
               }`}
               >
                 <Profile
