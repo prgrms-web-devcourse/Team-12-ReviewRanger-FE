@@ -6,6 +6,7 @@ import {
   ReplyChoice,
   ReplyChoices,
   ReplyRating,
+  ReplyHexa,
 } from '../ReplyCategory'
 
 interface QuestionsProps {
@@ -46,6 +47,10 @@ const Questions = ({
 
   const handleCheckReplyRating = ({ score }: { score: number }) => {
     setValue(replyCompletePath, score !== 0)
+  }
+
+  const handleCheckReplyHexa = ({ count }: { count: number }) => {
+    setValue(replyCompletePath, count === 6)
   }
 
   return (
@@ -92,6 +97,14 @@ const Questions = ({
         <ReplyRating
           registerPath={registerPath}
           handleCheckReply={handleCheckReplyRating}
+        />
+      )}
+      {type === 'HEXASTAT' && (
+        <ReplyHexa
+          options={questionOptions}
+          receiverIndex={receiverIndex}
+          questionIndex={questionIndex}
+          handleCheckReply={handleCheckReplyHexa}
         />
       )}
     </div>

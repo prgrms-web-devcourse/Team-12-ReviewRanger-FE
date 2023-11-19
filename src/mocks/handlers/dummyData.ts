@@ -333,6 +333,39 @@ export const REVIEW_QUESTION = {
         isRequired: true,
         questionOptions: [],
       },
+      {
+        id: 7,
+        title: '이 사람의 코딩 실력을 평가하시오.',
+        description: '육각형 모양의 그래프에 들어갈 점수들을 선택할 수 있어!',
+        type: 'HEXASTAT',
+        isRequired: false,
+        questionOptions: [
+          {
+            optionId: 1,
+            optionName: '섬세함',
+          },
+          {
+            optionId: 2,
+            optionName: '리더십',
+          },
+          {
+            optionId: 3,
+            optionName: '실행력',
+          },
+          {
+            optionId: 4,
+            optionName: '친절함',
+          },
+          {
+            optionId: 5,
+            optionName: '개발 실력',
+          },
+          {
+            optionId: 6,
+            optionName: '킹갓제너럴 멋져멋져력',
+          },
+        ],
+      },
     ],
     receivers: [
       {

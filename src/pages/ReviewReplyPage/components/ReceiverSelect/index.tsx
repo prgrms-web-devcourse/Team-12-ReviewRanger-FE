@@ -57,22 +57,31 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       const replyTarget = {
         receiverId: receiverId,
         responserId: userId,
-        replies: questions.map(({ id, type, isRequired }) => {
-          return {
-            questionId: id,
-            isRequired,
-            answerText: type === 'SUBJECTIVE' ? '' : null,
-            answerChoice: [
-              'SINGLE_CHOICE',
-              'MULTIPLE_CHOICE',
-              'DROPDOWN',
-            ].includes(type)
-              ? 0
-              : null,
-            answerRating: type === 'RATING' ? 0 : null,
-            answerHexa: type === 'HEXASTAT' ? 0 : null,
-          }
-        }),
+        replies: questions
+          .map(({ id, type, isRequired }) => {
+            const reply = {
+              questionId: id,
+              isRequired,
+              answerText: type === 'SUBJECTIVE' ? '' : null,
+              answerChoice: [
+                'SINGLE_CHOICE',
+                'MULTIPLE_CHOICE',
+                'DROPDOWN',
+              ].includes(type)
+                ? 0
+                : null,
+              answerRating: type === 'RATING' ? 0 : null,
+              answerHexa: type === 'HEXASTAT' ? 0 : null,
+            }
+            if (type === 'HEXASTAT') {
+              return Array.from({ length: 6 }, (_, index) =>
+                structuredClone({ ...reply, answerChoice: index + 1 }),
+              )
+            }
+
+            return [reply]
+          })
+          .flat(),
       }
       appendReplyTarget(replyTarget)
     })
