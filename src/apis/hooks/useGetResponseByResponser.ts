@@ -2,58 +2,38 @@
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-interface ReviewQuestion {
-  questionId: number
-  questionTitle: string
-  questionType:
-    | 'subjective'
-    | 'objective_unique'
-    | 'objective_duplicate'
-    | 'rating'
-    | 'dropdown'
-    | 'hexastat'
-  questionSequence: number
-  isRequired: boolean
-}
-
-interface ReviewAnswer {
-  answerId: number
-  questionId: number
-  answer: number | string
-}
-
-interface ReviewResult {
-  subjectId: number
-  subjectName: string
-  answers: ReviewAnswer[]
-}
-
 interface Response {
-  title: string
-  description: string
-  responserId: number
-  responserName: string
-  questions: ReviewQuestion[]
-  results: ReviewResult[]
+  success: boolean
+  data: Receiver[]
 }
 
-const useGetResponseByResponser = ({
-  surveyResultId,
-  responserId,
-}: {
-  surveyResultId: string
-  responserId: string
-}) => {
+interface Receiver {
+  receiverId: string
+  receiverName: string
+  replies: Reply[]
+}
+
+interface Reply {
+  id: string
+  questionId: string
+  responser: object
+  objectOptionId: string | null
+  answerText: string | null
+  rating: string | null
+  hexastat: string | null
+}
+//NOTE - 참여 ID
+const useGetResponseByResponser = ({ id }: { id: string }) => {
   const getSingleAuthorResponse = async () => {
     const singleAuthorResponse = await apiClient.get<Response>(
-      `/surveys/${surveyResultId}/responser/${responserId}`,
+      `/participations/${id}/written-replies`,
     )
 
     return singleAuthorResponse.data
   }
 
   return useQuery({
-    queryKey: [`/surveys/${surveyResultId}/responser/${responserId}`],
+    queryKey: [`/participations/${id}/written-replies`],
     queryFn: getSingleAuthorResponse,
   })
 }

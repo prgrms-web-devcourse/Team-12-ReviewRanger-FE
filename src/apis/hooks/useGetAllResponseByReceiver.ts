@@ -1,32 +1,39 @@
 //NOTE - 수신자별 응답 결과 전체 조회
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-interface Response {
-  recipientList: Recipient[]
+export interface Response {
+  success?: boolean
+  data: {
+    receiverResponses: Receiver[]
+  }
 }
 
-export interface Recipient {
-  surveyResultId: number
-  // TODO: 통일 필요함
-  id: number
+interface Receiver {
+  user: User
+  id: string
   name: string
-  recipientId: number
-  recipientName: string
   responserCount: number
+  responserIds: string[]
+}
+
+interface User {
+  id: string
+  email: string
+  name: string
 }
 
 const useGetAllResponseByReceiver = ({ surveyId }: { surveyId: string }) => {
   const getResponseByRecipient = async () => {
     const response = await apiClient.get<Response>(
-      `/surveys/${surveyId}/recipient`,
+      `/reviews/${surveyId}/receiver`,
     )
 
     return response.data
   }
 
-  return useQuery({
-    queryKey: [`/surveys/${surveyId}/recipient`],
+  return useSuspenseQuery({
+    queryKey: [`/reviews/${surveyId}/receiver`],
     queryFn: getResponseByRecipient,
   })
 }

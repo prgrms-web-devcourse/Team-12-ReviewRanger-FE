@@ -1,43 +1,40 @@
 //NOTE - 작성자별 응답 결과 전체조회
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-interface Response {
-  surveyId: string
-  title: string
-  responserCount: number
-  surveyType:
-    | 'subjective'
-    | 'objective_unique'
-    | 'objective_duplicate'
-    | 'rating'
-    | 'dropdown'
-    | 'hexastat'
-
-  responsers: Responser[]
+export interface Response {
+  success?: true
+  data: Data[]
 }
 
-export interface Responser {
-  surveyResultId: number
-  // TODO: 통일 필요함
-  id: number
-  name: string
-  responserId: number
-  responserName: string
+interface Data {
+  id: string
+  user: User
+  //TODO - review필드 추가하기
+  ReviewStatus: string
+  isAnswered: boolean
+  submitAt: string
+  createdAt: string
   updatedAt: string
+}
+
+interface User {
+  id: string
+  name: string
+  email: string
 }
 
 const useGetAllResponseByResponser = ({ surveyId }: { surveyId: string }) => {
   const getResponseByAuthor = async () => {
     const response = await apiClient.get<Response>(
-      `/surveys/${surveyId}/responser`,
+      `/reviews/${surveyId}/responser`,
     )
 
     return response.data
   }
 
-  return useQuery({
-    queryKey: [`/surveys/${surveyId}/responser`],
+  return useSuspenseQuery({
+    queryKey: [`/reviews/${surveyId}/responser`],
     queryFn: getResponseByAuthor,
   })
 }

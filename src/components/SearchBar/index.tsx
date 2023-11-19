@@ -7,6 +7,7 @@ interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   handleChangeKeyword?: (e: ChangeEvent<HTMLInputElement>) => void
   handleResetKeyword?: () => void
   placeholder?: string
+  className?: string
 }
 
 const SearchBar = ({
@@ -22,7 +23,7 @@ const SearchBar = ({
     <form
       onSubmit={handleSubmitKeyword}
       onReset={handleResetKeyword}
-      className={`${className} flex items-center gap-2 rounded-md border bg-white p-3 dark:bg-main-red-200`}
+      className={`${className} flex items-center gap-2 rounded-md border border-gray-200 bg-white p-3 dark:border-gray-100 dark:bg-main-red-200`}
     >
       <SearchIcon className="h-4 w-4 dark:fill-white" />
       <input

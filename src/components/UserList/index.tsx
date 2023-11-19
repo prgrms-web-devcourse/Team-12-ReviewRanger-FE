@@ -2,42 +2,60 @@ import dayjs from 'dayjs'
 import { Profile } from '..'
 
 interface User {
-  surveyResultId: number
-  id: number
+  id: string
+  image?: string
   name: string
-  updatedAt?: string
-  responserCount?: number
 }
 
 interface UserListProps {
   users: User[]
+  submitAt?: string[]
+  responserCount?: number[]
+  onClickUser?: (userId: string) => void
 }
-
-const UserList = ({ users }: UserListProps) => {
+const UserList = ({
+  users,
+  submitAt,
+  responserCount,
+  onClickUser,
+}: UserListProps) => {
   return (
-    <div className="flex flex-col">
+    <ul className="flex cursor-pointer flex-col justify-center">
       {users.map((user, index) => {
-        const date = dayjs(user.updatedAt?.replace('Y', ' ')).format(
-          'YYYY. MM. DD, HH:mm',
-        )
+        const date =
+          submitAt && submitAt[index]
+            ? dayjs(submitAt && submitAt[index].replace('Y', ' ')).format(
+                'YYYY. MM. DD, HH:mm',
+              )
+            : null
 
         return (
-          <div
+          <li
             key={user.id}
-            className={`flex items-center justify-between border border-x-black p-2 ${
-              index === users.length - 1 ? 'border-y-black' : 'border-t-black'
-            }`}
+            className="cursor-pointer border-b border-b-gray-400 last:border-b-0 hover:bg-main-hover-yellow dark:border-b-gray-200 dark:hover:bg-main-red-100"
           >
-            <Profile name={user.name} />
-            <div className="text-gray-500">
-              {user.updatedAt
-                ? `답변날짜: ${date}`
-                : `응답자 수: ${user.responserCount}`}
+            <div
+              onClick={() => onClickUser && onClickUser(user.id)}
+              className="flex items-center justify-between px-3 py-2 text-sm md:text-lg"
+            >
+              <Profile name={user.name} />
+
+              <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
+                {date ? (
+                  `답변일시: ${date}`
+                ) : responserCount ? (
+                  `응답자: ${responserCount && responserCount[index]}명`
+                ) : (
+                  <p className="text-sub-red-200 dark:text-sub-yellow">
+                    미응답
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
+          </li>
         )
       })}
-    </div>
+    </ul>
   )
 }
 
