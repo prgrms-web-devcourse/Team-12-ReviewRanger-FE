@@ -53,7 +53,7 @@ const UserList = ({
                   <Profile name={user.name} />
                   <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
                     {date ? (
-                      `답변일시: $2023-11-18 14:43:42`
+                      `답변일시: ${date}`
                     ) : responserCount ? (
                       `응답자: ${responserCount && responserCount[index]}명`
                     ) : (
@@ -72,7 +72,7 @@ const UserList = ({
                 <Profile name={user.name} />
                 <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
                   {date ? (
-                    `답변일시: $2023-11-18 14:43:42`
+                    `답변일시: ${date}`
                   ) : responserCount ? (
                     `응답자: ${responserCount && responserCount[index]}명`
                   ) : (

@@ -4,9 +4,9 @@ import { ProfileGroup, QuestionGroup } from '../../components'
 import { getAnswer } from '../../utils'
 
 interface ReviewDetailAccordionProps {
-  reviewId: string
   receiverId: string
   receiverName: string
+  reviewId: string
 }
 
 const ReviewDetailAccordion = ({
@@ -27,6 +27,39 @@ const ReviewDetailAccordion = ({
   const responserCount = new Set(
     responseByReceiver?.map((data) => data?.responser?.id.toString()),
   )
+
+  //NOTE - 저장시 POST로 넘길 데이터!. 이곳에 위치시키는 게 맞을까.....
+  const saveFinalReviewResult = {
+    userId: receiverId,
+    userName: receiverName,
+    reviewId,
+    reviewTitle: getReviewQuestion?.title,
+    reviewDescription: getReviewQuestion?.description,
+    replies: getReviewQuestion?.questions?.map((question) => {
+      return {
+        questionId: question.id,
+        questionTitle: question.title,
+        questionType: question.type,
+        answers: [
+          question.type !== 'HEXASTAT'
+            ? getAnswer(question?.type, question?.id, responseByReceiver)?.map(
+                (value) => value.value,
+              )
+            : getAnswer(question?.type, question?.id, responseByReceiver)?.map(
+                (value) => {
+                  if ('name' in value)
+                    return {
+                      statName: value?.name,
+                      statScore: value.value,
+                    }
+                },
+              ),
+        ],
+      }
+    }),
+  }
+
+  console.log(saveFinalReviewResult)
 
   return (
     <>
@@ -57,6 +90,9 @@ const ReviewDetailAccordion = ({
           <div className="flex h-auto justify-end">
             <button className="btn h-[40px] w-[100px] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
               미리 보기
+            </button>
+            <button className="btn h-[40px] w-[100px] rounded-md bg-active-orange p-0 text-lg text-white dark:text-black">
+              저장 하기
             </button>
           </div>
         </div>

@@ -14,7 +14,7 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            return id.split('/node_modules/')[1]
+            return 'third-party-library'
           }
         },
       },
