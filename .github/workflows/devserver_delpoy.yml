@@ -34,6 +34,9 @@ jobs:
         run: |
           npm run build
 
+      - name: Zip project files
+        run: zip -r $GITHUB_SHA.zip ./*
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
