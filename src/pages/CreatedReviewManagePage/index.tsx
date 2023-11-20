@@ -2,7 +2,7 @@
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
-import { useGetReviewQuestion } from '@/apis/hooks'
+import { useCloseSurvey, useGetReviewQuestion } from '@/apis/hooks'
 
 import {
   Tabs,
@@ -22,7 +22,7 @@ const CreatedReviewManagePage = () => {
     id: reviewId,
   }).data
 
-  console.log(getReviewQuestion.status)
+  const { mutate: closeSurvey } = useCloseSurvey({ id: reviewId })
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
@@ -64,7 +64,8 @@ const CreatedReviewManagePage = () => {
         {getReviewQuestion?.status === 'PROCEEDING' ? (
           <button
             className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
-  `}
+    `}
+            onClick={() => closeSurvey()}
           >
             설문 마감
           </button>

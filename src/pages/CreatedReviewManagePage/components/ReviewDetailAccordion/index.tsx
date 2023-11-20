@@ -1,4 +1,9 @@
-import { useGetReviewQuestion, useGetResponseByReceiver } from '@/apis/hooks'
+import { useEffect } from 'react'
+import {
+  useGetReviewQuestion,
+  useGetResponseByReceiver,
+  useSaveFinalResult,
+} from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { ProfileGroup, QuestionGroup } from '../../components'
 import { getAnswer } from '../../utils'
@@ -23,12 +28,6 @@ const ReviewDetailAccordion = ({
     receiverId,
   }).data
 
-  //NOTE - 전체 몇 명이 응답했는지 여부
-  const responserCount = new Set(
-    responseByReceiver?.map((data) => data?.responser?.id.toString()),
-  )
-
-  //NOTE - 저장시 POST로 넘길 데이터!. 이곳에 위치시키는 게 맞을까.....
   const saveFinalReviewResult = {
     userId: receiverId,
     userName: receiverName,
@@ -58,8 +57,16 @@ const ReviewDetailAccordion = ({
       }
     }),
   }
+  const { mutate: saveFinalResult } = useSaveFinalResult(saveFinalReviewResult)
 
-  console.log(saveFinalReviewResult)
+  //NOTE - 전체 몇 명이 응답했는지 여부
+  const responserCount = new Set(
+    responseByReceiver?.map((data) => data?.responser?.id.toString()),
+  )
+
+  useEffect(() => {
+    saveFinalResult()
+  }, [saveFinalResult])
 
   return (
     <>

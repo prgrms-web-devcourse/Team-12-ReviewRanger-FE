@@ -5,8 +5,8 @@ interface Response {
   success: boolean
 }
 
-const useCloseSurvey = () => {
-  const closeSurvey = async ({ id }: { id: string }) => {
+const useCloseSurvey = ({ id }: { id: string }) => {
+  const closeSurvey = async () => {
     return await apiClient.post<Response>(`/reviews/${id}/close`)
   }
 
