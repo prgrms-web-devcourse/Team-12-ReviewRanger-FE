@@ -41,7 +41,7 @@ const ReviewReplyPage = () => {
         <div className="flex h-full w-full max-w-[550px] flex-col p-5 text-black">
           <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
           {reviewStep === 1 && (
-            <p className="mt-2.5 text-sm dark:text-white md:text-lg">
+            <p className="mt-2.5 whitespace-pre-wrap text-sm dark:text-white md:text-lg">
               {description}
             </p>
           )}
