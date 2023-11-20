@@ -32,7 +32,7 @@ interface Response {
 
 const useCreateReview = () => {
   const createSurvey = async (survey: Survey) => {
-    return await apiClient.post<Response>('/surveys', survey)
+    return await apiClient.post<Response>('/reviews', survey)
   }
 
   return useMutation({ mutationFn: createSurvey })
