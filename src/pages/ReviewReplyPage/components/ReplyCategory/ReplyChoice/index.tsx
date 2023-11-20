@@ -10,7 +10,7 @@ interface ReplyChoiceProps {
   questionIndex: number
   options: QuestionOption[]
   type: 'SINGLE_CHOICE' | 'DROPDOWN'
-  handleCheckReply: ({ choice }: { choice: number }) => void
+  handleCheckReply: ({ value }: { value: number }) => void
 }
 
 const ReplyChoice = ({
@@ -24,6 +24,7 @@ const ReplyChoice = ({
   const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
   const { getValues, setValue, register } = useFormContext<ReviewReplyType>()
 
+  // NOTE: 이전에 선택된 옵션을 가져오기.
   const prevSelectedOptions = useMemo(
     () =>
       getValues(`replyTargets.${receiverIndex}.replies`).find(
@@ -33,13 +34,10 @@ const ReplyChoice = ({
   )
 
   useEffect(() => {
-    handleCheckReply({ choice: selectedOptionId })
-  }, [selectedOptionId, handleCheckReply])
-
-  useEffect(() => {
     setSelectedOptionId(prevSelectedOptions)
-  }, [prevSelectedOptions, questionIndex])
+  }, [prevSelectedOptions, questionIndex, receiverIndex])
 
+  // NOTE: 옵션을 클릭했을 때 이벤트 핸들러
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,
   ) => {
@@ -47,15 +45,19 @@ const ReplyChoice = ({
       (option) => option.optionId == e.currentTarget.value,
     )?.optionId
 
+    // NOTE: selectedTarget은 값이 없을 수가 없지만, typescript이므로...
     if (!selectedTarget) {
       return
     }
 
+    // NOTE: 이미 선택한 값을 다시 눌렀을 때, 초기화
     if (selectedOptionId === selectedTarget) {
       setSelectedOptionId(0)
+      handleCheckReply({ value: 0 })
       setValue(`${registerPath}.answerChoice`, 0)
     } else {
       setSelectedOptionId(selectedTarget)
+      handleCheckReply({ value: selectedTarget })
       setValue(`${registerPath}.answerChoice`, selectedTarget)
     }
   }

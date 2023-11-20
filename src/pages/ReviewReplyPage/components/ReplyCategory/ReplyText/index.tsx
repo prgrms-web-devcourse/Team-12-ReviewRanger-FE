@@ -4,7 +4,7 @@ import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyTextProps {
   registerPath: `replyTargets.${number}.replies.${number}`
-  handleCheckReply: ({ text }: { text: string }) => void
+  handleCheckReply: ({ value }: { value: string }) => void
 }
 
 const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
@@ -12,6 +12,7 @@ const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
   const [textCount, setTextCount] = useState<number>(0)
   const { register, getValues } = useFormContext<ReviewReplyType>()
 
+  // NOTE: 수신자나 질문이 변경될 때마다 초기값으로 세팅
   useEffect(() => {
     setTextCount(0)
     setText(getValues(`${registerPath}.answerText`) || '')
@@ -32,7 +33,7 @@ const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
         {...register(`${registerPath}.answerText`, {
           setValueAs: (value) => value.trim(),
           onChange: handleChangeReplyText,
-          onBlur: () => handleCheckReply({ text }),
+          onBlur: () => handleCheckReply({ value: text }),
         })}
       />
       <p className="absolute bottom-5 right-5">

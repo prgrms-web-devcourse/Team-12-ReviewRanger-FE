@@ -23,16 +23,21 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   const receivers = useMemo(() => getValues('receiverList'), [getValues])
   const questions = reviewData.questions
 
+  // NOTE: 현재 선택한 수신자 상태값을 관리
   const [selectedReceiver, setSelectedReceiver] = useState<Receiver>(
     receivers[0],
   )
+  // NOTE: 현재 선택한 수신자의 인덱스 상태값을 관리
   const [selectedReceiverIndex, setSelectedReceiverIndex] = useState<number>(0)
+  // NOTE: 현재 선택한 질문의 인덱스 상태값을 관리
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0)
+  // NOTE: 수신자별로 답변완료를 체크하는 상태값을 관리
   const [individualReplyCompletes, setIndividualReplyCompletes] = useState<
     boolean[]
   >(Array(receivers.length).fill(false))
   const [allReplyComplete, setAllReplyComplete] = useState<boolean>(false)
 
+  // NOTE: 질문 컴포넌트들을 배열로 생성
   const questionArray = questions.map((question, index) => (
     <Questions
       question={question}
@@ -41,6 +46,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
     />
   ))
 
+  // NOTE: 개별 답변 완료 여부를 체크하는 함수
   const checkReplyComplete = useCallback(async () => {
     const checkIndividualReplyComplete = getValues(
       `replyComplete.${selectedReceiverIndex}.complete`,
@@ -53,10 +59,12 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
     )
   }, [selectedReceiverIndex, getValues])
 
+  // NOTE: 모든 수신자들의 답변을 완료했는지 여부를 체크
   useEffect(() => {
     setAllReplyComplete(individualReplyCompletes.every((value) => value))
   }, [individualReplyCompletes])
 
+  // NOTE: 수신자를 클릭했을 때 이벤트 핸들러
   const handleClickReceiver = (e: MouseEvent<HTMLLIElement>) => {
     receivers.forEach((receiver, index) => {
       if (receiver.receiverId === e.currentTarget.value) {
@@ -67,6 +75,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
     })
   }
 
+  // NOTE: 질문을 클릭했을 때 이벤트 핸들러
   const handleClickQuestion = (e: MouseEvent<HTMLLIElement>) => {
     const selectedTarget = questions.findIndex(
       (question) => question.id === e.currentTarget.value,
@@ -84,15 +93,18 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
     checkReplyComplete()
   }
 
+  // NOTE: 다음 버튼을 클릭할 때 이벤트 핸들러
   const handleClickNextButton = () => {
     checkReplyComplete()
 
+    // NOTE: 현재 질문이 마지막 질문이 아닐 경우, 다음 질문으로 이동.
     if (selectedQuestionIndex < questions.length - 1) {
       setSelectedQuestionIndex((prevQuestion) => prevQuestion + 1)
 
       return
     }
 
+    // NOTE: 현재 수신자가 마지막 수신자가 아닐 경우, 다음 수신자로 이동.
     if (selectedReceiverIndex < receivers.length - 1) {
       const nextReceiver = receivers.find(
         (_, index) => index === selectedReceiverIndex + 1,
@@ -105,11 +117,13 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
       setSelectedReceiver(nextReceiver)
       setSelectedReceiverIndex((prevReceiver) => prevReceiver + 1)
     } else {
+      // NOTE: 마지막 수신자일 경우 첫 번째 수신자로 이동.
       const firstReceiver = receivers[0]
 
       setSelectedReceiver(firstReceiver)
       setSelectedReceiverIndex(0)
     }
+    // NOTE: 첫 번째 질문으로 이동.
     setSelectedQuestionIndex(0)
   }
 

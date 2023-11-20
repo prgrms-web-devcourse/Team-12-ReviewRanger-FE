@@ -30,11 +30,13 @@ const Questions = ({
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${questionIndex}`
 
+  // NOTE: 문항별로 답변 여부 체크
   const handleCheckReply = ({
     value,
   }: {
     value: string | number | number[]
   }) => {
+    // NOTE: 필수 질문이 아닐 때는, 답변을 한 것으로 처리.
     if (!question.isRequired) {
       setValue(replyCompletePath, true)
 
