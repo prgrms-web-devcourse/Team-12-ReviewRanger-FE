@@ -19,7 +19,7 @@ interface ReviewReplyProps {
 }
 
 const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
-  const { getValues } = useFormContext<ReviewReplyType>()
+  const { getValues, setValue } = useFormContext<ReviewReplyType>()
   const receivers = useMemo(() => getValues('receiverList'), [getValues])
   const questions = reviewData.questions
 
@@ -71,6 +71,15 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
     const selectedTarget = questions.findIndex(
       (question) => question.id === e.currentTarget.value,
     )
+
+    // NOTE: 필수 질문이 아닐 때는 답변 완료처리하기.
+    if (!questions[selectedTarget].isRequired) {
+      setValue(
+        `replyComplete.${selectedReceiverIndex}.complete.${selectedTarget}`,
+        true,
+      )
+    }
+
     setSelectedQuestionIndex(selectedTarget)
     checkReplyComplete()
   }

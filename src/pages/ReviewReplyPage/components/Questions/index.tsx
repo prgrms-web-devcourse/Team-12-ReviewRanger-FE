@@ -30,6 +30,12 @@ const Questions = ({
   const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${questionIndex}`
 
   const handleCheckReplyText = ({ text }: { text: string }) => {
+    if (!question.isRequired) {
+      setValue(replyCompletePath, true)
+
+      return
+    }
+
     if (text.trim().length > 0) {
       setValue(replyCompletePath, true)
     } else {
@@ -38,18 +44,42 @@ const Questions = ({
   }
 
   const handleCheckReplyChoice = ({ choice }: { choice: number }) => {
+    if (!question.isRequired) {
+      setValue(replyCompletePath, true)
+
+      return
+    }
+
     setValue(replyCompletePath, choice !== 0)
   }
 
   const handleCheckReplyChoices = ({ choices }: { choices: number[] }) => {
+    if (!question.isRequired) {
+      setValue(replyCompletePath, true)
+
+      return
+    }
+
     setValue(replyCompletePath, choices.length > 0)
   }
 
   const handleCheckReplyRating = ({ score }: { score: number }) => {
+    if (!question.isRequired) {
+      setValue(replyCompletePath, true)
+
+      return
+    }
+
     setValue(replyCompletePath, score !== 0)
   }
 
   const handleCheckReplyHexa = ({ count }: { count: number }) => {
+    if (!question.isRequired) {
+      setValue(replyCompletePath, true)
+
+      return
+    }
+
     setValue(replyCompletePath, count === 6)
   }
 
