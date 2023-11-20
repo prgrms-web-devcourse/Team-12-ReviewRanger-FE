@@ -17,10 +17,14 @@ const LoginPage = () => {
     login(
       { email, password },
       {
-        //TODO - 로그인 성공시 메인 페이지로 이동,실패 처리 추가 필요
         onSuccess({ data }) {
-          localStorage.setItem(TOKEN_KEY, data.token)
+          localStorage.setItem(TOKEN_KEY, data.data.accessToken)
           navigate('/')
+        },
+
+        onError(data) {
+          console.log(data)
+          //TODO - 에러 처리시 토스트 처리
         },
       },
     )
