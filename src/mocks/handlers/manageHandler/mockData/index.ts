@@ -19,7 +19,7 @@ export const SINGLE_RECIPIENT_QUESTION = {
     title: '데브코스 1차 피어리뷰',
     description:
       '데브코스 단위기간 어쩌구 6월 어쩌구 8월 1차 팀에 대한 리뷰입니다. 성실하게 답변에 임해주세요',
-    status: 'ONGOING',
+    status: 'PROCEEDING',
     questions: [
       {
         id: '1',

@@ -61,13 +61,21 @@ const CreatedReviewManagePage = () => {
           {getReviewQuestion?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        <button
-          disabled={getReviewQuestion?.status === 'END'}
-          className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
+        {getReviewQuestion?.status === 'PROCEEDING' ? (
+          <button
+            className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
   `}
-        >
-          설문 마감
-        </button>
+          >
+            설문 마감
+          </button>
+        ) : (
+          <button
+            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
+          `}
+          >
+            전송
+          </button>
+        )}
       </div>
     </div>
   )
