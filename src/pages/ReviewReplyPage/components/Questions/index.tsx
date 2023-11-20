@@ -26,61 +26,39 @@ const Questions = ({
   const { title, description, type, questionOptions, isRequired } = question
   const { setValue } = useFormContext<ReviewReplyType>()
 
+  // NOTE: 폼 데이터의 경로
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${questionIndex}`
 
-  const handleCheckReplyText = ({ text }: { text: string }) => {
+  const handleCheckReply = ({
+    value,
+  }: {
+    value: string | number | number[]
+  }) => {
     if (!question.isRequired) {
       setValue(replyCompletePath, true)
 
       return
     }
 
-    if (text.trim().length > 0) {
-      setValue(replyCompletePath, true)
-    } else {
-      setValue(replyCompletePath, false)
+    switch (type) {
+      case 'SUBJECTIVE':
+        setValue(replyCompletePath, (value as string).trim().length > 0)
+        break
+      case 'SINGLE_CHOICE':
+      case 'DROPDOWN':
+      case 'RATING':
+        setValue(replyCompletePath, value !== 0)
+        break
+      case 'MULTIPLE_CHOICE':
+        setValue(replyCompletePath, (value as number[]).length > 0)
+        break
+      case 'HEXASTAT':
+        setValue(replyCompletePath, value === 6)
+        break
+      default:
+        break
     }
-  }
-
-  const handleCheckReplyChoice = ({ choice }: { choice: number }) => {
-    if (!question.isRequired) {
-      setValue(replyCompletePath, true)
-
-      return
-    }
-
-    setValue(replyCompletePath, choice !== 0)
-  }
-
-  const handleCheckReplyChoices = ({ choices }: { choices: number[] }) => {
-    if (!question.isRequired) {
-      setValue(replyCompletePath, true)
-
-      return
-    }
-
-    setValue(replyCompletePath, choices.length > 0)
-  }
-
-  const handleCheckReplyRating = ({ score }: { score: number }) => {
-    if (!question.isRequired) {
-      setValue(replyCompletePath, true)
-
-      return
-    }
-
-    setValue(replyCompletePath, score !== 0)
-  }
-
-  const handleCheckReplyHexa = ({ count }: { count: number }) => {
-    if (!question.isRequired) {
-      setValue(replyCompletePath, true)
-
-      return
-    }
-
-    setValue(replyCompletePath, count === 6)
   }
 
   return (
@@ -101,7 +79,7 @@ const Questions = ({
       {type === 'SUBJECTIVE' && (
         <ReplyText
           registerPath={registerPath}
-          handleCheckReply={handleCheckReplyText}
+          handleCheckReply={handleCheckReply}
         />
       )}
       {(type === 'SINGLE_CHOICE' || type === 'DROPDOWN') && (
@@ -111,7 +89,7 @@ const Questions = ({
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
           type={type}
-          handleCheckReply={handleCheckReplyChoice}
+          handleCheckReply={handleCheckReply}
         />
       )}
       {type === 'MULTIPLE_CHOICE' && (
@@ -120,13 +98,13 @@ const Questions = ({
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
-          handleCheckReply={handleCheckReplyChoices}
+          handleCheckReply={handleCheckReply}
         />
       )}
       {type === 'RATING' && (
         <ReplyRating
           registerPath={registerPath}
-          handleCheckReply={handleCheckReplyRating}
+          handleCheckReply={handleCheckReply}
         />
       )}
       {type === 'HEXASTAT' && (
@@ -134,7 +112,7 @@ const Questions = ({
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
-          handleCheckReply={handleCheckReplyHexa}
+          handleCheckReply={handleCheckReply}
         />
       )}
     </div>
