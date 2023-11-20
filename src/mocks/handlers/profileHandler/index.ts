@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-const users = [
+const Profileusers = [
   { name: '김주하', id: 1, email: 'email@naver.com', password: '1234aa' },
   { name: '하야', id: 2, email: 'email123@naver.com', password: '1234aa' },
 ]
@@ -20,7 +20,7 @@ export const profileHandlers = [
       )
     }
 
-    if (users.find((user) => user.name === name)) {
+    if (Profileusers.find((user) => user.name === name)) {
       return res(
         ctx.status(200),
         ctx.json({

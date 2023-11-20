@@ -1,9 +1,3 @@
-export const MY_INFO = {
-  id: 1,
-  name: '[프론트엔드]김아무개',
-  email: 'amugae@naver.com',
-}
-
 export const INVITED_REVIEWS = [
   {
     id: 1,

@@ -6,7 +6,7 @@ import {
   REVIEW_QUESTION,
   REVIEW_RESULT,
   REVIEW_RESULT_QNA,
-} from './dummyData'
+} from './mockData'
 
 export const mainHandlers = [
   rest.get('/invited-surveys', async (_, res, ctx) => {
