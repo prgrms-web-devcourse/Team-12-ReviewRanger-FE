@@ -22,6 +22,8 @@ const CreatedReviewManagePage = () => {
     id: reviewId,
   }).data
 
+  console.log(getReviewQuestion.status)
+
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
       <Suspense
@@ -59,7 +61,11 @@ const CreatedReviewManagePage = () => {
           {getReviewQuestion?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        <button className="btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black">
+        <button
+          disabled={getReviewQuestion?.status === 'END'}
+          className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
+  `}
+        >
           설문 마감
         </button>
       </div>
