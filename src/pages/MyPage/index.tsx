@@ -61,7 +61,7 @@ const MyPage = () => {
               <Input
                 className="!w-64"
                 type="name"
-                placeholder="변경할 이름을 입력하라구!"
+                placeholder="변경할 이름을 입력하세요."
                 onChange={handleNameChange}
                 message={nameFailMessage}
                 value={name}
