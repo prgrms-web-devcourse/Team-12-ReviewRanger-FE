@@ -52,12 +52,16 @@ export const ReviewCreatePage = () => {
         .map(({ receiverId }) => receiverId),
     } as const
 
-    console.log(requestData)
-
     createReview(requestData, {
       onSuccess: ({ data }) => {
-        console.log(data)
-        navigate('/')
+        if (data.success) {
+          navigate('/')
+
+          return
+        }
+
+        // TODO: 리뷰 생성에 실패하였습니다.
+        alert('리뷰 생성에 실패하였습니다.')
       },
     })
   }
