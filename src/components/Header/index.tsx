@@ -29,7 +29,7 @@ const Header = () => {
   }
 
   return (
-    <div className="sticky top-0 z-10 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
+    <div className="sticky top-0 z-10 flex h-12 shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
       <div className="flex w-full items-center justify-between px-6">
         <div>
           <ArrowLeftIcon
@@ -50,7 +50,7 @@ const Header = () => {
           <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
         <div>
-          {avatarVisible && data?.data && (
+          {avatarVisible && data && data?.success && (
             <div className="dropdown-hover relative">
               <div
                 className={`avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black `}
