@@ -1,5 +1,5 @@
 export { manageHandlers } from './manageHandler'
-export { loginHandlers } from './loginHandler/login'
+export { loginHandlers } from './loginHandler'
 export { profileHandlers } from './profileHandler'
 export { signUpHandlers } from './signUpHandler'
 export { mainHandlers } from './mainHandler'
