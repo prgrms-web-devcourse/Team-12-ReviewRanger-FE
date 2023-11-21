@@ -64,7 +64,6 @@ const CreatedReviewManagePage = () => {
           {getReviewQuestion?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        //NOTE - 설문 진행 상태 여부에 따라 다르게 보여줘야 함
         {getReviewQuestion?.status === 'PROCEEDING' ? (
           <button
             className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black

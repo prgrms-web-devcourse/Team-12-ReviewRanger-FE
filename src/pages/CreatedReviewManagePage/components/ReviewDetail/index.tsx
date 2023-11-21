@@ -5,7 +5,7 @@ import {
   useSaveFinalResult,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
-import { ProfileGroup, QuestionGroup } from '../../components'
+import { ProfileGroup, QuestionGroup } from '..'
 import { getAnswer } from '../../utils'
 
 interface ReviewDetailAccordionProps {
@@ -14,7 +14,7 @@ interface ReviewDetailAccordionProps {
   reviewId: string
 }
 
-const ReviewDetailAccordion = ({
+const ReviewDetail = ({
   receiverId,
   reviewId,
   receiverName,
@@ -82,7 +82,6 @@ const ReviewDetailAccordion = ({
             name={receiverName}
             responserSize={responserCount?.size}
           />
-          //NOTE - 질문들을 돌면서 질문-답변을 연결해서 보여주는 부분
           {getReviewQuestion?.questions?.map((question) => (
             <QuestionGroup
               questionType={question?.type}
@@ -101,4 +100,4 @@ const ReviewDetailAccordion = ({
   )
 }
 
-export default ReviewDetailAccordion
+export default ReviewDetail
