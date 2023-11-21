@@ -13,17 +13,17 @@ const ToastItem = ({ id, type, children }: PropsWithChildren<ToastProps>) => {
   const { removeToast } = useToast()
 
   return (
-    <div className={'animate-slide-in'}>
+    <div className="animate-slide-in">
       <div
-        className={`relative flex min-h-[3.75rem] w-[25rem] items-center justify-between rounded-md p-[0.63rem] shadow-md ${TYPE_STYLES.BACKGROUND_COLOR[type]}`}
+        className={`relative flex min-h-[3.125rem] w-full items-center justify-between rounded-md p-[0.63rem] text-sm shadow-md md:w-[25rem] md:text-lg ${TYPE_STYLES.BACKGROUND_COLOR[type]}`}
       >
         {children}
         <CloseIcon
-          className="cursor-pointer dark:fill-white"
+          className="shrink-0 cursor-pointer dark:fill-white"
           onClick={() => removeToast({ id })}
         />
         <div
-          className={`absolute bottom-1 left-0 h-1 w-full translate-y-full ${TYPE_STYLES.PROGRESS_BAR[type]} before:absolute before:bottom-0 before:right-0 before:h-full before:w-full before:animate-progress-animation before:content-[""]`}
+          className={`absolute bottom-1 left-0 h-1 w-full translate-y-full  before:absolute before:bottom-0 before:right-0 before:h-full before:w-full before:animate-progress-animation before:content-[""] ${TYPE_STYLES.PROGRESS_BAR[type]}`}
         ></div>
       </div>
     </div>

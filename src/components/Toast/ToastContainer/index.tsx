@@ -13,13 +13,13 @@ export interface ToastContainerProps {
 
 const ToastContainer = ({ toastList }: ToastContainerProps) => {
   return createPortal(
-    <div className="fixed right-5 top-24 z-50 flex flex-col gap-2">
+    <div className="fixed top-16 z-50 flex w-full flex-col gap-2 px-5 md:right-5 md:top-24 md:w-fit md:px-0">
       {toastList.map((toast) => (
         <ToastItem key={toast.id} {...toast}>
-          <p>{TYPE_IMOJI[toast.type]}</p>
-          <p className="absolute left-1/2 top-1/2 w-8/12 -translate-x-1/2 -translate-y-1/2 dark:text-white">
-            {toast.message}
+          <p className="shrink-0 text-lg md:text-2xl">
+            {TYPE_IMOJI[toast.type]}
           </p>
+          <p className="w-3/4 dark:text-white">{toast.message}</p>
         </ToastItem>
       ))}
     </div>,
