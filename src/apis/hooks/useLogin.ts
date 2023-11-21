@@ -7,7 +7,10 @@ interface loginProps {
 }
 
 interface Response {
-  token: string
+  success: boolean
+  data: {
+    accessToken: string
+  }
 }
 
 const useLogin = () => {
