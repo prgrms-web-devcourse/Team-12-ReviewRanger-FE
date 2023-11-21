@@ -15,13 +15,13 @@ const IconButton = ({
 }: IconButtonProps) => {
   return (
     <button
-      className={`${className} btn flex h-14 items-center border border-black bg-white text-black  ${
+      className={`${className} btn flex h-14 items-center justify-center border border-black  text-black  ${
         disabled ? 'btn-disabled' : ''
       }  `}
       {...rest}
     >
       {children}
-      {text ?? 'Default'}
+      <span>{text ?? 'Default'}</span>
     </button>
   )
 }

@@ -1,7 +1,7 @@
 import {
   REVIEW_MANAGE_TAB_MENU_STYLE,
   REVIEW_MANAGE_TAB_TITLE,
-} from '../constants'
+} from '../../constants'
 
 interface TabsProps {
   activeTab: 'responser' | 'receiver'

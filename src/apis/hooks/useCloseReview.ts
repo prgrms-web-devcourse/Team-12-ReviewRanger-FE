@@ -5,11 +5,9 @@ interface Response {
   success: boolean
 }
 
-const useCloseSurvey = () => {
-  const closeSurvey = async ({ surveyId }: { surveyId: string }) => {
-    return await apiClient.post<Response>(`/surveys/${surveyId}/closed`, {
-      surveyId,
-    })
+const useCloseSurvey = ({ id }: { id: string }) => {
+  const closeSurvey = async () => {
+    return await apiClient.post<Response>(`/reviews/${id}/close`)
   }
 
   return useMutation({ mutationFn: closeSurvey })

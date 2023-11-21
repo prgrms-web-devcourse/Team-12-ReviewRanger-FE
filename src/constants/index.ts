@@ -4,4 +4,3 @@ export const DUPLICATED_MESSAGE = {
 }
 
 export const TOKEN_KEY = 'accessToken'
-
