@@ -11,10 +11,11 @@ export interface Question {
   type: QuestionType
   isRequired: boolean
   questionOptions: { optionName: string }[]
+  description: string
 }
 
 interface User {
-  id: number
+  receiverId: number
   name: string
 }
 

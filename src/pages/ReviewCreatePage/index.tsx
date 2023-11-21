@@ -47,8 +47,12 @@ export const ReviewCreatePage = () => {
       description: methods.getValues('description'),
       type: 'PEER_REVIEW',
       questions: methods.getValues('questions'),
-      responserIdList: methods.getValues('responserIdList').map(({ id }) => id),
+      responserIdList: methods
+        .getValues('responserIdList')
+        .map(({ receiverId }) => receiverId),
     } as const
+
+    console.log(requestData)
 
     createReview(requestData, {
       onSuccess: ({ data }) => {
