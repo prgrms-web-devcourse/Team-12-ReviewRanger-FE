@@ -53,6 +53,7 @@ const Input = ({
           type={
             type.includes('password') && !showPassword ? 'password' : 'text'
           }
+          autoComplete={type.includes('password') ? 'new-password' : 'on'}
         />
         {type.includes('password') && (
           <i className="cursor-pointer">
