@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { InvitedReview } from '@/types'
-import { STATUS_STYLE } from '../../constants'
+import { STATUS, STATUS_STYLE } from '../../constants'
 
 interface InvitedReviewItemProps extends InvitedReview {
   className: string
@@ -30,7 +30,7 @@ const InvitedReviewItem = ({
         <span
           className={`${STATUS_STYLE[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
         >
-          {status}
+          {STATUS[status]}
         </span>
         {newStatus && (
           <span className="rounded-full bg-sub-red-200 px-1.5 py-0.5 text-xs text-white md:text-sm">

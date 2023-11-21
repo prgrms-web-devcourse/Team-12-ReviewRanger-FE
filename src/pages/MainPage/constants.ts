@@ -25,9 +25,15 @@ export const INTRO_STYLE = {
   received: 'text-sub-orange dark:text-sub-yellow',
 }
 
+export const STATUS = {
+  PROCEEDING: '진행중',
+  DEADLINE: '마감',
+  END: '종료',
+}
+
 export const STATUS_STYLE = {
-  DEADLINE: 'bg-sub-green',
-  PROCEEDING: 'bg-sub-brown',
+  PROCEEDING: 'bg-sub-green',
+  DEADLINE: 'bg-sub-brown',
   END: 'bg-gray-300',
 }
 
