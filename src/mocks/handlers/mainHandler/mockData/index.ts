@@ -1,9 +1,3 @@
-export const MY_INFO = {
-  id: 1,
-  name: '[프론트엔드]김아무개',
-  email: 'amugae@naver.com',
-}
-
 export const INVITED_REVIEWS = [
   {
     id: 1,
@@ -212,196 +206,58 @@ export const RECEIVED_REVIEWS = [
 ]
 
 export const REVIEW_QUESTION = {
-  success: true,
-  data: {
-    id: 1,
-    title: '데브코스 1차 리뷰',
-    description:
-      '데브코스 단위기간 어쩌구 6월 어쩌구 8월 1차 팀에 대한 리뷰입니다. 성실하게 답변에 임해주세요',
-    status: 'PROCEEDING',
-    questions: [
-      {
-        id: 1,
-        title: '이 사람을 한 마디로 표현하자면?',
-        description: '',
-        type: 'SINGLE_CHOICE',
-        isRequired: true,
-        questionOptions: [
-          {
-            optionId: 1,
-            optionName:
-              '지휘/조절자 : 목표를 명확히 하고 의사결정을 증진함. 장애를 극복하는 추진력과 용기를 지님.',
-          },
-          {
-            optionId: 2,
-            optionName:
-              '분위기 조성자 : 협력적이고 남을 잘 이해하며 친교를 잘함. 경청하고 마찰을 피하며 조직을 평온하게 함.',
-          },
-          {
-            optionId: 3,
-            optionName:
-              '전문가 : 한 가지 일에 전념하고 솔선하며 헌신적임. 전문분야의 지식과 기능을 잘 제공함.',
-          },
-          {
-            optionId: 4,
-            optionName:
-              '실행자 : 엄격하고 신뢰성이 있으며 아이디어를 실행에 잘 옮김. 근면 성실하고 제시간에 일을 이룩해 냄.',
-          },
-          {
-            optionId: 5,
-            optionName:
-              '창조자 : 창조적이고 상상력이 풍부하며 전통이나 인습에 얽매이지 않아 어려운 문제를 잘 해결함.',
-          },
-        ],
-      },
-      {
-        id: 2,
-        title: '팀원 1에 대한 리뷰를 남겨 주세요!',
-        description:
-          '[예시] 해결하지 못하는 부분은 스스로 찾아보고, 정의하고, 해결하려고 하는 자기 주도 학습 태도가 우수합니다. 협업에 필요한 문서화 능력이 뛰어나 함께 작업하는 팀원으로 많은 도움을 받고 있습니다. 상당한 개발 실력뿐만 아니라 새로운 기술과 관련 트렌드를 공유하고 지식 나눔해 주는 팀원입니다.',
-        type: 'SUBJECTIVE',
-        isRequired: false,
-        questionOptions: [],
-      },
-      {
-        id: 3,
-        title: '너의 지금 감정을 알려줘',
-        description: '솔직하게 말해라.',
-        type: 'SUBJECTIVE',
-        isRequired: true,
-        questionOptions: [],
-      },
-      {
-        id: 4,
-        title: '너와 함께하고 있는 포켓몬은?',
-        description: '',
-        type: 'MULTIPLE_CHOICE',
-        isRequired: true,
-        questionOptions: [
-          {
-            optionId: 1,
-            optionName: '리자몽',
-          },
-          {
-            optionId: 2,
-            optionName: '이상해씨',
-          },
-          {
-            optionId: 3,
-            optionName: '닥트리오',
-          },
-          {
-            optionId: 4,
-            optionName: '피카츄',
-          },
-          {
-            optionId: 5,
-            optionName: '뮤츠',
-          },
-        ],
-      },
-      {
-        id: 5,
-        title: '너의 모국은?',
-        description: '이제 너의 국적을 밝힐 시간이야.',
-        type: 'DROPDOWN',
-        isRequired: false,
-        questionOptions: [
-          {
-            optionId: 1,
-            optionName: '일본',
-          },
-          {
-            optionId: 2,
-            optionName: '중국',
-          },
-          {
-            optionId: 3,
-            optionName: '몽골',
-          },
-          {
-            optionId: 4,
-            optionName: '오스트레일리아',
-          },
-        ],
-      },
-      {
-        id: 6,
-        title: '12팀의 프론트엔드 평가는?',
-        description: '당신이 생각했을때 진솔한 답변이 뭐냐고요',
-        type: 'RATING',
-        isRequired: true,
-        questionOptions: [],
-      },
-      {
-        id: 7,
-        title: '이 사람의 코딩 실력을 평가하시오.',
-        description: '육각형 모양의 그래프에 들어갈 점수들을 선택할 수 있어!',
-        type: 'HEXASTAT',
-        isRequired: false,
-        questionOptions: [
-          {
-            optionId: 1,
-            optionName: '섬세함',
-          },
-          {
-            optionId: 2,
-            optionName: '리더십',
-          },
-          {
-            optionId: 3,
-            optionName: '실행력',
-          },
-          {
-            optionId: 4,
-            optionName: '친절함',
-          },
-          {
-            optionId: 5,
-            optionName: '개발 실력',
-          },
-          {
-            optionId: 6,
-            optionName: '킹갓제너럴 멋져멋져력',
-          },
-        ],
-      },
-    ],
-    receivers: [
-      {
-        receiverId: 1,
-        name: '김효중',
-      },
-      {
-        receiverId: 2,
-        name: '김효리',
-      },
-      {
-        receiverId: 3,
-        name: '김주하',
-      },
-      {
-        receiverId: 4,
-        name: '[백엔드-4기]장수연',
-      },
-      {
-        receiverId: 5,
-        name: '[백엔드/4기]김주웅',
-      },
-      {
-        receiverId: 6,
-        name: '[백엔드4기]신범철',
-      },
-      {
-        receiverId: 7,
-        name: '김주하1',
-      },
-      {
-        receiverId: 8,
-        name: '김주하2',
-      },
-    ],
-  },
+  title: 'title',
+  description: 'description',
+  responsers: [
+    { responderId: 1, responderName: '[프론트엔드]김아무개' },
+    { responderId: 2, responderName: '[프론트엔드]김잼민' },
+    { responderId: 3, responderName: '[프론트엔드]김빡빡' },
+  ],
+  questions: [
+    {
+      questionId: 1,
+      questionTitle: '이 사람의 강점은?',
+      questionType: 'multipleChoice',
+      isRequired: true,
+      options: ['협업', '커뮤니케이션', '스킬', '소통'],
+    },
+    {
+      questionId: 2,
+      questionTitle: '이 사람의 단점은?',
+      questionType: 'subjective',
+      isRequired: true,
+      options: [],
+    },
+    {
+      questionId: 3,
+      questionTitle: '이 사람의 성향은?',
+      questionType: 'singleChoice',
+      isRequired: true,
+      options: ['섬세', '리더십', '차분', '잼민'],
+    },
+    {
+      questionId: 4,
+      questionTitle: '답변자의 성별을 선택해주세요.',
+      questionType: 'dropdown',
+      isRequired: true,
+      options: ['남자', '여자'],
+    },
+    {
+      questionId: 5,
+      questionTitle: '이 사람의 코딩 점수는 몇점?',
+      questionType: 'starRating',
+      isRequired: true,
+      options: [],
+    },
+    {
+      questionId: 6,
+      questionTitle: '이 사람의 스탯을 선택 부탁드려유',
+      questionType: 'hexagonStat',
+      isRequired: true,
+      maxScore: 5,
+      options: ['협업', '커뮤니케이션', '스킬', '소통'],
+    },
+  ],
 }
 
 export const REVIEW_RESULT = {

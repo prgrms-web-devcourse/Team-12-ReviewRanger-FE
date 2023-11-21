@@ -1,11 +1,22 @@
 import { rest } from 'msw'
-import { ALL_USERS } from './dummyData'
+
+const ALL_USERS = [
+  {
+    id: 1,
+    name: '김아무개',
+  },
+  {
+    id: 2,
+    name: '김잼민',
+  },
+  {
+    id: 3,
+    name: '김빡빡',
+  },
+]
 
 export const createHandlers = [
-  rest.post('/surveys', async (req, res, ctx) => {
-    const survey = await req.json()
-    console.log(survey)
-
+  rest.post('/surveys', async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json({ success: true }))
   }),
 
