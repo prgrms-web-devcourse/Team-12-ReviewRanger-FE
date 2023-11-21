@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, MouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   useSignUp,
@@ -35,7 +35,9 @@ const useSignUpCheck = ({
   const { mutateAsync: checkDuplicatedEmail } = useCheckDuplicatedEmail()
   const { mutateAsync: checkDuplicatedName } = useCheckDuplicatedName()
 
-  const handleSignUpButtonClick = async () => {
+  const handleSignUpButtonClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
     if (
       !emailFailMessage &&
       !nameFailMessage &&
@@ -56,7 +58,12 @@ const useSignUpCheck = ({
         }
 
         if (emailData.success && nameData.success) {
-          await signUp({ email, name, password })
+          await signUp(
+            { email, name, password },
+            {
+              onSuccess: ({ data }) => console.log(data),
+            },
+          )
           navigate('/login')
         }
       } catch (e) {
