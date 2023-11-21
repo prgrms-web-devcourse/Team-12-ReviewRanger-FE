@@ -19,7 +19,7 @@ const ToastItem = ({ id, type, children }: PropsWithChildren<ToastProps>) => {
       >
         {children}
         <CloseIcon
-          className="cursor-pointer fill-black dark:fill-white"
+          className="cursor-pointer dark:fill-white"
           onClick={() => removeToast({ id })}
         />
         <div
