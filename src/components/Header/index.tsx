@@ -33,9 +33,7 @@ const Header = () => {
       <div className="flex w-full items-center justify-between px-6">
         <div>
           <ArrowLeftIcon
-            className={`md:hidden" ${
-              !goBackVisible && 'hidden'
-            } cursor-pointer`}
+            className={`md:hidden" ${!goBackVisible && 'hidden'}`}
             onClick={() => navigate(-1)}
           />
         </div>
