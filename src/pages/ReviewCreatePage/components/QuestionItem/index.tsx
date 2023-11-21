@@ -110,6 +110,20 @@ const QuestionItem = ({
             {errors.questions?.[index]?.title?.message}
           </p>
         )}
+
+        <textarea
+          placeholder="질문에 대한 설명을 입력해주세요."
+          className="mt-4 w-full border border-gray-200 bg-white p-2.5 text-sm text-black outline-none placeholder:text-gray-100 dark:bg-main-gray dark:text-white md:text-base"
+          {...register(`questions.${index}.description`, {
+            setValueAs: (value: string) => value.trim(),
+          })}
+          onKeyUp={(e) => {
+            if (e.key) {
+              e.preventDefault()
+            }
+            e.preventDefault()
+          }}
+        />
       </div>
 
       {(type === 'SINGLE_CHOICE' ||
