@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface ResponseSuccess {
+interface EditNameSuccess {
   success: boolean
 }
 
-interface ResponseFail {
+interface EditNameFail {
   status: string
   errorCode: string
   message: string
@@ -13,7 +13,7 @@ interface ResponseFail {
 
 const useEditName = () => {
   const editName = async ({ name }: { name: string }) => {
-    return await apiClient.patch<ResponseSuccess | ResponseFail>(
+    return await apiClient.patch<EditNameSuccess | EditNameFail>(
       '/members/profile-name',
       { name },
     )

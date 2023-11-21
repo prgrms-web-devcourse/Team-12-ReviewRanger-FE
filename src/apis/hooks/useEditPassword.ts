@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface ResponseSuccess {
+interface EditPasswordSuccess {
   success: boolean
 }
 
-interface ResponseFail {
+interface EditPasswordFail {
   status: string
   errorCode: string
   message: string
@@ -13,7 +13,7 @@ interface ResponseFail {
 
 const useEditPassword = () => {
   const editPassword = async ({ password }: { password: string }) => {
-    return await apiClient.patch<ResponseSuccess | ResponseFail>(
+    return await apiClient.patch<EditPasswordSuccess | EditPasswordFail>(
       '/members/profile-password',
       { password },
     )
