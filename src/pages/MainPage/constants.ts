@@ -26,9 +26,9 @@ export const INTRO_STYLE = {
 }
 
 export const STATUS_STYLE = {
-  진행중: 'bg-sub-green',
-  마감: 'bg-sub-brown',
-  종료: 'bg-gray-300',
+  DEADLINE: 'bg-sub-green',
+  PROCEEDING: 'bg-sub-brown',
+  END: 'bg-gray-300',
 }
 
 export const TAB_MENU_TITLE = {

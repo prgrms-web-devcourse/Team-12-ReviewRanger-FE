@@ -9,7 +9,7 @@ interface CreatedReviewItemProps extends CreatedReview {
 }
 
 const CreatedReviewItem = ({
-  id,
+  reviewId,
   title,
   status,
   responserCount,
@@ -17,14 +17,14 @@ const CreatedReviewItem = ({
   className,
   handleReviewClick,
 }: CreatedReviewItemProps) => {
-  console.log(`${id}번 리뷰의 응답자 수: ${responserCount}명`)
+  console.log(`${reviewId}번 리뷰의 응답자 수: ${responserCount}명`)
 
   /** 최근 7일 이내 생성된 데이터인지 여부 */
   const newStatus =
     createdAt && dayjs(createdAt).isAfter(dayjs().subtract(7, 'day'))
 
   return (
-    <div className={className} onClick={() => handleReviewClick(id)}>
+    <div className={className} onClick={() => handleReviewClick(reviewId)}>
       <div className="flex items-center justify-between">
         <div className="flex gap-1.5">
           <span

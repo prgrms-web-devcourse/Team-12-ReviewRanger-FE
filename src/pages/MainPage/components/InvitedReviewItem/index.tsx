@@ -8,11 +8,11 @@ interface InvitedReviewItemProps extends InvitedReview {
 }
 
 const InvitedReviewItem = ({
-  id,
+  participationId,
   title,
   status,
-  isCompleted,
   createdAt,
+  submitAt,
   className,
   handleReviewClick,
 }: InvitedReviewItemProps) => {
@@ -22,7 +22,10 @@ const InvitedReviewItem = ({
     createdAt && dayjs(createdAt).isAfter(dayjs().subtract(7, 'day'))
 
   return (
-    <div className={className} onClick={() => handleReviewClick(id)}>
+    <div
+      className={className}
+      onClick={() => handleReviewClick(participationId)}
+    >
       <div className="flex gap-1.5">
         <span
           className={`${STATUS_STYLE[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
@@ -41,13 +44,13 @@ const InvitedReviewItem = ({
       </p>
       <p
         className={`text-right text-xs md:text-sm ${
-          isCompleted
+          submitAt
             ? 'text-black dark:text-sub-red-100'
             : 'text-sub-red-200 dark:text-sub-yellow'
         }`}
       >
-        {isCompleted
-          ? `응답일: ${dayjs(createdAt).format('YYYY-MM-DD')}`
+        {submitAt
+          ? `응답일: ${dayjs(submitAt).format('YYYY-MM-DD')}`
           : '미응답'}
       </p>
     </div>

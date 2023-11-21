@@ -24,9 +24,9 @@ const MainPage = () => {
   >('invited')
 
   const TAB_REVIEWS = {
-    invited: invitedReviews,
-    created: createdReviews,
-    received: receivedReviews,
+    invited: invitedReviews.content,
+    created: createdReviews.content,
+    received: receivedReviews.content,
   }
 
   const handleInvitedReviewClick = (id: number) => {
@@ -66,7 +66,7 @@ const MainPage = () => {
           reviews={TAB_REVIEWS[activeTab]}
           addButtonExistence={activeTab === 'created'}
           RenderComponent={(review) => {
-            if ('isCompleted' in review) {
+            if ('submitAt' in review) {
               return (
                 <InvitedReviewItem
                   {...review}
