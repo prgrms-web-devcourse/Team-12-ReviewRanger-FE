@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import {
   CreatedReviewManagePage,
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: PATH.MAIN,
-        element: <MainPage />,
+        element: (
+          <Suspense>
+            <MainPage />
+          </Suspense>
+        ),
         loader: loginLoader,
       },
       {
@@ -36,7 +41,11 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.REVIEW_CREATION,
-        element: <ReviewCreatePage />,
+        element: (
+          <Suspense>
+            <ReviewCreatePage />
+          </Suspense>
+        ),
         loader: loginLoader,
       },
       {
