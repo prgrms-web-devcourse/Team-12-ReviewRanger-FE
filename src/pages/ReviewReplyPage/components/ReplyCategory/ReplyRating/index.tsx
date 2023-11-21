@@ -5,11 +5,19 @@ import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 import StarRatingList from './StarRatingList'
 
 interface ReplyRatingProps {
-  registerPath: `replyTargets.${number}.replies.${number}`
-  handleCheckReply: ({ score }: { score: number }) => void
+  receiverIndex: number
+  questionIndex: number
+  handleCheckReply: ({ value }: { value: number }) => void
 }
 
-const ReplyRating = ({ registerPath, handleCheckReply }: ReplyRatingProps) => {
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+
+const ReplyRating = ({
+  receiverIndex,
+  questionIndex,
+  handleCheckReply,
+}: ReplyRatingProps) => {
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const { changeStar, rates, setRates, score } = useStarRate()
   const { setValue, getValues } = useFormContext<ReviewReplyType>()
 
@@ -27,7 +35,7 @@ const ReplyRating = ({ registerPath, handleCheckReply }: ReplyRatingProps) => {
   }, [score, registerPath, setValue])
 
   useEffect(() => {
-    score && handleCheckReply({ score })
+    score && handleCheckReply({ value: score })
   }, [score, handleCheckReply])
 
   return (

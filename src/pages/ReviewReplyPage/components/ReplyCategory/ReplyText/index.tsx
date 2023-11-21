@@ -3,11 +3,19 @@ import { useFormContext } from 'react-hook-form'
 import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyTextProps {
-  registerPath: `replyTargets.${number}.replies.${number}`
-  handleCheckReply: ({ text }: { text: string }) => void
+  receiverIndex: number
+  questionIndex: number
+  handleCheckReply: ({ value }: { value: string }) => void
 }
 
-const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+
+const ReplyText = ({
+  receiverIndex,
+  questionIndex,
+  handleCheckReply,
+}: ReplyTextProps) => {
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [text, setText] = useState('')
   const [textCount, setTextCount] = useState<number>(0)
   const { register, getValues } = useFormContext<ReviewReplyType>()
@@ -32,7 +40,7 @@ const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
         {...register(`${registerPath}.answerText`, {
           setValueAs: (value) => value.trim(),
           onChange: handleChangeReplyText,
-          onBlur: () => handleCheckReply({ text }),
+          onBlur: () => handleCheckReply({ value: text }),
         })}
       />
       <p className="absolute bottom-5 right-5">

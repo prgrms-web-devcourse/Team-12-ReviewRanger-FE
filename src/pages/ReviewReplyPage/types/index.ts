@@ -29,5 +29,4 @@ export interface ReviewReplyType {
   receiverList: User[]
   nonReceiverList: User[]
   replyComplete: ReplyComplete[]
-  individualReplyComplete: boolean[]
 }

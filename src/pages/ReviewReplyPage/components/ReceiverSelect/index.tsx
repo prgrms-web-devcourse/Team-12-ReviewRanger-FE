@@ -96,11 +96,6 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       }),
     )
 
-    setValue(
-      'individualReplyComplete',
-      receivers.map(() => false),
-    )
-
     setReviewStep(2)
   }
 

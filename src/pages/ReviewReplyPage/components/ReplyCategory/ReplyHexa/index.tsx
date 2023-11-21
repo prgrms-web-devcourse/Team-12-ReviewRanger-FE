@@ -7,7 +7,7 @@ interface ReplyHexaProps {
   receiverIndex: number
   questionIndex: number
   options: QuestionOption[]
-  handleCheckReply: ({ count }: { count: number }) => void
+  handleCheckReply: ({ value }: { value: number }) => void
 }
 
 type HexaPath = `replyTargets.${number}.replies.${number}.answerHexa`
@@ -37,7 +37,7 @@ const ReplyHexa = ({
       count++
     }
 
-    handleCheckReply({ count })
+    handleCheckReply({ value: count })
   }, [handleCheckReply, getValues, receiverIndex, questionIndex])
 
   return (

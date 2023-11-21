@@ -1,26 +1,29 @@
 import { useMutation } from '@tanstack/react-query'
 import apiClient from '../apiClient'
 
-interface Answer {
+interface Reply {
   questionId: number
-  questionType: string
-  answer: string[]
+  isRequired: boolean
+  answerChoice: number | null
+  answerText: string | null
+  answerRating: number | null
+  answerHexa: number | null
 }
 
-interface Result {
-  reviewerId: number
-  answers: Answer[]
+interface ReplyTarget {
+  receiverId: number
+  responserId: number
+  replies: Reply[]
 }
 
 interface Response {
   id: number
-  userId: number
-  results: Result[]
+  replyTargets: ReplyTarget[]
 }
 
 const useCreateResponse = () => {
   const createResponse = async (response: Response) => {
-    return await apiClient.post('/invited-surveys', response)
+    return await apiClient.post('/participation', response)
   }
 
   return useMutation({ mutationFn: createResponse })

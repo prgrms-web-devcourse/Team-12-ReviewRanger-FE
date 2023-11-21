@@ -1,40 +1,41 @@
-import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
+import { useState, MouseEvent, ChangeEvent, useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import { CheckIcon } from '@/assets/icons'
 import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoiceProps {
-  registerPath: `replyTargets.${number}.replies.${number}`
   receiverIndex: number
   questionIndex: number
   options: QuestionOption[]
   type: 'SINGLE_CHOICE' | 'DROPDOWN'
-  handleCheckReply: ({ choice }: { choice: number }) => void
+  handleCheckReply: ({ value }: { value: number }) => void
 }
 
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+
 const ReplyChoice = ({
-  registerPath,
   receiverIndex,
   questionIndex,
   options,
   type,
   handleCheckReply,
 }: ReplyChoiceProps) => {
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
   const { getValues, setValue, register } = useFormContext<ReviewReplyType>()
 
-  useEffect(() => {
-    handleCheckReply({ choice: selectedOptionId })
-  }, [selectedOptionId, handleCheckReply])
-
-  useEffect(() => {
-    setSelectedOptionId(
+  const prevSelectedOptions = useMemo(
+    () =>
       getValues(`replyTargets.${receiverIndex}.replies`).find(
         (reply) => reply.questionId === questionIndex + 1,
-      )?.answerChoice as number,
-    )
-  }, [receiverIndex, questionIndex, getValues])
+      )?.answerChoice || 0,
+    [receiverIndex, questionIndex, getValues],
+  )
+
+  useEffect(() => {
+    setSelectedOptionId(prevSelectedOptions)
+  }, [prevSelectedOptions, questionIndex, receiverIndex])
 
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,
@@ -49,9 +50,11 @@ const ReplyChoice = ({
 
     if (selectedOptionId === selectedTarget) {
       setSelectedOptionId(0)
+      handleCheckReply({ value: 0 })
       setValue(`${registerPath}.answerChoice`, 0)
     } else {
       setSelectedOptionId(selectedTarget)
+      handleCheckReply({ value: selectedTarget })
       setValue(`${registerPath}.answerChoice`, selectedTarget)
     }
   }

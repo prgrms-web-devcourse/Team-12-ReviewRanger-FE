@@ -1,24 +1,25 @@
-import { useState, MouseEvent, useEffect } from 'react'
+import { useState, MouseEvent, useEffect, useMemo } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import { CheckIcon } from '@/assets/icons'
 import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoicesProps {
-  registerPath: `replyTargets.${number}.replies.${number}`
   receiverIndex: number
   questionIndex: number
   options: QuestionOption[]
-  handleCheckReply: ({ choices }: { choices: number[] }) => void
+  handleCheckReply: ({ value }: { value: number[] }) => void
 }
 
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+
 const ReplyChoices = ({
-  registerPath,
   receiverIndex,
   questionIndex,
   options,
   handleCheckReply,
 }: ReplyChoicesProps) => {
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionIds, setSelectedOptionIds] = useState<number[]>([])
   const { getValues, setValue, control } = useFormContext<ReviewReplyType>()
   const { append: appendChoiceReply, remove: removeChoiceReply } =
@@ -27,20 +28,24 @@ const ReplyChoices = ({
       name: `replyTargets.${receiverIndex}.replies`,
     })
 
-  useEffect(() => {
-    handleCheckReply({ choices: selectedOptionIds })
-  }, [selectedOptionIds, handleCheckReply])
-
-  useEffect(() => {
-    setSelectedOptionIds(
+  const prevSelectedOptions = useMemo(() => {
+    return (
       getValues(`replyTargets.${receiverIndex}.replies`)
         .filter(
           (reply) =>
             reply.questionId === questionIndex + 1 && reply.answerChoice !== 0,
         )
-        .map((reply) => reply.answerChoice as number),
+        .map((reply) => reply.answerChoice as number) || []
     )
   }, [receiverIndex, questionIndex, getValues])
+
+  useEffect(() => {
+    setSelectedOptionIds(prevSelectedOptions)
+  }, [prevSelectedOptions, questionIndex, receiverIndex])
+
+  useEffect(() => {
+    handleCheckReply({ value: selectedOptionIds })
+  }, [selectedOptionIds, handleCheckReply])
 
   const handleClickOption = (e: MouseEvent<HTMLLIElement>) => {
     const selectedTarget = options.find(
@@ -52,18 +57,19 @@ const ReplyChoices = ({
     }
 
     if (selectedOptionIds.includes(selectedTarget)) {
-      if (selectedOptionIds.length > 1) {
-        const index = getValues(
-          `replyTargets.${receiverIndex}.replies`,
-        ).findIndex((reply) => {
-          return (
-            reply.questionId === questionIndex + 1 &&
-            reply.answerChoice === selectedTarget
-          )
-        })
-        removeChoiceReply(index)
-      } else {
+      const index = getValues(
+        `replyTargets.${receiverIndex}.replies`,
+      ).findIndex((reply) => {
+        return (
+          reply.questionId === questionIndex + 1 &&
+          reply.answerChoice === selectedTarget
+        )
+      })
+
+      if (index === questionIndex) {
         setValue(`${registerPath}.answerChoice`, 0)
+      } else {
+        removeChoiceReply(index)
       }
 
       setSelectedOptionIds(
