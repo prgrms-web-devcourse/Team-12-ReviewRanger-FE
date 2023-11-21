@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import { ReviewReplyType } from '../../types'
 import {
   ReplyText,
   ReplyChoice,

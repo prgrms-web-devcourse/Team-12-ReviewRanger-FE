@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
 import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
 import { ReceiverSelect, ReviewReply } from './components'
-import { ReviewReplyType } from './types/index'
+import { ReviewReplyType } from './types'
 
 const reviewId = 123
 
