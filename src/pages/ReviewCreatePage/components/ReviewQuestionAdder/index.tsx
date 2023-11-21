@@ -45,7 +45,7 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto flex h-full w-full max-w-[880px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
+      className="mx-auto flex h-full w-full max-w-[37.5rem] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
     >
       <div className="flex flex-col gap-8">
         <div>

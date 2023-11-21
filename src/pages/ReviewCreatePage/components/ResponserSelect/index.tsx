@@ -52,11 +52,11 @@ const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
   return (
     <>
       <form
-        className="mx-auto flex h-full w-full max-w-[880px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
+        className="mx-auto flex h-full w-full max-w-[37.5rem] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <h1 className="text-lg md:text-xl">응답자 선택</h1>
+          <h1 className="text-lg dark:text-white md:text-xl">응답자 선택</h1>
           <div className="flex flex-col gap-4 text-sm md:text-lg">
             {responsers.length > 0 && (
               <div className="mt-7">
