@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { useNavigate } from 'react-router-dom'
 import { PlusIcon } from '@/assets/icons'
 import { CreatedReview, InvitedReview, ReceivedReview } from '@/types'
@@ -34,7 +35,7 @@ const ReviewList = ({
 
       {reviews.map((review) => (
         <RenderComponent
-          key={review.id}
+          key={nanoid()}
           className="btn flex h-36 flex-col items-stretch justify-between rounded-sm border border-gray-100 bg-main-ivory p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-44"
           {...review}
         />

@@ -25,10 +25,16 @@ export const INTRO_STYLE = {
   received: 'text-sub-orange dark:text-sub-yellow',
 }
 
+export const STATUS = {
+  PROCEEDING: '진행중',
+  DEADLINE: '마감',
+  END: '종료',
+}
+
 export const STATUS_STYLE = {
-  진행중: 'bg-sub-green',
-  마감: 'bg-sub-brown',
-  종료: 'bg-gray-300',
+  PROCEEDING: 'bg-sub-green',
+  DEADLINE: 'bg-sub-brown',
+  END: 'bg-gray-300',
 }
 
 export const TAB_MENU_TITLE = {

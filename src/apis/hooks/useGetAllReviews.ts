@@ -2,30 +2,56 @@ import { useSuspenseQueries } from '@tanstack/react-query'
 import { CreatedReview, InvitedReview, ReceivedReview } from '@/types'
 import apiClient from '../apiClient'
 
+interface InvitedReviewResponse {
+  success: boolean
+  data: {
+    content: InvitedReview[]
+    last: boolean
+  }
+}
+
+interface CreatedReviewResponse {
+  success: boolean
+  data: {
+    content: CreatedReview[]
+    last: boolean
+  }
+}
+
+interface ReceivedReviewResponse {
+  success: boolean
+  data: {
+    content: ReceivedReview[]
+    last: boolean
+  }
+}
+
 const useGetAllReviews = () => {
   const getInvitedReview = async () => {
-    const response = await apiClient.get<InvitedReview[]>('/invited-surveys')
+    const response =
+      await apiClient.get<InvitedReviewResponse>('/participations')
 
-    return response.data
+    return response.data.data
   }
 
   const getCreatedReview = async () => {
-    const response = await apiClient.get<CreatedReview[]>('/created-surveys')
+    const response = await apiClient.get<CreatedReviewResponse>('/reviews')
 
-    return response.data
+    return response.data.data
   }
 
   const getReceivedReview = async () => {
-    const response = await apiClient.get<ReceivedReview[]>('/received-reviews')
+    const response =
+      await apiClient.get<ReceivedReviewResponse>('/final-results')
 
-    return response.data
+    return response.data.data
   }
 
   return useSuspenseQueries({
     queries: [
-      { queryKey: ['/created-surveys'], queryFn: getInvitedReview },
-      { queryKey: ['/received-reviews'], queryFn: getCreatedReview },
-      { queryKey: ['/invited-surveys'], queryFn: getReceivedReview },
+      { queryKey: ['/participations'], queryFn: getInvitedReview },
+      { queryKey: ['/reviews'], queryFn: getCreatedReview },
+      { queryKey: ['/final-results'], queryFn: getReceivedReview },
     ],
   })
 }
