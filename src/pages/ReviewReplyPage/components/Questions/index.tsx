@@ -15,7 +15,6 @@ interface QuestionsProps {
   receiverIndex: number
 }
 
-type RegisterPath = `replyTargets.${number}.replies.${number}`
 type ReplyCompletePath = `replyComplete.${number}.complete.${number}`
 
 const Questions = ({
@@ -23,20 +22,15 @@ const Questions = ({
   questionIndex,
   receiverIndex,
 }: QuestionsProps) => {
+  const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${questionIndex}`
   const { title, description, type, questionOptions, isRequired } = question
   const { setValue } = useFormContext<ReviewReplyType>()
 
-  // NOTE: 폼 데이터의 경로
-  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
-  const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${questionIndex}`
-
-  // NOTE: 문항별로 답변 여부 체크
   const handleCheckReply = ({
     value,
   }: {
     value: string | number | number[]
   }) => {
-    // NOTE: 필수 질문이 아닐 때는, 답변을 한 것으로 처리.
     if (!question.isRequired) {
       setValue(replyCompletePath, true)
 
@@ -80,13 +74,13 @@ const Questions = ({
       )}
       {type === 'SUBJECTIVE' && (
         <ReplyText
-          registerPath={registerPath}
+          receiverIndex={receiverIndex}
+          questionIndex={questionIndex}
           handleCheckReply={handleCheckReply}
         />
       )}
       {(type === 'SINGLE_CHOICE' || type === 'DROPDOWN') && (
         <ReplyChoice
-          registerPath={registerPath}
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
@@ -96,7 +90,6 @@ const Questions = ({
       )}
       {type === 'MULTIPLE_CHOICE' && (
         <ReplyChoices
-          registerPath={registerPath}
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
@@ -105,7 +98,8 @@ const Questions = ({
       )}
       {type === 'RATING' && (
         <ReplyRating
-          registerPath={registerPath}
+          receiverIndex={receiverIndex}
+          questionIndex={questionIndex}
           handleCheckReply={handleCheckReply}
         />
       )}

@@ -3,16 +3,23 @@ import { useFormContext } from 'react-hook-form'
 import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyTextProps {
-  registerPath: `replyTargets.${number}.replies.${number}`
+  receiverIndex: number
+  questionIndex: number
   handleCheckReply: ({ value }: { value: string }) => void
 }
 
-const ReplyText = ({ registerPath, handleCheckReply }: ReplyTextProps) => {
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+
+const ReplyText = ({
+  receiverIndex,
+  questionIndex,
+  handleCheckReply,
+}: ReplyTextProps) => {
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [text, setText] = useState('')
   const [textCount, setTextCount] = useState<number>(0)
   const { register, getValues } = useFormContext<ReviewReplyType>()
 
-  // NOTE: 수신자나 질문이 변경될 때마다 초기값으로 세팅
   useEffect(() => {
     setTextCount(0)
     setText(getValues(`${registerPath}.answerText`) || '')

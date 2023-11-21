@@ -13,7 +13,6 @@ interface ReceiverSelectProps {
 // TODO: 지울 예정
 const userId = 812
 
-// NOTE: 수신자를 선택하는 페이지
 const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
   const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
@@ -27,7 +26,6 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     formState: { errors },
   } = useFormContext<ReviewReplyType>()
 
-  // NOTE: useFieldArray를 사용하여 수신자와 비수신자 목록을 관리.
   const {
     fields: receivers,
     append: appendReceiver,
@@ -40,13 +38,11 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     remove: removeNonReceiver,
   } = useFieldArray({ control, name: 'nonReceiverList' })
 
-  // NOTE: useFieldArray를 사용하여 수신자들별로 데이터를 추가하는 append를 가져옴
   const { append: appendReplyTarget } = useFieldArray({
     control,
     name: 'replyTargets',
   })
 
-  // NOTE: 수신자를 모두 고르고, 답변하는 페이지로 이동하기 위해 제출하는 함수
   const onSubmit: SubmitHandler<ReviewReplyType> = () => {
     if (!receivers.length) {
       setError('receiverList', {
@@ -57,7 +53,6 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       return
     }
 
-    // NOTE: 수신자마다 필요한 정보를 만들어서 replyTargets[]에 apply해주기
     receivers.forEach(({ receiverId }) => {
       const replyTarget = {
         receiverId: receiverId,
@@ -91,7 +86,6 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       appendReplyTarget(replyTarget)
     })
 
-    // NOTE: 응답 완료 여부를 체크하기위해 초기 데이터를 등록함.
     setValue(
       'replyComplete',
       receivers.map(({ receiverId }) => {
@@ -105,7 +99,6 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     setReviewStep(2)
   }
 
-  // NOTE: SearchBar에 focus를 둘 때, 선택받지 않은 비수신자 목록을 보여줌
   const handleInputFocus = () => {
     setValue(
       'nonReceiverList',

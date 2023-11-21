@@ -21,7 +21,6 @@ const ReplyHexa = ({
   const { register, getValues, setValue, watch } =
     useFormContext<ReviewReplyType>()
 
-  // NOTE: 육각형 스탯 모든 옵션에 답변을 완료하였는지 체크
   useEffect(() => {
     let count = 0
 
@@ -48,7 +47,6 @@ const ReplyHexa = ({
           questionIndex + index
         }.answerHexa`
 
-        // NOTE: 육각스탯 각 옵션들의 필드 값을 실시간으로 모니터링하여 변화를 감지
         watch(hexaPath)
 
         return (

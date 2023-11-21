@@ -5,7 +5,6 @@ import { CheckIcon } from '@/assets/icons'
 import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoiceProps {
-  registerPath: `replyTargets.${number}.replies.${number}`
   receiverIndex: number
   questionIndex: number
   options: QuestionOption[]
@@ -13,18 +12,19 @@ interface ReplyChoiceProps {
   handleCheckReply: ({ value }: { value: number }) => void
 }
 
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+
 const ReplyChoice = ({
-  registerPath,
   receiverIndex,
   questionIndex,
   options,
   type,
   handleCheckReply,
 }: ReplyChoiceProps) => {
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
   const { getValues, setValue, register } = useFormContext<ReviewReplyType>()
 
-  // NOTE: 이전에 선택된 옵션을 가져오기.
   const prevSelectedOptions = useMemo(
     () =>
       getValues(`replyTargets.${receiverIndex}.replies`).find(
@@ -37,7 +37,6 @@ const ReplyChoice = ({
     setSelectedOptionId(prevSelectedOptions)
   }, [prevSelectedOptions, questionIndex, receiverIndex])
 
-  // NOTE: 옵션을 클릭했을 때 이벤트 핸들러
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,
   ) => {
@@ -45,12 +44,10 @@ const ReplyChoice = ({
       (option) => option.optionId == e.currentTarget.value,
     )?.optionId
 
-    // NOTE: selectedTarget은 값이 없을 수가 없지만, typescript이므로...
     if (!selectedTarget) {
       return
     }
 
-    // NOTE: 이미 선택한 값을 다시 눌렀을 때, 초기화
     if (selectedOptionId === selectedTarget) {
       setSelectedOptionId(0)
       handleCheckReply({ value: 0 })

@@ -5,18 +5,24 @@ import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
 import StarRatingList from './StarRatingList'
 
 interface ReplyRatingProps {
-  registerPath: `replyTargets.${number}.replies.${number}`
+  receiverIndex: number
+  questionIndex: number
   handleCheckReply: ({ value }: { value: number }) => void
 }
 
-const ReplyRating = ({ registerPath, handleCheckReply }: ReplyRatingProps) => {
-  // NOTE: 이미 만들어진 useStarRate() 훅을 사용하여 상태관리. setRates를 직접 다루어야하여 새롭게 return 받음.
+type RegisterPath = `replyTargets.${number}.replies.${number}`
+
+const ReplyRating = ({
+  receiverIndex,
+  questionIndex,
+  handleCheckReply,
+}: ReplyRatingProps) => {
+  const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const { changeStar, rates, setRates, score } = useStarRate()
   const { setValue, getValues } = useFormContext<ReviewReplyType>()
 
   useEffect(() => {
     const prevScore = getValues(`${registerPath}.answerRating`)
-    // 이전에 답변한 데이터가 있다면, 해당 score를 가지고 boolean[]로 초기화
     setRates(
       prevScore
         ? Array.from({ length: 5 }, (_, index) => index < prevScore)
