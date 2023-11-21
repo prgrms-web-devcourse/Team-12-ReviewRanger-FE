@@ -1,10 +1,15 @@
+import { MouseEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useEmailCheck, useNameCheck, usePasswordCheck } from '@/hooks'
 import { Input, Header } from '@/components'
+import { useSignUp } from '@/apis/hooks'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
-import { useSignUpCheck } from './hooks'
 
 const SingUpPage = () => {
+  const navigate = useNavigate()
+  const { mutate: signUp } = useSignUp()
+
   const { email, emailFailMessage, setEmailFailMessage, handleEmailChange } =
     useEmailCheck()
   const { name, nameFailMessage, setNameFailMessage, handleNameChange } =
@@ -17,17 +22,39 @@ const SingUpPage = () => {
     handlePasswordChange,
     handlePasswordConfirmChange,
   } = usePasswordCheck()
-  const { handleSignUpButtonClick } = useSignUpCheck({
-    email,
-    emailFailMessage,
-    setEmailFailMessage,
-    nameFailMessage,
-    setNameFailMessage,
-    name,
-    password,
-    passwordFailMessage,
-    passwordConfirmFailMessage,
-  })
+
+  const handleSignUpButtonClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
+    if (
+      emailFailMessage ||
+      nameFailMessage ||
+      passwordFailMessage ||
+      passwordConfirmFailMessage
+    ) {
+      return
+    }
+
+    signUp(
+      { email, name, password },
+      {
+        onSuccess: ({ data }) => {
+          if ('status' in data && data.status === 'CONFLICT') {
+            if (data.errorCode === 'EXIST_SAME_NAME') {
+              setNameFailMessage(data.message)
+            }
+            if (data.errorCode === 'EXIST_SAME_EMAIL') {
+              setEmailFailMessage(data.message)
+            }
+
+            return
+          }
+
+          navigate('/')
+        },
+      },
+    )
+  }
 
   return (
     <div className="flex h-screen flex-col">
