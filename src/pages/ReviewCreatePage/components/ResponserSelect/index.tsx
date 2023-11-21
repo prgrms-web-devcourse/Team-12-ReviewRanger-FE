@@ -52,7 +52,7 @@ const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
   return (
     <>
       <form
-        className="mx-auto flex h-full w-full max-w-[880px] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
+        className="mx-auto flex h-full w-full max-w-[37.5rem] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
