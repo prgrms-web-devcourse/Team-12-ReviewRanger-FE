@@ -20,9 +20,10 @@ export const loginHandlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        token: jwt[rand],
-        name: '효중',
-        email: '1232@naver.com',
+        success: true,
+        data: {
+          accessToken: jwt[rand],
+        },
       }),
     )
   }),
@@ -33,9 +34,12 @@ export const loginHandlers = [
       return res(
         ctx.status(200),
         ctx.json({
-          name: '효중',
-          id: '123123',
-          email: 'asdasd@naver.com',
+          success: true,
+          data: {
+            name: '효중',
+            id: '123123',
+            email: 'asdasd@naver.com',
+          },
         }),
       )
     }
