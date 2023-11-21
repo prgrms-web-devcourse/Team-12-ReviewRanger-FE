@@ -98,11 +98,10 @@ const QuestionItem = ({
             },
             setValueAs: (value: string) => value.trim(),
           })}
-          onKeyUp={(e) => {
-            if (e.key) {
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
               e.preventDefault()
             }
-            e.preventDefault()
           }}
         />
         {errors.questions?.[index]?.title && (
@@ -121,12 +120,6 @@ const QuestionItem = ({
             },
             setValueAs: (value: string) => value.trim(),
           })}
-          onKeyUp={(e) => {
-            if (e.key) {
-              e.preventDefault()
-            }
-            e.preventDefault()
-          }}
         />
         {errors.questions?.[index]?.description && (
           <p className="mt-1 text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
