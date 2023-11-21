@@ -82,6 +82,7 @@ const ReviewDetailAccordion = ({
             name={receiverName}
             responserSize={responserCount?.size}
           />
+          //NOTE - 질문들을 돌면서 질문-답변을 연결해서 보여주는 부분
           {getReviewQuestion?.questions?.map((question) => (
             <QuestionGroup
               questionType={question?.type}

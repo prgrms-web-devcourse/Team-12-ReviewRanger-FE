@@ -12,12 +12,15 @@ import {
 
 const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
+  //NOTE - 리뷰ID
   const reviewId = pathname.split('/').at(-1) ?? ''
 
+  //NOTE - 작성자별 탭인지, 수신자별 탭인지
   const [activeTab, setActiveTab] = useState<'responser' | 'receiver'>(
     'responser',
   )
 
+  //NOTE - 리뷰의 질문을 가져온다!
   const { data: getReviewQuestion } = useGetReviewQuestion({
     id: reviewId,
   }).data
@@ -61,6 +64,7 @@ const CreatedReviewManagePage = () => {
           {getReviewQuestion?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
+        //NOTE - 설문 진행 상태 여부에 따라 다르게 보여줘야 함
         {getReviewQuestion?.status === 'PROCEEDING' ? (
           <button
             className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black

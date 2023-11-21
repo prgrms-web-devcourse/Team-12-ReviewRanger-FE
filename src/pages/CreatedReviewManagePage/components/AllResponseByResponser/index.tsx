@@ -1,3 +1,4 @@
+//NOTE - 작성자별 탭
 import { useState, Suspense } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { useGetAllResponseByResponser } from '@/apis/hooks'
@@ -92,7 +93,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
                 submitAt={filteredUsers.map((value) => value.submitAt)}
                 onClickUser={({ id, name }) => setSelectedUser({ id, name })}
               />
-              <Suspense fallback={<div>홀호</div>}>
+              <Suspense fallback={<div className="spinner" />}>
                 <ReviewDetailAccordion
                   reviewId={surveyId}
                   receiverId={selectedUser.id}

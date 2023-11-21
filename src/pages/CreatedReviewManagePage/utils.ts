@@ -33,6 +33,7 @@ interface Reply {
   hexastat: number | null
 }
 
+//NOTE - 주관식 질문일떄, 질문과 답변 매핑
 const getTextAnswer = (questionId: string, reply: Data[]) => {
   const res = reply
     ?.map(
@@ -56,6 +57,7 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
   return res
 }
 
+//NOTE - 별점 질문과 답변들 매핑
 const getRatingAnswer = (questionId: string, reply: Data[]) => {
   return reply
     ?.map(
@@ -74,9 +76,6 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
     .flat()
 }
 
-//NOTE - 육각스텟일 떄 항목별로 뺴야함
-//NOTE - 옵션별로 누가답변했는지, 몇점인지 여부가 필요
-
 const getRemainAnswer = (questionId: string, reply: Data[]) => {
   return reply
     ?.map(
@@ -84,6 +83,7 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
         value?.replies
           ?.filter((reply) => reply && reply.questionId === questionId)
           ?.map((reply) => {
+            //NOTE - 육각형 스텟일떄
             if (
               reply.questionOption?.optionId &&
               reply.questionOption?.optionName &&
@@ -95,6 +95,7 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
                 userName: value?.responser?.name,
               }
             }
+            //NOTE - 그 외의 질문 유형일떄 처리
             {
               return {
                 value: reply.questionOption?.optionName ?? null,

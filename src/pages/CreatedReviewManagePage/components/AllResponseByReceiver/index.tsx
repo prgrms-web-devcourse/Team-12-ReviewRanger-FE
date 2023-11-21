@@ -1,3 +1,5 @@
+//NOTE - 수신자별 탭
+
 import { Suspense } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { useGetAllResponseByReceiver } from '@/apis/hooks'
