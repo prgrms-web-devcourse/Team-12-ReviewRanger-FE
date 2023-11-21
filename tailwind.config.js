@@ -46,6 +46,14 @@ export default {
           blue: '#1138C3',
           skyblue: '#48F4FF',
         },
+        error: {
+          lighten: '#FFE5E5',
+          darken: '#481A1D',
+        },
+        success: {
+          lighten: '#DDF3E4',
+          darken: '#113123',
+        },
       },
       fontSize: {
         xs: '0.625rem',
@@ -60,6 +68,20 @@ export default {
       },
       spacing: {
         2.5: '0.625rem',
+      },
+      keyframes: {
+        progress: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+        slideIn: {
+          '0%': { transform: 'translateX(100%)', opacity: 0 },
+          '100%': { transform: 'translateX(0)', opacity: 1 },
+        },
+      },
+      animation: {
+        'progress-animation': 'progress 3s linear forwards',
+        'slide-in': 'slideIn 0.5s ease-in-out',
       },
     },
   },
