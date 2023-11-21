@@ -2,9 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
 interface User {
-  id: string
-  email: string
-  name: string
+  success: boolean
+  data: {
+    id: string
+    name: string
+    email: string
+  }
 }
 
 const useUser = () => {
