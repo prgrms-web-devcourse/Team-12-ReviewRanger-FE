@@ -18,7 +18,7 @@ export const mainHandlers = [
   rest.get('/received-reviews', async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(RECEIVED_REVIEWS))
   }),
-  rest.get('/invited-surveys/:surveyResultId', async (_, res, ctx) => {
+  rest.get('/reviews/:reviewId/first', async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(REVIEW_QUESTION))
   }),
   rest.get('/final-results/:finalReviewId', async (_, res, ctx) => {

@@ -1,7 +1,7 @@
-import { ChangeEvent, FormEvent } from 'react'
+import { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react'
 import { SearchIcon, CloseIcon } from '@/assets/icons'
 
-interface SearchBarProps {
+interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   keyword?: string
   handleSubmitKeyword?: (e: FormEvent<HTMLFormElement>) => void
   handleChangeKeyword?: (e: ChangeEvent<HTMLInputElement>) => void
@@ -15,27 +15,27 @@ const SearchBar = ({
   handleSubmitKeyword,
   handleChangeKeyword,
   handleResetKeyword,
-  className,
+  onFocus,
   placeholder = '검색어를 입력하세요.',
+  className,
 }: SearchBarProps) => {
   return (
     <form
       onSubmit={handleSubmitKeyword}
       onReset={handleResetKeyword}
-      className={`relative flex flex-row items-center rounded-md ${className}`}
+      className={`${className} flex items-center gap-2 rounded-md border border-gray-200 bg-white p-3 dark:border-gray-100 dark:bg-main-red-200`}
     >
-      <SearchIcon className="absolute ml-3" />
+      <SearchIcon className="h-4 w-4 dark:fill-white" />
       <input
-        className="align-center input input-block 
-        w-full
-        justify-center rounded-md  border-2 border-gray-200 bg-white pl-8 text-black"
+        className="h-4 w-full bg-white text-sm text-black focus:outline-none dark:bg-main-red-200 dark:text-white md:text-lg"
         onChange={handleChangeKeyword}
+        onFocus={onFocus}
         type="text"
         value={keyword}
         placeholder={placeholder}
       />
-      <button className="absolute right-3" type="reset">
-        <CloseIcon />
+      <button type="reset">
+        <CloseIcon className="h-4 w-4 fill-black dark:fill-white" />
       </button>
     </form>
   )
