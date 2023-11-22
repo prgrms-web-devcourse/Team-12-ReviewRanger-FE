@@ -13,19 +13,9 @@ const ReceivedReviewItem = ({
   className,
   handleReviewClick,
 }: ReceivedReviewItemProps) => {
-  /** 최근 7일 이내 전송된 데이터인지 여부 */
-  const newStatus =
-    createdAt && dayjs(createdAt).isAfter(dayjs().subtract(7, 'day'))
-
   return (
     <div className={className} onClick={() => handleReviewClick(id)}>
-      <div className="flex">
-        {newStatus && (
-          <span className="rounded-full bg-sub-red-200 px-1.5 py-0.5 text-xs text-white md:text-sm">
-            N
-          </span>
-        )}
-      </div>
+      <div className="flex"></div>
 
       <p className="line-clamp-2 text-center text-base text-black dark:text-sub-red-100 md:text-xl">
         {title}
