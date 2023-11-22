@@ -24,6 +24,7 @@ const useUser = () => {
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
+    gcTime: 0,
   })
 }
 

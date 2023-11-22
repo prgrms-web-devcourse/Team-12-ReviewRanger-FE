@@ -9,7 +9,7 @@ import { useResponseReviewByUser } from '../../hooks'
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const { data: responseByReceiver } = useGetAllResponseByReceiver({
     surveyId,
-  }).data || { data: [] }
+  }).data
   const {
     selectedUser,
     setSelectedUser,
