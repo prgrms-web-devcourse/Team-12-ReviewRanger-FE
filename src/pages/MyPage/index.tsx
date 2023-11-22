@@ -1,16 +1,13 @@
 import { useNameCheck, usePasswordCheck } from '@/hooks'
 import { Header, Input } from '@/components'
+import { useUser } from '@/apis/hooks'
 import { BasicProfileIcon, CheckIcon, EditIcon } from '@/assets/icons'
 import { useEditNameCheck, useEditPasswordCheck } from './hooks'
 
-// TODO: 삭제할 mock 데이터 (현재 유저)
-const user = {
-  name: '[프롱이/4기]김주하',
-  email: 'email@naver.com',
-  password: 'imsy password',
-}
-
 const MyPage = () => {
+  const { data } = useUser()
+  const { name: userName, email: userEmail } = data.data
+
   const {
     name,
     nameFailMessage,
@@ -33,7 +30,7 @@ const MyPage = () => {
     handleEditNameStartingClick,
     handleEditNameEndingClick,
   } = useEditNameCheck({
-    currentName: user.name,
+    currentName: userName,
     name,
     setName,
     nameFailMessage,
@@ -64,7 +61,7 @@ const MyPage = () => {
               <Input
                 className="!w-64"
                 type="name"
-                placeholder="변경할 이름을 입력하라구!"
+                placeholder="변경할 이름을 입력하세요."
                 onChange={handleNameChange}
                 message={nameFailMessage}
                 value={name}
@@ -79,7 +76,7 @@ const MyPage = () => {
           ) : (
             <div className="relative flex items-center">
               <div className="text-xl font-bold text-black dark:text-white">
-                {user.name}
+                {userName}
               </div>
               <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
                 <EditIcon
@@ -90,7 +87,7 @@ const MyPage = () => {
             </div>
           )}
           <div className="text-sm text-gray-300 dark:text-white">
-            {user.email}
+            {userEmail}
           </div>
         </div>
 
