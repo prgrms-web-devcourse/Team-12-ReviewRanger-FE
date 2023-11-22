@@ -14,8 +14,8 @@ const useResponseByReviewUser = ({ users }: { users: Receiver[] }) => {
     id: string
     name: string
   }>({
-    id: 'user',
-    name: 'user',
+    id: '',
+    name: '',
   })
 
   const [filteredUsers] = useState(
@@ -27,8 +27,8 @@ const useResponseByReviewUser = ({ users }: { users: Receiver[] }) => {
   }
 
   const findUserBySearchKeyword = filteredUsers
-    .map((value) => value)
-    .filter((user) => user.name.trim().includes(userSearchKeyword))
+    ?.map((value) => value)
+    ?.filter((user) => user.name.trim().includes(userSearchKeyword))
 
   return {
     filteredUsers,
