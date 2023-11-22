@@ -20,6 +20,10 @@ const useUser = () => {
   return useSuspenseQuery({
     queryKey: ['/user'],
     queryFn: getUser,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
   })
 }
 

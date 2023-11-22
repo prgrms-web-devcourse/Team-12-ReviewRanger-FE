@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
-import { useLogin } from '@/apis/hooks'
+import { useLogin, useUser } from '@/apis/hooks'
 import { TOKEN_KEY } from '@/constants'
 import { LoginGroup, LogoGroup } from './components'
 
@@ -12,6 +12,7 @@ export interface LoginProps {
 const LoginPage = () => {
   const { mutate: login } = useLogin()
   const navigate = useNavigate()
+  const { refetch } = useUser()
 
   const handleLoginButtonClick = (email: string, password: string) => {
     login(
@@ -19,6 +20,7 @@ const LoginPage = () => {
       {
         onSuccess({ data }) {
           localStorage.setItem(TOKEN_KEY, data.data.accessToken)
+          refetch()
           navigate('/')
         },
 
