@@ -12,7 +12,9 @@ const Item = ({
 }: PropsWithChildren<ItemProps>) => {
   return (
     <a
-      className="dropdown-item rounded-none text-sm hover:bg-gray-400 dark:text-white dark:hover:bg-gray-300 md:text-lg"
+      className={`dropdown-item rounded-none text-sm  dark:text-white dark:hover:bg-gray-300 md:text-lg ${
+        defaultClose ? 'hover:bg-gray-400' : ''
+      }`}
       tabIndex={defaultClose ? undefined : -1}
       onClick={handleClickItem}
     >
