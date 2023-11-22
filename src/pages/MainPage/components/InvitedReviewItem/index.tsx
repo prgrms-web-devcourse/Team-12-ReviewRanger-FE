@@ -13,8 +13,11 @@ const InvitedReviewItem = ({
   status,
   submitAt,
   className,
+  participationId,
   handleReviewClick,
 }: InvitedReviewItemProps) => {
+  console.log(participationId + '초대받은 리뷰 participation ID')
+
   return (
     <div className={className} onClick={() => handleReviewClick(reviewId)}>
       <div className="flex gap-1.5">

@@ -34,7 +34,7 @@ export const QUESTION_TYPE = {
   SUBJECTIVE: (
     <TextIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
   ),
-  STAR_RATING: (
+  RATING: (
     <StarRatingIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
   ),
   HEXASTAT: (

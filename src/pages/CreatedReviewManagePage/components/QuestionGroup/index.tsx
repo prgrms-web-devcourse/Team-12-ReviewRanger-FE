@@ -14,7 +14,7 @@ interface QuestionGroupProps {
     | 'MULTIPLE_CHOICE'
     | 'DROPDOWN'
     | 'SUBJECTIVE'
-    | 'STAR_RATING'
+    | 'RATING'
     | 'HEXASTAT'
   questionTitle: string
   questionDescription?: string
