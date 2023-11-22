@@ -32,8 +32,12 @@ const MainPage = () => {
     received: receivedReviews.content,
   }
 
-  const handleInvitedReviewClick = (id: number) => {
-    navigate(`review-response/${id}`)
+  const handleInvitedReviewClick = (id: number, participantId: number) => {
+    navigate(`review-response/${id}`, {
+      state: {
+        participantId,
+      },
+    })
   }
 
   const handleCreatedReviewClick = (id: number) => {
@@ -70,10 +74,18 @@ const MainPage = () => {
           addButtonExistence={activeTab === 'created'}
           RenderComponent={(review) => {
             if ('submitAt' in review) {
+              console.log(review.participationId + '참여ID')
+              console.log(review.reviewId + '리뷰 ID')
+
               return (
                 <InvitedReviewItem
                   {...review}
-                  handleReviewClick={handleInvitedReviewClick}
+                  handleReviewClick={() =>
+                    handleInvitedReviewClick(
+                      review.reviewId,
+                      review.participationId,
+                    )
+                  }
                 />
               )
             }

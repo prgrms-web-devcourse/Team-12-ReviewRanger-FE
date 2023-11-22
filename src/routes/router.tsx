@@ -55,7 +55,11 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.REVIEW_RESPONSE,
-        element: <ReviewReplyPage />,
+        element: (
+          <Suspense>
+            <ReviewReplyPage />
+          </Suspense>
+        ),
         loader: loginLoader,
       },
       {
