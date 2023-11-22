@@ -9,7 +9,7 @@ import { useResponseReviewByUser } from '../../hooks'
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const { data: responseByReceiver } = useGetAllResponseByReceiver({
     surveyId,
-  }).data || { data: [] }
+  }).data
   const {
     selectedUser,
     setSelectedUser,
@@ -18,6 +18,8 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   } = useResponseReviewByUser({
     users: responseByReceiver?.receiverResponses?.map((data) => data.user),
   })
+
+  console.log(responseByReceiver)
 
   const shouldDisplayUserList =
     findUserBySearchKeyword?.length !== 0 ||
