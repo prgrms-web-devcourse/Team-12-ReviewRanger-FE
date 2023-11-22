@@ -57,7 +57,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     receivers.forEach(({ receiverId }) => {
       const replyTarget = {
         receiverId: receiverId,
-        responserId: data?.id,
+        responserId: Number(data?.data.id),
         replies: questions
           .map(({ id, type, isRequired }) => {
             const reply = {
