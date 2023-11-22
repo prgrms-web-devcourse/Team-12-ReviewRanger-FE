@@ -1,18 +1,26 @@
+export type ReviewStatus = 'DEADLINE' | 'PROCEEDING' | 'END'
+
+export type QuestionType =
+  | 'SINGLE_CHOICE'
+  | 'MULTIPLE_CHOICE'
+  | 'RATING'
+  | 'SUBJECTIVE'
+  | 'DROPDOWN'
+  | 'HEXASTAT'
+
 export interface InvitedReview {
-  id: number
+  participationId: number
+  status: ReviewStatus
   title: string
-  status: '진행중' | '마감' | '종료'
-  type: string
-  isCompleted: boolean
-  createdAt: string | null
+  createdAt: string
+  submitAt: string
 }
 
 export interface CreatedReview {
-  id: number
+  reviewId: number
+  status: ReviewStatus
   title: string
-  status: '진행중' | '마감' | '종료'
   responserCount: number
-  type: string
   createdAt: string
 }
 

@@ -98,16 +98,32 @@ const QuestionItem = ({
             },
             setValueAs: (value: string) => value.trim(),
           })}
-          onKeyUp={(e) => {
-            if (e.key) {
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
               e.preventDefault()
             }
-            e.preventDefault()
           }}
         />
         {errors.questions?.[index]?.title && (
           <p className="mt-1 text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
             {errors.questions?.[index]?.title?.message}
+          </p>
+        )}
+
+        <textarea
+          placeholder="질문에 대한 설명을 입력해주세요."
+          className="mt-4 h-24 w-full border border-gray-200 bg-white p-2.5 text-sm text-black outline-none placeholder:text-gray-100 dark:bg-main-gray dark:text-white md:text-base"
+          {...register(`questions.${index}.description`, {
+            maxLength: {
+              value: 200,
+              message: '200자 이내로 작성해주세요.',
+            },
+            setValueAs: (value: string) => value.trim(),
+          })}
+        />
+        {errors.questions?.[index]?.description && (
+          <p className="mt-1 text-xs text-sub-red-200 dark:text-sub-yellow md:text-sm">
+            {errors.questions?.[index]?.description?.message}
           </p>
         )}
       </div>

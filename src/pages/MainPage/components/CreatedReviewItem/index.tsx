@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { MenuIcon } from '@/assets/icons'
 import { CreatedReview } from '@/types'
-import { STATUS_STYLE } from '../../constants'
+import { STATUS, STATUS_STYLE } from '../../constants'
 
 interface CreatedReviewItemProps extends CreatedReview {
   className: string
@@ -9,7 +9,7 @@ interface CreatedReviewItemProps extends CreatedReview {
 }
 
 const CreatedReviewItem = ({
-  id,
+  reviewId,
   title,
   status,
   responserCount,
@@ -17,20 +17,20 @@ const CreatedReviewItem = ({
   className,
   handleReviewClick,
 }: CreatedReviewItemProps) => {
-  console.log(`${id}번 리뷰의 응답자 수: ${responserCount}명`)
+  console.log(`${reviewId}번 리뷰의 응답자 수: ${responserCount}명`)
 
   /** 최근 7일 이내 생성된 데이터인지 여부 */
   const newStatus =
     createdAt && dayjs(createdAt).isAfter(dayjs().subtract(7, 'day'))
 
   return (
-    <div className={className} onClick={() => handleReviewClick(id)}>
+    <div className={className} onClick={() => handleReviewClick(reviewId)}>
       <div className="flex items-center justify-between">
         <div className="flex gap-1.5">
           <span
             className={`${STATUS_STYLE[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
           >
-            {status}
+            {STATUS[status]}
           </span>
           {newStatus && (
             <span className="rounded-full bg-sub-red-200 px-1.5 py-0.5 text-xs text-white md:text-sm">

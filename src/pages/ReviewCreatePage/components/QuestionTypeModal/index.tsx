@@ -27,6 +27,7 @@ const QuestionTypeModal = ({ append }: QuestionTypeModalProps) => {
 
     append({
       title: '',
+      description: '',
       type,
       isRequired: true,
       questionOptions,

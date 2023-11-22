@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react'
-import { useEditName } from '@/apis/hooks'
+import { useEditName, useUser } from '@/apis/hooks'
 import { DUPLICATED_MESSAGE } from '@/constants'
 
 interface UseEditNameCheckProps {
@@ -19,6 +19,7 @@ const useEditNameCheck = ({
 }: UseEditNameCheckProps) => {
   const [editNameButton, setEditNameButton] = useState<boolean>(false)
   const { mutate: editName } = useEditName()
+  const { refetch } = useUser()
 
   const handleEditNameStartingClick = () => {
     setEditNameButton(true)
@@ -37,16 +38,16 @@ const useEditNameCheck = ({
     editName(
       { name },
       {
-        onSuccess: ({ data }) => {
+        onSuccess: async ({ data }) => {
           if ('status' in data && data.status === 'CONFLICT') {
             setNameFailMessage(DUPLICATED_MESSAGE.NAME)
 
             return
           }
 
+          await refetch()
           setEditNameButton(false)
           setName('')
-          // TODO: User 데이터를 refetch해서 업데이트 해주기.
         },
       },
     )

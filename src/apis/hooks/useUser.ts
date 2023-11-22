@@ -1,10 +1,13 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-interface User {
-  id: string
-  email: string
-  name: string
+export interface User {
+  success: boolean
+  data: {
+    id: string
+    email: string
+    name: string
+  }
 }
 
 const useUser = () => {
@@ -14,7 +17,7 @@ const useUser = () => {
     return user.data
   }
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['/user'],
     queryFn: getUser,
     refetchOnMount: false,
