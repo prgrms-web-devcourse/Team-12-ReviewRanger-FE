@@ -31,7 +31,7 @@ const ReplyRating = ({
   }, [registerPath, getValues, setRates])
 
   useEffect(() => {
-    setValue(`${registerPath}.answerRating`, score)
+    score && setValue(`${registerPath}.answerRating`, score)
   }, [score, registerPath, setValue])
 
   useEffect(() => {
