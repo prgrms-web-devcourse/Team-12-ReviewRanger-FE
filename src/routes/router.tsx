@@ -36,7 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.LOGIN,
-        element: <LoginPage />,
+        element: (
+          <Suspense>
+            <LoginPage />
+          </Suspense>
+        ),
         loader: unLoginLoader,
       },
       {
@@ -50,7 +54,11 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.REVIEW_MANAGEMENT,
-        element: <CreatedReviewManagePage />,
+        element: (
+          <Suspense>
+            <CreatedReviewManagePage />
+          </Suspense>
+        ),
         loader: loginLoader,
       },
       {

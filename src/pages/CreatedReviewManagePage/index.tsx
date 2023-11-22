@@ -1,4 +1,5 @@
 //생성한 리뷰 관리 페이지
+
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
@@ -23,9 +24,13 @@ const CreatedReviewManagePage = () => {
   //NOTE - 리뷰의 질문을 가져온다!
   const { data: getReviewQuestion } = useGetReviewQuestion({
     id: reviewId,
-  }).data
+  })
 
   const { mutate: closeSurvey } = useCloseSurvey({ id: reviewId })
+
+  const handleClickSurveyClose = () => {
+    closeSurvey()
+  }
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
@@ -59,16 +64,18 @@ const CreatedReviewManagePage = () => {
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <div className="mx-auto flex w-full max-w-[800px] flex-col px-5 py-7 md:p-10">
-        <h1 className="text-xl md:text-2xl">{getReviewQuestion?.title}</h1>
+        <h1 className="text-xl md:text-2xl">
+          {getReviewQuestion?.data?.title}
+        </h1>
         <h2 className="mt-3 text-sm md:mt-4 md:text-xl">
-          {getReviewQuestion?.description}
+          {getReviewQuestion?.data?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        {getReviewQuestion?.status === 'PROCEEDING' ? (
+        {getReviewQuestion?.data?.status === 'PROCEEDING' ? (
           <button
             className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
     `}
-            onClick={() => closeSurvey()}
+            onClick={handleClickSurveyClose}
           >
             설문 마감
           </button>

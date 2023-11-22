@@ -42,7 +42,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
     setFilteredUsers(
       () =>
         [...filteredUsers]?.sort(
-          (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
+          (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
         ),
     )
   }
@@ -51,7 +51,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
     setFilteredUsers(
       () =>
         [...filteredUsers]?.sort(
-          (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
+          (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
         ),
     )
   }

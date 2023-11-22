@@ -1,4 +1,9 @@
-import { useGetReviewQuestion, useGetResponseByReceiver } from '@/apis/hooks'
+import { useEffect } from 'react'
+import {
+  useGetReviewQuestion,
+  useGetResponseByReceiver,
+  useSaveFinalResult,
+} from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { ProfileGroup, QuestionGroup } from '..'
 import { getAnswer } from '../../utils'
@@ -52,7 +57,12 @@ const ReviewDetail = ({
       }
     }),
   }
-  console.log(saveFinalReviewResult)
+  const { mutate: saveFinalResult } = useSaveFinalResult(saveFinalReviewResult)
+
+  useEffect(() => {
+    saveFinalResult()
+  }, [])
+
   //NOTE - 전체 몇 명이 응답했는지 여부
   const responserCount = new Set(
     responseByReceiver?.map((data) => data?.responser?.id.toString()),
