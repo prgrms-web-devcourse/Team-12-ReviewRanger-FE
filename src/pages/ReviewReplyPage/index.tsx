@@ -8,7 +8,7 @@ import { ReviewReplyType } from './types'
 
 const ReviewReplyPage = () => {
   const navigate = useNavigate()
-  const { pathname } = useLocation()
+  const { pathname, state } = useLocation()
   //NOTE - 리뷰ID
   const reviewId = pathname.split('/').at(-1) ?? ''
   const [reviewStep, setReviewStep] = useState<number>(1)
@@ -19,14 +19,14 @@ const ReviewReplyPage = () => {
 
   const methods = useForm<ReviewReplyType>({
     defaultValues: {
-      id: Number(reviewId),
+      id: state.participationId,
       nonReceiverList: receivers,
     },
   })
 
   const handleSubmitReply = () => {
     const requestData = {
-      id: methods.getValues('id'),
+      id: state.participantId,
       replyTargets: methods.getValues('replyTargets'),
     }
 

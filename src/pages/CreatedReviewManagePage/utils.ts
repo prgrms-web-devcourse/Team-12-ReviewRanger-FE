@@ -59,7 +59,7 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
 
 //NOTE - 별점 질문과 답변들 매핑
 const getRatingAnswer = (questionId: string, reply: Data[]) => {
-  return reply
+  const res = reply
     ?.map(
       (data) =>
         data?.replies
@@ -73,7 +73,10 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
             }
           }),
     )
+
     .flat()
+
+  return res
 }
 
 const getRemainAnswer = (questionId: string, reply: Data[]) => {
@@ -113,12 +116,12 @@ export const getAnswer = (
     | 'MULTIPLE_CHOICE'
     | 'DROPDOWN'
     | 'SUBJECTIVE'
-    | 'STAR_RATING'
+    | 'RATING'
     | 'HEXASTAT',
   questionId: string,
   reply: Data[],
 ) => {
-  if (questionType === 'STAR_RATING') {
+  if (questionType === 'RATING') {
     return getRatingAnswer(questionId, reply)
   }
 
