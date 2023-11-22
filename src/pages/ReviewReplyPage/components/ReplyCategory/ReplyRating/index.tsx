@@ -31,11 +31,11 @@ const ReplyRating = ({
   }, [registerPath, getValues, setRates])
 
   useEffect(() => {
-    score && setValue(`${registerPath}.answerRating`, score)
+    setValue(`${registerPath}.answerRating`, score)
   }, [score, registerPath, setValue])
 
   useEffect(() => {
-    score && handleCheckReply({ value: score })
+    handleCheckReply({ value: score })
   }, [score, handleCheckReply])
 
   return (
