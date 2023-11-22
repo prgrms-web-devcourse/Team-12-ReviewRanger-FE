@@ -52,7 +52,7 @@ const Header = () => {
           <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
         <div>
-          {avatarVisible && data && data?.success && (
+          {avatarVisible && data?.data && (
             <div className="dropdown-hover relative">
               <div
                 className={`avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black `}
