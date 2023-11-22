@@ -2,7 +2,11 @@
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
-import { useCloseSurvey, useGetReviewQuestion } from '@/apis/hooks'
+import {
+  useCloseSurvey,
+  useGetReviewQuestion,
+  useCheckAllReceiverReceived,
+} from '@/apis/hooks'
 
 import {
   Tabs,
@@ -22,6 +26,11 @@ const CreatedReviewManagePage = () => {
 
   //NOTE - 리뷰의 질문을 가져온다!
   const { data: getReviewQuestion } = useGetReviewQuestion({
+    id: reviewId,
+  }).data
+
+  //NOTE - 마감 이후 호출 되어야 함
+  const { data: checkAllRecipientReceived } = useCheckAllReceiverReceived({
     id: reviewId,
   }).data
 
