@@ -28,7 +28,7 @@ const UserList = ({
 
   return (
     <ul className="flex cursor-pointer flex-col justify-center">
-      {users.map((user, index) => {
+      {users?.map((user, index) => {
         const date =
           submitAt && submitAt[index]
             ? dayjs(submitAt && submitAt[index].replace('Y', ' ')).format(

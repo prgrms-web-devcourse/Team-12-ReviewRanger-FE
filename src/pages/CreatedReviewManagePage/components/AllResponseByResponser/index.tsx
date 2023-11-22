@@ -11,7 +11,7 @@ import {
 const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const { data: responseByResponser } = useGetAllResponseByResponser({
     surveyId,
-  }).data
+  }).data || { data: [] }
   const [keyword, setKeyword] = useState('')
   const [filteredUsers, setFilteredUsers] = useState(
     responseByResponser.sort((a, b) => a.user.name.localeCompare(b.user.name)),
@@ -21,8 +21,8 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
     id: string
     name: string
   }>({
-    id: 'user',
-    name: 'user',
+    id: '',
+    name: '',
   })
 
   const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,30 +30,35 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   }
 
   const sortByName = () => {
-    setFilteredUsers(() =>
-      [...filteredUsers].sort((a, b) => a.user.name.localeCompare(b.user.name)),
+    setFilteredUsers(
+      () =>
+        [...filteredUsers]?.sort((a, b) =>
+          a.user.name.localeCompare(b.user.name),
+        ),
     )
   }
 
   const sortByResponse = () => {
-    setFilteredUsers(() =>
-      [...filteredUsers].sort(
-        (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
-      ),
+    setFilteredUsers(
+      () =>
+        [...filteredUsers]?.sort(
+          (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
+        ),
     )
   }
 
   const sortByNoResponse = () => {
-    setFilteredUsers(() =>
-      [...filteredUsers].sort(
-        (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
-      ),
+    setFilteredUsers(
+      () =>
+        [...filteredUsers]?.sort(
+          (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
+        ),
     )
   }
 
   const findUserBySearchKeyword = filteredUsers
-    .map((value) => value.user)
-    .filter((user) => user.name.trim().includes(keyword))
+    ?.map((value) => value.user)
+    ?.filter((user) => user.name.trim().includes(keyword))
 
   return (
     <div className="flex flex-col gap-5">
@@ -69,11 +74,11 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
               <span>응답완료: </span>
               <span className="text-sub-blue dark:text-sub-skyblue">
                 {
-                  responseByResponser.filter(
+                  responseByResponser?.filter(
                     (value) => value.isAnswered === true,
                   ).length
                 }
-                /{responseByResponser.length}명
+                /{responseByResponser?.length}명
               </span>
               <SortDropDown
                 sortByName={sortByName}
@@ -90,15 +95,17 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
               <UserList
                 hasDrawer
                 users={findUserBySearchKeyword}
-                submitAt={filteredUsers.map((value) => value.submitAt)}
+                submitAt={filteredUsers?.map((value) => value.submitAt)}
                 onClickUser={({ id, name }) => setSelectedUser({ id, name })}
               />
               <Suspense fallback={<div className="spinner" />}>
-                <ReviewDetailAccordion
-                  reviewId={surveyId}
-                  receiverId={selectedUser.id}
-                  receiverName={selectedUser.name}
-                />
+                {selectedUser.id && (
+                  <ReviewDetailAccordion
+                    reviewId={surveyId}
+                    receiverId={selectedUser.id}
+                    receiverName={selectedUser.name}
+                  />
+                )}
               </Suspense>
             </div>
           </>
