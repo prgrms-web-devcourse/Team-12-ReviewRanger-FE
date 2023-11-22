@@ -28,16 +28,18 @@ const ReplyChoices = ({
       name: `replyTargets.${receiverIndex}.replies`,
     })
 
+  const currentQuestionId = getValues(`${registerPath}.questionId`)
+
   const prevSelectedOptions = useMemo(() => {
     return (
       getValues(`replyTargets.${receiverIndex}.replies`)
         .filter(
           (reply) =>
-            reply.questionId === questionIndex + 1 && reply.answerChoice !== 0,
+            reply.questionId === currentQuestionId && reply.answerChoice !== 0,
         )
         .map((reply) => reply.answerChoice as number) || []
     )
-  }, [receiverIndex, questionIndex, getValues])
+  }, [receiverIndex, currentQuestionId, getValues])
 
   useEffect(() => {
     setSelectedOptionIds(prevSelectedOptions)
@@ -61,7 +63,7 @@ const ReplyChoices = ({
         `replyTargets.${receiverIndex}.replies`,
       ).findIndex((reply) => {
         return (
-          reply.questionId === questionIndex + 1 &&
+          reply.questionId === currentQuestionId &&
           reply.answerChoice === selectedTarget
         )
       })
@@ -83,7 +85,7 @@ const ReplyChoices = ({
         setValue(`${registerPath}.answerChoice`, selectedTarget)
       } else {
         appendChoiceReply({
-          questionId: questionIndex + 1,
+          questionId: currentQuestionId,
           isRequired: getValues(`${registerPath}`).isRequired,
           answerText: null,
           answerChoice: selectedTarget,

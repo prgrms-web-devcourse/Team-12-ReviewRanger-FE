@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Header } from '@/components'
 import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
 import { ReceiverSelect, ReviewReply } from './components'
 import { ReviewReplyType } from './types'
 
-const reviewId = 123
-
 const ReviewReplyPage = () => {
   const navigate = useNavigate()
+  const reviewId = parseInt(useLocation().pathname.split('/')[2])
 
   const [reviewStep, setReviewStep] = useState<number>(1)
 

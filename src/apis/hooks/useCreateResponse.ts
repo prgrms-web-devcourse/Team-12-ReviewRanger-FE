@@ -23,7 +23,7 @@ interface Response {
 
 const useCreateResponse = () => {
   const createResponse = async (response: Response) => {
-    return await apiClient.post('/participation', response)
+    return await apiClient.post('/participations', response)
   }
 
   return useMutation({ mutationFn: createResponse })
