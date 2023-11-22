@@ -14,7 +14,7 @@ const Tabs = ({ activeTab, setActiveTab }: TabsProps) => {
       className={`z-10 h-11 bg-main-red-300 text-lg text-white shadow-md md:h-[3.125rem]  md:text-2xl`}
     >
       <div
-        className={`relative h-full ${tabBorder} mx-auto flex max-w-[1000px]`}
+        className={`relative h-full ${tabBorder} mx-auto flex max-w-[55rem]`}
       >
         <button className="grow" onClick={() => setActiveTab('invited')}>
           {TAB_MENU_TITLE.invited}

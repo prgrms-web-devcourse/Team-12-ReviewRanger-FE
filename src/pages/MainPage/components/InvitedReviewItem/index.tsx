@@ -8,35 +8,21 @@ interface InvitedReviewItemProps extends InvitedReview {
 }
 
 const InvitedReviewItem = ({
-  participationId,
+  reviewId,
   title,
   status,
-  createdAt,
   submitAt,
   className,
   handleReviewClick,
 }: InvitedReviewItemProps) => {
-  /** 최근 7일 이내 데이터인지 여부 */
-  // TODO: 이건 설문 응답일이 아니라 생성일 기준으로 해야함
-  const newStatus =
-    createdAt && dayjs(createdAt).isAfter(dayjs().subtract(7, 'day'))
-
   return (
-    <div
-      className={className}
-      onClick={() => handleReviewClick(participationId)}
-    >
+    <div className={className} onClick={() => handleReviewClick(reviewId)}>
       <div className="flex gap-1.5">
         <span
-          className={`${STATUS_STYLE[status]} rounded-full px-1.5 py-0.5 text-xs text-white md:text-sm`}
+          className={`${STATUS_STYLE[status]} badge rounded-full border-none text-xs font-medium text-white md:text-sm`}
         >
           {STATUS[status]}
         </span>
-        {newStatus && (
-          <span className="rounded-full bg-sub-red-200 px-1.5 py-0.5 text-xs text-white md:text-sm">
-            N
-          </span>
-        )}
       </div>
 
       <p className="line-clamp-2 text-center text-base text-black dark:text-sub-red-100 md:text-xl">
