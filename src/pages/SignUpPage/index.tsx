@@ -1,10 +1,15 @@
+import { MouseEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useEmailCheck, useNameCheck, usePasswordCheck } from '@/hooks'
 import { Input, Header } from '@/components'
+import { useSignUp } from '@/apis/hooks'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
-import { useSignUpCheck } from './hooks'
 
 const SingUpPage = () => {
+  const navigate = useNavigate()
+  const { mutate: signUp } = useSignUp()
+
   const { email, emailFailMessage, setEmailFailMessage, handleEmailChange } =
     useEmailCheck()
   const { name, nameFailMessage, setNameFailMessage, handleNameChange } =
@@ -17,22 +22,44 @@ const SingUpPage = () => {
     handlePasswordChange,
     handlePasswordConfirmChange,
   } = usePasswordCheck()
-  const { handleSignUpButtonClick } = useSignUpCheck({
-    email,
-    emailFailMessage,
-    setEmailFailMessage,
-    nameFailMessage,
-    setNameFailMessage,
-    name,
-    password,
-    passwordFailMessage,
-    passwordConfirmFailMessage,
-  })
+
+  const handleSignUpButtonClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
+    if (
+      emailFailMessage ||
+      nameFailMessage ||
+      passwordFailMessage ||
+      passwordConfirmFailMessage
+    ) {
+      return
+    }
+
+    signUp(
+      { email, name, password },
+      {
+        onSuccess: ({ data }) => {
+          if ('status' in data && data.status === 'CONFLICT') {
+            if (data.errorCode === 'EXIST_SAME_NAME') {
+              setNameFailMessage(data.message)
+            }
+            if (data.errorCode === 'EXIST_SAME_EMAIL') {
+              setEmailFailMessage(data.message)
+            }
+
+            return
+          }
+
+          navigate('/')
+        },
+      },
+    )
+  }
 
   return (
     <div className="flex h-screen flex-col">
       <Header />
-      <div className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
+      <form className="h-full w-full items-center justify-center bg-main-ivory px-5 dark:bg-main-red-100 md:px-64">
         <div className="items-around flex h-full flex-col gap-14 pt-14">
           <div className="flex flex-col items-center justify-center">
             <LogoColIcon className="h-[4rem] w-[5.8rem] md:hidden" />
@@ -72,7 +99,7 @@ const SingUpPage = () => {
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }
