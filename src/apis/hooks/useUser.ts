@@ -4,7 +4,7 @@ import apiClient from '@/apis/apiClient'
 export interface User {
   success: boolean
   data: {
-    id: string
+    id: number
     email: string
     name: string
   }
