@@ -54,6 +54,7 @@ export const ReviewCreatePage = () => {
 
     createReview(requestData, {
       onSuccess: ({ data }) => {
+        console.log(data)
         if (data.success) {
           navigate('/')
 

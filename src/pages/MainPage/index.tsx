@@ -32,10 +32,10 @@ const MainPage = () => {
     received: receivedReviews.content,
   }
 
-  const handleInvitedReviewClick = (id: number, participantId: number) => {
+  const handleInvitedReviewClick = (id: number, participationId: number) => {
     navigate(`review-response/${id}`, {
       state: {
-        participantId,
+        participationId,
       },
     })
   }

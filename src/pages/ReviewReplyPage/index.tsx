@@ -19,14 +19,14 @@ const ReviewReplyPage = () => {
 
   const methods = useForm<ReviewReplyType>({
     defaultValues: {
-      id: state.participationId,
+      id: state?.participationId,
       nonReceiverList: receivers,
     },
   })
 
   const handleSubmitReply = () => {
     const requestData = {
-      id: state.participantId,
+      id: state?.participationId,
       replyTargets: methods.getValues('replyTargets'),
     }
 
