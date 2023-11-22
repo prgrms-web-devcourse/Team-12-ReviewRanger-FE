@@ -24,19 +24,19 @@ const ReviewList = ({
     <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
       {addButtonExistence && (
         <button
-          className="btn h-36 border border-black bg-main-ivory transition-transform dark:border-white dark:bg-main-red-200 md:h-44"
+          className="btn h-36 rounded-md border border-gray-100 bg-main-yellow transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
           onClick={() => {
             navigate('review-creation')
           }}
         >
-          <PlusIcon className="fill-black dark:fill-white" />
+          <PlusIcon className="h-6 w-6 fill-gray-300 dark:fill-white" />
         </button>
       )}
 
       {reviews.map((review) => (
         <RenderComponent
           key={nanoid()}
-          className="btn flex h-36 flex-col items-stretch justify-between rounded-sm border border-gray-100 bg-main-ivory p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-44"
+          className="btn flex h-36 flex-col items-stretch justify-between rounded-md border border-gray-100 bg-main-yellow p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
           {...review}
         />
       ))}

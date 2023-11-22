@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
 import { useGetAllReviews } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
@@ -19,6 +20,8 @@ const MainPage = () => {
     { data: receivedReviews },
   ] = useGetAllReviews()
 
+  const navigate = useNavigate()
+
   const [activeTab, setActiveTab] = useState<
     'invited' | 'created' | 'received'
   >('invited')
@@ -30,15 +33,15 @@ const MainPage = () => {
   }
 
   const handleInvitedReviewClick = (id: number) => {
-    console.log('응답 리뷰 클릭', id)
+    navigate(`review-response/${id}`)
   }
 
   const handleCreatedReviewClick = (id: number) => {
-    console.log('생성 리뷰 클릭', id)
+    navigate(`review-response/${id}`)
   }
 
   const handleReceivedReviewClick = (id: number) => {
-    console.log('결과 리뷰 클릭', id)
+    navigate(`review-result/${id}`)
   }
 
   const { desc1, desc2, title } = INTRO_CONTENT[activeTab]
@@ -50,10 +53,10 @@ const MainPage = () => {
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
 
-      <div className="mx-auto max-w-[1000px] p-5 md:p-10">
+      <div className="mx-auto max-w-[55rem] p-5 md:p-10">
         <PageIntro
           imageSrc={rangerIdle}
-          className="mb-5 rounded-sm bg-main-ivory py-4 pr-4 dark:bg-main-red-200 md:mb-10"
+          className="mb-5 rounded-md bg-main-yellow py-4 pr-4 dark:bg-main-red-200 md:mb-10"
         >
           <div className="text-sm text-black dark:text-sub-red-100 md:text-xl">
             <span>{desc1}</span>
