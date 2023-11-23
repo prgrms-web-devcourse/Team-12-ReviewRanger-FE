@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { IconButton, StarRatingList } from '@/components'
 import {
   CloseDropDownIcon,
@@ -79,8 +79,7 @@ const renderArticle = (
   answers: Answer[],
   questionType: string,
   index?: number,
-  setAnswer?: (newAnswer: string) => void,
-  answer?: string,
+  ref?: React.MutableRefObject<HTMLTextAreaElement | null>,
 ) => (
   <article
     className="m-t-[1.25rem] accordion-content text-black dark:text-white"
@@ -98,24 +97,29 @@ const renderArticle = (
         }
       })()}
       {questionType === 'SUBJECTIVE' && answers.length - 1 === index && (
-        <div className="flex w-full  p-[0.62rem]">
+        <div className="flex w-full flex-col p-[0.62rem]">
           <textarea
-            className="rounded-0  ml-[42.96px] h-auto w-full overflow-hidden text-sm"
-            onChange={(e) => setAnswer && setAnswer(e.target.value)}
-            defaultValue={answers
-              .map((answer) => answer.value as string)
-              .flat()}
-            value={answer}
-            autoFocus
+            ref={ref}
+            className=" textarea m-0 h-auto w-full max-w-full overflow-auto  rounded-none border border-gray-200 text-sm"
+            defaultValue={answers.map((answer) => answer.value as string)}
           ></textarea>
 
-          <IconButton
-            disabled
-            className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
-            text="정제"
-          >
-            <FilterReplyIcon className="h-[1rem] w-[1rem] " />
-          </IconButton>
+          <div className="ml-[0.63rem] flex gap-2 p-[0.62rem]">
+            <IconButton
+              disabled
+              className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
+              text="정제"
+            >
+              <FilterReplyIcon className="h-[1rem] w-[1rem] " />
+            </IconButton>
+
+            <IconButton
+              disabled
+              className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
+              text="저장"
+              onClick={() => console.log(ref?.current?.value)}
+            ></IconButton>
+          </div>
         </div>
       )}
     </div>
@@ -128,7 +132,7 @@ const QuestionGroup = ({
   questionTitle,
 }: QuestionGroupProps) => {
   const [inputId] = useState(nanoid())
-  const [allSubjectAnswer, setAllSubjectAnswer] = useState('')
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
   return (
     <section className=" border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
@@ -150,14 +154,7 @@ const QuestionGroup = ({
 
       {questionType !== 'HEXASTAT' &&
         answers?.map((value, index) =>
-          renderArticle(
-            value,
-            answers,
-            questionType,
-            index,
-            setAllSubjectAnswer,
-            allSubjectAnswer,
-          ),
+          renderArticle(value, answers, questionType, index, textAreaRef),
         )}
 
       {questionType === 'HEXASTAT' &&
