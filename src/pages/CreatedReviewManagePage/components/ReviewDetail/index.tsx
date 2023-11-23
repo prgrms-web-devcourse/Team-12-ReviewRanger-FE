@@ -28,7 +28,6 @@ const ReviewDetail = ({
     receiverId,
     reviewId,
   }).data
-  console.log(responseByReceiver)
 
   const saveFinalReviewResult = {
     userId: receiverId,
@@ -55,7 +54,7 @@ const ReviewDetail = ({
                     }
                 },
               ),
-        ],
+        ].flat(),
       }
     }),
   }
