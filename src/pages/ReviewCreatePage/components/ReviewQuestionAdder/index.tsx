@@ -73,7 +73,7 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
 
         <div>
           <label
-            className="btn relative w-full rounded-md border border-gray-200 bg-main-yellow text-lg text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:text-xl"
+            className="btn relative w-full rounded-md border border-gray-200 bg-main-hover-yellow text-lg text-black dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:text-xl"
             htmlFor="modal-2"
           >
             <PlusIcon className="fill:black absolute left-2.5 dark:fill-white" />
