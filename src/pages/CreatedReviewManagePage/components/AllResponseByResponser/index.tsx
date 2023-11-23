@@ -10,12 +10,10 @@ import {
 
 interface AllResponseReviewByResponser {
   reviewId: string
-  ResponserList: number[]
 }
 
 const AllResponseReviewByResponser = ({
   reviewId,
-  ResponserList,
 }: AllResponseReviewByResponser) => {
   const { data: responseByResponser } = useGetAllResponseByResponser({
     reviewId,
@@ -101,7 +99,6 @@ const AllResponseReviewByResponser = ({
                 id="drawer-bottom"
               />
               <UserList
-                ResponserList={ResponserList}
                 hasDrawer
                 users={findUserBySearchKeyword}
                 submitAt={filteredUsers?.map((value) => value.submitAt)}
