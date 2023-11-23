@@ -5,7 +5,7 @@ import { TOKEN_KEY } from '@/constants'
 interface User {
   success: boolean
   data: {
-    id: string
+    id: number
     name: string
     email: string
   }

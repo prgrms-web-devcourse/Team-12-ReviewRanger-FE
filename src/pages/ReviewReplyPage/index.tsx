@@ -9,24 +9,23 @@ import { ReviewReplyType } from './types'
 const ReviewReplyPage = () => {
   const navigate = useNavigate()
   const { pathname, state } = useLocation()
-  //NOTE - 리뷰ID
-  const reviewId = pathname.split('/').at(-1) ?? ''
-  const [reviewStep, setReviewStep] = useState<number>(1)
+  const reviewId = parseInt(pathname.split('/').at(-1) as string)
+  const [reviewStep, setReviewStep] = useState(1)
 
-  const { data: reviewData } = useGetReviewFirst({ id: Number(reviewId) })
+  const { data: reviewData } = useGetReviewFirst({ id: reviewId })
   const { mutate: createResponse } = useCreateResponse()
   const { title, description, receivers } = reviewData
 
   const methods = useForm<ReviewReplyType>({
     defaultValues: {
-      id: state?.participationId,
+      id: state.participationId,
       nonReceiverList: receivers,
     },
   })
 
   const handleSubmitReply = () => {
     const requestData = {
-      id: state?.participationId,
+      id: state.participationId,
       replyTargets: methods.getValues('replyTargets'),
     }
 
@@ -39,7 +38,7 @@ const ReviewReplyPage = () => {
     <div className="flex h-screen flex-col items-center bg-main-ivory dark:bg-main-red-100">
       <Header />
       {reviewData && (
-        <div className="flex h-full w-full max-w-[550px] flex-col p-5 text-black">
+        <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
           <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
           {reviewStep === 1 && (
             <p className="mt-2.5 whitespace-pre-wrap text-sm dark:text-white md:text-lg">

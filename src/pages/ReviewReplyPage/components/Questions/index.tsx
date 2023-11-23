@@ -7,24 +7,25 @@ import {
   ReplyChoices,
   ReplyRating,
   ReplyHexa,
+  ReplyDropdown,
 } from '../ReplyCategory'
 
 interface QuestionsProps {
   question: Question
-  questionIndex: number
+  index: number
   receiverIndex: number
 }
 
 type ReplyCompletePath = `replyComplete.${number}.complete.${number}`
 
-const Questions = ({
-  question,
-  questionIndex,
-  receiverIndex,
-}: QuestionsProps) => {
-  const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${questionIndex}`
-  const { title, description, type, questionOptions, isRequired } = question
-  const { setValue } = useFormContext<ReviewReplyType>()
+const Questions = ({ question, index, receiverIndex }: QuestionsProps) => {
+  const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${index}`
+  const { title, description, type, questionOptions, isRequired, id } = question
+  const { setValue, getValues } = useFormContext<ReviewReplyType>()
+
+  const questionIndex = getValues(
+    `replyTargets.${receiverIndex}.replies`,
+  ).findIndex(({ questionId }) => questionId === id)
 
   const handleCheckReply = ({
     value,
@@ -79,17 +80,24 @@ const Questions = ({
           handleCheckReply={handleCheckReply}
         />
       )}
-      {(type === 'SINGLE_CHOICE' || type === 'DROPDOWN') && (
+      {type === 'SINGLE_CHOICE' && (
         <ReplyChoice
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
-          type={type}
           handleCheckReply={handleCheckReply}
         />
       )}
       {type === 'MULTIPLE_CHOICE' && (
         <ReplyChoices
+          options={questionOptions}
+          receiverIndex={receiverIndex}
+          questionIndex={questionIndex}
+          handleCheckReply={handleCheckReply}
+        />
+      )}
+      {type === 'DROPDOWN' && (
+        <ReplyDropdown
           options={questionOptions}
           receiverIndex={receiverIndex}
           questionIndex={questionIndex}
