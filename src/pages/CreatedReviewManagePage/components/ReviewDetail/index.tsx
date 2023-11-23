@@ -26,6 +26,7 @@ const ReviewDetail = ({
 
   const { data: responseByReceiver } = useGetResponseByReceiver({
     receiverId,
+    reviewId,
   }).data
   console.log(responseByReceiver)
 
