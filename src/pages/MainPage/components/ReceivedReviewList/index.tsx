@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid'
+import { useEffect } from 'react'
 import { useInfiniteScroll } from '@/hooks'
 import { useGetReceivedReviews } from '@/apis/hooks'
+import { scrollToTop } from '@/utils'
 import { ReceivedReview } from '@/types'
 import ReceivedReviewItem from './ReceivedReviewItem'
 
@@ -10,6 +12,10 @@ interface ReceivedReviewListProps {
 
 const ReceivedReviewList = ({ handleReviewClick }: ReceivedReviewListProps) => {
   const { data, hasNextPage, fetchNextPage } = useGetReceivedReviews()
+
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   const reviews = data.pages.reduce<ReceivedReview[]>(
     (acc, item) => acc.concat(item.content),

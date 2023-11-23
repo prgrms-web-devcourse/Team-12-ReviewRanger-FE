@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid'
+import { useEffect } from 'react'
 import { useInfiniteScroll } from '@/hooks'
 import { useGetInvitedReviews } from '@/apis/hooks'
+import { scrollToTop } from '@/utils'
 import { InvitedReview } from '@/types'
 import InvitedReviewItem from './InvitedReviewItem'
 
@@ -10,6 +12,10 @@ interface InvitedReviewListProps {
 
 const InvitedReviewList = ({ handleReviewClick }: InvitedReviewListProps) => {
   const { data, hasNextPage, fetchNextPage } = useGetInvitedReviews()
+
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   const reviews = data.pages.reduce<InvitedReview[]>(
     (acc, item) => acc.concat(item.content),

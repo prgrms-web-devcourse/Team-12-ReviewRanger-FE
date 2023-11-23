@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid'
+import { useEffect } from 'react'
 import { useInfiniteScroll } from '@/hooks'
 import { useGetCreatedReviews } from '@/apis/hooks'
+import { scrollToTop } from '@/utils'
 import { CreatedReview } from '@/types'
 import CreatedReviewItem from './CreatedReviewItem'
 
@@ -10,6 +12,10 @@ interface CreatedReviewListProps {
 
 const CreatedReviewList = ({ handleReviewClick }: CreatedReviewListProps) => {
   const { data, hasNextPage, fetchNextPage } = useGetCreatedReviews()
+
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   const reviews = data.pages.reduce<CreatedReview[]>(
     (acc, item) => acc.concat(item.content),
