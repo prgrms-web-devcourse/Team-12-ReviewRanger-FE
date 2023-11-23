@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data, Receiver } from '@/apis/hooks/useGetReviewFirst'
 import { CheckInTheCircleIcon } from '@/assets/icons'
-import { ReviewReplyStartType } from '../../types'
+import { ReviewReplyStartType, ReviewReplyEditType } from '../../types'
 import Questions from '../Questions'
 
 interface ReviewReplyProps {
@@ -12,7 +12,9 @@ interface ReviewReplyProps {
 }
 
 const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
-  const { getValues, setValue } = useFormContext<ReviewReplyStartType>()
+  const { getValues, setValue } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
   const receivers = getValues('receiverList')
   const questions = reviewData.questions
 
