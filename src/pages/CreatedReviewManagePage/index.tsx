@@ -97,7 +97,7 @@ const CreatedReviewManagePage = () => {
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
         {getReviewQuestion?.data?.status === 'PROCEEDING' ? (
           <button
-            className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
+            className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
             onClick={handleClickSurveyClose}
           >
@@ -105,8 +105,9 @@ const CreatedReviewManagePage = () => {
           </button>
         ) : (
           <button
-            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
+            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
+            disabled={!checkAllReceiverReceived.success}
             onClick={handleClickSendSurvey}
           >
             전송
