@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import { ReviewReplyStartType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyTextProps {
   receiverIndex: number
@@ -18,7 +18,7 @@ const ReplyText = ({
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [text, setText] = useState('')
   const [textCount, setTextCount] = useState<number>(0)
-  const { register, getValues } = useFormContext<ReviewReplyType>()
+  const { register, getValues } = useFormContext<ReviewReplyStartType>()
 
   useEffect(() => {
     setTextCount(0)

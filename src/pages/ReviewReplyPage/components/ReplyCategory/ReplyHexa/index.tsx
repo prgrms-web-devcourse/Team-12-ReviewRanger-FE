@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import { ReviewReplyStartType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyHexaProps {
   receiverIndex: number
@@ -19,7 +19,7 @@ const ReplyHexa = ({
   handleCheckReply,
 }: ReplyHexaProps) => {
   const { register, getValues, setValue, watch } =
-    useFormContext<ReviewReplyType>()
+    useFormContext<ReviewReplyStartType>()
 
   useEffect(() => {
     let count = 0

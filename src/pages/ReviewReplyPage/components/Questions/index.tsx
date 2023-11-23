@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
-import { ReviewReplyType } from '../../types'
+import { ReviewReplyStartType } from '../../types'
 import {
   ReplyText,
   ReplyChoice,
@@ -21,7 +21,7 @@ type ReplyCompletePath = `replyComplete.${number}.complete.${number}`
 const Questions = ({ question, index, receiverIndex }: QuestionsProps) => {
   const replyCompletePath: ReplyCompletePath = `replyComplete.${receiverIndex}.complete.${index}`
   const { title, description, type, questionOptions, isRequired, id } = question
-  const { setValue, getValues } = useFormContext<ReviewReplyType>()
+  const { setValue, getValues } = useFormContext<ReviewReplyStartType>()
 
   const questionIndex = getValues(
     `replyTargets.${receiverIndex}.replies`,

@@ -4,7 +4,7 @@ import { Profile, SearchBar } from '@/components'
 import { useUser } from '@/apis/hooks'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
 import { CloseIcon } from '@/assets/icons'
-import { ReviewReplyType } from '../../types'
+import { ReviewReplyStartType } from '../../types'
 
 interface ReceiverSelectProps {
   setReviewStep: Dispatch<SetStateAction<number>>
@@ -23,7 +23,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     handleSubmit,
     clearErrors,
     formState: { errors },
-  } = useFormContext<ReviewReplyType>()
+  } = useFormContext<ReviewReplyStartType>()
 
   const {
     fields: receivers,
@@ -42,7 +42,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     name: 'replyTargets',
   })
 
-  const onSubmit: SubmitHandler<ReviewReplyType> = () => {
+  const onSubmit: SubmitHandler<ReviewReplyStartType> = () => {
     if (!receivers.length) {
       setError('receiverList', {
         type: 'required',

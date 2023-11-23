@@ -1,7 +1,7 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import { ReviewReplyStartType } from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoiceProps {
   receiverIndex: number
@@ -20,7 +20,8 @@ const ReplyChoice = ({
 }: ReplyChoiceProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
-  const { getValues, setValue, register } = useFormContext<ReviewReplyType>()
+  const { getValues, setValue, register } =
+    useFormContext<ReviewReplyStartType>()
 
   useEffect(() => {
     setSelectedOptionId(getValues(`${registerPath}.answerChoice`) || 0)
