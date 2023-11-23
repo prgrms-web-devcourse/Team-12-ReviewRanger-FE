@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useUser, useLogout } from '@/apis/hooks'
-
 import {
   LogoRowIcon,
   LogoShortIcon,
