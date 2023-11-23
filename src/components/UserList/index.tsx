@@ -22,9 +22,17 @@ const UserList = ({
   responserCount,
   onClickUser,
   hasDrawer,
+  ResponserList,
 }: UserListProps) => {
   const handleClick = (id: string, name: string) => {
     onClickUser && onClickUser({ id, name })
+  }
+
+  const hasSavedResult = (id: string) => {
+    return (
+      typeof ResponserList !== 'undefined' &&
+      ResponserList?.includes(Number(id))
+    )
   }
 
   return (
@@ -51,12 +59,23 @@ const UserList = ({
                   onClick={() => handleClick(user.id, user.name)}
                   className="flex items-center justify-between px-3 py-2 text-sm md:text-lg"
                 >
-                  <Profile name={user.name} />
+                  <div className="flex items-center gap-2">
+                    {responserCount && responserCount[index] && (
+                      <span
+                        className={`dot ${hasSavedResult(
+                          user.id,
+                        )} ? : bg-blue-600 bg-red-600`}
+                      ></span>
+                    )}
+                    <Profile name={user.name} />
+                  </div>
                   <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
                     {date ? (
                       `답변일시: ${date}`
                     ) : responserCount ? (
-                      `응답자: ${responserCount && responserCount[index]}명`
+                      <span>
+                        응답자:{responserCount && responserCount[index]}명
+                      </span>
                     ) : (
                       <p className="text-sub-red-200 dark:text-sub-yellow">
                         미응답
@@ -70,12 +89,23 @@ const UserList = ({
                 onClick={() => handleClick(user.id, user.name)}
                 className="flex items-center justify-between px-3 py-2 text-sm md:text-lg"
               >
-                <Profile name={user.name} />
+                <div className="flex items-center gap-2">
+                  {responserCount && responserCount[index] && (
+                    <span
+                      className={`dot ${hasSavedResult(
+                        user.id,
+                      )} ? : bg-blue-600 bg-red-600`}
+                    ></span>
+                  )}
+                  <Profile name={user.name} />
+                </div>
                 <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
                   {date ? (
                     `답변일시: ${date}`
                   ) : responserCount ? (
-                    `응답자: ${responserCount && responserCount[index]}명`
+                    <span>
+                      응답자:{responserCount && responserCount[index]}명
+                    </span>
                   ) : (
                     <p className="text-sub-red-200 dark:text-sub-yellow">
                       미응답

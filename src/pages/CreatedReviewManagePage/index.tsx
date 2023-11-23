@@ -61,10 +61,7 @@ const CreatedReviewManagePage = () => {
           </div>
         }
       >
-        <AllResponseReviewByResponser
-          reviewId={reviewId}
-          ResponserList={checkAllReceiverReceived.data}
-        />
+        <AllResponseReviewByResponser reviewId={reviewId} />
       </Suspense>
     ),
     receiver: (
@@ -75,7 +72,10 @@ const CreatedReviewManagePage = () => {
           </div>
         }
       >
-        <AllResponseReviewByReceiver surveyId={reviewId} />
+        <AllResponseReviewByReceiver
+          reviewId={reviewId}
+          ResponserList={checkAllReceiverReceived.data}
+        />
       </Suspense>
     ),
   }
@@ -86,6 +86,7 @@ const CreatedReviewManagePage = () => {
         <Header />
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
+
       <div className="mx-auto flex w-full max-w-[800px] flex-col px-5 py-7 md:p-10">
         <h1 className="text-xl md:text-2xl">
           {getReviewQuestion?.data?.title}

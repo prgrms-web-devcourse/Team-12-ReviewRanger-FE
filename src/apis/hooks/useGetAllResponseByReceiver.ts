@@ -13,17 +13,17 @@ interface Receiver {
   responserCount: number
 }
 
-const useGetAllResponseByReceiver = ({ surveyId }: { surveyId: string }) => {
+const useGetAllResponseByReceiver = ({ reviewId }: { reviewId: string }) => {
   const getResponseByRecipient = async () => {
     const response = await apiClient.get<Response>(
-      `/reviews/${surveyId}/receiver`,
+      `/reviews/${reviewId}/receiver`,
     )
 
     return response.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviews/${surveyId}/receiver`],
+    queryKey: [`/reviews/${reviewId}/receiver`],
     queryFn: getResponseByRecipient,
   })
 }
