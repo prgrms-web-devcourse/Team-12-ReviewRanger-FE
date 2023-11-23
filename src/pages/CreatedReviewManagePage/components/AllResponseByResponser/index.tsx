@@ -5,7 +5,7 @@ import { useGetAllResponseByResponser } from '@/apis/hooks'
 import {
   SortDropDown,
   NotFoundSearchUser,
-  ReviewDetailAccordion,
+  ResponserTabReviewDetail,
 } from '../../components'
 
 interface AllResponseReviewByResponser {
@@ -106,10 +106,10 @@ const AllResponseReviewByResponser = ({
               />
               <Suspense fallback={<div className="spinner" />}>
                 {selectedUser.id && (
-                  <ReviewDetailAccordion
+                  <ResponserTabReviewDetail
                     reviewId={reviewId}
-                    receiverId={selectedUser.id}
-                    receiverName={selectedUser.name}
+                    responserId={selectedUser.id}
+                    responserName={selectedUser.name}
                   />
                 )}
               </Suspense>
