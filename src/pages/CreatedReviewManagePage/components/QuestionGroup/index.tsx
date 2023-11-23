@@ -16,15 +16,17 @@ interface QuestionGroupProps {
     | 'SUBJECTIVE'
     | 'RATING'
     | 'HEXASTAT'
+
   questionTitle: string
-  questionDescription?: string
   answers: Answer[]
+  handleChangeAnswer?: (newAnswer: string, questionId: string) => void
 }
 
 interface Answer {
   name?: string
   value: string | number | null
   userName: string
+  userId?: string
 }
 
 const renderStarRating = (value: Answer) => (
@@ -80,6 +82,8 @@ const renderArticle = (
   questionType: string,
   index?: number,
   ref?: React.MutableRefObject<HTMLTextAreaElement | null>,
+  handleChangeAnswer?: (answer: string, questionId: string) => void,
+  questionId?: string,
 ) => (
   <article
     className="m-t-[1.25rem] accordion-content text-black dark:text-white"
@@ -104,7 +108,7 @@ const renderArticle = (
             defaultValue={answers.map((answer) => answer.value as string)}
           ></textarea>
 
-          <div className="ml-[0.63rem] flex gap-2 p-[0.62rem]">
+          <div className="ml-[0.63rem] flex justify-end gap-2 p-[0.62rem]">
             <IconButton
               disabled
               className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
@@ -117,7 +121,10 @@ const renderArticle = (
               disabled
               className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
               text="저장"
-              onClick={() => console.log(ref?.current?.value)}
+              onClick={() =>
+                handleChangeAnswer &&
+                handleChangeAnswer(value.value as string, questionId as string)
+              }
             ></IconButton>
           </div>
         </div>
@@ -130,6 +137,7 @@ const QuestionGroup = ({
   answers,
   questionType,
   questionTitle,
+  handleChangeAnswer,
 }: QuestionGroupProps) => {
   const [inputId] = useState(nanoid())
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -154,7 +162,14 @@ const QuestionGroup = ({
 
       {questionType !== 'HEXASTAT' &&
         answers?.map((value, index) =>
-          renderArticle(value, answers, questionType, index, textAreaRef),
+          renderArticle(
+            value,
+            answers,
+            questionType,
+            index,
+            textAreaRef,
+            handleChangeAnswer,
+          ),
         )}
 
       {questionType === 'HEXASTAT' &&

@@ -3,6 +3,7 @@ import {
   useGetReviewQuestion,
   useGetResponseByReceiver,
   useSaveFinalResult,
+  useUpdateSubjectiveResponse,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { ProfileGroup, QuestionGroup } from '..'
@@ -28,7 +29,8 @@ const ReviewDetail = ({
     receiverId,
     reviewId,
   }).data
-  console.log(responseByReceiver)
+
+  const { mutate: updateAnswer } = useUpdateSubjectiveResponse()
 
   const saveFinalReviewResult = {
     userId: receiverId,
@@ -70,6 +72,16 @@ const ReviewDetail = ({
     responseByReceiver?.map((data) => data?.responser?.id.toString()),
   )
 
+  const handleChangeAnswer = (newAnswer: string, questionId: string) => {
+    //NOTE - 취합된 답변이나 정제된 답변으로 업데이트
+    updateAnswer({
+      userId: receiverId,
+      reviewId,
+      answer: newAnswer,
+      questionId,
+    })
+  }
+
   return (
     <>
       <label htmlFor="drawer" className="overlay"></label>
@@ -86,6 +98,9 @@ const ReviewDetail = ({
           />
           {getReviewQuestion?.questions?.map((question) => (
             <QuestionGroup
+              handleChangeAnswer={(newAnswer: string) =>
+                handleChangeAnswer(newAnswer, question.id)
+              }
               questionType={question?.type}
               questionTitle={question?.title}
               key={question?.id}

@@ -47,6 +47,7 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
             return {
               value: reply?.answerText,
               userName: data?.responser?.name,
+              userId: data?.responser?.name,
             }
           }),
     )
@@ -69,6 +70,7 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
             return {
               value: reply?.rating,
               userName: data?.responser?.name,
+              userId: data?.responser?.name,
             }
           }),
     )
@@ -95,6 +97,7 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
                 name: reply?.questionOption?.optionName,
                 value: reply?.hexastat,
                 userName: value?.responser?.name,
+                userId: value?.responser?.id,
               }
             }
             //NOTE - 그 외의 질문 유형일떄 처리
@@ -102,6 +105,7 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
               return {
                 value: reply.questionOption?.optionName ?? null,
                 userName: value?.responser?.name,
+                userId: value?.responser?.id,
               }
             }
           }),
