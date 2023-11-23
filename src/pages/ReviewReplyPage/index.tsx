@@ -38,7 +38,7 @@ const ReviewReplyPage = () => {
     <div className="flex h-screen flex-col items-center bg-main-ivory dark:bg-main-red-100">
       <Header />
       {reviewData && (
-        <div className="flex h-full w-full max-w-[550px] flex-col p-5 text-black">
+        <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
           <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
           {reviewStep === 1 && (
             <p className="mt-2.5 whitespace-pre-wrap text-sm dark:text-white md:text-lg">
