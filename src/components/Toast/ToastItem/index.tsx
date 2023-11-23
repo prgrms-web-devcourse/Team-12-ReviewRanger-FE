@@ -23,7 +23,7 @@ const ToastItem = ({ id, type, children }: PropsWithChildren<ToastProps>) => {
           onClick={() => removeToast({ id })}
         />
         <div
-          className={`before:animate-progress-animation absolute bottom-1 left-0 h-1 w-full  translate-y-full before:absolute before:bottom-0 before:right-0 before:h-full before:w-full before:content-[""] ${TYPE_STYLES.PROGRESS_BAR[type]}`}
+          className={`absolute bottom-1 left-0 h-1 w-full translate-y-full  before:absolute before:bottom-0 before:right-0 before:h-full before:w-full before:animate-progress-animation before:content-[""] ${TYPE_STYLES.PROGRESS_BAR[type]}`}
         ></div>
       </div>
     </div>

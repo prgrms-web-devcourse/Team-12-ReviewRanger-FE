@@ -1,6 +1,7 @@
 import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
 import { Profile, SearchBar } from '@/components'
+import { useUser } from '@/apis/hooks'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
 import { CloseIcon } from '@/assets/icons'
 import { ReviewReplyType } from '../../types'
@@ -11,11 +12,11 @@ interface ReceiverSelectProps {
 }
 
 // TODO: 지울 예정
-const userId = 812
 
 const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
   const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
+  const { data } = useUser()
 
   const {
     control,
@@ -56,7 +57,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     receivers.forEach(({ receiverId }) => {
       const replyTarget = {
         receiverId: receiverId,
-        responserId: userId,
+        responserId: Number(data?.data.id),
         replies: questions
           .map(({ id, type, isRequired }) => {
             const reply = {

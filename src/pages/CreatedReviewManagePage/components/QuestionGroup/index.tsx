@@ -14,7 +14,7 @@ interface QuestionGroupProps {
     | 'MULTIPLE_CHOICE'
     | 'DROPDOWN'
     | 'SUBJECTIVE'
-    | 'STAR_RATING'
+    | 'RATING'
     | 'HEXASTAT'
   questionTitle: string
   questionDescription?: string
@@ -87,7 +87,7 @@ const renderArticle = (
     <div className="accordion-content ml-[0.63rem]">
       {(() => {
         switch (questionType) {
-          case 'STAR_RATING':
+          case 'RATING':
             return renderStarRating(value)
           case 'HEXASTAT':
             return renderHexaStat(value, answers)

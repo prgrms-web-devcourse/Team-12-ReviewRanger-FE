@@ -29,7 +29,7 @@ interface ReceivedReviewResponse {
 const useGetAllReviews = () => {
   const getInvitedReview = async () => {
     const response =
-      await apiClient.get<InvitedReviewResponse>('/participations')
+      await apiClient.get<InvitedReviewResponse>('/participation')
 
     return response.data.data
   }
@@ -49,7 +49,7 @@ const useGetAllReviews = () => {
 
   return useSuspenseQueries({
     queries: [
-      { queryKey: ['/participations'], queryFn: getInvitedReview },
+      { queryKey: ['/participation'], queryFn: getInvitedReview },
       { queryKey: ['/reviews'], queryFn: getCreatedReview },
       { queryKey: ['/final-results'], queryFn: getReceivedReview },
     ],

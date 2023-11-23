@@ -4,23 +4,13 @@ import apiClient from '@/apis/apiClient'
 
 export interface Response {
   success?: boolean
-  data: {
-    receiverResponses: Receiver[]
-  }
+  data: Receiver[]
 }
 
 interface Receiver {
-  user: User
-  id: string
-  name: string
+  receiverId: string
+  receiverName: string
   responserCount: number
-  responserIds: string[]
-}
-
-interface User {
-  id: string
-  email: string
-  name: string
 }
 
 const useGetAllResponseByReceiver = ({ surveyId }: { surveyId: string }) => {

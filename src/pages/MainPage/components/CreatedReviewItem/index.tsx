@@ -31,7 +31,6 @@ const CreatedReviewItem = ({
           className="stroke-black dark:stroke-white"
           onClick={(e) => {
             e.stopPropagation()
-            console.log('메뉴클릭')
           }}
         />
       </div>

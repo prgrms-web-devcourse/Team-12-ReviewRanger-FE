@@ -44,13 +44,13 @@ interface Response {
 
 const useGetReviewFirst = ({ id }: { id: number }) => {
   const getReviewFirst = async () => {
-    const response = await apiClient.get<Response>(`/reviews/${id}/first`)
+    const response = await apiClient.get<Response>(`/reviews/${id}`)
 
     return response.data.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviews/${id}/first`],
+    queryKey: [`/reviews/${id}`],
     queryFn: getReviewFirst,
   })
 }

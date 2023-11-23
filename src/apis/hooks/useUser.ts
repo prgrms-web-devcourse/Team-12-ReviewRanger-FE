@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 import { TOKEN_KEY } from '@/constants'
 
-export interface User {
+interface User {
   success: boolean
   data: {
     id: string
-    email: string
     name: string
+    email: string
   }
 }
 
