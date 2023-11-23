@@ -3,7 +3,7 @@
 import { Suspense } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { useGetAllResponseByReceiver } from '@/apis/hooks'
-import { NotFoundSearchUser, ReviewDetailAccordion } from '../../components'
+import { NotFoundSearchUser, ReceiverTabReviewDetail } from '../../components'
 import { useResponseReviewByUser } from '../../hooks'
 
 interface AllResponseReviewByResponseProps {
@@ -71,7 +71,7 @@ const AllResponseReviewByResponser = ({
             />
             <Suspense fallback={<div className="spinner"></div>}>
               {selectedUser.id && (
-                <ReviewDetailAccordion
+                <ReceiverTabReviewDetail
                   reviewId={reviewId}
                   receiverId={selectedUser.id}
                   receiverName={selectedUser.name}
