@@ -78,12 +78,7 @@ const MainPage = () => {
               return (
                 <InvitedReviewItem
                   {...review}
-                  handleReviewClick={() =>
-                    handleInvitedReviewClick(
-                      review.reviewId,
-                      review.participationId,
-                    )
-                  }
+                  handleReviewClick={handleInvitedReviewClick}
                 />
               )
             }

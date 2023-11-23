@@ -4,11 +4,12 @@ import { STATUS, STATUS_STYLE } from '../../constants'
 
 interface InvitedReviewItemProps extends InvitedReview {
   className: string
-  handleReviewClick: (id: number) => void
+  handleReviewClick: (id: number, participationId: number) => void
 }
 
 const InvitedReviewItem = ({
   reviewId,
+  participationId,
   title,
   status,
   submitAt,
@@ -16,7 +17,10 @@ const InvitedReviewItem = ({
   handleReviewClick,
 }: InvitedReviewItemProps) => {
   return (
-    <div className={className} onClick={() => handleReviewClick(reviewId)}>
+    <div
+      className={className}
+      onClick={() => handleReviewClick(reviewId, participationId)}
+    >
       <div className="flex gap-1.5">
         <span
           className={`${STATUS_STYLE[status]} badge rounded-full border-none text-xs font-medium text-white md:text-sm`}
