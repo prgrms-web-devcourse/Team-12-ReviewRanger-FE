@@ -117,8 +117,6 @@ const QuestionGroup = ({
 }: QuestionGroupProps) => {
   const [inputId] = useState(nanoid())
 
-  console.log(questionTitle, questionType)
-
   return (
     <section className=" border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
       <input type="checkbox" id={inputId} className="accordion-toggle " />

@@ -75,9 +75,6 @@ const MainPage = () => {
           addButtonExistence={activeTab === 'created'}
           RenderComponent={(review) => {
             if ('submitAt' in review) {
-              console.log(review.participationId + '참여ID')
-              console.log(review.reviewId + '리뷰 ID')
-
               return (
                 <InvitedReviewItem
                   {...review}

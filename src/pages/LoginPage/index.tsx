@@ -23,11 +23,6 @@ const LoginPage = () => {
           refetch()
           navigate('/')
         },
-
-        onError(data) {
-          console.log(data)
-          //TODO - 에러 처리시 토스트 처리
-        },
       },
     )
   }

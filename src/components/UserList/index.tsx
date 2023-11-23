@@ -13,6 +13,7 @@ interface UserListProps {
   responserCount?: number[]
   onClickUser?: ({ id, name }: { id: string; name: string }) => void
   hasDrawer?: boolean
+  ResponserList?: number[]
 }
 
 const UserList = ({
@@ -21,9 +22,14 @@ const UserList = ({
   responserCount,
   onClickUser,
   hasDrawer,
+  ResponserList,
 }: UserListProps) => {
   const handleClick = (id: string, name: string) => {
     onClickUser && onClickUser({ id, name })
+  }
+
+  const hasCheckedUser = (id: string) => {
+    return ResponserList?.includes(Number(id))
   }
 
   return (

@@ -3,7 +3,12 @@
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
-import { useCloseSurvey, useGetReviewQuestion } from '@/apis/hooks'
+import {
+  useCloseSurvey,
+  useGetReviewQuestion,
+  useCheckAllReceiverReceived,
+  useSendReview,
+} from '@/apis/hooks'
 
 import {
   Tabs,
@@ -26,10 +31,25 @@ const CreatedReviewManagePage = () => {
     id: reviewId,
   })
 
-  const { mutate: closeSurvey } = useCloseSurvey({ id: reviewId })
+  const { data: checkAllReceiverReceived } = useCheckAllReceiverReceived({
+    id: reviewId,
+  })
 
+  const { mutate: closeReview } = useCloseSurvey({ id: reviewId })
+
+  const { mutate: sendReview } = useSendReview()
   const handleClickSurveyClose = () => {
-    closeSurvey()
+    closeReview()
+  }
+
+  const handleClickSendSurvey = () => {
+    if (!checkAllReceiverReceived.success) {
+      //NOTE - 토스트 처리
+
+      return
+    }
+
+    sendReview({ reviewId })
   }
 
   const REVIEW_MANAGE_TAB_CONTENT = {
@@ -41,7 +61,10 @@ const CreatedReviewManagePage = () => {
           </div>
         }
       >
-        <AllResponseReviewByResponser surveyId={reviewId} />
+        <AllResponseReviewByResponser
+          reviewId={reviewId}
+          ResponserList={checkAllReceiverReceived.data}
+        />
       </Suspense>
     ),
     receiver: (
@@ -83,6 +106,7 @@ const CreatedReviewManagePage = () => {
           <button
             className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
+            onClick={handleClickSendSurvey}
           >
             전송
           </button>

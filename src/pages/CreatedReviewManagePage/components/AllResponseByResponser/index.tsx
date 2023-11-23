@@ -8,9 +8,17 @@ import {
   ReviewDetailAccordion,
 } from '../../components'
 
-const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
+interface AllResponseReviewByResponser {
+  reviewId: string
+  ResponserList: number[]
+}
+
+const AllResponseReviewByResponser = ({
+  reviewId,
+  ResponserList,
+}: AllResponseReviewByResponser) => {
   const { data: responseByResponser } = useGetAllResponseByResponser({
-    surveyId,
+    reviewId,
   }).data || { data: [] }
   const [keyword, setKeyword] = useState('')
   const [filteredUsers, setFilteredUsers] = useState(
@@ -93,6 +101,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
                 id="drawer-bottom"
               />
               <UserList
+                ResponserList={ResponserList}
                 hasDrawer
                 users={findUserBySearchKeyword}
                 submitAt={filteredUsers?.map((value) => value.submitAt)}
@@ -101,7 +110,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
               <Suspense fallback={<div className="spinner" />}>
                 {selectedUser.id && (
                   <ReviewDetailAccordion
-                    reviewId={surveyId}
+                    reviewId={reviewId}
                     receiverId={selectedUser.id}
                     receiverName={selectedUser.name}
                   />

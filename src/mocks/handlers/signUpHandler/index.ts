@@ -13,7 +13,6 @@ const SignUpUser: userType[] = [
 export const signUpHandlers = [
   rest.post('/sign-up', async (req, res, ctx) => {
     SignUpUser.push(await req.json())
-    console.log(SignUpUser)
 
     return res(ctx.status(201))
   }),

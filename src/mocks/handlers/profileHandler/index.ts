@@ -31,8 +31,6 @@ export const profileHandlers = [
       )
     }
 
-    console.log('이름이 ', name, '으로 변경되었습니다.')
-
     return res(ctx.status(200), ctx.json({ success: true }))
   }),
 
@@ -48,8 +46,6 @@ export const profileHandlers = [
         }),
       )
     }
-
-    console.log('비밀번호가 변경되었습니다.')
 
     return res(ctx.status(200), ctx.json({ success: true }))
   }),

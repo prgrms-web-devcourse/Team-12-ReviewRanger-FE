@@ -41,9 +41,7 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
         data?.replies
           ?.filter(
             (reply) =>
-              reply &&
-              reply.questionId.trim() === questionId.trim() &&
-              reply.answerText,
+              reply && reply?.questionId === questionId && reply?.answerText,
           )
           ?.map((reply) => {
             return {
@@ -64,7 +62,8 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
       (data) =>
         data?.replies
           ?.filter(
-            (reply) => reply && reply.questionId === questionId && reply.rating,
+            (reply) =>
+              reply && reply?.questionId === questionId && reply?.rating,
           )
           ?.map((reply) => {
             return {
@@ -88,9 +87,9 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
           ?.map((reply) => {
             //NOTE - 육각형 스텟일떄
             if (
-              reply.questionOption?.optionId &&
-              reply.questionOption?.optionName &&
-              reply.hexastat
+              reply?.questionOption?.optionId &&
+              reply?.questionOption?.optionName &&
+              reply?.hexastat
             ) {
               return {
                 name: reply?.questionOption?.optionName,

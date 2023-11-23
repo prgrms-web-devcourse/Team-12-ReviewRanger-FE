@@ -27,6 +27,7 @@ const ReviewDetail = ({
   const { data: responseByReceiver } = useGetResponseByReceiver({
     receiverId,
   }).data
+  console.log(responseByReceiver)
 
   const saveFinalReviewResult = {
     userId: receiverId,
@@ -61,7 +62,7 @@ const ReviewDetail = ({
 
   useEffect(() => {
     saveFinalResult()
-  }, [])
+  }, [receiverId])
 
   //NOTE - 전체 몇 명이 응답했는지 여부
   const responserCount = new Set(

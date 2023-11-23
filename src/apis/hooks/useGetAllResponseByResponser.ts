@@ -24,17 +24,17 @@ interface User {
   email: string
 }
 
-const useGetAllResponseByResponser = ({ surveyId }: { surveyId: string }) => {
+const useGetAllResponseByResponser = ({ reviewId }: { reviewId: string }) => {
   const getResponseByAuthor = async () => {
     const response = await apiClient.get<Response>(
-      `/reviews/${surveyId}/responser`,
+      `/reviews/${reviewId}/responser`,
     )
 
     return response.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviews/${surveyId}/responser`],
+    queryKey: [`/reviews/${reviewId}/responser`],
     queryFn: getResponseByAuthor,
   })
 }
