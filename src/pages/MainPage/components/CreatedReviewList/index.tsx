@@ -11,8 +11,6 @@ interface CreatedReviewListProps {
 const CreatedReviewList = ({ handleReviewClick }: CreatedReviewListProps) => {
   const { data, hasNextPage, fetchNextPage } = useGetCreatedReviews()
 
-  console.log(data)
-
   const reviews = data.pages.reduce<CreatedReview[]>(
     (acc, item) => acc.concat(item.content),
     [],

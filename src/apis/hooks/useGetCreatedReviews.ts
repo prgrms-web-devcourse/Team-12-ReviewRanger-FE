@@ -34,8 +34,6 @@ const useGetCreatedReviews = () => {
         return undefined
       }
 
-      console.log(content[content.length - 1].reviewId)
-
       return content[content.length - 1].reviewId
     },
     refetchOnWindowFocus: false,
