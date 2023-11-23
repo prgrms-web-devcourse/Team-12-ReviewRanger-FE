@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useUser, useLogout } from '@/apis/hooks'
-
 import {
   LogoRowIcon,
   LogoShortIcon,
@@ -8,40 +7,42 @@ import {
   BasicProfileIcon,
 } from '@/assets/icons'
 import { rangerHead } from '@/assets/images'
+import Dropdown from '../Dropdown'
 
-const Header = () => {
-  const { data } = useUser()
-  const { mutate } = useLogout()
+interface HeaderProps {
+  handleGoBack?: () => void
+}
 
-  const path = useLocation().pathname
+const Header = ({ handleGoBack }: HeaderProps) => {
+  const { data: user } = useUser()
+  const { mutate: logout } = useLogout()
 
+  const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  const avatarVisible = path !== '/sign-up' && path !== '/login'
-  const goBackVisible = path !== '/login' && path !== '/'
+  const avatarVisible = pathname !== '/sign-up' && pathname !== '/login'
+  const goBackVisible = pathname !== '/login' && pathname !== '/'
 
-  const handleOnClickLogoArea = () => {
-    if (data && data.success) {
-      navigate('/')
-    } else {
-      navigate('/login')
-    }
+  const handleLogout = () => {
+    logout(undefined, {
+      onSuccess() {
+        navigate('/login')
+      },
+    })
   }
 
   return (
-    <div className="sticky top-0 z-10 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
-      <div className="flex w-full items-center justify-between px-6">
-        <div>
-          <ArrowLeftIcon
-            className={`md:hidden" ${
-              !goBackVisible && 'hidden'
-            } cursor-pointer`}
-            onClick={() => navigate(-1)}
-          />
+    <div className="sticky top-0 z-10 flex h-12 shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
+      <div className="flex w-full max-w-[55rem] items-center justify-between px-6">
+        <div
+          className="cursor-pointer"
+          onClick={handleGoBack ?? (() => navigate(-1))}
+        >
+          <ArrowLeftIcon className={`${!goBackVisible && 'hidden'}`} />
         </div>
         <div
-          onClick={handleOnClickLogoArea}
           className="fixed left-1/2 flex -translate-x-1/2 transform cursor-pointer items-center gap-1"
+          onClick={() => navigate('/')}
         >
           <img
             src={rangerHead}
@@ -52,46 +53,23 @@ const Header = () => {
           <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
         <div>
-          {avatarVisible && data?.data && (
-            <div className="dropdown-hover relative">
-              <div
-                className={`avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black `}
-              >
+          {avatarVisible && user && (
+            <Dropdown>
+              <Dropdown.Toggle className="avatar avatar-sm flex cursor-pointer items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black">
                 <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
-              </div>
-              <div className="dropdown-menu dropdown-menu-left-bottom w-[10rem] border-[1px] bg-[#fbfbfd] p-0 text-[0.875rem] text-[#313131] dark:border-white dark:bg-[#202020] dark:text-white">
-                <a className="dropdown-item flex items-center justify-center rounded-none border-b-[1px] border-gray-200 text-sm  dark:border-black">
-                  {data.data.name}님
-                </a>
-                <a
-                  tabIndex={0}
-                  className="dropdown-item flex items-center justify-center rounded-none border-b-[1px] border-gray-200 text-sm  dark:border-black"
-                  href="/review-creation"
-                >
-                  설문만들기
-                </a>
-                <a
-                  tabIndex={1}
-                  className="dropdown-item flex items-center justify-center rounded-none border-b-[1px] border-gray-200 text-sm  dark:border-black"
-                  href="/profile"
-                >
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="w-40 rounded-sm">
+                <Dropdown.Item defaultClose={false}>
+                  <p className="text-xl">{user.name}</p>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={() => navigate('/profile')}>
                   마이페이지
-                </a>
-                <a
-                  tabIndex={2}
-                  className="dropdown-item flex items-center justify-center rounded-none border-b-[1px] border-gray-200 text-sm  dark:border-black"
-                  onClick={() => mutate()}
-                >
-                  로그아웃
-                </a>
-                <a
-                  tabIndex={3}
-                  className="dropdown-item flex items-center justify-center border-[#37485D] text-sm dark:border-black"
-                >
-                  도움말
-                </a>
-              </div>
-            </div>
+                </Dropdown.Item>
+                <Dropdown.Item>슬랙 알림 보기</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           )}
         </div>
       </div>

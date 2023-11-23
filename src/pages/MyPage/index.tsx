@@ -5,8 +5,7 @@ import { BasicProfileIcon, CheckIcon, EditIcon } from '@/assets/icons'
 import { useEditNameCheck, useEditPasswordCheck } from './hooks'
 
 const MyPage = () => {
-  const { data } = useUser()
-  const { name: userName, email: userEmail } = data.data
+  const { data: user } = useUser()
 
   const {
     name,
@@ -30,7 +29,7 @@ const MyPage = () => {
     handleEditNameStartingClick,
     handleEditNameEndingClick,
   } = useEditNameCheck({
-    currentName: userName,
+    currentName: user?.name || '',
     name,
     setName,
     nameFailMessage,
@@ -75,8 +74,8 @@ const MyPage = () => {
             </div>
           ) : (
             <div className="relative flex items-center">
-              <div className="text-xl font-bold text-black dark:text-white">
-                {userName}
+              <div className="text-xl text-black dark:text-white">
+                {user?.name}
               </div>
               <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
                 <EditIcon
@@ -87,7 +86,7 @@ const MyPage = () => {
             </div>
           )}
           <div className="text-sm text-gray-300 dark:text-white">
-            {userEmail}
+            {user?.email}
           </div>
         </div>
 

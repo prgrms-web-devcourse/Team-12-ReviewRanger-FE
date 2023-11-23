@@ -18,7 +18,7 @@ const Menu = ({
 
   return (
     <div
-      className={`dropdown-menu rounded-md border border-black bg-white shadow-md dark:border-white dark:bg-main-gray ${menuPosition[position]} ${className}`}
+      className={`dropdown-menu border border-black bg-white shadow-md dark:border-white dark:bg-main-gray ${menuPosition[position]} ${className}`}
     >
       {children}
     </div>

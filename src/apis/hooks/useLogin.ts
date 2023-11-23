@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { TOKEN_KEY } from '@/constants'
 import apiClient from '../apiClient'
 
 interface loginProps {
@@ -18,7 +19,12 @@ const useLogin = () => {
     return await apiClient.post<Response>('/login', user)
   }
 
-  return useMutation({ mutationFn: login })
+  return useMutation({
+    mutationFn: login,
+    onSuccess: ({ data }) => {
+      localStorage.setItem(TOKEN_KEY, data.data.accessToken)
+    },
+  })
 }
 
 export default useLogin
