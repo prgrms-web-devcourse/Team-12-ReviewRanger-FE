@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { useState, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { IconButton, StarRatingList } from '@/components'
 import {
   CloseDropDownIcon,
@@ -19,7 +19,8 @@ interface QuestionGroupProps {
 
   questionTitle: string
   answers: Answer[]
-  handleChangeAnswer?: (newAnswer: string, questionId: string) => void
+  handleChangeAnswer?: (newAnswer: string) => void
+  handleCleanAnswer?: (answers: string[]) => void
 }
 
 interface Answer {
@@ -82,8 +83,8 @@ const renderArticle = (
   questionType: string,
   index?: number,
   ref?: React.MutableRefObject<HTMLTextAreaElement | null>,
-  handleChangeAnswer?: (answer: string, questionId: string) => void,
-  questionId?: string,
+  handleChangeAnswer?: (answer: string) => void,
+  handleCleanAnswer?: (answers: string[]) => void,
 ) => (
   <article
     className="m-t-[1.25rem] accordion-content text-black dark:text-white"
@@ -113,6 +114,12 @@ const renderArticle = (
               disabled
               className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
               text="정제"
+              onClick={() =>
+                handleCleanAnswer &&
+                handleCleanAnswer(
+                  answers.map((answer) => answer.value as string),
+                )
+              }
             >
               <FilterReplyIcon className="h-[1rem] w-[1rem] " />
             </IconButton>
@@ -122,8 +129,7 @@ const renderArticle = (
               className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
               text="저장"
               onClick={() =>
-                handleChangeAnswer &&
-                handleChangeAnswer(value.value as string, questionId as string)
+                handleChangeAnswer && handleChangeAnswer(value.value as string)
               }
             ></IconButton>
           </div>
@@ -138,8 +144,9 @@ const QuestionGroup = ({
   questionType,
   questionTitle,
   handleChangeAnswer,
+  handleCleanAnswer,
 }: QuestionGroupProps) => {
-  const [inputId] = useState(nanoid())
+  const inputId = useMemo(() => nanoid(), [])
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
   return (
@@ -169,6 +176,7 @@ const QuestionGroup = ({
             index,
             textAreaRef,
             handleChangeAnswer,
+            handleCleanAnswer,
           ),
         )}
 

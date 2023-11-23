@@ -2,14 +2,14 @@ import { useMutation } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
 const cleanSubjectiveResponse = async ({
-  responserList,
+  responseList,
 }: {
-  responserList: string[]
+  responseList: string[]
 }) => {
   const response = await apiClient.post<{ afterResponse: string }>(
     '/replies/clean',
     {
-      replies: responserList,
+      replies: responseList,
     },
   )
 

@@ -4,6 +4,7 @@ import {
   useGetResponseByReceiver,
   useSaveFinalResult,
   useUpdateSubjectiveResponse,
+  useCleanSubjectiveResponse,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { ProfileGroup, QuestionGroup } from '..'
@@ -31,6 +32,7 @@ const ReviewDetail = ({
   }).data
 
   const { mutate: updateAnswer } = useUpdateSubjectiveResponse()
+  const { mutate: cleanAnswer } = useCleanSubjectiveResponse()
 
   const saveFinalReviewResult = {
     userId: receiverId,
@@ -82,6 +84,12 @@ const ReviewDetail = ({
     })
   }
 
+  const handleCleanAnswer = (answers: string[]) => {
+    cleanAnswer({
+      responseList: answers,
+    })
+  }
+
   return (
     <>
       <label htmlFor="drawer" className="overlay"></label>
@@ -101,6 +109,7 @@ const ReviewDetail = ({
               handleChangeAnswer={(newAnswer: string) =>
                 handleChangeAnswer(newAnswer, question.id)
               }
+              handleCleanAnswer={handleCleanAnswer}
               questionType={question?.type}
               questionTitle={question?.title}
               key={question?.id}
