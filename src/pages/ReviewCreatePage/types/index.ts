@@ -14,7 +14,8 @@ export interface Question {
   description: string
 }
 
-interface User {
+export interface User {
+  id: number
   receiverId: number
   name: string
 }
