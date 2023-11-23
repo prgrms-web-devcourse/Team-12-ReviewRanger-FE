@@ -61,19 +61,20 @@ const MainPage = () => {
               case 'invited':
                 return (
                   <InvitedReviewList
-                    handleReviewClick={handleInvitedReviewClick}
+                    handleClickReview={handleInvitedReviewClick}
                   />
                 )
               case 'created':
                 return (
                   <CreatedReviewList
-                    handleReviewClick={handleCreatedReviewClick}
+                    handleClickReview={handleCreatedReviewClick}
+                    handleClickAddReview={() => navigate('review-creation')}
                   />
                 )
               case 'received':
                 return (
                   <ReceivedReviewList
-                    handleReviewClick={handleReceivedReviewClick}
+                    handleClickReview={handleReceivedReviewClick}
                   />
                 )
               default:

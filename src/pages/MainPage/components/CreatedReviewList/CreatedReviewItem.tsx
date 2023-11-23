@@ -5,7 +5,7 @@ import { STATUS, STATUS_STYLE } from '../../constants'
 
 interface CreatedReviewItemProps extends CreatedReview {
   className: string
-  handleReviewClick: (id: number) => void
+  handleClickReview: (id: number) => void
 }
 
 const CreatedReviewItem = ({
@@ -14,10 +14,10 @@ const CreatedReviewItem = ({
   status,
   createdAt,
   className,
-  handleReviewClick,
+  handleClickReview,
 }: CreatedReviewItemProps) => {
   return (
-    <div className={className} onClick={() => handleReviewClick(reviewId)}>
+    <div className={className} onClick={() => handleClickReview(reviewId)}>
       <div className="flex items-center justify-between">
         <div className="flex gap-1.5">
           <span
