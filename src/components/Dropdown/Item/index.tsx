@@ -1,13 +1,13 @@
 import { PropsWithChildren } from 'react'
 
 interface ItemProps {
-  handleClickItem?: () => void
+  onClick?: () => void
   defaultClose?: boolean
 }
 
 const Item = ({
   children,
-  handleClickItem,
+  onClick,
   defaultClose = true,
 }: PropsWithChildren<ItemProps>) => {
   return (
@@ -16,7 +16,7 @@ const Item = ({
         defaultClose ? 'hover:bg-gray-400 dark:hover:bg-gray-300' : ''
       }`}
       tabIndex={defaultClose ? undefined : -1}
-      onClick={handleClickItem}
+      onClick={onClick}
     >
       {children}
     </a>
