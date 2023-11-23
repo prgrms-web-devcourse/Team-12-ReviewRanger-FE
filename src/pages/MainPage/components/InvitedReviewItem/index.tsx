@@ -4,7 +4,15 @@ import { STATUS, STATUS_STYLE } from '../../constants'
 
 interface InvitedReviewItemProps extends InvitedReview {
   className: string
-  handleReviewClick: (id: number, participationId: number) => void
+  handleReviewClick: ({
+    id,
+    participationId,
+    submitStatus,
+  }: {
+    id: number
+    participationId: number
+    submitStatus: boolean
+  }) => void
 }
 
 const InvitedReviewItem = ({
@@ -19,7 +27,13 @@ const InvitedReviewItem = ({
   return (
     <div
       className={className}
-      onClick={() => handleReviewClick(reviewId, participationId)}
+      onClick={() =>
+        handleReviewClick({
+          id: reviewId,
+          participationId,
+          submitStatus: !!submitAt,
+        })
+      }
     >
       <div className="flex gap-1.5">
         <span
