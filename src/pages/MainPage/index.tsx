@@ -1,36 +1,22 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
-import { useGetAllReviews } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
 import {
-  CreatedReviewItem,
-  InvitedReviewItem,
+  CreatedReviewList,
+  InvitedReviewList,
   PageIntro,
-  ReceivedReviewItem,
-  ReviewList,
+  ReceivedReviewList,
   Tabs,
 } from './components'
 import { INTRO_CONTENT, INTRO_STYLE } from './constants'
 
 const MainPage = () => {
-  const [
-    { data: invitedReviews },
-    { data: createdReviews },
-    { data: receivedReviews },
-  ] = useGetAllReviews()
-
   const navigate = useNavigate()
 
   const [activeTab, setActiveTab] = useState<
     'invited' | 'created' | 'received'
   >('invited')
-
-  const TAB_REVIEWS = {
-    invited: invitedReviews.content,
-    created: createdReviews.content,
-    received: receivedReviews.content,
-  }
 
   const handleInvitedReviewClick = (id: number, participationId: number) => {
     navigate(`review-response/${id}`, {
@@ -40,7 +26,6 @@ const MainPage = () => {
     })
   }
 
-  //NOTE - 내가 만든 리뷰의 관리페이지로 이동
   const handleCreatedReviewClick = (id: number) => {
     navigate(`review-management/${id}`)
   }
@@ -70,36 +55,33 @@ const MainPage = () => {
           </div>
         </PageIntro>
 
-        <ReviewList
-          reviews={TAB_REVIEWS[activeTab]}
-          addButtonExistence={activeTab === 'created'}
-          RenderComponent={(review) => {
-            if ('submitAt' in review) {
-              return (
-                <InvitedReviewItem
-                  {...review}
-                  handleReviewClick={handleInvitedReviewClick}
-                />
-              )
+        <Suspense>
+          {(() => {
+            switch (activeTab) {
+              case 'invited':
+                return (
+                  <InvitedReviewList
+                    handleClickReview={handleInvitedReviewClick}
+                  />
+                )
+              case 'created':
+                return (
+                  <CreatedReviewList
+                    handleClickReview={handleCreatedReviewClick}
+                    handleClickAddReview={() => navigate('review-creation')}
+                  />
+                )
+              case 'received':
+                return (
+                  <ReceivedReviewList
+                    handleClickReview={handleReceivedReviewClick}
+                  />
+                )
+              default:
+                return null
             }
-
-            if ('responserCount' in review) {
-              return (
-                <CreatedReviewItem
-                  {...review}
-                  handleReviewClick={handleCreatedReviewClick}
-                />
-              )
-            }
-
-            return (
-              <ReceivedReviewItem
-                {...review}
-                handleReviewClick={handleReceivedReviewClick}
-              />
-            )
-          }}
-        />
+          })()}
+        </Suspense>
       </div>
     </>
   )

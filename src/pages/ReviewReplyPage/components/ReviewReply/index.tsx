@@ -30,7 +30,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   const questionArray = questions.map((question, index) => (
     <Questions
       question={question}
-      questionIndex={index}
+      index={index}
       receiverIndex={selectedReceiverIndex}
     />
   ))
