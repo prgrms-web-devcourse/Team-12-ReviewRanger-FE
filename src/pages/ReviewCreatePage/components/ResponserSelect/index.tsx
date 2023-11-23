@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
-import { Profile } from '@/components'
+import { useToast } from '@/hooks'
+import { Profile, SearchBar } from '@/components'
 import { CheckInTheCircleIcon } from '@/assets/icons'
 import { Review } from '../../types'
 
@@ -8,6 +10,9 @@ interface ResponserSelectProps {
 }
 
 const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
+  const [filterState, setFilterState] = useState(false)
+  const { addToast } = useToast()
+
   const {
     control,
     setError,
@@ -36,17 +41,67 @@ const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
     name: 'nonResponserIdList',
   })
 
+  const {
+    fields: filteredResponsers,
+    append: appendFilteredResponser,
+    remove: removeFilteredResponser,
+    replace: replaceFilteredResponser,
+  } = useFieldArray({
+    control,
+    name: 'filteredResponserIdList',
+  })
+
+  const {
+    fields: filteredNonResponsers,
+    append: appendFilteredNonResponser,
+    remove: removeFilteredNonResponser,
+    replace: replaceFilteredNonResponser,
+  } = useFieldArray({
+    control,
+    name: 'filteredNonResponserIdList',
+  })
+
   const onSubmit: SubmitHandler<Review> = () => {
-    if (!responsers.length) {
+    if (responsers.length <= 1) {
+      addToast({ message: '응답자를 2명 이상 선택해주세요.', type: 'error' })
+
       setError('responserIdList', {
         type: 'required',
-        message: '응답자를 선택해주세요.',
+        message: '응답자를 2명 이상 선택해주세요.',
       })
+      // 토스트도 띄워주기 ,,?
 
       return
     }
 
     handleClickButton()
+  }
+
+  const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.value) {
+      handleResetKeyword()
+      setFilterState(false)
+
+      return
+    }
+    if (!filterState) {
+      setFilterState(true)
+    }
+
+    replaceFilteredResponser(
+      responsers.filter((responser) => responser.name.includes(e.target.value)),
+    )
+    replaceFilteredNonResponser(
+      nonResponsers.filter((nonResponser) =>
+        nonResponser.name.includes(e.target.value),
+      ),
+    )
+  }
+
+  const handleResetKeyword = () => {
+    replaceFilteredResponser([])
+    replaceFilteredNonResponser([])
+    setFilterState(false)
   }
 
   return (
@@ -57,89 +112,220 @@ const ResponserSelect = ({ handleClickButton }: ResponserSelectProps) => {
       >
         <div>
           <h1 className="text-lg dark:text-white md:text-xl">응답자 선택</h1>
+
+          <SearchBar
+            className="mt-5"
+            handleChangeKeyword={handleChangeKeyword}
+            handleResetKeyword={handleResetKeyword}
+          />
+
           <div className="flex flex-col gap-4 text-sm md:text-lg">
-            {responsers.length > 0 && (
-              <div className="mt-7">
-                <div className="mb-2 flex items-center justify-between">
-                  <div className="dark:text-white">
-                    <span>선택한 인원: </span>
-                    <span className="text-sub-blue dark:text-sub-skyblue">
-                      {responsers.length}
-                    </span>
-                    <span> 명</span>
+            {filterState ? (
+              <>
+                <div className="mt-7">
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className="dark:text-white">
+                      <span>선택한 인원: </span>
+                      <span className="text-sub-blue dark:text-sub-skyblue">
+                        {filteredResponsers.length}
+                      </span>
+                      <span> 명</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn h-6 rounded-md border border-gray-200 bg-main-yellow px-2 text-xs dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:h-8 md:text-sm"
+                      onClick={() => {
+                        filteredResponsers.map((filteredResponser) => {
+                          removeResponser(
+                            responsers.findIndex(
+                              (responser) =>
+                                responser.receiverId ===
+                                filteredResponser.receiverId,
+                            ),
+                          )
+                          appendNonResponser(filteredResponser)
+                        })
+                        replaceFilteredResponser([])
+                        appendFilteredNonResponser(filteredResponsers)
+                      }}
+                    >
+                      전체 해제
+                    </button>
                   </div>
-                  <button
-                    className="btn h-6 rounded-md border border-gray-200 bg-main-yellow px-2 text-xs dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:h-8 md:text-sm"
-                    onClick={() => {
-                      replaceResponser([])
-                      appendNonResponser(responsers)
-                    }}
-                  >
-                    전체 해제
-                  </button>
+
+                  <ul className="flex flex-col gap-2">
+                    {filteredResponsers.map((filteredResponser, index) => (
+                      <li
+                        key={filteredResponser.id}
+                        className="flex items-center justify-between border-b border-gray-400 py-2"
+                      >
+                        <Profile name={filteredResponser.name} />
+                        <CheckInTheCircleIcon
+                          className="cursor-pointer fill-sub-green"
+                          onClick={() => {
+                            removeFilteredResponser(index)
+                            removeResponser(
+                              responsers.findIndex(
+                                (responser) =>
+                                  responser.receiverId ===
+                                  filteredResponser.receiverId,
+                              ),
+                            )
+                            appendFilteredNonResponser(filteredResponser)
+                            appendNonResponser(filteredResponser)
+                          }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <ul className="flex flex-col gap-2">
-                  {responsers.map((responser, index) => (
-                    <li
-                      key={responser.id}
-                      className="flex items-center justify-between border-b border-gray-400 py-2"
+                <div className="mt-7">
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className="dark:text-white">
+                      <span>선택하지 않은 인원: </span>
+                      <span className="text-sub-blue dark:text-sub-skyblue">
+                        {filteredNonResponsers.length}
+                      </span>
+                      <span> 명</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn h-6 rounded-md border border-gray-200 bg-main-yellow px-2 text-xs dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:h-8 md:text-sm"
+                      onClick={() => {
+                        filteredNonResponsers.map((filteredNonResponser) => {
+                          removeNonResponser(
+                            nonResponsers.findIndex(
+                              (nonResponser) =>
+                                nonResponser.receiverId ===
+                                filteredNonResponser.receiverId,
+                            ),
+                          )
+                          appendResponser(filteredNonResponser)
+                        })
+                        replaceFilteredNonResponser([])
+                        appendFilteredResponser(filteredNonResponsers)
+                        clearErrors('responserIdList')
+                      }}
                     >
-                      <Profile name={responser.name} />
-                      <CheckInTheCircleIcon
-                        className="cursor-pointer fill-sub-green"
-                        onClick={() => {
-                          appendNonResponser(responser)
-                          removeResponser(index)
-                          clearErrors('responserIdList')
-                        }}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {nonResponsers.length > 0 && (
-              <div className="mt-7">
-                <div className="mb-2 flex items-center justify-between">
-                  <div className="dark:text-white">
-                    <span>선택하지 않은 인원: </span>
-                    <span className="text-sub-blue dark:text-sub-skyblue">
-                      {nonResponsers.length}
-                    </span>
-                    <span> 명</span>
+                      전체 선택
+                    </button>
                   </div>
-                  <button
-                    className="btn h-6 rounded-md border border-gray-200 bg-main-yellow px-2 text-xs dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:h-8 md:text-sm"
-                    onClick={() => {
-                      replaceNonResponser([])
-                      appendResponser(nonResponsers)
-                    }}
-                  >
-                    전체 선택
-                  </button>
+
+                  <ul className="flex flex-col gap-2">
+                    {filteredNonResponsers.map(
+                      (filteredNonResponser, index) => (
+                        <li
+                          key={filteredNonResponser.id}
+                          className="flex items-center justify-between border-b border-gray-400 py-2"
+                        >
+                          <Profile name={filteredNonResponser.name} />
+                          <CheckInTheCircleIcon
+                            className="cursor-pointer fill-gray-100"
+                            onClick={() => {
+                              removeFilteredNonResponser(index)
+                              removeNonResponser(
+                                nonResponsers.findIndex(
+                                  (nonResponser) =>
+                                    nonResponser.receiverId ===
+                                    filteredNonResponser.receiverId,
+                                ),
+                              )
+                              appendFilteredResponser(filteredNonResponser)
+                              appendResponser(filteredNonResponser)
+                              clearErrors('responserIdList')
+                            }}
+                          />
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="mt-7">
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className="dark:text-white">
+                      <span>선택한 인원: </span>
+                      <span className="text-sub-blue dark:text-sub-skyblue">
+                        {responsers.length}
+                      </span>
+                      <span> 명</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn h-6 rounded-md border border-gray-200 bg-main-yellow px-2 text-xs dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:h-8 md:text-sm"
+                      onClick={() => {
+                        replaceResponser([])
+                        appendNonResponser(responsers)
+                      }}
+                    >
+                      전체 해제
+                    </button>
+                  </div>
+
+                  <ul className="flex flex-col gap-2">
+                    {responsers.map((responser, index) => (
+                      <li
+                        key={responser.id}
+                        className="flex items-center justify-between border-b border-gray-400 py-2"
+                      >
+                        <Profile name={responser.name} />
+                        <CheckInTheCircleIcon
+                          className="cursor-pointer fill-sub-green"
+                          onClick={() => {
+                            appendNonResponser(responser)
+                            removeResponser(index)
+                          }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <ul className="flex flex-col gap-2">
-                  {nonResponsers.map((nonResponser, index) => (
-                    <li
-                      key={nonResponser.id}
-                      className="flex items-center justify-between border-b border-gray-400 py-2"
+                <div className="mt-7">
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className="dark:text-white">
+                      <span>선택하지 않은 인원: </span>
+                      <span className="text-sub-blue dark:text-sub-skyblue">
+                        {nonResponsers.length}
+                      </span>
+                      <span> 명</span>
+                    </div>
+                    <button
+                      className="btn h-6 rounded-md border border-gray-200 bg-main-yellow px-2 text-xs dark:border-gray-100 dark:bg-main-red-200 dark:text-white md:h-8 md:text-sm"
+                      type="button"
+                      onClick={() => {
+                        replaceNonResponser([])
+                        appendResponser(nonResponsers)
+                        clearErrors('responserIdList')
+                      }}
                     >
-                      <Profile name={nonResponser.name} />
-                      <CheckInTheCircleIcon
-                        className="cursor-pointer fill-gray-100"
-                        onClick={() => {
-                          appendResponser(nonResponser)
-                          removeNonResponser(index)
-                          clearErrors('responserIdList')
-                        }}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      전체 선택
+                    </button>
+                  </div>
+
+                  <ul className="flex flex-col gap-2">
+                    {nonResponsers.map((nonResponser, index) => (
+                      <li
+                        key={nonResponser.id}
+                        className="flex items-center justify-between border-b border-gray-400 py-2"
+                      >
+                        <Profile name={nonResponser.name} />
+                        <CheckInTheCircleIcon
+                          className="cursor-pointer fill-gray-100"
+                          onClick={() => {
+                            appendResponser(nonResponser)
+                            removeNonResponser(index)
+                            clearErrors('responserIdList')
+                          }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
             )}
 
             {errors.responserIdList && (

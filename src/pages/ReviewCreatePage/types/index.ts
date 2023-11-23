@@ -25,4 +25,6 @@ export interface Review {
   questions: Question[]
   responserIdList: User[]
   nonResponserIdList: User[]
+  filteredResponserIdList: User[]
+  filteredNonResponserIdList: User[]
 }
