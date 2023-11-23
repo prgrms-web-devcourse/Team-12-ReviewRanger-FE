@@ -32,7 +32,7 @@ const Header = ({ handleGoBack }: HeaderProps) => {
   }
 
   return (
-    <div className="sticky top-0 z-10 flex h-12 shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
+    <div className="flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
       <div className="flex w-full max-w-[55rem] items-center justify-between px-6">
         <div
           className="cursor-pointer"
