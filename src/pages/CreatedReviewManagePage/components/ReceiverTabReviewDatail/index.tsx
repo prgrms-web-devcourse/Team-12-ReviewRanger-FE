@@ -14,7 +14,7 @@ interface ReviewDetailAccordionProps {
   reviewId: string
 }
 
-const ReviewDetail = ({
+const ReceiverReviewDetail = ({
   receiverId,
   reviewId,
   receiverName,
@@ -80,6 +80,7 @@ const ReviewDetail = ({
         </div>
         <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
           <ProfileGroup
+            type="receiver"
             name={receiverName}
             responserSize={responserCount?.size}
           />
@@ -101,4 +102,4 @@ const ReviewDetail = ({
   )
 }
 
-export default ReviewDetail
+export default ReceiverReviewDetail
