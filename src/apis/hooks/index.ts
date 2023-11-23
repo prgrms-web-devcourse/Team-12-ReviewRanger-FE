@@ -26,3 +26,4 @@ export { default as useCheckAllReceiverReceived } from './useCheckAllReceiverRec
 export { default as useSaveFinalResult } from './useSaveFinalResult'
 export { default as useCheckAllRecipientReceived } from './useCheckAllRecipientsReceived'
 export { default as useUpdateSubjectiveResponse } from './useUpdateSubjectiveResponse'
+export { default as useCleanSubjectiveResponse } from './useCleanSubjectiveResponse'
