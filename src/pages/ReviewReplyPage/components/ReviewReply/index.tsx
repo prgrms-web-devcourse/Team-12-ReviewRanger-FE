@@ -19,6 +19,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   const [selectedReceiver, setSelectedReceiver] = useState<Receiver>(
     receivers[0],
   )
+
   const [selectedReceiverIndex, setSelectedReceiverIndex] = useState<number>(0)
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0)
   const [individualReplyCompletes, setIndividualReplyCompletes] = useState<

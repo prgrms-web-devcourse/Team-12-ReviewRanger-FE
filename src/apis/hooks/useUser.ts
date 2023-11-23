@@ -1,12 +1,13 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
+import { TOKEN_KEY } from '@/constants'
 
-export interface User {
+interface User {
   success: boolean
   data: {
     id: number
-    email: string
     name: string
+    email: string
   }
 }
 
@@ -14,16 +15,17 @@ const useUser = () => {
   const getUser = async () => {
     const user = await apiClient.get<User>('/user')
 
-    return user.data
+    return user.data.data
   }
 
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['/user'],
     queryFn: getUser,
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
+    enabled: !!localStorage.getItem(TOKEN_KEY),
   })
 }
 

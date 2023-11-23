@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useUser, useLogout } from '@/apis/hooks'
 import {
   LogoRowIcon,
@@ -7,24 +7,43 @@ import {
   BasicProfileIcon,
 } from '@/assets/icons'
 import { rangerHead } from '@/assets/images'
+import Dropdown from '../Dropdown'
 
-const Header = () => {
-  const { data } = useUser()
-  const { mutate } = useLogout()
+interface HeaderProps {
+  handleGoBack?: () => void
+}
 
-  const path = useLocation().pathname
-  const avatarVisible = path !== '/sign-up' && path !== '/login'
-  const goBackVisible = path !== '/login' && path !== '/'
+const Header = ({ handleGoBack }: HeaderProps) => {
+  const { data: user } = useUser()
+  const { mutate: logout } = useLogout()
+
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  const avatarVisible = pathname !== '/sign-up' && pathname !== '/login'
+  const goBackVisible = pathname !== '/login' && pathname !== '/'
+
+  const handleLogout = () => {
+    logout(undefined, {
+      onSuccess() {
+        navigate('/login')
+      },
+    })
+  }
 
   return (
-    <div className="sticky top-0 z-10 flex h-12 w-screen shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
-      <div className="flex w-full items-center justify-between px-6">
-        <div>
-          <ArrowLeftIcon
-            className={`md:hidden" ${!goBackVisible && 'hidden'}`}
-          />
+    <div className="sticky top-0 z-10 flex h-12 shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
+      <div className="flex w-full max-w-[55rem] items-center justify-between px-6">
+        <div
+          className="cursor-pointer"
+          onClick={handleGoBack ?? (() => navigate(-1))}
+        >
+          <ArrowLeftIcon className={`${!goBackVisible && 'hidden'}`} />
         </div>
-        <div className="fixed left-1/2 flex -translate-x-1/2 transform items-center gap-1">
+        <div
+          className="fixed left-1/2 flex -translate-x-1/2 transform cursor-pointer items-center gap-1"
+          onClick={() => navigate('/')}
+        >
           <img
             src={rangerHead}
             alt="ranger-header"
@@ -34,27 +53,23 @@ const Header = () => {
           <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
         <div>
-          {avatarVisible && data && (
-            <div className="dropdown z-40">
-              <div
-                className={`avatar avatar-sm flex items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black `}
-              >
+          {avatarVisible && user && (
+            <Dropdown>
+              <Dropdown.Toggle className="avatar avatar-sm flex cursor-pointer items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black">
                 <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
-              </div>
-              <div className="dropdown-menu dropdown-menu-left">
-                <a className="dropdown-item text-sm">Profile</a>
-                <a tabIndex={0} className="dropdown-item text-sm">
-                  설문만들기
-                </a>
-                <a
-                  tabIndex={1}
-                  className="dropdown-item text-sm"
-                  onClick={() => mutate()}
-                >
-                  로그아웃
-                </a>
-              </div>
-            </div>
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="w-40 rounded-sm">
+                <Dropdown.Item defaultClose={false}>
+                  <p className="text-xl">{user.name}</p>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={() => navigate('/profile')}>
+                  마이페이지
+                </Dropdown.Item>
+                <Dropdown.Item>슬랙 알림 보기</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           )}
         </div>
       </div>

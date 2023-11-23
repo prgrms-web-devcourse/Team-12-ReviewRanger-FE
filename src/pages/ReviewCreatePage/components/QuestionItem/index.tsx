@@ -80,10 +80,7 @@ const QuestionItem = ({
           복제
         </button>
 
-        <MenuIcon
-          className="cursor-pointer stroke-black dark:stroke-white"
-          onClick={() => console.log('메뉴 누름')}
-        />
+        <MenuIcon className="cursor-pointer stroke-black dark:stroke-white" />
       </div>
 
       <div>

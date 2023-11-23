@@ -41,9 +41,7 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
         data?.replies
           ?.filter(
             (reply) =>
-              reply &&
-              reply.questionId.trim() === questionId.trim() &&
-              reply.answerText,
+              reply && reply?.questionId === questionId && reply?.answerText,
           )
           ?.map((reply) => {
             return {
@@ -59,12 +57,13 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
 
 //NOTE - 별점 질문과 답변들 매핑
 const getRatingAnswer = (questionId: string, reply: Data[]) => {
-  return reply
+  const res = reply
     ?.map(
       (data) =>
         data?.replies
           ?.filter(
-            (reply) => reply && reply.questionId === questionId && reply.rating,
+            (reply) =>
+              reply && reply?.questionId === questionId && reply?.rating,
           )
           ?.map((reply) => {
             return {
@@ -73,7 +72,10 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
             }
           }),
     )
+
     .flat()
+
+  return res
 }
 
 const getRemainAnswer = (questionId: string, reply: Data[]) => {
@@ -85,9 +87,9 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
           ?.map((reply) => {
             //NOTE - 육각형 스텟일떄
             if (
-              reply.questionOption?.optionId &&
-              reply.questionOption?.optionName &&
-              reply.hexastat
+              reply?.questionOption?.optionId &&
+              reply?.questionOption?.optionName &&
+              reply?.hexastat
             ) {
               return {
                 name: reply?.questionOption?.optionName,
@@ -113,12 +115,12 @@ export const getAnswer = (
     | 'MULTIPLE_CHOICE'
     | 'DROPDOWN'
     | 'SUBJECTIVE'
-    | 'STAR_RATING'
+    | 'RATING'
     | 'HEXASTAT',
   questionId: string,
   reply: Data[],
 ) => {
-  if (questionType === 'STAR_RATING') {
+  if (questionType === 'RATING') {
     return getRatingAnswer(questionId, reply)
   }
 

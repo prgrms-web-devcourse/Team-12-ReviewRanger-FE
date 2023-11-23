@@ -10,9 +10,10 @@ export type QuestionType =
 
 export interface InvitedReview {
   participationId: number
+  reviewId: number
   status: ReviewStatus
   title: string
-  createdAt: string
+  createAt: string
   submitAt: string
 }
 

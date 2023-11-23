@@ -47,14 +47,14 @@ interface QuestionOption {
 const useGetResponseByReceiver = ({ receiverId }: { receiverId: string }) => {
   const getAllQuestion = async () => {
     const response = await apiClient.get<Response>(
-      `/reviewed-targets/${receiverId}/receiver`,
+      `/reply-targets/${receiverId}/receiver`,
     )
 
     return response.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviewed-targets/${receiverId}/receiver`],
+    queryKey: [`/reply-targets/${receiverId}/receiver`],
     queryFn: getAllQuestion,
   })
 }

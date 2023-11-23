@@ -2,15 +2,22 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
+interface Response {
+  success: boolean
+  data: number[]
+}
+
 const useCheckAllReceiverReceived = ({ id }: { id: string }) => {
   const getCheckAllReceiverReceived = async () => {
-    const response = await apiClient.get(`/final-results/${id}`)
+    const response = await apiClient.get<Response>(
+      `/final-results/${id}/status`,
+    )
 
     return response.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/final-results/${id}`],
+    queryKey: [`/final-results/${id}/status`],
     queryFn: getCheckAllReceiverReceived,
   })
 }

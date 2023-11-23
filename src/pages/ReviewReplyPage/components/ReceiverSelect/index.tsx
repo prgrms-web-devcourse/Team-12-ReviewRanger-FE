@@ -14,8 +14,7 @@ interface ReceiverSelectProps {
 const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
   const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
-  const { data } = useUser()
-  const { id: userId } = data.data
+  const { data: user } = useUser()
 
   const {
     control,
@@ -55,8 +54,8 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
 
     receivers.forEach(({ receiverId }) => {
       const replyTarget = {
-        receiverId,
-        responserId: userId,
+        receiverId: receiverId,
+        responserId: user?.id as number,
         replies: questions
           .map(({ id, type, isRequired }) => {
             const reply = {
