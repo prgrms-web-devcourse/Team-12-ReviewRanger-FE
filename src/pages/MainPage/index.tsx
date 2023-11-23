@@ -32,12 +32,17 @@ const MainPage = () => {
     received: receivedReviews.content,
   }
 
-  const handleInvitedReviewClick = (id: number) => {
-    navigate(`review-response/${id}`)
+  const handleInvitedReviewClick = (id: number, participationId: number) => {
+    navigate(`review-response/${id}`, {
+      state: {
+        participationId,
+      },
+    })
   }
 
+  //NOTE - 내가 만든 리뷰의 관리페이지로 이동
   const handleCreatedReviewClick = (id: number) => {
-    navigate(`review-response/${id}`)
+    navigate(`review-management/${id}`)
   }
 
   const handleReceivedReviewClick = (id: number) => {

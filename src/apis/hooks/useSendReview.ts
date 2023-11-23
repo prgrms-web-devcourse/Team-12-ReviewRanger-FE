@@ -7,17 +7,8 @@ interface Response {
 
 //NOTE - 대상자별 조합된 리뷰 결과를 저장
 const useSendReview = () => {
-  const sendReview = async ({
-    surveyId,
-    subjectIdList,
-  }: {
-    surveyId: number
-    subjectIdList: number[]
-  }) => {
-    return await apiClient.post<Response>('/responses/combination', {
-      surveyId,
-      subjectIdList,
-    })
+  const sendReview = async ({ reviewId }: { reviewId: string }) => {
+    return await apiClient.post<Response>(`/final-results/${reviewId}`)
   }
 
   return useMutation({ mutationFn: sendReview })

@@ -3,10 +3,7 @@ import apiClient from '@/apis/apiClient'
 
 const useSaveFinalResult = <T>(finalResult: T) => {
   const saveFinalResult = async () => {
-    const response = await apiClient.post(
-      '/final-results',
-      JSON.stringify(finalResult),
-    )
+    const response = await apiClient.post('/final-results', finalResult)
 
     return response.data
   }

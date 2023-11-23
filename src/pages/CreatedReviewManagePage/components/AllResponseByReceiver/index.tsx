@@ -10,18 +10,24 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
   const { data: responseByReceiver } = useGetAllResponseByReceiver({
     surveyId,
   }).data
+
   const {
     selectedUser,
     setSelectedUser,
     findUserBySearchKeyword,
     handleChangeKeyword,
   } = useResponseReviewByUser({
-    users: responseByReceiver.receiverResponses.map((data) => data.user),
+    users: responseByReceiver?.map((data) => {
+      return {
+        id: data.receiverId,
+        name: data.receiverName,
+        responserCount: data.responserCount,
+      }
+    }),
   })
 
   const shouldDisplayUserList =
-    findUserBySearchKeyword.length !== 0 ||
-    responseByReceiver.receiverResponses.length === 0
+    findUserBySearchKeyword?.length !== 0 || responseByReceiver?.length !== 0
 
   return (
     <div className="flex flex-col gap-5">
@@ -30,7 +36,7 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
         <header className="flex items-center whitespace-pre-wrap rounded-t-md border-b border-b-gray-100 bg-main-yellow p-3 text-xs dark:border-b-gray-200 dark:bg-main-red-200 md:text-sm">
           <span>수신자: </span>
           <span className="text-sub-blue dark:text-sub-skyblue">
-            {responseByReceiver.receiverResponses.length}
+            {responseByReceiver?.length || 0}
           </span>
           <span>명</span>
         </header>
@@ -44,18 +50,25 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
             />
             <UserList
               hasDrawer
-              users={findUserBySearchKeyword}
+              users={responseByReceiver.map((receiver) => {
+                return {
+                  id: receiver.receiverId,
+                  name: receiver.receiverName,
+                }
+              })}
               onClickUser={({ id, name }) => setSelectedUser({ id, name })}
-              responserCount={responseByReceiver?.receiverResponses.map(
+              responserCount={responseByReceiver?.map(
                 (value) => value.responserCount,
               )}
             />
             <Suspense fallback={<div className="spinner"></div>}>
-              <ReviewDetailAccordion
-                reviewId={surveyId}
-                receiverId={selectedUser.id}
-                receiverName={selectedUser.name}
-              />
+              {selectedUser.id && (
+                <ReviewDetailAccordion
+                  reviewId={surveyId}
+                  receiverId={selectedUser.id}
+                  receiverName={selectedUser.name}
+                />
+              )}
             </Suspense>
           </div>
         ) : (

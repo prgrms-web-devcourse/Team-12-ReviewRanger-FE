@@ -1,32 +1,32 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Header } from '@/components'
 import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
 import { ReceiverSelect, ReviewReply } from './components'
 import { ReviewReplyType } from './types'
 
-const reviewId = 123
-
 const ReviewReplyPage = () => {
   const navigate = useNavigate()
-
+  const { pathname, state } = useLocation()
+  //NOTE - 리뷰ID
+  const reviewId = pathname.split('/').at(-1) ?? ''
   const [reviewStep, setReviewStep] = useState<number>(1)
 
-  const { data: reviewData } = useGetReviewFirst({ id: reviewId })
+  const { data: reviewData } = useGetReviewFirst({ id: Number(reviewId) })
   const { mutate: createResponse } = useCreateResponse()
   const { title, description, receivers } = reviewData
 
   const methods = useForm<ReviewReplyType>({
     defaultValues: {
-      id: reviewId,
+      id: state?.participationId,
       nonReceiverList: receivers,
     },
   })
 
   const handleSubmitReply = () => {
     const requestData = {
-      id: methods.getValues('id'),
+      id: state?.participationId,
       replyTargets: methods.getValues('replyTargets'),
     }
 

@@ -1,12 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-export interface User {
+interface User {
   success: boolean
   data: {
     id: string
-    email: string
     name: string
+    email: string
   }
 }
 

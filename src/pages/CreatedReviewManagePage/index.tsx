@@ -1,8 +1,14 @@
 //생성한 리뷰 관리 페이지
+
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
-import { useCloseSurvey, useGetReviewQuestion } from '@/apis/hooks'
+import {
+  useCloseSurvey,
+  useGetReviewQuestion,
+  useCheckAllReceiverReceived,
+  useSendReview,
+} from '@/apis/hooks'
 
 import {
   Tabs,
@@ -23,9 +29,28 @@ const CreatedReviewManagePage = () => {
   //NOTE - 리뷰의 질문을 가져온다!
   const { data: getReviewQuestion } = useGetReviewQuestion({
     id: reviewId,
-  }).data
+  })
 
-  const { mutate: closeSurvey } = useCloseSurvey({ id: reviewId })
+  const { data: checkAllReceiverReceived } = useCheckAllReceiverReceived({
+    id: reviewId,
+  })
+
+  const { mutate: closeReview } = useCloseSurvey({ id: reviewId })
+
+  const { mutate: sendReview } = useSendReview()
+  const handleClickSurveyClose = () => {
+    closeReview()
+  }
+
+  const handleClickSendSurvey = () => {
+    if (!checkAllReceiverReceived.success) {
+      //NOTE - 토스트 처리
+
+      return
+    }
+
+    sendReview({ reviewId })
+  }
 
   const REVIEW_MANAGE_TAB_CONTENT = {
     responser: (
@@ -36,7 +61,10 @@ const CreatedReviewManagePage = () => {
           </div>
         }
       >
-        <AllResponseReviewByResponser surveyId={reviewId} />
+        <AllResponseReviewByResponser
+          reviewId={reviewId}
+          ResponserList={checkAllReceiverReceived.data}
+        />
       </Suspense>
     ),
     receiver: (
@@ -54,21 +82,23 @@ const CreatedReviewManagePage = () => {
 
   return (
     <div className="flex h-auto min-h-screen flex-col bg-main-ivory text-black dark:bg-main-red-100 dark:text-white">
-      <div className="sticky top-0 z-10">
+      <div className="sticky top-0 ">
         <Header />
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <div className="mx-auto flex w-full max-w-[800px] flex-col px-5 py-7 md:p-10">
-        <h1 className="text-xl md:text-2xl">{getReviewQuestion?.title}</h1>
+        <h1 className="text-xl md:text-2xl">
+          {getReviewQuestion?.data?.title}
+        </h1>
         <h2 className="mt-3 text-sm md:mt-4 md:text-xl">
-          {getReviewQuestion?.description}
+          {getReviewQuestion?.data?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        {getReviewQuestion?.status === 'PROCEEDING' ? (
+        {getReviewQuestion?.data?.status === 'PROCEEDING' ? (
           <button
             className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
     `}
-            onClick={() => closeSurvey()}
+            onClick={handleClickSurveyClose}
           >
             설문 마감
           </button>
@@ -76,6 +106,7 @@ const CreatedReviewManagePage = () => {
           <button
             className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
+            onClick={handleClickSendSurvey}
           >
             전송
           </button>
