@@ -4,17 +4,23 @@ import apiClient from '@/apis/apiClient'
 import { Response } from './useGetResponseByReceiver'
 
 //NOTE - 참여 ID
-const useGetResponseByResponser = ({ id }: { id: string }) => {
+const useGetResponseByResponser = ({
+  responserId,
+  reviewId,
+}: {
+  responserId: string
+  reviewId: string
+}) => {
   const getSingleAuthorResponse = async () => {
     const singleAuthorResponse = await apiClient.get<Response>(
-      `/reviewed-targets/${id}/responser`,
+      `/reviews/${reviewId}/responser/${responserId}`,
     )
 
     return singleAuthorResponse.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviewed-targets/${id}/responser`],
+    queryKey: [`/reviews/${reviewId}/responser/${responserId}`],
     queryFn: getSingleAuthorResponse,
   })
 }

@@ -68,7 +68,7 @@ const renderDefault = (value: Answer) => (
       <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
       <p className="ml-[1.31rem] text-sm">{value?.userName}</p>
     </h3>
-    <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
+    <p className="ml-[42.96px] mt-[0.5rem] break-all  text-base leading-5 md:mt-[0.62rem]">
       {value?.value}
     </p>
   </>
@@ -79,6 +79,8 @@ const renderArticle = (
   answers: Answer[],
   questionType: string,
   index?: number,
+  setAnswer?: (newAnswer: string) => void,
+  answer?: string,
 ) => (
   <article
     className="m-t-[1.25rem] accordion-content text-black dark:text-white"
@@ -96,7 +98,17 @@ const renderArticle = (
         }
       })()}
       {questionType === 'SUBJECTIVE' && answers.length - 1 === index && (
-        <div className="flex justify-end p-[0.62rem]">
+        <div className="flex w-full  p-[0.62rem]">
+          <textarea
+            className="rounded-0  ml-[42.96px] h-auto w-full overflow-hidden text-sm"
+            onChange={(e) => setAnswer && setAnswer(e.target.value)}
+            defaultValue={answers
+              .map((answer) => answer.value as string)
+              .flat()}
+            value={answer}
+            autoFocus
+          ></textarea>
+
           <IconButton
             disabled
             className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
@@ -116,6 +128,7 @@ const QuestionGroup = ({
   questionTitle,
 }: QuestionGroupProps) => {
   const [inputId] = useState(nanoid())
+  const [allSubjectAnswer, setAllSubjectAnswer] = useState('')
 
   return (
     <section className=" border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
@@ -137,7 +150,14 @@ const QuestionGroup = ({
 
       {questionType !== 'HEXASTAT' &&
         answers?.map((value, index) =>
-          renderArticle(value, answers, questionType, index),
+          renderArticle(
+            value,
+            answers,
+            questionType,
+            index,
+            setAllSubjectAnswer,
+            allSubjectAnswer,
+          ),
         )}
 
       {questionType === 'HEXASTAT' &&
