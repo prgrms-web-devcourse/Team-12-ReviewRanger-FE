@@ -15,9 +15,8 @@ interface ReplyTarget {
 }
 
 interface User {
-  id: number
+  receiverId: number
   name: string
-  email: string
 }
 
 interface ReplyComplete {
