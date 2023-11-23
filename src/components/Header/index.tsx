@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useUser, useLogout } from '@/apis/hooks'
 import {
@@ -13,7 +14,7 @@ interface HeaderProps {
   handleGoBack?: () => void
 }
 
-const Header = ({ handleGoBack }: HeaderProps) => {
+const Header = memo(({ handleGoBack }: HeaderProps) => {
   const { data: user } = useUser()
   const { mutate: logout } = useLogout()
 
@@ -75,6 +76,6 @@ const Header = ({ handleGoBack }: HeaderProps) => {
       </div>
     </div>
   )
-}
+})
 
 export default Header
