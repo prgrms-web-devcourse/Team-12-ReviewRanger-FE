@@ -62,9 +62,9 @@ const UserList = ({
                   <div className="flex items-center gap-2">
                     {responserCount && responserCount[index] && (
                       <span
-                        className={`dot ${hasSavedResult(
-                          user.id,
-                        )} ? : bg-blue-600 bg-red-600`}
+                        className={`dot ${
+                          hasSavedResult(user.id) ? 'bg-blue-600' : 'bg-red-600'
+                        }`}
                       ></span>
                     )}
                     <Profile name={user.name} />
@@ -92,9 +92,9 @@ const UserList = ({
                 <div className="flex items-center gap-2">
                   {responserCount && responserCount[index] && (
                     <span
-                      className={`dot ${hasSavedResult(
-                        user.id,
-                      )} ? : bg-blue-600 bg-red-600`}
+                      className={`dot ${
+                        hasSavedResult(user.id) ? 'bg-blue-600' : 'bg-red-600'
+                      }`}
                     ></span>
                   )}
                   <Profile name={user.name} />
