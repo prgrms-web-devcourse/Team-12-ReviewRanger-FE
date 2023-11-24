@@ -57,7 +57,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
         receiverId: receiverId,
         responserId: user?.id as number,
         replies: questions
-          .map(({ id, type, isRequired }) => {
+          .map(({ id, type, isRequired, questionOptions }) => {
             const reply = {
               questionId: id,
               isRequired,
@@ -74,7 +74,10 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
             }
             if (type === 'HEXASTAT') {
               return Array.from({ length: 6 }, (_, index) =>
-                structuredClone({ ...reply, answerChoice: index + 1 }),
+                structuredClone({
+                  ...reply,
+                  answerChoice: questionOptions[index].optionId,
+                }),
               )
             }
 
