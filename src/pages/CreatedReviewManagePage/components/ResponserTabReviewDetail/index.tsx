@@ -46,7 +46,11 @@ const ReceiverReviewDetail = ({
           </label>
         </div>
         <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
-          <ProfileGroup name={responserName} type="responser" />
+          <ProfileGroup
+            name={responserName}
+            type="responser"
+            responserSize={getAllReceiverName.length}
+          />
           <SelectResponseUser
             allUser={getAllReceiverName}
             selectedName={selectedName}
