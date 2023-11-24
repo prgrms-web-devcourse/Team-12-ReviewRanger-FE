@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
 import { useLogin, useUser } from '@/apis/hooks'
+import useToast from '@/hooks/useToast'
 import { LoginGroup, LogoGroup } from './components'
 
 export interface LoginProps {
@@ -11,6 +12,7 @@ export interface LoginProps {
 const LoginPage = () => {
   const { refetch } = useUser()
   const { mutate: login } = useLogin()
+  const { addToast } = useToast()
 
   const navigate = useNavigate()
 
@@ -23,8 +25,7 @@ const LoginPage = () => {
           navigate('/')
         },
         onError(data) {
-          console.log(data)
-          //TODO - 에러 처리시 토스트 처리
+          addToast({ message: data.message, type: 'error' })
         },
       },
     )
