@@ -6,6 +6,7 @@ import {
   useFormContext,
   useFieldArray,
 } from 'react-hook-form'
+import { Dropdown } from '@/components'
 import { CloseIcon, MenuIcon } from '@/assets/icons'
 import { Review } from '../../types'
 import { QUESTION_TYPES } from './constants'
@@ -59,28 +60,19 @@ const QuestionItem = ({
           </p>
         </div>
 
-        {/* NOTE 메뉴 컴포넌트 만들어야 함 :):):) */}
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            remove(index)
-          }}
-          className="dark:text-white"
-        >
-          삭제
-        </button>
-
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            append(question)
-          }}
-          className="dark:text-white"
-        >
-          복제
-        </button>
-
-        <MenuIcon className="cursor-pointer stroke-black dark:stroke-white" />
+        <Dropdown>
+          <Dropdown.Toggle>
+            <MenuIcon className="cursor-pointer stroke-black dark:stroke-white" />
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="w-32 rounded-sm">
+            <Dropdown.Item onClick={() => append(question)}>
+              <p className="dark:text-white">질문 복제</p>
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => remove(index)}>
+              <p className="dark:text-white">질문 삭제</p>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
 
       <div>

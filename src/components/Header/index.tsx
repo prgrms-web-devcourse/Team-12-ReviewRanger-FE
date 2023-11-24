@@ -33,7 +33,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
   }
 
   return (
-    <div className="sticky top-0 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
+    <div className="sticky top-0 z-30 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
       <div className="flex w-full max-w-[55rem] items-center justify-between px-6">
         <div
           className="cursor-pointer"
@@ -79,3 +79,4 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
 })
 
 export default Header
+

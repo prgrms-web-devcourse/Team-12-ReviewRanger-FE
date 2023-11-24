@@ -14,7 +14,8 @@ export interface Question {
   description: string
 }
 
-interface User {
+export interface User {
+  id: number
   receiverId: number
   name: string
 }
@@ -25,4 +26,6 @@ export interface Review {
   questions: Question[]
   responserIdList: User[]
   nonResponserIdList: User[]
+  filteredResponserIdList: User[]
+  filteredNonResponserIdList: User[]
 }
