@@ -10,7 +10,7 @@ export type QuestionType =
   | 'HEXASTAT'
 
 export interface QuestionOption {
-  optionId: number | string
+  optionId: number
   optionName: string
 }
 
