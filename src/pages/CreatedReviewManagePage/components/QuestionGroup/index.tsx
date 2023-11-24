@@ -19,6 +19,7 @@ interface QuestionGroupProps {
   questionTitle: string
   questionDescription?: string
   answers: Answer[]
+  role?: 'responser' | 'receiver'
 }
 
 interface Answer {
@@ -74,12 +75,13 @@ const renderDefault = (value: Answer) => (
   </>
 )
 
-const renderArticle = (
+const renderResponseByQuestion = (
   value: Answer,
   answers: Answer[],
   questionType: string,
   index?: number,
   ref?: React.MutableRefObject<HTMLTextAreaElement | null>,
+  role?: 'responser' | 'receiver',
 ) => (
   <article
     className="m-t-[1.25rem] accordion-content w-full text-black dark:text-white"
@@ -96,32 +98,34 @@ const renderArticle = (
             return renderDefault(value)
         }
       })()}
-      {questionType === 'SUBJECTIVE' && answers.length - 1 === index && (
-        <div className="flex w-full flex-col p-[0.62rem]">
-          <textarea
-            ref={ref}
-            className=" textarea m-0 h-auto w-full max-w-full overflow-auto  rounded-none border border-gray-200 text-sm"
-            defaultValue={answers.map((answer) => answer.value as string)}
-          ></textarea>
+      {role !== 'responser' &&
+        questionType === 'SUBJECTIVE' &&
+        answers.length - 1 === index && (
+          <div className="flex w-full flex-col p-[0.62rem]">
+            <textarea
+              ref={ref}
+              className=" textarea m-0 h-auto w-full max-w-full overflow-auto  rounded-none border border-gray-200 text-sm"
+              defaultValue={answers.map((answer) => answer.value as string)}
+            ></textarea>
 
-          <div className="ml-[0.63rem] flex gap-2 p-[0.62rem]">
-            <IconButton
-              disabled
-              className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
-              text="정제"
-            >
-              <FilterReplyIcon className="h-[1rem] w-[1rem] " />
-            </IconButton>
+            <div className="ml-[0.63rem] flex gap-2 p-[0.62rem]">
+              <IconButton
+                disabled
+                className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
+                text="정제"
+              >
+                <FilterReplyIcon className="h-[1rem] w-[1rem] " />
+              </IconButton>
 
-            <IconButton
-              disabled
-              className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
-              text="저장"
-              onClick={() => console.log(ref?.current?.value)}
-            ></IconButton>
+              <IconButton
+                disabled
+                className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
+                text="저장"
+                onClick={() => console.log(ref?.current?.value)}
+              ></IconButton>
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   </article>
 )
@@ -130,6 +134,7 @@ const QuestionGroup = ({
   answers,
   questionType,
   questionTitle,
+  role,
 }: QuestionGroupProps) => {
   const [inputId] = useState(nanoid())
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -154,7 +159,14 @@ const QuestionGroup = ({
 
       {questionType !== 'HEXASTAT' &&
         answers?.map((value, index) =>
-          renderArticle(value, answers, questionType, index, textAreaRef),
+          renderResponseByQuestion(
+            value,
+            answers,
+            questionType,
+            index,
+            textAreaRef,
+            role,
+          ),
         )}
 
       {questionType === 'HEXASTAT' &&
@@ -163,7 +175,9 @@ const QuestionGroup = ({
             (answer, index, self) =>
               index === self?.findIndex((a) => a.name === answer.name),
           )
-          ?.map((value) => renderArticle(value, answers, questionType))}
+          ?.map((value) =>
+            renderResponseByQuestion(value, answers, questionType),
+          )}
     </section>
   )
 }
