@@ -4,7 +4,7 @@ import { STATUS, STATUS_STYLE } from '../../constants'
 
 interface InvitedReviewItemProps extends InvitedReview {
   className: string
-  handleReviewClick: ({
+  handleClickReview: ({
     id,
     participationId,
     submitStatus,
@@ -22,13 +22,13 @@ const InvitedReviewItem = ({
   status,
   submitAt,
   className,
-  handleReviewClick,
+  handleClickReview,
 }: InvitedReviewItemProps) => {
   return (
     <div
       className={className}
       onClick={() =>
-        handleReviewClick({
+        handleClickReview({
           id: reviewId,
           participationId,
           submitStatus: !!submitAt,
