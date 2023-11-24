@@ -5,7 +5,7 @@ import {
   useSaveFinalResult,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
-import { ProfileGroup, QuestionGroup } from '..'
+import { ProfileGroup, ReceiverQuestionGroup } from '..'
 import { getAnswer } from '../../utils'
 
 interface ReviewDetailAccordionProps {
@@ -85,7 +85,7 @@ const ReceiverReviewDetail = ({
             responserSize={responserCount?.size}
           />
           {getReviewQuestion?.questions?.map((question) => (
-            <QuestionGroup
+            <ReceiverQuestionGroup
               questionType={question?.type}
               questionTitle={question?.title}
               key={question?.id}
