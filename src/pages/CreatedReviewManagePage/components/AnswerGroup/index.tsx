@@ -130,7 +130,7 @@ const renderResponseByQuestion = (
   </article>
 )
 
-const QuestionGroup = ({
+const QuestionAnswerRenderer = ({
   answers,
   questionType,
   questionTitle,
@@ -182,4 +182,4 @@ const QuestionGroup = ({
   )
 }
 
-export default QuestionGroup
+export default QuestionAnswerRenderer
