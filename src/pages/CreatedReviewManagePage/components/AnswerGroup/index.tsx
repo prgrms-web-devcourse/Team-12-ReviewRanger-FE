@@ -84,10 +84,10 @@ const renderResponseByQuestion = (
   role?: 'responser' | 'receiver',
 ) => (
   <article
-    className="m-t-[1.25rem] dark:text-whit accordion-content w-full text-black"
+    className="m-t-[1.25rem] accordion-content w-full text-black dark:text-white"
     key={nanoid()}
   >
-    <div className="accordion-content ml-[0.63rem]">
+    <div className="accordion-content ml-[0.63rem] border-none">
       {(() => {
         switch (questionType) {
           case 'RATING':
@@ -142,13 +142,13 @@ const QuestionAnswerRenderer = ({
   return (
     <section
       className={`${
-        role === 'responser' && 'accordion accordion-open'
+        role === 'responser' && 'accordion accordion-open border-b-0'
       } border-l-[1px] border-r-[1px] border-gray-200 bg-white dark:bg-black `}
     >
       <input type="checkbox" id={inputId} className="accordion-toggle " />
       <label
         htmlFor={inputId}
-        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center border-b-[1px] border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
+        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center  border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
       >
         <div className="flex items-center justify-between">
           <h1 className="flex h-[2.75rem] items-center pl-[0.63rem] text-lg md:text-xl">
