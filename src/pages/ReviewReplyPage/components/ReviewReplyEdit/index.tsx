@@ -26,12 +26,15 @@ const ReviewReplyEdit = () => {
   const { mutate: editResponse } = useEditResponse()
   const { title, questions } = reviewData
 
-  console.log(questions)
-  // console.log(prevReplyData)
-
   const methods = useForm<ReviewReplyEditType>({
     defaultValues: {
       id: state.participationId,
+      replyComplete: prevReplyData.map(({ receiver }) => {
+        return {
+          receiverId: receiver.id,
+          complete: Array(questions.length).fill(true),
+        }
+      }),
     },
   })
 
@@ -79,8 +82,6 @@ const ReviewReplyEdit = () => {
       appendReceiver({ receiverId: receiver.id, name: receiver.name })
     })
   }
-
-  console.log(methods.getValues('receiverList'))
 
   const handleSubmitReply = () => {
     const requestData = {
