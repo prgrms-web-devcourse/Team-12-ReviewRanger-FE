@@ -35,6 +35,17 @@ export const ReviewCreatePage = () => {
     return true
   }
 
+  const handleGoBack = () => {
+    methods.clearErrors()
+
+    if (reviewStep === 1) {
+      navigate('/')
+
+      return
+    }
+    setReviewStep(reviewStep - 1)
+  }
+
   const handleCreateReview = () => {
     const responserIdList = methods.getValues('responserIdList')
 
@@ -60,7 +71,6 @@ export const ReviewCreatePage = () => {
           return
         }
 
-        // TODO: 리뷰 생성에 실패하였습니다.
         alert('리뷰 생성에 실패하였습니다.')
       },
     })
@@ -68,17 +78,7 @@ export const ReviewCreatePage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
-
-      <button
-        onClick={() => {
-          reviewStep > 1 && setReviewStep(reviewStep - 1)
-        }}
-        type="button"
-        className="btn w-fit self-center bg-pink-300"
-      >
-        이전 (임시 버튼)
-      </button>
+      <Header handleGoBack={handleGoBack} />
 
       <FormProvider {...methods}>
         {(() => {
