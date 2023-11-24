@@ -32,10 +32,10 @@ interface Reply {
   responser: Receiver
 
   //TODO - 실제 대답한 객관식 답변의 ID,내용
-  questionOption: QuestionOption | null
+  answerChoice: QuestionOption | null
   answerText: string | null
-  rating: number | null
-  hexastat: number | null
+  answerRating: number | null
+  answerHexa: number | null
 }
 
 //NOTE - 객관식 대답에 대한 필드
