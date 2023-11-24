@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useGetReviewQuestion, useGetResponseByResponser } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { getAnswer } from '@/pages/CreatedReviewManagePage/utils'
-import { SelectResponseUser, ProfileGroup, QuestionGroup } from '..'
+import { SelectResponseUser, ProfileGroup, ResponserQuestionGroup } from '..'
 
 interface ReviewDetailAccordionProps {
   reviewId: string
@@ -29,7 +29,7 @@ const ReceiverReviewDetail = ({
     (data) => data.receiver.name,
   )
 
-  const [selectedName, setSelectedName] = useState('')
+  const [selectedName, setSelectedName] = useState(getAllReceiverName[0] ?? '')
 
   //NOTE - 현재 선택한 유저들에게 답변한 내용들
   const getUserSelectedAnswers = responseByReceiver?.filter(
@@ -53,7 +53,7 @@ const ReceiverReviewDetail = ({
             setSelectedName={setSelectedName}
           />
           {getReviewQuestion?.questions?.map((question) => (
-            <QuestionGroup
+            <ResponserQuestionGroup
               questionType={question?.type}
               questionTitle={question?.title}
               key={question?.id}
