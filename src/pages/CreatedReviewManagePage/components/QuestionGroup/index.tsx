@@ -82,7 +82,7 @@ const renderArticle = (
   ref?: React.MutableRefObject<HTMLTextAreaElement | null>,
 ) => (
   <article
-    className="m-t-[1.25rem] accordion-content text-black dark:text-white"
+    className="m-t-[1.25rem] accordion-content w-full text-black dark:text-white"
     key={nanoid()}
   >
     <div className="accordion-content ml-[0.63rem]">
@@ -135,7 +135,7 @@ const QuestionGroup = ({
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
   return (
-    <section className=" border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
+    <section className="  border-l-[1px] border-r-[1px] border-gray-200 bg-white dark:bg-black ">
       <input type="checkbox" id={inputId} className="accordion-toggle " />
       <label
         htmlFor={inputId}

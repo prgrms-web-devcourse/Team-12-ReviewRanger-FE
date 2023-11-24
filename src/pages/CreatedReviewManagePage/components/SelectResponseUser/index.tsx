@@ -1,12 +1,19 @@
 import { nanoid } from 'nanoid'
-import { useState } from 'react'
 import { Profile } from '@/components'
 
-const SelectResponseUser = ({ allUser }: { allUser: string[] }) => {
-  const [selectedName, setSelectedName] = useState('')
+interface SelectResponserUser {
+  allUser: string[]
+  selectedName: string
+  setSelectedName: React.Dispatch<React.SetStateAction<string>>
+}
 
+const SelectResponseUser = ({
+  allUser,
+  selectedName,
+  setSelectedName,
+}: SelectResponserUser) => {
   return (
-    <ul className="flex gap-2.5 overflow-x-auto">
+    <ul className=" flex gap-2.5 overflow-x-auto">
       {allUser.map((name) => (
         <li
           value={name}
