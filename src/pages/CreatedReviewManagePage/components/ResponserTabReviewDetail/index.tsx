@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { useGetReviewQuestion, useGetResponseByResponser } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
-import { SelectResponseUser, ProfileGroup } from '..'
+import { getAnswer } from '@/pages/CreatedReviewManagePage/utils'
+import { SelectResponseUser, ProfileGroup, QuestionGroup } from '..'
 
 interface ReviewDetailAccordionProps {
   reviewId: string
@@ -17,7 +19,6 @@ const ReceiverReviewDetail = ({
   const { data: getReviewQuestion } = useGetReviewQuestion({
     id: reviewId,
   }).data
-  console.log(getReviewQuestion)
 
   const { data: responseByReceiver } = useGetResponseByResponser({
     responserId,
@@ -26,6 +27,13 @@ const ReceiverReviewDetail = ({
 
   const getAllReceiverName = responseByReceiver?.map(
     (data) => data.receiver.name,
+  )
+
+  const [selectedName, setSelectedName] = useState('')
+
+  //NOTE - 현재 선택한 유저들에게 답변한 내용들
+  const getUserSelectedAnswers = responseByReceiver?.filter(
+    (response) => response?.receiver?.name === selectedName,
   )
 
   return (
@@ -39,8 +47,24 @@ const ReceiverReviewDetail = ({
         </div>
         <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
           <ProfileGroup name={responserName} type="responser" />
+          <SelectResponseUser
+            allUser={getAllReceiverName}
+            selectedName={selectedName}
+            setSelectedName={setSelectedName}
+          />
+          {getReviewQuestion?.questions?.map((question) => (
+            <QuestionGroup
+              questionType={question?.type}
+              questionTitle={question?.title}
+              key={question?.id}
+              answers={getAnswer(
+                question?.type,
+                question?.id,
+                getUserSelectedAnswers,
+              )}
+            />
+          ))}
         </div>
-        <SelectResponseUser allUser={getAllReceiverName} />
       </div>
     </>
   )
