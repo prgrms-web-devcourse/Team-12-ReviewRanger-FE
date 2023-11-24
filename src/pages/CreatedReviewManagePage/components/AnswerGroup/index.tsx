@@ -84,7 +84,7 @@ const renderResponseByQuestion = (
   role?: 'responser' | 'receiver',
 ) => (
   <article
-    className="m-t-[1.25rem] accordion-content w-full text-black dark:text-white"
+    className="m-t-[1.25rem] dark:text-whit accordion-content w-full text-black"
     key={nanoid()}
   >
     <div className="accordion-content ml-[0.63rem]">
@@ -140,7 +140,11 @@ const QuestionAnswerRenderer = ({
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
   return (
-    <section className="  border-l-[1px] border-r-[1px] border-gray-200 bg-white dark:bg-black ">
+    <section
+      className={`${
+        role === 'responser' && 'accordion accordion-open'
+      } border-l-[1px] border-r-[1px] border-gray-200 bg-white dark:bg-black `}
+    >
       <input type="checkbox" id={inputId} className="accordion-toggle " />
       <label
         htmlFor={inputId}
