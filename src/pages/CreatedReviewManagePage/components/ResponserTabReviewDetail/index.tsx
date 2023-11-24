@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useGetReviewQuestion, useGetResponseByResponser } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { getAnswer } from '@/pages/CreatedReviewManagePage/utils'
-import { SelectResponseUser, ProfileGroup, QuestionGroup } from '..'
+import { SelectResponseUser, ProfileGroup, AnswerGroup } from '..'
 
 interface ReviewDetailAccordionProps {
   reviewId: string
@@ -53,7 +53,7 @@ const ReceiverReviewDetail = ({
             setSelectedName={setSelectedName}
           />
           {getReviewQuestion?.questions?.map((question) => (
-            <QuestionGroup
+            <AnswerGroup
               role="responser"
               questionType={question?.type}
               questionTitle={question?.title}
