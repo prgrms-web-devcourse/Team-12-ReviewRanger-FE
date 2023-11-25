@@ -20,6 +20,7 @@ interface QuestionGroupProps {
   questionDescription?: string
   answers: Answer[]
   role?: 'responser' | 'receiver'
+  onClickCleanButton?: (answer: string) => void
 }
 
 interface Answer {
@@ -82,6 +83,7 @@ const renderResponseByQuestion = (
   index?: number,
   ref?: React.MutableRefObject<HTMLTextAreaElement | null>,
   role?: 'responser' | 'receiver',
+  onClickCleanButton?: (answer: string) => void,
 ) => (
   <article
     className="m-t-[1.25rem] accordion-content w-full text-black dark:text-white"
@@ -121,7 +123,10 @@ const renderResponseByQuestion = (
                 disabled
                 className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
                 text="저장"
-                onClick={() => console.log(ref?.current?.value)}
+                onClick={() => {
+                  onClickCleanButton &&
+                    onClickCleanButton(ref?.current?.value as string)
+                }}
               ></IconButton>
             </div>
           </div>
@@ -135,6 +140,7 @@ const QuestionAnswerRenderer = ({
   questionType,
   questionTitle,
   role,
+  onClickCleanButton,
 }: QuestionGroupProps) => {
   const [inputId] = useState(nanoid())
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -170,6 +176,7 @@ const QuestionAnswerRenderer = ({
             index,
             textAreaRef,
             role,
+            onClickCleanButton,
           ),
         )}
 

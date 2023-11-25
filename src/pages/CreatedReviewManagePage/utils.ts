@@ -1,3 +1,5 @@
+import { DEFAULT_VALUE } from './constants'
+
 interface Data {
   id: string
   receiver: Receiver
@@ -48,7 +50,8 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
               value: reply?.answerText,
               userName: data?.responser?.name,
             }
-          }),
+          })
+          ?.filter((value) => value?.value !== DEFAULT_VALUE.TEXT),
     )
     .flat()
 
@@ -70,10 +73,11 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
               value: reply?.answerRating,
               userName: data?.responser?.name,
             }
-          }),
+          })
+          ?.filter((value) => value?.value !== DEFAULT_VALUE.VALUE),
     )
 
-    .flat()
+    ?.flat()
 
   return res
 }
@@ -104,9 +108,10 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
                 userName: value?.responser?.name,
               }
             }
-          }),
+          })
+          ?.filter((value) => value?.value !== DEFAULT_VALUE.VALUE),
     )
-    .flat()
+    ?.flat()
 }
 
 export const getAnswer = (

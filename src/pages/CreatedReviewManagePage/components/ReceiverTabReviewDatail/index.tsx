@@ -3,6 +3,7 @@ import {
   useGetReviewQuestion,
   useGetResponseByReceiver,
   useSaveFinalResult,
+  useUpdateFinalReviewAnswer,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { ProfileGroup, AnswerGroup } from '..'
@@ -60,6 +61,7 @@ const ReceiverReviewDetail = ({
   }
   const { mutate: saveFinalResult } = useSaveFinalResult(saveFinalReviewResult)
 
+  const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
     saveFinalResult()
   }, [receiverId])
@@ -68,6 +70,18 @@ const ReceiverReviewDetail = ({
   const responserCount = new Set(
     responseByReceiver?.map((data) => data?.responser?.id.toString()),
   )
+
+  const handleUpdateFinalReviewAnswer = (
+    updatedAnswer: string,
+    questionId: string,
+  ) => {
+    updateFinalReviewAnswer({
+      userId: receiverId,
+      answer: updatedAnswer,
+      reviewId,
+      questionId,
+    })
+  }
 
   return (
     <>
@@ -94,6 +108,9 @@ const ReceiverReviewDetail = ({
                 question?.id,
                 responseByReceiver,
               )}
+              onClickCleanButton={(newAnswer: string) => {
+                handleUpdateFinalReviewAnswer(newAnswer, question.id)
+              }}
             />
           ))}
         </div>
