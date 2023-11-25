@@ -1,6 +1,7 @@
 export { default as useGetAllResponseByResponser } from './useGetAllResponseByResponser'
 export { default as useGetAllResponseByReceiver } from './useGetAllResponseByReceiver'
 export { default as useGetResponseByResponser } from './useGetResponseByResponser'
+export { default as useGetResponseByResponserForReviewReplyPage } from './useGetResponseByResponserForReviewReplyPage'
 export { default as useGetResponseByReceiver } from './useGetResponseByReceiver'
 export { default as useGetReceivedReview } from './useGetReceivedReview'
 export { default as useGetInvitedReview } from './useGetInvitedReview'

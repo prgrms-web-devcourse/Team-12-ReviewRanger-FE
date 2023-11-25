@@ -1,52 +1,22 @@
 //NOTE - 작성자별 응답 결과 단일 조회
 import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
+import { Response } from './useGetResponseByReceiver'
 
-interface AnswerChoice {
-  optionId: number
-  optionName: string
-}
-
-interface Reply {
-  id: number
-  questionId: number
-  answerText: string | null
-  answerRating: number | null
-  answerHexa: number | null
-  answerChoice: AnswerChoice | null
-}
-
-interface User {
-  id: number
-  email: string
-  name: string
-}
-interface Data {
-  id: number
-  participationId: number
-  replies: Reply[]
-  receiver: User
-  responser: User
-}
-
-interface Response {
-  success: boolean
-  data: Data[]
-}
-
+//NOTE - 참여 ID
 const useGetResponseByResponser = ({
-  reviewId,
   responserId,
+  reviewId,
 }: {
-  reviewId: number
-  responserId: number
+  responserId: string
+  reviewId: string
 }) => {
   const getSingleAuthorResponse = async () => {
     const singleAuthorResponse = await apiClient.get<Response>(
       `/reviews/${reviewId}/responser/${responserId}`,
     )
 
-    return singleAuthorResponse.data.data
+    return singleAuthorResponse.data
   }
 
   return useSuspenseQuery({

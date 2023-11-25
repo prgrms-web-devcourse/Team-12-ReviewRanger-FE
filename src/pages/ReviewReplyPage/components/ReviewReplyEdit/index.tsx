@@ -5,7 +5,7 @@ import {
   useEditResponse,
   useGetReviewFirst,
   useUser,
-  useGetResponseByResponser,
+  useGetResponseByResponserForReviewReplyPage,
 } from '@/apis/hooks'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
 import { ReviewReply } from '../'
@@ -18,7 +18,7 @@ const ReviewReplyEdit = () => {
   const [initModal, setInitModal] = useState(true)
 
   const { data: user } = useUser()
-  const { data: prevReplyData } = useGetResponseByResponser({
+  const { data: prevReplyData } = useGetResponseByResponserForReviewReplyPage({
     reviewId,
     responserId: user?.id as number,
   })
