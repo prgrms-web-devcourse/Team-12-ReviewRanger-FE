@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
 interface Response {
@@ -14,9 +14,13 @@ const useCheckAllRecipientReceived = ({ reviewId }: { reviewId: string }) => {
     return response.data
   }
 
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: [`/final-results/${reviewId}/status`],
     queryFn: getCheckAllRecipientReceived,
+    enabled: true,
+    refetchOnMount: false,
+    refetchInterval: false,
+    refetchOnReconnect: false,
   })
 }
 
