@@ -1,3 +1,7 @@
 export { default as rangerIdle } from './ranger-idle.png'
 export { default as rangerHead } from './ranger-head.png'
 export { default as rangers } from './rangers.png'
+export { default as errorImg } from './error.png'
+export { default as errorLightImg } from './error-white.png'
+export { default as sansDark } from './sans-dark.png'
+export { default as sansLight } from './sans-light.png'
