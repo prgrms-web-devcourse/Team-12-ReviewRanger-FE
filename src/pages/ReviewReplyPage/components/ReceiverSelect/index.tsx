@@ -4,7 +4,7 @@ import { Profile, SearchBar } from '@/components'
 import { useUser } from '@/apis/hooks'
 import { Question } from '@/apis/hooks/useGetReviewFirst'
 import { CloseIcon } from '@/assets/icons'
-import { ReviewReplyType } from '../../types'
+import { ReviewReplyStartType } from '../../types'
 
 interface ReceiverSelectProps {
   setReviewStep: Dispatch<SetStateAction<number>>
@@ -23,7 +23,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     handleSubmit,
     clearErrors,
     formState: { errors },
-  } = useFormContext<ReviewReplyType>()
+  } = useFormContext<ReviewReplyStartType>()
 
   const {
     fields: receivers,
@@ -42,7 +42,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     name: 'replyTargets',
   })
 
-  const onSubmit: SubmitHandler<ReviewReplyType> = () => {
+  const onSubmit: SubmitHandler<ReviewReplyStartType> = () => {
     if (!receivers.length) {
       setError('receiverList', {
         type: 'required',
@@ -57,7 +57,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
         receiverId: receiverId,
         responserId: user?.id as number,
         replies: questions
-          .map(({ id, type, isRequired }) => {
+          .map(({ id, type, isRequired, questionOptions }) => {
             const reply = {
               questionId: id,
               isRequired,
@@ -74,7 +74,10 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
             }
             if (type === 'HEXASTAT') {
               return Array.from({ length: 6 }, (_, index) =>
-                structuredClone({ ...reply, answerChoice: index + 1 }),
+                structuredClone({
+                  ...reply,
+                  answerChoice: questionOptions[index].optionId,
+                }),
               )
             }
 
@@ -127,7 +130,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
             tabIndex={0}
           />
           {focus && (
-            <ul className="dropdown-menu absolute flex max-h-[252px] w-full flex-col overflow-y-auto rounded-none border border-t-0 bg-white p-0 dark:bg-main-gray md:max-h-[258px]">
+            <ul className="absolute z-10 flex max-h-[252px] w-full flex-col overflow-y-auto rounded-none border border-t-0 bg-white p-0 dark:bg-main-gray md:max-h-[258px]">
               {nonReceivers.length > 0 ? (
                 nonReceivers
                   .filter((nonReceiver) => nonReceiver.name.includes(name))
@@ -137,11 +140,12 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
                         appendReceiver(nonReceiver)
                         removeNonReceiver(index)
                         clearErrors('receiverList')
+                        setFocus(false)
                       }}
                       key={nonReceiver.id}
                       className={`${index !== 0 && 'border-t'} ${
                         index != nonReceivers.length - 1 && 'border-b'
-                      } border-gray-400 px-2.5 py-2.5 hover:bg-main-ivory dark:border-gray-300 dark:hover:bg-gray-300`}
+                      } cursor-pointer border-gray-400 px-2.5 py-2.5 hover:bg-main-ivory dark:border-gray-300 dark:hover:bg-gray-300`}
                     >
                       <Profile name={nonReceiver.name} />
                     </li>

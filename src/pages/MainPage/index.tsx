@@ -18,10 +18,19 @@ const MainPage = () => {
     'invited' | 'created' | 'received'
   >('invited')
 
-  const handleInvitedReviewClick = (id: number, participationId: number) => {
+  const handleInvitedReviewClick = ({
+    id,
+    participationId,
+    submitStatus,
+  }: {
+    id: number
+    participationId: number
+    submitStatus: boolean
+  }) => {
     navigate(`review-response/${id}`, {
       state: {
         participationId,
+        submitStatus,
       },
     })
   }

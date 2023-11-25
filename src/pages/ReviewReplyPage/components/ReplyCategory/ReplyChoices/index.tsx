@@ -2,7 +2,10 @@ import { useState, MouseEvent, useEffect, useMemo } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import { CheckIcon } from '@/assets/icons'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import {
+  ReviewReplyStartType,
+  ReviewReplyEditType,
+} from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoicesProps {
   receiverIndex: number
@@ -21,7 +24,9 @@ const ReplyChoices = ({
 }: ReplyChoicesProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionIds, setSelectedOptionIds] = useState<number[]>([])
-  const { getValues, setValue, control } = useFormContext<ReviewReplyType>()
+  const { getValues, setValue, control } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
   const { append: appendChoiceReply, remove: removeChoiceReply } =
     useFieldArray({
       control,

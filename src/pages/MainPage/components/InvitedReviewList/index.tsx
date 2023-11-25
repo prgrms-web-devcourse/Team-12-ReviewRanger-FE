@@ -7,7 +7,15 @@ import { InvitedReview } from '@/types'
 import InvitedReviewItem from './InvitedReviewItem'
 
 interface InvitedReviewListProps {
-  handleClickReview: (id: number, participationId: number) => void
+  handleClickReview: ({
+    id,
+    participationId,
+    submitStatus,
+  }: {
+    id: number
+    participationId: number
+    submitStatus: boolean
+  }) => void
 }
 
 const InvitedReviewList = ({ handleClickReview }: InvitedReviewListProps) => {

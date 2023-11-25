@@ -1,7 +1,10 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useStarRate } from '@/hooks/useStarRate/useStarRate'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import {
+  ReviewReplyStartType,
+  ReviewReplyEditType,
+} from '@/pages/ReviewReplyPage/types'
 import StarRatingList from './StarRatingList'
 
 interface ReplyRatingProps {
@@ -19,7 +22,9 @@ const ReplyRating = ({
 }: ReplyRatingProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const { changeStar, rates, setRates } = useStarRate()
-  const { setValue, getValues } = useFormContext<ReviewReplyType>()
+  const { setValue, getValues } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
 
   const prevScore = useMemo(
     () => getValues(`${registerPath}.answerRating`),
