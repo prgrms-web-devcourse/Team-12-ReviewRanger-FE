@@ -22,11 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: PATH.MAIN,
-        element: (
-          <Suspense>
-            <MainPage />
-          </Suspense>
-        ),
+        element: <MainPage />,
         loader: loginLoader,
       },
       {
@@ -36,11 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.LOGIN,
-        element: (
-          <Suspense>
-            <LoginPage />
-          </Suspense>
-        ),
+        element: <LoginPage />,
         loader: unLoginLoader,
       },
       {
