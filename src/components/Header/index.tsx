@@ -34,7 +34,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
 
   return (
     <div className="sticky top-0 z-30 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
-      <div className="flex w-full max-w-[55rem] items-center justify-between px-6">
+      <div className="relative flex w-[55rem] items-center justify-between px-6">
         <div
           className="cursor-pointer"
           onClick={handleGoBack ?? (() => navigate(-1))}
@@ -42,7 +42,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
           <ArrowLeftIcon className={`${!goBackVisible && 'hidden'}`} />
         </div>
         <div
-          className="fixed left-1/2 flex -translate-x-1/2 transform cursor-pointer items-center gap-1"
+          className="absolute left-1/2 flex -translate-x-1/2 cursor-pointer items-center gap-1"
           onClick={() => navigate('/')}
         >
           <img
@@ -79,4 +79,3 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
 })
 
 export default Header
-
