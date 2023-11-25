@@ -7,3 +7,15 @@
     object-fit: cover;
   }
 }
+
+@media screen and (min-width: 768px) {
+  :not(html) ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  :not(html) ::-webkit-scrollbar-thumb {
+    background: #bababa;
+    border-radius: 20px;
+  }
+}
