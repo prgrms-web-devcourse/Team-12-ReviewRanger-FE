@@ -54,9 +54,9 @@ const CreatedReviewList = ({
             {...review}
           />
         ))}
+        {isFetchingNextPage && <ListSkeleton />}
         <div ref={ref}></div>
       </ul>
-      {isFetchingNextPage && <ListSkeleton />}
     </>
   )
 }

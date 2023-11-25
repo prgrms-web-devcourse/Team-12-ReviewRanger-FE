@@ -42,9 +42,9 @@ const ReceivedReviewList = ({ handleClickReview }: ReceivedReviewListProps) => {
             {...review}
           />
         ))}
+        {isFetchingNextPage && <ListSkeleton />}
         <div ref={ref}></div>
       </ul>
-      {isFetchingNextPage && <ListSkeleton />}
     </>
   )
 }

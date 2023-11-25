@@ -42,10 +42,9 @@ const InvitedReviewList = ({ handleClickReview }: InvitedReviewListProps) => {
             {...review}
           />
         ))}
-
+        {isFetchingNextPage && <ListSkeleton />}
         <div ref={ref}></div>
       </ul>
-      {isFetchingNextPage && <ListSkeleton />}
     </>
   )
 }
