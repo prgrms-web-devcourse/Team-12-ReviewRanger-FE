@@ -3,12 +3,19 @@
 import { Suspense } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { useGetAllResponseByReceiver } from '@/apis/hooks'
-import { NotFoundSearchUser, ReviewDetailAccordion } from '../../components'
+import { NotFoundSearchUser, ReceiverTabReviewDetail } from '../../components'
 import { useResponseReviewByUser } from '../../hooks'
 
-const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
+interface AllResponseReviewByResponseProps {
+  reviewId: string
+  ResponserList?: number[]
+}
+const AllResponseReviewByResponser = ({
+  reviewId,
+  ResponserList,
+}: AllResponseReviewByResponseProps) => {
   const { data: responseByReceiver } = useGetAllResponseByReceiver({
-    surveyId,
+    reviewId,
   }).data
 
   const {
@@ -60,11 +67,12 @@ const AllResponseReviewByResponser = ({ surveyId }: { surveyId: string }) => {
               responserCount={responseByReceiver?.map(
                 (value) => value.responserCount,
               )}
+              ResponserList={ResponserList}
             />
             <Suspense fallback={<div className="spinner"></div>}>
               {selectedUser.id && (
-                <ReviewDetailAccordion
-                  reviewId={surveyId}
+                <ReceiverTabReviewDetail
+                  reviewId={reviewId}
                   receiverId={selectedUser.id}
                   receiverName={selectedUser.name}
                 />

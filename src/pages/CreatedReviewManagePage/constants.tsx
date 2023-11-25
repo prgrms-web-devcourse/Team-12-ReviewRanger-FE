@@ -41,3 +41,8 @@ export const QUESTION_TYPE = {
     <HexagonICon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
   ),
 }
+
+export const DEFAULT_VALUE = {
+  TEXT: '',
+  VALUE: 0,
+}

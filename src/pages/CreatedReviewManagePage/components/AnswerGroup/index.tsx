@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { IconButton, StarRatingList } from '@/components'
 import {
   CloseDropDownIcon,
@@ -19,6 +19,8 @@ interface QuestionGroupProps {
   questionTitle: string
   questionDescription?: string
   answers: Answer[]
+  role?: 'responser' | 'receiver'
+  onClickCleanButton?: (answer: string) => void
 }
 
 interface Answer {
@@ -68,23 +70,26 @@ const renderDefault = (value: Answer) => (
       <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
       <p className="ml-[1.31rem] text-sm">{value?.userName}</p>
     </h3>
-    <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
+    <p className="ml-[42.96px] mt-[0.5rem] break-all  text-base leading-5 md:mt-[0.62rem]">
       {value?.value}
     </p>
   </>
 )
 
-const renderArticle = (
+const renderResponseByQuestion = (
   value: Answer,
   answers: Answer[],
   questionType: string,
   index?: number,
+  ref?: React.MutableRefObject<HTMLTextAreaElement | null>,
+  role?: 'responser' | 'receiver',
+  onClickCleanButton?: (answer: string) => void,
 ) => (
   <article
-    className="m-t-[1.25rem] accordion-content text-black dark:text-white"
+    className="m-t-[1.25rem] accordion-content w-full text-black dark:text-white"
     key={nanoid()}
   >
-    <div className="accordion-content ml-[0.63rem]">
+    <div className="accordion-content ml-[0.63rem] border-none">
       {(() => {
         switch (questionType) {
           case 'RATING':
@@ -95,34 +100,61 @@ const renderArticle = (
             return renderDefault(value)
         }
       })()}
-      {questionType === 'SUBJECTIVE' && answers.length - 1 === index && (
-        <div className="flex justify-end p-[0.62rem]">
-          <IconButton
-            disabled
-            className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
-            text="정제"
-          >
-            <FilterReplyIcon className="h-[1rem] w-[1rem] " />
-          </IconButton>
-        </div>
-      )}
+      {role !== 'responser' &&
+        questionType === 'SUBJECTIVE' &&
+        answers.length - 1 === index && (
+          <div className="flex w-full flex-col p-[0.62rem]">
+            <textarea
+              ref={ref}
+              className=" textarea m-0 h-auto w-full max-w-full overflow-auto  rounded-none border border-gray-200 text-sm"
+              defaultValue={answers.map((answer) => answer.value as string)}
+            ></textarea>
+
+            <div className="ml-[0.63rem] flex gap-2 p-[0.62rem]">
+              <IconButton
+                disabled
+                className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
+                text="정제"
+              >
+                <FilterReplyIcon className="h-[1rem] w-[1rem] " />
+              </IconButton>
+
+              <IconButton
+                disabled
+                className="mt-[0.62rem] h-[1.875rem] rounded-md border-[1px] border-gray-200 bg-gray-400 text-sm text-black "
+                text="저장"
+                onClick={() => {
+                  onClickCleanButton &&
+                    onClickCleanButton(ref?.current?.value as string)
+                }}
+              ></IconButton>
+            </div>
+          </div>
+        )}
     </div>
   </article>
 )
 
-const QuestionGroup = ({
+const QuestionAnswerRenderer = ({
   answers,
   questionType,
   questionTitle,
+  role,
+  onClickCleanButton,
 }: QuestionGroupProps) => {
   const [inputId] = useState(nanoid())
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
   return (
-    <section className=" border-l-[1px]  border-r-[1px] border-gray-200 bg-white dark:bg-black">
+    <section
+      className={`${
+        role === 'responser' && 'accordion accordion-open border-b-0'
+      } border-l-[1px] border-r-[1px] border-gray-200 bg-white dark:bg-black `}
+    >
       <input type="checkbox" id={inputId} className="accordion-toggle " />
       <label
         htmlFor={inputId}
-        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center border-b-[1px] border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
+        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center  border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
       >
         <div className="flex items-center justify-between">
           <h1 className="flex h-[2.75rem] items-center pl-[0.63rem] text-lg md:text-xl">
@@ -137,7 +169,15 @@ const QuestionGroup = ({
 
       {questionType !== 'HEXASTAT' &&
         answers?.map((value, index) =>
-          renderArticle(value, answers, questionType, index),
+          renderResponseByQuestion(
+            value,
+            answers,
+            questionType,
+            index,
+            textAreaRef,
+            role,
+            onClickCleanButton,
+          ),
         )}
 
       {questionType === 'HEXASTAT' &&
@@ -146,9 +186,11 @@ const QuestionGroup = ({
             (answer, index, self) =>
               index === self?.findIndex((a) => a.name === answer.name),
           )
-          ?.map((value) => renderArticle(value, answers, questionType))}
+          ?.map((value) =>
+            renderResponseByQuestion(value, answers, questionType),
+          )}
     </section>
   )
 }
 
-export default QuestionGroup
+export default QuestionAnswerRenderer

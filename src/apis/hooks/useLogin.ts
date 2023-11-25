@@ -12,6 +12,8 @@ interface Response {
   data: {
     accessToken: string
   }
+  errorCode?: string
+  message?: string
 }
 
 const useLogin = () => {
@@ -22,6 +24,9 @@ const useLogin = () => {
   return useMutation({
     mutationFn: login,
     onSuccess: ({ data }) => {
+      if (data.errorCode) {
+        throw new Error(data?.message)
+      }
       localStorage.setItem(TOKEN_KEY, data.data.accessToken)
     },
   })
