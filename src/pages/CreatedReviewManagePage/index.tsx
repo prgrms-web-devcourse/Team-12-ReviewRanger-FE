@@ -61,10 +61,7 @@ const CreatedReviewManagePage = () => {
           </div>
         }
       >
-        <AllResponseReviewByResponser
-          reviewId={reviewId}
-          ResponserList={checkAllReceiverReceived.data}
-        />
+        <AllResponseReviewByResponser reviewId={reviewId} />
       </Suspense>
     ),
     receiver: (
@@ -75,7 +72,10 @@ const CreatedReviewManagePage = () => {
           </div>
         }
       >
-        <AllResponseReviewByReceiver surveyId={reviewId} />
+        <AllResponseReviewByReceiver
+          reviewId={reviewId}
+          ResponserList={checkAllReceiverReceived.data}
+        />
       </Suspense>
     ),
   }
@@ -86,6 +86,7 @@ const CreatedReviewManagePage = () => {
         <Header />
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
+
       <div className="mx-auto flex w-full max-w-[800px] flex-col px-5 py-7 md:p-10">
         <h1 className="text-xl md:text-2xl">
           {getReviewQuestion?.data?.title}
@@ -96,7 +97,7 @@ const CreatedReviewManagePage = () => {
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
         {getReviewQuestion?.data?.status === 'PROCEEDING' ? (
           <button
-            className={`btn fixed bottom-10 self-end rounded-md bg-active-orange text-white dark:text-black
+            className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
             onClick={handleClickSurveyClose}
           >
@@ -104,8 +105,9 @@ const CreatedReviewManagePage = () => {
           </button>
         ) : (
           <button
-            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
+            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
+            disabled={!checkAllReceiverReceived.success}
             onClick={handleClickSendSurvey}
           >
             전송

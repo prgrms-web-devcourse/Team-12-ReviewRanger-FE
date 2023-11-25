@@ -32,10 +32,10 @@ interface Reply {
   responser: Receiver
 
   //TODO - 실제 대답한 객관식 답변의 ID,내용
-  questionOption: QuestionOption | null
+  answerChoice: QuestionOption | null
   answerText: string | null
-  rating: number | null
-  hexastat: number | null
+  answerRating: number | null
+  answerHexa: number | null
 }
 
 //NOTE - 객관식 대답에 대한 필드
@@ -44,17 +44,23 @@ interface QuestionOption {
   optionName: string
 }
 
-const useGetResponseByReceiver = ({ receiverId }: { receiverId: string }) => {
+const useGetResponseByReceiver = ({
+  receiverId,
+  reviewId,
+}: {
+  reviewId: string
+  receiverId: string
+}) => {
   const getAllQuestion = async () => {
     const response = await apiClient.get<Response>(
-      `/reply-targets/${receiverId}/receiver`,
+      `/reviews/${reviewId}/receiver/${receiverId}`,
     )
 
     return response.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reply-targets/${receiverId}/receiver`],
+    queryKey: [`/reviews/${reviewId}/receiver/${receiverId}`],
     queryFn: getAllQuestion,
   })
 }

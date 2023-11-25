@@ -5,17 +5,15 @@ import { useGetAllResponseByResponser } from '@/apis/hooks'
 import {
   SortDropDown,
   NotFoundSearchUser,
-  ReviewDetailAccordion,
+  ResponserTabReviewDetail,
 } from '../../components'
 
 interface AllResponseReviewByResponser {
   reviewId: string
-  ResponserList: number[]
 }
 
 const AllResponseReviewByResponser = ({
   reviewId,
-  ResponserList,
 }: AllResponseReviewByResponser) => {
   const { data: responseByResponser } = useGetAllResponseByResponser({
     reviewId,
@@ -101,7 +99,6 @@ const AllResponseReviewByResponser = ({
                 id="drawer-bottom"
               />
               <UserList
-                ResponserList={ResponserList}
                 hasDrawer
                 users={findUserBySearchKeyword}
                 submitAt={filteredUsers?.map((value) => value.submitAt)}
@@ -109,10 +106,10 @@ const AllResponseReviewByResponser = ({
               />
               <Suspense fallback={<div className="spinner" />}>
                 {selectedUser.id && (
-                  <ReviewDetailAccordion
+                  <ResponserTabReviewDetail
                     reviewId={reviewId}
-                    receiverId={selectedUser.id}
-                    receiverName={selectedUser.name}
+                    responserId={selectedUser.id}
+                    responserName={selectedUser.name}
                   />
                 )}
               </Suspense>

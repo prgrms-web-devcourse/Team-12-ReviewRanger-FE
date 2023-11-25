@@ -1,3 +1,5 @@
+import { DEFAULT_VALUE } from './constants'
+
 interface Data {
   id: string
   receiver: Receiver
@@ -27,10 +29,10 @@ interface Reply {
   responser: Receiver
 
   //TODO - 실제 대답한 객관식 답변의 ID,내용
-  questionOption: QuestionOption | null
+  answerChoice: QuestionOption | null
   answerText: string | null
-  rating: number | null
-  hexastat: number | null
+  answerRating: number | null
+  answerHexa: number | null
 }
 
 //NOTE - 주관식 질문일떄, 질문과 답변 매핑
@@ -48,7 +50,8 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
               value: reply?.answerText,
               userName: data?.responser?.name,
             }
-          }),
+          })
+          ?.filter((value) => value?.value !== DEFAULT_VALUE.TEXT),
     )
     .flat()
 
@@ -63,17 +66,18 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
         data?.replies
           ?.filter(
             (reply) =>
-              reply && reply?.questionId === questionId && reply?.rating,
+              reply && reply?.questionId === questionId && reply?.answerRating,
           )
           ?.map((reply) => {
             return {
-              value: reply?.rating,
+              value: reply?.answerRating,
               userName: data?.responser?.name,
             }
-          }),
+          })
+          ?.filter((value) => value?.value !== DEFAULT_VALUE.VALUE),
     )
 
-    .flat()
+    ?.flat()
 
   return res
 }
@@ -87,26 +91,27 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
           ?.map((reply) => {
             //NOTE - 육각형 스텟일떄
             if (
-              reply?.questionOption?.optionId &&
-              reply?.questionOption?.optionName &&
-              reply?.hexastat
+              reply?.answerChoice?.optionId &&
+              reply?.answerChoice?.optionName &&
+              reply?.answerHexa
             ) {
               return {
-                name: reply?.questionOption?.optionName,
-                value: reply?.hexastat,
+                name: reply?.answerChoice?.optionName,
+                value: reply?.answerHexa,
                 userName: value?.responser?.name,
               }
             }
             //NOTE - 그 외의 질문 유형일떄 처리
             {
               return {
-                value: reply.questionOption?.optionName ?? null,
+                value: reply?.answerChoice?.optionName ?? null,
                 userName: value?.responser?.name,
               }
             }
-          }),
+          })
+          ?.filter((value) => value?.value !== DEFAULT_VALUE.VALUE),
     )
-    .flat()
+    ?.flat()
 }
 
 export const getAnswer = (

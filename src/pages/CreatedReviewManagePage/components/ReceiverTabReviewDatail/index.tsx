@@ -3,9 +3,10 @@ import {
   useGetReviewQuestion,
   useGetResponseByReceiver,
   useSaveFinalResult,
+  useUpdateFinalReviewAnswer,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
-import { ProfileGroup, QuestionGroup } from '..'
+import { ProfileGroup, AnswerGroup } from '..'
 import { getAnswer } from '../../utils'
 
 interface ReviewDetailAccordionProps {
@@ -14,7 +15,7 @@ interface ReviewDetailAccordionProps {
   reviewId: string
 }
 
-const ReviewDetail = ({
+const ReceiverReviewDetail = ({
   receiverId,
   reviewId,
   receiverName,
@@ -26,8 +27,8 @@ const ReviewDetail = ({
 
   const { data: responseByReceiver } = useGetResponseByReceiver({
     receiverId,
+    reviewId,
   }).data
-  console.log(responseByReceiver)
 
   const saveFinalReviewResult = {
     userId: receiverId,
@@ -54,12 +55,13 @@ const ReviewDetail = ({
                     }
                 },
               ),
-        ],
+        ].flat(),
       }
     }),
   }
   const { mutate: saveFinalResult } = useSaveFinalResult(saveFinalReviewResult)
 
+  const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
     saveFinalResult()
   }, [receiverId])
@@ -68,6 +70,18 @@ const ReviewDetail = ({
   const responserCount = new Set(
     responseByReceiver?.map((data) => data?.responser?.id.toString()),
   )
+
+  const handleUpdateFinalReviewAnswer = (
+    updatedAnswer: string,
+    questionId: string,
+  ) => {
+    updateFinalReviewAnswer({
+      userId: receiverId,
+      answer: updatedAnswer,
+      reviewId,
+      questionId,
+    })
+  }
 
   return (
     <>
@@ -80,11 +94,12 @@ const ReviewDetail = ({
         </div>
         <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
           <ProfileGroup
+            type="receiver"
             name={receiverName}
             responserSize={responserCount?.size}
           />
           {getReviewQuestion?.questions?.map((question) => (
-            <QuestionGroup
+            <AnswerGroup
               questionType={question?.type}
               questionTitle={question?.title}
               key={question?.id}
@@ -93,6 +108,9 @@ const ReviewDetail = ({
                 question?.id,
                 responseByReceiver,
               )}
+              onClickCleanButton={(newAnswer: string) => {
+                handleUpdateFinalReviewAnswer(newAnswer, question.id)
+              }}
             />
           ))}
         </div>
@@ -101,4 +119,4 @@ const ReviewDetail = ({
   )
 }
 
-export default ReviewDetail
+export default ReceiverReviewDetail
