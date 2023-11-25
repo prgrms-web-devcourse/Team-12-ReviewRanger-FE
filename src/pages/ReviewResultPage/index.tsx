@@ -41,7 +41,7 @@ const ReviewResultPage = () => {
     <div className="h-full">
       <Header />
 
-      <div className="mx-auto flex max-w-[800px] flex-col px-5 py-7">
+      <div className="mx-auto flex max-w-[37.5rem] flex-col px-5 py-7">
         <div className="flex flex-col gap-5">
           <div className="justify-between md:flex">
             <p className="text-base dark:text-white md:text-lg">
