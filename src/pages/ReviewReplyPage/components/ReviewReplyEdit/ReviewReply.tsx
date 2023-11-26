@@ -1,9 +1,9 @@
-import { useState, useEffect, MouseEvent, ReactNode, useCallback } from 'react'
+import { useState, useEffect, ReactNode, useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
 import { CheckInTheCircleIcon } from '@/assets/icons'
-import { useHandleReceiver } from '../../hooks'
+import { useHandleReceiver, useHandleQuestion } from '../../hooks'
 import { ReviewReplyEditType } from '../../types'
 import Questions from '../Questions'
 
@@ -13,11 +13,10 @@ interface ReviewReplyProps {
 }
 
 const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
-  const { getValues, setValue } = useFormContext<ReviewReplyEditType>()
+  const { getValues } = useFormContext<ReviewReplyEditType>()
   const receivers = getValues('receiverList')
   const questions = reviewData.questions
 
-  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0)
   const [individualReplyCompletes, setIndividualReplyCompletes] = useState<
     boolean[]
   >(Array(receivers.length).fill(false))
@@ -30,6 +29,12 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
     setSelectedReceiverIndex,
     handleClickReceiver,
   } = useHandleReceiver({ receivers })
+
+  const {
+    selectedQuestionIndex,
+    setSelectedQuestionIndex,
+    handleClickQuestion,
+  } = useHandleQuestion({ questions, selectedReceiverIndex })
 
   const questionArray = questions.map((question, index) => (
     <Questions
@@ -55,22 +60,6 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   useEffect(() => {
     setAllReplyComplete(individualReplyCompletes.every((value) => value))
   }, [individualReplyCompletes])
-
-  const handleClickQuestion = (e: MouseEvent<HTMLLIElement>) => {
-    const selectedTarget = questions.findIndex(
-      (question) => question.id === e.currentTarget.value,
-    )
-
-    if (!questions[selectedTarget].isRequired) {
-      setValue(
-        `replyComplete.${selectedReceiverIndex}.complete.${selectedTarget}`,
-        true,
-      )
-    }
-
-    setSelectedQuestionIndex(selectedTarget)
-    checkReplyComplete()
-  }
 
   const handleClickNextButton = () => {
     checkReplyComplete()
@@ -148,7 +137,10 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
               return (
                 <li
                   value={question.id}
-                  onClick={handleClickQuestion}
+                  onClick={(e) => {
+                    handleClickQuestion(e)
+                    checkReplyComplete()
+                  }}
                   key={question.id}
                   className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm ${
                     index === selectedQuestionIndex

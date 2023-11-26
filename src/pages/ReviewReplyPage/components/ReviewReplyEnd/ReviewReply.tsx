@@ -1,9 +1,9 @@
-import { useState, MouseEvent, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
 import { CheckInTheCircleIcon } from '@/assets/icons'
-import { useHandleReceiver } from '../../hooks'
+import { useHandleReceiver, useHandleQuestion } from '../../hooks'
 import { ReviewReplyEndType } from '../../types'
 import Questions from '../Questions'
 
@@ -16,8 +16,6 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
   const receivers = getValues('receiverList')
   const questions = reviewData.questions
 
-  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0)
-
   const {
     selectedReceiver,
     setSelectedReceiver,
@@ -26,6 +24,12 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
     handleClickReceiver,
   } = useHandleReceiver({ receivers })
 
+  const {
+    selectedQuestionIndex,
+    setSelectedQuestionIndex,
+    handleClickQuestion,
+  } = useHandleQuestion({ questions, selectedReceiverIndex })
+
   const questionArray = questions.map((question, index) => (
     <Questions
       question={question}
@@ -33,14 +37,6 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
       receiverIndex={selectedReceiverIndex}
     />
   ))
-
-  const handleClickQuestion = (e: MouseEvent<HTMLLIElement>) => {
-    const selectedTarget = questions.findIndex(
-      (question) => question.id === e.currentTarget.value,
-    )
-
-    setSelectedQuestionIndex(selectedTarget)
-  }
 
   const handleClickNextButton = () => {
     if (selectedQuestionIndex < questions.length - 1) {

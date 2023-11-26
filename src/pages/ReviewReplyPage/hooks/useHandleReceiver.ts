@@ -1,11 +1,11 @@
 import { useState, MouseEvent } from 'react'
 import { Receiver } from '@/apis/hooks/useGetReviewFirst'
 
-interface useHandleReceiverProps {
+interface UseHandleReceiverProps {
   receivers: Receiver[]
 }
 
-const useHandleReceiver = ({ receivers }: useHandleReceiverProps) => {
+const useHandleReceiver = ({ receivers }: UseHandleReceiverProps) => {
   const [selectedReceiver, setSelectedReceiver] = useState<Receiver>(
     receivers[0],
   )
