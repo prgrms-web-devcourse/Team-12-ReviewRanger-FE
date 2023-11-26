@@ -1,7 +1,6 @@
 import { useFormContext } from 'react-hook-form'
-import { Profile } from '@/components'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
-import { CheckInTheCircleIcon } from '@/assets/icons'
+import { ReceiverItem } from '..'
 import {
   useHandleReceiver,
   useHandleQuestion,
@@ -62,36 +61,16 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
         <h3 className="text-sm text-gray-300 dark:text-gray-400">{`응답자: ${selectedReceiver.name}`}</h3>
         <div className="flex flex-col gap-5">
           <ul className="flex gap-2.5 overflow-x-auto">
-            {receivers.map(({ receiverId, name }, index) => (
-              <li
-                value={receiverId}
-                key={receiverId}
-                onClick={(e) => {
-                  handleClickReceiver(e)
-                  checkReplyComplete()
-                }}
-                className={`flex h-fit shrink-0 items-center justify-center gap-2 rounded-md border px-2 
-              py-1.5
-              ${
-                selectedReceiver.receiverId === receiverId
-                  ? 'border-black bg-main-yellow dark:border-white dark:bg-main-red-300'
-                  : 'border-gray-100 bg-white dark:border-gray-300 dark:bg-main-red-200'
-              } ${individualReplyCompletes[index] && 'border-sub-green'}`}
-              >
-                <Profile
-                  name={name}
-                  className={`${
-                    selectedReceiver.name === name
-                      ? 'text-black dark:text-white'
-                      : 'text-gray-300 dark:text-gray-100'
-                  }`}
-                />
-                <div className="h-4 w-4">
-                  {individualReplyCompletes[index] && (
-                    <CheckInTheCircleIcon className="h-4 w-4 fill-sub-green" />
-                  )}
-                </div>
-              </li>
+            {receivers.map((receiver, index) => (
+              <ReceiverItem
+                key={receiver.receiverId}
+                receiver={receiver}
+                index={index}
+                selectedReceiver={selectedReceiver}
+                individualReplyCompletes={individualReplyCompletes}
+                handleClickReceiver={handleClickReceiver}
+                checkReplyComplete={checkReplyComplete}
+              />
             ))}
           </ul>
           <ul className="flex gap-5 overflow-x-auto">
