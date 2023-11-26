@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
-import { ReceiverItem } from '../'
+import { ReceiverItem, QuestionItem } from '../'
 import {
   useHandleReceiver,
   useHandleQuestion,
@@ -67,18 +67,13 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
           </ul>
           <ul className="flex gap-5 overflow-x-auto">
             {questions.map((question, index) => (
-              <li
-                value={question.id}
-                onClick={handleClickQuestion}
+              <QuestionItem
+                index={index}
                 key={question.id}
-                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm ${
-                  index === selectedQuestionIndex
-                    ? 'border-black bg-main-hover-yellow text-black dark:border-white dark:bg-main-red-300 dark:text-white'
-                    : 'border-sub-green bg-white text-gray-300 dark:border-sub-green dark:bg-main-red-200 dark:text-gray-100'
-                }`}
-              >
-                {index + 1}
-              </li>
+                selectedQuestionIndex={selectedQuestionIndex}
+                question={question}
+                handleClickQuestion={handleClickQuestion}
+              />
             ))}
           </ul>
         </div>

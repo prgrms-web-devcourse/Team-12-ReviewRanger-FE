@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
-import { ReceiverItem } from '..'
+import { QuestionItem, ReceiverItem } from '..'
 import {
   useHandleReceiver,
   useHandleQuestion,
@@ -74,29 +74,17 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
             ))}
           </ul>
           <ul className="flex gap-5 overflow-x-auto">
-            {questions.map((question, index) => {
-              const complete = getValues(
-                `replyComplete.${selectedReceiverIndex}.complete.${index}`,
-              )
-
-              return (
-                <li
-                  value={question.id}
-                  onClick={(e) => {
-                    handleClickQuestion(e)
-                    checkReplyComplete()
-                  }}
-                  key={question.id}
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm ${
-                    index === selectedQuestionIndex
-                      ? 'border-black bg-main-hover-yellow text-black dark:border-white dark:bg-main-red-300 dark:text-white'
-                      : 'border-gray-100 bg-white text-gray-300 dark:border-gray-300 dark:bg-main-red-200 dark:text-gray-100'
-                  } ${complete && 'border-sub-green dark:border-sub-green'}`}
-                >
-                  {index + 1}
-                </li>
-              )
-            })}
+            {questions.map((question, index) => (
+              <QuestionItem
+                index={index}
+                key={question.id}
+                selectedReceiverIndex={selectedReceiverIndex}
+                selectedQuestionIndex={selectedQuestionIndex}
+                question={question}
+                handleClickQuestion={handleClickQuestion}
+                checkReplyComplete={checkReplyComplete}
+              />
+            ))}
           </ul>
         </div>
         {questionArray[selectedQuestionIndex]}
