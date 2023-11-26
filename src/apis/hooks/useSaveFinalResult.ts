@@ -1,4 +1,4 @@
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
 interface ReviewId {
@@ -6,7 +6,7 @@ interface ReviewId {
 }
 
 const useSaveFinalResult = <T extends ReviewId>(finalResult: T) => {
-  const queryClient = new QueryClient()
+  const queryClient = useQueryClient()
   const saveFinalResult = async () => {
     const response = await apiClient.post('/final-results', finalResult)
 
@@ -15,12 +15,17 @@ const useSaveFinalResult = <T extends ReviewId>(finalResult: T) => {
 
   return useMutation({
     mutationFn: saveFinalResult,
-    onSuccess: () => {
+    onMutate: async () => {
       const reviewId = finalResult.reviewId
+      console.log(queryClient.getQueryData([`/final-results/82/status`]))
+      console.log(
+        queryClient.getQueryState([`/final-results${Number(reviewId)}/status`]),
+      )
       queryClient.invalidateQueries({
         queryKey: [`/final-results/${reviewId}/status`],
       })
     },
+    onSuccess: async () => {},
   })
 }
 
