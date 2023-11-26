@@ -1,8 +1,9 @@
 import { useState, useEffect, MouseEvent, ReactNode, useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
-import { Data, Receiver } from '@/apis/hooks/useGetReviewFirst'
+import { Data } from '@/apis/hooks/useGetReviewFirst'
 import { CheckInTheCircleIcon } from '@/assets/icons'
+import { useHandleReceiver } from '../../hooks'
 import { ReviewReplyEditType } from '../../types'
 import Questions from '../Questions'
 
@@ -16,16 +17,19 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   const receivers = getValues('receiverList')
   const questions = reviewData.questions
 
-  const [selectedReceiver, setSelectedReceiver] = useState<Receiver>(
-    receivers[0],
-  )
-
-  const [selectedReceiverIndex, setSelectedReceiverIndex] = useState<number>(0)
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0)
   const [individualReplyCompletes, setIndividualReplyCompletes] = useState<
     boolean[]
   >(Array(receivers.length).fill(false))
   const [allReplyComplete, setAllReplyComplete] = useState<boolean>(false)
+
+  const {
+    selectedReceiver,
+    setSelectedReceiver,
+    selectedReceiverIndex,
+    setSelectedReceiverIndex,
+    handleClickReceiver,
+  } = useHandleReceiver({ receivers })
 
   const questionArray = questions.map((question, index) => (
     <Questions
@@ -51,16 +55,6 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   useEffect(() => {
     setAllReplyComplete(individualReplyCompletes.every((value) => value))
   }, [individualReplyCompletes])
-
-  const handleClickReceiver = (e: MouseEvent<HTMLLIElement>) => {
-    receivers.forEach((receiver, index) => {
-      if (receiver.receiverId === e.currentTarget.value) {
-        setSelectedReceiver(receiver)
-        setSelectedReceiverIndex(index)
-        checkReplyComplete()
-      }
-    })
-  }
 
   const handleClickQuestion = (e: MouseEvent<HTMLLIElement>) => {
     const selectedTarget = questions.findIndex(
@@ -117,7 +111,10 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
               <li
                 value={receiverId}
                 key={receiverId}
-                onClick={handleClickReceiver}
+                onClick={(e) => {
+                  handleClickReceiver(e)
+                  checkReplyComplete()
+                }}
                 className={`flex h-fit shrink-0 items-center justify-center gap-2 rounded-md border px-2 
               py-1.5
               ${
