@@ -1,4 +1,5 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { TOKEN_KEY } from '@/constants'
 import apiClient from '../apiClient'
 
@@ -8,6 +9,7 @@ interface Response {
 
 const useLogout = () => {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   const logout = async () => {
     const response = await apiClient.post<Response>('/members/logout')
 
@@ -21,6 +23,7 @@ const useLogout = () => {
       queryClient.removeQueries({
         queryKey: ['/user'],
       })
+      navigate('/login')
     },
     //TODO - 로그아웃 실패 처리 추가 필요
   })
