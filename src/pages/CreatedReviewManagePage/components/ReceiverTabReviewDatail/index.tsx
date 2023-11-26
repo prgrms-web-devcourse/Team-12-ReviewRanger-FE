@@ -30,6 +30,33 @@ const ReceiverReviewDetail = ({
     reviewId,
   }).data
 
+  const formatAnswers = (
+    questionType: Parameters<typeof getAnswer>[0],
+    questionId: Parameters<typeof getAnswer>[1],
+  ) => {
+    const answer = getAnswer(questionType, questionId, responseByReceiver)
+    switch (questionType) {
+      case 'HEXASTAT':
+        return answer?.map((value) => {
+          if ('name' in value)
+            return {
+              statName: value?.name,
+              statScore: value.value,
+            }
+        })
+      case 'SUBJECTIVE':
+        return new Array(
+          answer
+            ?.map((value) => value.value)
+            ?.flat()
+            ?.toString()
+            ?.replace(/,/g, ''),
+        )
+      default:
+        return answer?.map((value) => value.value)
+    }
+  }
+
   const saveFinalReviewResult = {
     userId: receiverId,
     userName: receiverName,
@@ -41,24 +68,11 @@ const ReceiverReviewDetail = ({
         questionId: question.id,
         questionTitle: question.title,
         questionType: question.type,
-        answers: [
-          question.type !== 'HEXASTAT'
-            ? getAnswer(question?.type, question?.id, responseByReceiver)?.map(
-                (value) => value.value,
-              )
-            : getAnswer(question?.type, question?.id, responseByReceiver)?.map(
-                (value) => {
-                  if ('name' in value)
-                    return {
-                      statName: value?.name,
-                      statScore: value.value,
-                    }
-                },
-              ),
-        ].flat(),
+        answers: formatAnswers(question.type, question.id),
       }
     }),
   }
+
   const { mutate: saveFinalResult } = useSaveFinalResult(saveFinalReviewResult)
 
   const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
