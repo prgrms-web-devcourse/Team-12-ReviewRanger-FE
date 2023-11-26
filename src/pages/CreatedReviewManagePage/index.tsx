@@ -43,7 +43,10 @@ const CreatedReviewManagePage = () => {
   }
 
   const handleClickSendSurvey = () => {
-    if (!checkAllReceiverReceived?.success) {
+    if (
+      !checkAllReceiverReceived?.success ||
+      getReviewQuestion.data.status !== 'END'
+    ) {
       //NOTE - 토스트 처리
 
       return
@@ -107,7 +110,10 @@ const CreatedReviewManagePage = () => {
           <button
             className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
-            disabled={!checkAllReceiverReceived?.success}
+            disabled={
+              !checkAllReceiverReceived?.success ||
+              getReviewQuestion?.data?.status === 'END'
+            }
             onClick={handleClickSendSurvey}
           >
             전송
