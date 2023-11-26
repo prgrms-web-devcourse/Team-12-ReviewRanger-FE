@@ -5,7 +5,14 @@ import { ThemeProvider } from './components'
 import ToastProvider from './components/Toast/ToastProvider'
 import { router } from './routes'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: true,
+      retry: false,
+    },
+  },
+})
 
 function App() {
   return (

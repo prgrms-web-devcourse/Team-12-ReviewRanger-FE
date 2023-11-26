@@ -1,7 +1,10 @@
+import type { FallbackProps } from 'react-error-boundary'
 import { useNavigate } from 'react-router-dom'
 import { errorImg, errorLightImg, sansDark, sansLight } from '@/assets/images'
 
-const ErrorPage = () => {
+const ErrorPage = ({ error, resetErrorBoundary }: Partial<FallbackProps>) => {
+  console.log('하잉')
+  console.log(error)
   const navigate = useNavigate()
 
   return (

@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { useDarkMode } from '@/hooks'
+import { QueryErrorBoundary } from '@/queries'
 
 const Layout = () => {
   const { toggle } = useDarkMode()
 
   return (
-    <>
+    <QueryErrorBoundary>
       <div className="bg-white dark:bg-black">
         <div className="border-x-1 mx-auto min-h-screen border-black bg-main-ivory dark:border-white dark:bg-main-red-100">
           <Outlet />
@@ -18,7 +19,7 @@ const Layout = () => {
       >
         토글
       </button>
-    </>
+    </QueryErrorBoundary>
   )
 }
 

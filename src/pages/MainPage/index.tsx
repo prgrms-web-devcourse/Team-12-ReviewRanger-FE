@@ -55,7 +55,7 @@ const MainPage = () => {
           </div>
         </PageIntro>
 
-        <Suspense>
+        <Suspense fallback={<div>허걱</div>}>
           {(() => {
             switch (activeTab) {
               case 'invited':
