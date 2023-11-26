@@ -13,12 +13,14 @@ interface ReviewDetailAccordionProps {
   receiverId: string
   receiverName: string
   reviewId: string
+  ResponserList?: number[]
 }
 
 const ReceiverReviewDetail = ({
   receiverId,
   reviewId,
   receiverName,
+  ResponserList,
 }: ReviewDetailAccordionProps) => {
   //NOTE - 하나라도 응답 실패했을 떄 처리
   const { data: getReviewQuestion } = useGetReviewQuestion({
@@ -77,7 +79,9 @@ const ReceiverReviewDetail = ({
 
   const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
-    saveFinalResult()
+    if (!ResponserList?.includes(Number(receiverId))) {
+      saveFinalResult()
+    }
   }, [receiverId])
 
   //NOTE - 전체 몇 명이 응답했는지 여부
