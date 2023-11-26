@@ -3,6 +3,7 @@ import apiClient from '@/apis/apiClient'
 
 interface ReviewId {
   reviewId: string
+  userId: string
 }
 
 const useSaveFinalResult = <T extends ReviewId>(finalResult: T) => {
@@ -17,15 +18,26 @@ const useSaveFinalResult = <T extends ReviewId>(finalResult: T) => {
     mutationFn: saveFinalResult,
     onMutate: async () => {
       const reviewId = finalResult.reviewId
-      console.log(queryClient.getQueryData([`/final-results/82/status`]))
-      console.log(
-        queryClient.getQueryState([`/final-results${Number(reviewId)}/status`]),
-      )
+      const userId = finalResult.userId
+
+      const prevSnapShot = queryClient.getQueryData<{
+        success: boolean
+        data: number[]
+      }>([`/final-results/${reviewId}/status`])
+
+      if (prevSnapShot?.success && prevSnapShot?.data) {
+        queryClient.setQueryData([`/final-results/${reviewId}/status`], {
+          success: prevSnapShot?.success,
+          data: [...new Set([...prevSnapShot.data, Number(userId)])],
+        })
+      }
+    },
+    onSuccess: async () => {
+      const reviewId = finalResult.reviewId
       queryClient.invalidateQueries({
         queryKey: [`/final-results/${reviewId}/status`],
       })
     },
-    onSuccess: async () => {},
   })
 }
 
