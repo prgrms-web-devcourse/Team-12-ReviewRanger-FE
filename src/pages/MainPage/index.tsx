@@ -5,6 +5,7 @@ import { rangerIdle } from '@/assets/images'
 import {
   CreatedReviewList,
   InvitedReviewList,
+  ListSkeleton,
   PageIntro,
   ReceivedReviewList,
   Tabs,
@@ -64,7 +65,13 @@ const MainPage = () => {
           </div>
         </PageIntro>
 
-        <Suspense>
+        <Suspense
+          fallback={
+            <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
+              <ListSkeleton />
+            </ul>
+          }
+        >
           {(() => {
             switch (activeTab) {
               case 'invited':

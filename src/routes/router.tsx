@@ -11,6 +11,7 @@ import {
   ReviewResultPage,
   SignUpPage,
 } from '@/pages'
+import { ResultSkeleton } from '@/pages/ReviewResultPage/components'
 import Layout from './Layout'
 import { PATH } from './constants'
 import { loginLoader, unLoginLoader } from './loader'
@@ -22,11 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: PATH.MAIN,
-        element: (
-          <Suspense>
-            <MainPage />
-          </Suspense>
-        ),
+        element: <MainPage />,
         loader: loginLoader,
       },
       {
@@ -36,11 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.LOGIN,
-        element: (
-          <Suspense>
-            <LoginPage />
-          </Suspense>
-        ),
+        element: <LoginPage />,
         loader: unLoginLoader,
       },
       {
@@ -72,7 +65,11 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.REVIEW_RESULT,
-        element: <ReviewResultPage />,
+        element: (
+          <Suspense fallback={<ResultSkeleton />}>
+            <ReviewResultPage />
+          </Suspense>
+        ),
         loader: loginLoader,
       },
       {
