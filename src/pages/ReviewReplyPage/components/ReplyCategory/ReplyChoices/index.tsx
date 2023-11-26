@@ -1,5 +1,6 @@
 import { useState, MouseEvent, useEffect, useMemo } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
+import { useLocation } from 'react-router-dom'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import { CheckIcon } from '@/assets/icons'
 import {
@@ -24,6 +25,7 @@ const ReplyChoices = ({
 }: ReplyChoicesProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionIds, setSelectedOptionIds] = useState<number[]>([])
+  const { state } = useLocation()
   const { getValues, setValue, control } = useFormContext<
     ReviewReplyStartType | ReviewReplyEditType
   >()
@@ -55,6 +57,10 @@ const ReplyChoices = ({
   }, [selectedOptionIds, handleCheckReply])
 
   const handleClickOption = (e: MouseEvent<HTMLLIElement>) => {
+    if (state.status === 'END' || state.status === 'DEADLINE') {
+      return
+    }
+
     const selectedTarget = options.find(
       (option) => option.optionId === e.currentTarget.value,
     )?.optionId

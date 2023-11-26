@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
-import { ReceiverSelect, ReviewReply } from '../'
 import { ReviewReplyStartType } from '../../types'
+import ReviewReply from './ReviewReply'
+import ReceiverSelect from './ReviewSelect'
 
 const ReviewReplyStart = () => {
   const navigate = useNavigate()
