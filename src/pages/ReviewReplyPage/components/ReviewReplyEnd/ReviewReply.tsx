@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
@@ -102,7 +101,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
             ))}
           </ul>
         </div>
-        {questionArray[selectedQuestionIndex] as ReactNode}
+        {questionArray[selectedQuestionIndex]}
       </div>
       <div className="flex justify-center md:justify-end">
         <button

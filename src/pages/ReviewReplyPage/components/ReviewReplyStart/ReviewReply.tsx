@@ -1,4 +1,3 @@
-import { useState, useEffect, ReactNode, useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
@@ -7,6 +6,7 @@ import {
   useHandleReceiver,
   useHandleQuestion,
   useClickNextButton,
+  useReplyComplete,
 } from '../../hooks'
 import { ReviewReplyStartType } from '../../types'
 import Questions from '../Questions'
@@ -20,11 +20,6 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   const { getValues } = useFormContext<ReviewReplyStartType>()
   const receivers = getValues('receiverList')
   const questions = reviewData.questions
-
-  const [individualReplyCompletes, setIndividualReplyCompletes] = useState<
-    boolean[]
-  >(Array(receivers.length).fill(false))
-  const [allReplyComplete, setAllReplyComplete] = useState<boolean>(false)
 
   const {
     selectedReceiver,
@@ -50,6 +45,9 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
     setSelectedReceiverIndex,
   })
 
+  const { individualReplyCompletes, allReplyComplete, checkReplyComplete } =
+    useReplyComplete({ receivers, selectedReceiverIndex })
+
   const questionArray = questions.map((question, index) => (
     <Questions
       question={question}
@@ -57,23 +55,6 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
       receiverIndex={selectedReceiverIndex}
     />
   ))
-
-  // TODO: useCallback 알아보고 수정하기.
-  const checkReplyComplete = useCallback(() => {
-    const checkIndividualReplyComplete = getValues(
-      `replyComplete.${selectedReceiverIndex}.complete`,
-    ).every((value) => value)
-
-    setIndividualReplyCompletes((individualReplyCompletes) =>
-      individualReplyCompletes.map((status, index) =>
-        index === selectedReceiverIndex ? checkIndividualReplyComplete : status,
-      ),
-    )
-  }, [getValues, selectedReceiverIndex])
-
-  useEffect(() => {
-    setAllReplyComplete(individualReplyCompletes.every((value) => value))
-  }, [individualReplyCompletes])
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -139,7 +120,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
             })}
           </ul>
         </div>
-        {questionArray[selectedQuestionIndex] as ReactNode}
+        {questionArray[selectedQuestionIndex]}
       </div>
       <div className="flex justify-center md:justify-end">
         {allReplyComplete ? (
