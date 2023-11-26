@@ -3,7 +3,11 @@ import { useFormContext } from 'react-hook-form'
 import { Profile } from '@/components'
 import { Data } from '@/apis/hooks/useGetReviewFirst'
 import { CheckInTheCircleIcon } from '@/assets/icons'
-import { useHandleReceiver, useHandleQuestion } from '../../hooks'
+import {
+  useHandleReceiver,
+  useHandleQuestion,
+  useClickNextButton,
+} from '../../hooks'
 import { ReviewReplyEndType } from '../../types'
 import Questions from '../Questions'
 
@@ -30,6 +34,16 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
     handleClickQuestion,
   } = useHandleQuestion({ questions, selectedReceiverIndex })
 
+  const { handleClickNextButton } = useClickNextButton({
+    questions,
+    receivers,
+    selectedQuestionIndex,
+    setSelectedQuestionIndex,
+    selectedReceiverIndex,
+    setSelectedReceiver,
+    setSelectedReceiverIndex,
+  })
+
   const questionArray = questions.map((question, index) => (
     <Questions
       question={question}
@@ -37,33 +51,6 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
       receiverIndex={selectedReceiverIndex}
     />
   ))
-
-  const handleClickNextButton = () => {
-    if (selectedQuestionIndex < questions.length - 1) {
-      setSelectedQuestionIndex((prevQuestion) => prevQuestion + 1)
-
-      return
-    }
-
-    if (selectedReceiverIndex < receivers.length - 1) {
-      const nextReceiver = receivers.find(
-        (_, index) => index === selectedReceiverIndex + 1,
-      )
-
-      if (!nextReceiver) {
-        return
-      }
-
-      setSelectedReceiver(nextReceiver)
-      setSelectedReceiverIndex((prevReceiver) => prevReceiver + 1)
-    } else {
-      const firstReceiver = receivers[0]
-
-      setSelectedReceiver(firstReceiver)
-      setSelectedReceiverIndex(0)
-    }
-    setSelectedQuestionIndex(0)
-  }
 
   return (
     <div className="flex h-full flex-col justify-between">
