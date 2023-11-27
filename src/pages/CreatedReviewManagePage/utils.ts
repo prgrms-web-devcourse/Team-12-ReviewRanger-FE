@@ -112,6 +112,7 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
           ?.filter((value) => value?.value !== DEFAULT_VALUE.VALUE),
     )
     ?.flat()
+    ?.filter((value) => value.value !== null)
 }
 
 export const getAnswer = (

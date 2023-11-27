@@ -103,6 +103,7 @@ const CreatedReviewManagePage = () => {
             className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
             onClick={handleClickSurveyClose}
+            disabled={!checkAllReceiverReceived?.success}
           >
             설문 마감
           </button>
