@@ -45,7 +45,7 @@ const CreatedReviewManagePage = () => {
   const handleClickSendSurvey = () => {
     if (
       !checkAllReceiverReceived?.success ||
-      getReviewQuestion.data.status !== 'END'
+      getReviewQuestion.data.status === 'END'
     ) {
       //NOTE - 토스트 처리
 
