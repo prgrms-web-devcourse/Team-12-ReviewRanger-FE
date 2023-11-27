@@ -44,7 +44,7 @@ interface Response {
 
 const useGetReviewForCreator = ({ id }: { id: number }) => {
   const getReviewFirst = async () => {
-    const response = await apiClient.get<Response>(`/reviews/${id}`)
+    const response = await apiClient.get<Response>(`/reviews/${id}/creator`)
 
     return response.data.data
   }

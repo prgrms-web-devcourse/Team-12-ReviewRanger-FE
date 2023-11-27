@@ -44,7 +44,9 @@ interface Response {
 
 const useGetReviewForParticipation = ({ id }: { id: number }) => {
   const getReviewFirst = async () => {
-    const response = await apiClient.get<Response>(`/reviews/${id}`)
+    const response = await apiClient.get<Response>(
+      `/reviews/${id}/participation`,
+    )
 
     return response.data.data
   }

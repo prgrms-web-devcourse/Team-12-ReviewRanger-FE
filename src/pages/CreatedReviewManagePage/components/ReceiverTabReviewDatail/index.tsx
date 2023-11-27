@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import {
-  useGetReviewQuestion,
+  useGetReviewForCreator,
   useGetResponseByReceiver,
   useSaveFinalResult,
   useUpdateFinalReviewAnswer,
@@ -23,9 +23,9 @@ const ReceiverReviewDetail = ({
   ResponserList,
 }: ReviewDetailAccordionProps) => {
   //NOTE - 하나라도 응답 실패했을 떄 처리
-  const { data: getReviewQuestion } = useGetReviewQuestion({
-    id: reviewId,
-  }).data
+  const { data: getReviewQuestion } = useGetReviewForCreator({
+    id: Number(reviewId),
+  })
 
   const { data: responseByReceiver } = useGetResponseByReceiver({
     receiverId,
@@ -69,7 +69,7 @@ const ReceiverReviewDetail = ({
     reviewDescription: getReviewQuestion?.description,
     replies: getReviewQuestion?.questions
       ?.map((question) => {
-        const combinedAnswer = formatAnswers(question.type, question.id)
+        const combinedAnswer = formatAnswers(question.type, question.id + '')
 
         if (combinedAnswer.length > 0) {
           return {
@@ -131,11 +131,11 @@ const ReceiverReviewDetail = ({
               key={question?.id}
               answers={getAnswer(
                 question?.type,
-                question?.id,
+                question?.id + '',
                 responseByReceiver,
               )}
               onClickCleanButton={(newAnswer: string) => {
-                handleUpdateFinalReviewAnswer(newAnswer, question.id)
+                handleUpdateFinalReviewAnswer(newAnswer, question.id + '')
               }}
             />
           ))}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useGetReviewQuestion, useGetResponseByResponser } from '@/apis/hooks'
+import { useGetReviewForCreator, useGetResponseByResponser } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { getAnswer } from '@/pages/CreatedReviewManagePage/utils'
 import { SelectResponseUser, ProfileGroup, AnswerGroup } from '..'
@@ -16,9 +16,9 @@ const ReceiverReviewDetail = ({
   responserId,
 }: ReviewDetailAccordionProps) => {
   //NOTE - 하나라도 응답 실패했을 떄 처리
-  const { data: getReviewQuestion } = useGetReviewQuestion({
-    id: reviewId,
-  }).data
+  const { data: getReviewQuestion } = useGetReviewForCreator({
+    id: Number(reviewId),
+  })
 
   const { data: responseByReceiver } = useGetResponseByResponser({
     responserId,
@@ -64,7 +64,7 @@ const ReceiverReviewDetail = ({
               key={question?.id}
               answers={getAnswer(
                 question?.type,
-                question?.id,
+                question?.id + '',
                 getUserSelectedAnswers,
               )}
             />
