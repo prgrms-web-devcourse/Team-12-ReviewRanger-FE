@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
+import { useToast } from '@/hooks'
 import { useEditName, useUser } from '@/apis/hooks'
 import { DUPLICATED_MESSAGE } from '@/constants'
 
@@ -21,6 +22,7 @@ const useEditNameCheck = ({
   const nameRef = useRef<HTMLLabelElement>(null)
   const { mutate: editName } = useEditName()
   const { refetch } = useUser()
+  const { addToast } = useToast()
 
   const handleEditNameStartingClick = () => {
     setEditNameButton(true)
@@ -52,6 +54,10 @@ const useEditNameCheck = ({
           await refetch()
           setEditNameButton(false)
           setName('')
+          addToast({
+            message: '이름 변경이 완료되었습니다.',
+            type: 'success',
+          })
         },
       },
     )
