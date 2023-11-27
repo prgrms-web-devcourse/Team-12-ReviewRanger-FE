@@ -13,14 +13,14 @@ const useGetResponseByResponser = ({
 }) => {
   const getSingleAuthorResponse = async () => {
     const singleAuthorResponse = await apiClient.get<Response>(
-      `/reviews/${reviewId}/responser/${responserId}`,
+      `/reviews/${reviewId}/responser/${responserId}/creator`,
     )
 
     return singleAuthorResponse.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviews/${reviewId}/responser/${responserId}`],
+    queryKey: [`/reviews/${reviewId}/responser/${responserId}/creator`],
     queryFn: getSingleAuthorResponse,
   })
 }

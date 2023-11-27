@@ -15,9 +15,9 @@ const useCloseSurvey = ({ id }: { id: string }) => {
   return useMutation({
     mutationFn: closeSurvey,
     onSuccess: () => {
-      addToast({ message: '리뷰가 마갑되었습니다!', type: 'success' })
+      addToast({ message: '리뷰가 마감되었습니다!', type: 'success' })
       queryClient.invalidateQueries({
-        queryKey: [`/reviews/${id}`],
+        queryKey: [`/reviews/${id}/creator`],
       })
     },
   })
