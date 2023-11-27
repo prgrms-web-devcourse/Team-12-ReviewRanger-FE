@@ -27,6 +27,10 @@ const useLogin = () => {
     queryClient.removeQueries({ queryKey: ['/user'] })
   }
 
+  if (queryClient.getQueryData(['reviews'])) {
+    queryClient.removeQueries({ queryKey: ['reviews'] })
+  }
+
   return useMutation({
     mutationFn: login,
     onSuccess: ({ data }) => {

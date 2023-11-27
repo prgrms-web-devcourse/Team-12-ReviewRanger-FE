@@ -19,6 +19,9 @@ const useLogout = () => {
     onSuccess: () => {
       localStorage.removeItem(TOKEN_KEY)
       queryClient.removeQueries({
+        queryKey: ['reviews'],
+      })
+      queryClient.removeQueries({
         queryKey: ['/user'],
       })
     },
