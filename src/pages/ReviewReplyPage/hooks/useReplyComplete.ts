@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { Receiver } from '@/apis/hooks/useGetReviewFirst'
+import { Receiver } from '@/apis/hooks/useGetReviewForCreator'
 import { ReviewReplyEditType } from '../types'
 
 interface UseReplyCompleteProps {

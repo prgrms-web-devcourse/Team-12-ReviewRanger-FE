@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
+import { useCreateResponse, useGetReviewForCreator } from '@/apis/hooks'
 import { ReviewReplyStartType } from '../../types'
 import ReviewReply from './ReviewReply'
 import ReceiverSelect from './ReviewSelect'
@@ -12,7 +12,7 @@ const ReviewReplyStart = () => {
   const reviewId = parseInt(pathname.split('/').at(-1) as string)
   const [reviewStep, setReviewStep] = useState(1)
 
-  const { data: reviewData } = useGetReviewFirst({ id: reviewId })
+  const { data: reviewData } = useGetReviewForCreator({ id: reviewId })
   const { mutate: createResponse } = useCreateResponse()
   const { title, description, receivers } = reviewData
 

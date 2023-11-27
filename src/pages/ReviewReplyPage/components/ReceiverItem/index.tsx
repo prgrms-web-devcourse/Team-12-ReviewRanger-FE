@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Profile } from '@/components'
-import { Receiver } from '@/apis/hooks/useGetReviewFirst'
+import { Receiver } from '@/apis/hooks/useGetReviewForCreator'
 import { CheckInTheCircleIcon } from '@/assets/icons'
 
 interface ReceiverItemProps {

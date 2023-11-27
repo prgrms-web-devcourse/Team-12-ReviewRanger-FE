@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
-import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
+import { QuestionOption } from '@/apis/hooks/useGetReviewForCreator'
 import {
   ReviewReplyStartType,
   ReviewReplyEditType,
