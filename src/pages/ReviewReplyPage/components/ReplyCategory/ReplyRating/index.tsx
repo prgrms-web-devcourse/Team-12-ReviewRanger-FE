@@ -1,7 +1,11 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { useLocation } from 'react-router-dom'
 import { useStarRate } from '@/hooks/useStarRate/useStarRate'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import {
+  ReviewReplyStartType,
+  ReviewReplyEditType,
+} from '@/pages/ReviewReplyPage/types'
 import StarRatingList from './StarRatingList'
 
 interface ReplyRatingProps {
@@ -18,8 +22,11 @@ const ReplyRating = ({
   handleCheckReply,
 }: ReplyRatingProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
+  const { state } = useLocation()
   const { changeStar, rates, setRates } = useStarRate()
-  const { setValue, getValues } = useFormContext<ReviewReplyType>()
+  const { setValue, getValues } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
 
   const prevScore = useMemo(
     () => getValues(`${registerPath}.answerRating`),
@@ -46,6 +53,10 @@ const ReplyRating = ({
   }, [score, handleCheckReply])
 
   const handleClickStar = (index: number) => {
+    if (state.status === 'END' || state.status === 'DEADLINE') {
+      return
+    }
+
     setScore(index + 1)
     changeStar(index)
   }

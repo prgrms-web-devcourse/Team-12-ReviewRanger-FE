@@ -1,65 +1,18 @@
-import { useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
-import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
-import { ReceiverSelect, ReviewReply } from './components'
-import { ReviewReplyType } from './types'
+import { ReviewReplyEdit, ReviewReplyEnd, ReviewReplyStart } from './components'
 
 const ReviewReplyPage = () => {
-  const navigate = useNavigate()
-  const { pathname, state } = useLocation()
-  const reviewId = parseInt(pathname.split('/').at(-1) as string)
-  const [reviewStep, setReviewStep] = useState(1)
-
-  const { data: reviewData } = useGetReviewFirst({ id: reviewId })
-  const { mutate: createResponse } = useCreateResponse()
-  const { title, description, receivers } = reviewData
-
-  const methods = useForm<ReviewReplyType>({
-    defaultValues: {
-      id: state.participationId,
-      nonReceiverList: receivers,
-    },
-  })
-
-  const handleSubmitReply = () => {
-    const requestData = {
-      id: state.participationId,
-      replyTargets: methods.getValues('replyTargets'),
-    }
-
-    createResponse(requestData, {
-      onSuccess: () => navigate('/'),
-    })
-  }
+  const { state } = useLocation()
+  const { submitStatus, status: reviewStatus } = state
 
   return (
     <div className="flex h-screen flex-col items-center bg-main-ivory dark:bg-main-red-100">
       <Header />
-      {reviewData && (
-        <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
-          <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
-          {reviewStep === 1 && (
-            <p className="mt-2.5 whitespace-pre-wrap text-sm dark:text-white md:text-lg">
-              {description}
-            </p>
-          )}
-          <FormProvider {...methods}>
-            {reviewStep === 1 && (
-              <ReceiverSelect
-                setReviewStep={setReviewStep}
-                questions={reviewData.questions}
-              />
-            )}
-            {reviewStep === 2 && (
-              <ReviewReply
-                reviewData={reviewData}
-                handleSubmit={handleSubmitReply}
-              />
-            )}
-          </FormProvider>
-        </div>
+      {reviewStatus === 'PROCEEDING' &&
+        (!submitStatus ? <ReviewReplyStart /> : <ReviewReplyEdit />)}
+      {(reviewStatus === 'END' || reviewStatus === 'DEADLINE') && (
+        <ReviewReplyEnd />
       )}
     </div>
   )

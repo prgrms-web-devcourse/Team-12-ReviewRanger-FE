@@ -1,8 +1,12 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
+import { useLocation } from 'react-router-dom'
+import { QuestionOption } from '@/apis/hooks/useGetReviewForCreator'
 import { CheckIcon } from '@/assets/icons'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import {
+  ReviewReplyStartType,
+  ReviewReplyEditType,
+} from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoiceProps {
   receiverIndex: number
@@ -21,7 +25,10 @@ const ReplyChoice = ({
 }: ReplyChoiceProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
-  const { getValues, setValue } = useFormContext<ReviewReplyType>()
+  const { state } = useLocation()
+  const { getValues, setValue } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
 
   useEffect(() => {
     setSelectedOptionId(getValues(`${registerPath}.answerChoice`) || 0)
@@ -30,6 +37,10 @@ const ReplyChoice = ({
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,
   ) => {
+    if (state.status === 'END' || state.status === 'DEADLINE') {
+      return
+    }
+
     const selectedTarget = options.find(
       (option) => option.optionId == e.currentTarget.value,
     )?.optionId

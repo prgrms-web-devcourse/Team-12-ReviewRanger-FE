@@ -4,6 +4,7 @@ import { useInfiniteScroll } from '@/hooks'
 import { useGetReceivedReviews } from '@/apis/hooks'
 import { scrollToTop } from '@/utils'
 import { ReceivedReview } from '@/types'
+import ListSkeleton from '../ListSkeleton'
 import ReceivedReviewItem from './ReceivedReviewItem'
 
 interface ReceivedReviewListProps {
@@ -11,7 +12,8 @@ interface ReceivedReviewListProps {
 }
 
 const ReceivedReviewList = ({ handleClickReview }: ReceivedReviewListProps) => {
-  const { data, hasNextPage, fetchNextPage } = useGetReceivedReviews()
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useGetReceivedReviews()
 
   useEffect(() => {
     scrollToTop()
@@ -30,17 +32,20 @@ const ReceivedReviewList = ({ handleClickReview }: ReceivedReviewListProps) => {
   })
 
   return (
-    <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
-      {reviews.map((review) => (
-        <ReceivedReviewItem
-          handleClickReview={handleClickReview}
-          key={nanoid()}
-          className="btn flex h-36 flex-col items-stretch justify-between rounded-md border border-gray-100 bg-main-yellow p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
-          {...review}
-        />
-      ))}
-      <div ref={ref}></div>
-    </ul>
+    <>
+      <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
+        {reviews.map((review) => (
+          <ReceivedReviewItem
+            handleClickReview={handleClickReview}
+            key={nanoid()}
+            className="btn flex h-36 flex-col items-stretch justify-between rounded-md border border-gray-100 bg-main-yellow p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
+            {...review}
+          />
+        ))}
+        {isFetchingNextPage && <ListSkeleton />}
+        <div ref={ref}></div>
+      </ul>
+    </>
   )
 }
 
