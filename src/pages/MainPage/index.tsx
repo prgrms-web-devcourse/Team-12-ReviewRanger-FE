@@ -1,6 +1,6 @@
 import { Suspense, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Header } from '@/components'
+import { Header, TokenErrorBoundary } from '@/components'
 import { rangerIdle } from '@/assets/images'
 import {
   CreatedReviewList,
@@ -68,39 +68,41 @@ const MainPage = () => {
           </div>
         </PageIntro>
 
-        <Suspense
-          fallback={
-            <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
-              <ListSkeleton />
-            </ul>
-          }
-        >
-          {(() => {
-            switch (activeTab) {
-              case 'invited':
-                return (
-                  <InvitedReviewList
-                    handleClickReview={handleInvitedReviewClick}
-                  />
-                )
-              case 'created':
-                return (
-                  <CreatedReviewList
-                    handleClickReview={handleCreatedReviewClick}
-                    handleClickAddReview={() => navigate('review-creation')}
-                  />
-                )
-              case 'received':
-                return (
-                  <ReceivedReviewList
-                    handleClickReview={handleReceivedReviewClick}
-                  />
-                )
-              default:
-                return null
+        <TokenErrorBoundary>
+          <Suspense
+            fallback={
+              <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
+                <ListSkeleton />
+              </ul>
             }
-          })()}
-        </Suspense>
+          >
+            {(() => {
+              switch (activeTab) {
+                case 'invited':
+                  return (
+                    <InvitedReviewList
+                      handleClickReview={handleInvitedReviewClick}
+                    />
+                  )
+                case 'created':
+                  return (
+                    <CreatedReviewList
+                      handleClickReview={handleCreatedReviewClick}
+                      handleClickAddReview={() => navigate('review-creation')}
+                    />
+                  )
+                case 'received':
+                  return (
+                    <ReceivedReviewList
+                      handleClickReview={handleReceivedReviewClick}
+                    />
+                  )
+                default:
+                  return null
+              }
+            })()}
+          </Suspense>
+        </TokenErrorBoundary>
       </div>
     </>
   )
