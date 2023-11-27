@@ -1,7 +1,10 @@
 import { Suspense, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useToast } from '@/hooks'
 import { Header } from '@/components'
+import useDeleteReview from '@/apis/hooks/useDeleteReview'
 import { rangerIdle } from '@/assets/images'
+import { CreatedReview, InvitedReview, ReceivedReview } from '@/types'
 import {
   CreatedReviewList,
   InvitedReviewList,
@@ -13,24 +16,25 @@ import {
 import { INTRO_CONTENT, INTRO_STYLE } from './constants'
 
 const MainPage = () => {
+  const { mutate: deleteReview } = useDeleteReview()
+
   const navigate = useNavigate()
 
   const [activeTab, setActiveTab] = useState<
     'invited' | 'created' | 'received'
   >('invited')
 
+  const { addToast } = useToast()
+
   const handleInvitedReviewClick = ({
-    id,
+    reviewId,
     participationId,
     submitStatus,
     status,
-  }: {
-    id: number
-    participationId: number
+  }: Pick<InvitedReview, 'reviewId' | 'participationId' | 'status'> & {
     submitStatus: boolean
-    status: string
   }) => {
-    navigate(`review-response/${id}`, {
+    navigate(`review-response/${reviewId}`, {
       state: {
         participationId,
         submitStatus,
@@ -39,12 +43,37 @@ const MainPage = () => {
     })
   }
 
-  const handleCreatedReviewClick = (id: number) => {
-    navigate(`review-management/${id}`)
+  const handleCreatedReviewClick = ({
+    reviewId,
+  }: Pick<CreatedReview, 'reviewId'>) => {
+    navigate(`review-management/${reviewId}`)
   }
 
-  const handleReceivedReviewClick = (id: number) => {
+  const handleReceivedReviewClick = ({ id }: Pick<ReceivedReview, 'id'>) => {
     navigate(`review-result/${id}`)
+  }
+
+  const handleDeleteReview = ({
+    reviewId,
+    status,
+  }: Pick<CreatedReview, 'reviewId' | 'status'>) => {
+    if (status !== 'PROCEEDING') {
+      addToast({
+        message: '진행 중인 리뷰만 삭제할 수 있습니다.',
+        type: 'error',
+      })
+
+      return
+    }
+
+    deleteReview(
+      { reviewId },
+      {
+        onSuccess: () => {
+          addToast({ message: '리뷰가 삭제되었습니다.', type: 'success' })
+        },
+      },
+    )
   }
 
   const { desc1, desc2, title } = INTRO_CONTENT[activeTab]
@@ -87,7 +116,8 @@ const MainPage = () => {
                 return (
                   <CreatedReviewList
                     handleClickReview={handleCreatedReviewClick}
-                    handleClickAddReview={() => navigate('review-creation')}
+                    handleAddReview={() => navigate('review-creation')}
+                    handleDeleteReview={handleDeleteReview}
                   />
                 )
               case 'received':
