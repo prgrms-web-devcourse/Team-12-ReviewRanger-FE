@@ -14,7 +14,7 @@ const queryClient = new QueryClient({
       if (error.message.includes('401')) {
         setTimeout(() => {
           queryClient.clear()
-        }, 1000)
+        }, 100)
       }
     },
   }),
