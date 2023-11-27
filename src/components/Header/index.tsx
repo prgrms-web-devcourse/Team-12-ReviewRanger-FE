@@ -79,4 +79,3 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
 })
 
 export default Header
-
