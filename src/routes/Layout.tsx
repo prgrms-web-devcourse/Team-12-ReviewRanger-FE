@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { useDarkMode } from '@/hooks'
-import { QueryErrorBoundary } from '@/queries'
+import { QueryErrorBoundary } from '@/components'
 
 const Layout = () => {
   const { toggle } = useDarkMode()
