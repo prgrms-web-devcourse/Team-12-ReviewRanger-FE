@@ -64,7 +64,7 @@ const ReceiverReviewDetail = ({
               key={question?.id}
               answers={getAnswer(
                 question?.type,
-                question?.id + '',
+                question?.id,
                 getUserSelectedAnswers,
               )}
             />

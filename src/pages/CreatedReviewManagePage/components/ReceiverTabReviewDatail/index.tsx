@@ -39,25 +39,20 @@ const ReceiverReviewDetail = ({
     const answer = getAnswer(questionType, questionId, responseByReceiver)
     switch (questionType) {
       case 'HEXASTAT':
-        return answer
-          ?.map((value) => {
-            if ('name' in value)
-              return {
-                statName: value?.name,
-                statScore: value.value,
-              }
-          })
-          ?.filter((value) => value?.statScore !== 0)
+        return answer?.map((value) => {
+          if ('name' in value)
+            return {
+              statName: value?.name,
+              statScore: value.value,
+            }
+        })
+
       case 'SUBJECTIVE': {
-        return new Array(answer?.map((value) => value.value)?.join(''))?.filter(
-          (value) => value !== '',
-        )
+        return new Array(answer?.map((value) => value.value)?.join(''))
       }
 
       default:
-        return answer
-          ?.map((value) => value.value)
-          ?.filter((value) => value !== 0)
+        return answer?.map((value) => value.value)
     }
   }
 
@@ -69,7 +64,7 @@ const ReceiverReviewDetail = ({
     reviewDescription: getReviewQuestion?.description,
     replies: getReviewQuestion?.questions
       ?.map((question) => {
-        const combinedAnswer = formatAnswers(question.type, question.id + '')
+        const combinedAnswer = formatAnswers(question.type, Number(question.id))
 
         if (combinedAnswer.length > 0) {
           return {
@@ -131,7 +126,7 @@ const ReceiverReviewDetail = ({
               key={question?.id}
               answers={getAnswer(
                 question?.type,
-                question?.id + '',
+                question?.id,
                 responseByReceiver,
               )}
               onClickCleanButton={(newAnswer: string) => {
