@@ -2,9 +2,7 @@ import type { FallbackProps } from 'react-error-boundary'
 import { useNavigate } from 'react-router-dom'
 import { errorImg, errorLightImg, sansDark, sansLight } from '@/assets/images'
 
-const ErrorPage = ({ error, resetErrorBoundary }: Partial<FallbackProps>) => {
-  console.log('하잉')
-  console.log(error)
+const ErrorPage = ({ resetErrorBoundary }: FallbackProps) => {
   const navigate = useNavigate()
 
   return (
@@ -24,7 +22,10 @@ const ErrorPage = ({ error, resetErrorBoundary }: Partial<FallbackProps>) => {
       </p>
       <button
         className="btn w-full max-w-[15.625rem] rounded-md bg-active-orange text-lg text-white dark:text-black md:text-xl"
-        onClick={() => navigate('/')}
+        onClick={() => {
+          navigate('/')
+          resetErrorBoundary()
+        }}
       >
         홈으로
       </button>
