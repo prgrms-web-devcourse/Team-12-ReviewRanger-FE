@@ -6,7 +6,7 @@ import {
   useUser,
   useGetResponseByResponserForReviewReplyPage,
 } from '@/apis/hooks'
-import { Question } from '@/apis/hooks/useGetReviewForCreator'
+import { Question } from '@/types'
 import { ReviewReplyEndType } from '../../types'
 import ReviewReply from './ReviewReply'
 
