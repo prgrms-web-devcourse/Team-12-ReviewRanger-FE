@@ -1,5 +1,5 @@
 import { useNameCheck, usePasswordCheck } from '@/hooks'
-import { Header, Input } from '@/components'
+import { Header, Input, Modal } from '@/components'
 import { useUser } from '@/apis/hooks'
 import { BasicProfileIcon, CheckIcon, EditIcon } from '@/assets/icons'
 import { useEditNameCheck, useEditPasswordCheck } from './hooks'
@@ -25,6 +25,7 @@ const MyPage = () => {
   } = usePasswordCheck()
 
   const {
+    nameRef,
     editNameButton,
     handleEditNameStartingClick,
     handleEditNameEndingClick,
@@ -37,6 +38,7 @@ const MyPage = () => {
   })
 
   const {
+    passwordRef,
     editPasswordButton,
     handleEditPasswordStartingClick,
     handleEditPasswordEndingClick,
@@ -66,10 +68,9 @@ const MyPage = () => {
                 value={name}
               />
               <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
-                <CheckIcon
-                  className="h-4 w-4 cursor-pointer fill-sub-green"
-                  onClick={handleEditNameEndingClick}
-                />
+                <label htmlFor="edit-name" ref={nameRef}>
+                  <CheckIcon className="h-4 w-4 cursor-pointer fill-sub-green" />
+                </label>
               </div>
             </div>
           ) : (
@@ -89,9 +90,8 @@ const MyPage = () => {
             {user?.email}
           </div>
         </div>
-
         {editPasswordButton ? (
-          <div className="flex flex-col items-center justify-center gap-5">
+          <form className="flex flex-col items-center justify-center gap-5">
             <Input
               className="!w-64"
               type="password"
@@ -105,12 +105,22 @@ const MyPage = () => {
               message={passwordConfirmFailMessage}
             />
             <button
-              className="h-10 w-64 max-w-xs rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
-              onClick={handleEditPasswordEndingClick}
+              type="button"
+              className="z-10 h-10 w-64 max-w-xs rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
             >
-              변경 완료
+              {!(passwordFailMessage || passwordConfirmFailMessage) ? (
+                <label
+                  ref={passwordRef}
+                  htmlFor="edit-password"
+                  className="flex h-full w-full items-center justify-center"
+                >
+                  변경 완료
+                </label>
+              ) : (
+                <p>변경 완료</p>
+              )}
             </button>
-          </div>
+          </form>
         ) : (
           <button
             className="h-10 w-64 max-w-xs rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
@@ -120,6 +130,18 @@ const MyPage = () => {
           </button>
         )}
       </div>
+      <Modal
+        modalId="edit-name"
+        content={`'${name}'로 이름을 변경하시겠습니까?`}
+        label="변경"
+        handleClickLabel={handleEditNameEndingClick}
+      />
+      <Modal
+        modalId="edit-password"
+        content={`비밀번호를 변경하시겠습니까?`}
+        label="변경"
+        handleClickLabel={handleEditPasswordEndingClick}
+      />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { useEditName, useUser } from '@/apis/hooks'
 import { DUPLICATED_MESSAGE } from '@/constants'
 
@@ -18,6 +18,7 @@ const useEditNameCheck = ({
   setNameFailMessage,
 }: UseEditNameCheckProps) => {
   const [editNameButton, setEditNameButton] = useState<boolean>(false)
+  const nameRef = useRef<HTMLLabelElement>(null)
   const { mutate: editName } = useEditName()
   const { refetch } = useUser()
 
@@ -27,6 +28,9 @@ const useEditNameCheck = ({
   }
 
   const handleEditNameEndingClick = () => {
+    if (nameRef.current) {
+      nameRef.current.click()
+    }
     if (currentName === name || !name) {
       setEditNameButton(false)
 
@@ -54,6 +58,7 @@ const useEditNameCheck = ({
   }
 
   return {
+    nameRef,
     editNameButton,
     handleEditNameStartingClick,
     handleEditNameEndingClick,

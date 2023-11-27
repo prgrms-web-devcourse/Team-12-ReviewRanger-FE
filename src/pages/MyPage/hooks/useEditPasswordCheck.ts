@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useEditPassword } from '@/apis/hooks'
 
 interface UseEditPasswordCheckProps {
@@ -15,6 +15,7 @@ const useEditPasswordCheck = ({
   passwordConfirmFailMessage,
 }: UseEditPasswordCheckProps) => {
   const [editPasswordButton, setEditPasswordButton] = useState<boolean>(false)
+  const passwordRef = useRef<HTMLLabelElement>(null)
   const { mutate: editPassword } = useEditPassword()
 
   const handleEditPasswordStartingClick = () => {
@@ -22,6 +23,9 @@ const useEditPasswordCheck = ({
   }
 
   const handleEditPasswordEndingClick = () => {
+    if (passwordRef.current) {
+      passwordRef.current.click()
+    }
     if (!password && !passwordConfirm) {
       setEditPasswordButton(false)
 
@@ -39,6 +43,7 @@ const useEditPasswordCheck = ({
   }
 
   return {
+    passwordRef,
     editPasswordButton,
     handleEditPasswordStartingClick,
     handleEditPasswordEndingClick,
