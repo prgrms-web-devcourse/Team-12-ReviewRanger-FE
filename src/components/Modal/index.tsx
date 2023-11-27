@@ -1,29 +1,30 @@
-import { PropsWithChildren } from 'react'
 import { CloseIcon } from '@/assets/icons'
 
 interface ModalProps {
+  modalId: string | number
   content: string
   label: string
   handleClickLabel: () => void
-  handleCloseModal?: () => void
+  handleClose?: () => void
 }
 
 const Modal = ({
-  children,
+  modalId,
   content,
   label,
   handleClickLabel,
-  handleCloseModal,
-}: PropsWithChildren<ModalProps>) => {
+  handleClose,
+}: ModalProps) => {
+  const id = modalId.toString()
+
   return (
     <>
-      {children}
-      <input className="modal-state" id="modal-1" type="checkbox" />
+      <input className="modal-state" id={id} type="checkbox" />
       <div className="modal">
-        <label className="modal-overlay" htmlFor="modal-1"></label>
+        <label className="modal-overlay" htmlFor={id}></label>
         <div className="modal-content flex w-80 flex-col items-center gap-8 rounded-md bg-white p-5 dark:bg-main-gray">
           <label
-            htmlFor="modal-1"
+            htmlFor={id}
             className="btn h-fit w-fit justify-center self-end bg-transparent p-0"
           >
             <CloseIcon className="dark:fill-white" />
@@ -33,9 +34,9 @@ const Modal = ({
           </span>
           <div className="flex w-full gap-6">
             <label
-              htmlFor="modal-1"
+              htmlFor={id}
               className="btn w-full rounded-md border border-gray-300 bg-transparent px-8 text-base dark:border-gray-100 dark:text-white"
-              onClick={handleCloseModal}
+              onClick={handleClose}
             >
               취소
             </label>
