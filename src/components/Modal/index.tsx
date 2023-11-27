@@ -25,7 +25,6 @@ const Modal = ({
           <label
             htmlFor="modal-1"
             className="btn h-fit w-fit justify-center self-end bg-transparent p-0"
-            onClick={(e) => e.stopPropagation()}
           >
             <CloseIcon className="dark:fill-white" />
           </label>
