@@ -2,7 +2,7 @@ import { Suspense, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useToast } from '@/hooks'
 import { Header, TokenErrorBoundary } from '@/components'
-import useDeleteReview from '@/apis/hooks/useDeleteReview'
+import { useDeleteReview } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
 import { CreatedReview, InvitedReview, ReceivedReview } from '@/types'
 import {
