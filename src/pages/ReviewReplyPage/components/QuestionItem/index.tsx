@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
-import { Question } from '@/apis/hooks/useGetReviewForCreator'
+import { Question } from '@/types'
 import { ReviewReplyStartType, ReviewReplyEditType } from '../../types'
 
 interface QuestionItemProps {
