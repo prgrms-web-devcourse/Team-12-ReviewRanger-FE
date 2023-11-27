@@ -26,7 +26,7 @@ const TokenErrorBoundary = ({ children }: PropsWithChildren) => {
           throw error
         }
       }}
-      fallbackRender={() => null}
+      fallbackRender={() => <></>}
     >
       {children}
     </ErrorBoundary>
