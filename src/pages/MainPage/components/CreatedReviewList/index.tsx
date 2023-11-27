@@ -11,11 +11,16 @@ import CreatedReviewItem from './CreatedReviewItem'
 interface CreatedReviewListProps {
   handleClickReview: ({ reviewId }: Pick<CreatedReview, 'reviewId'>) => void
   handleAddReview: () => void
+  handleDeleteReview: ({
+    reviewId,
+    status,
+  }: Pick<CreatedReview, 'reviewId' | 'status'>) => void
 }
 
 const CreatedReviewList = ({
   handleClickReview,
   handleAddReview,
+  handleDeleteReview,
 }: CreatedReviewListProps) => {
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetCreatedReviews()
@@ -49,8 +54,8 @@ const CreatedReviewList = ({
         {reviews.map((review) => (
           <CreatedReviewItem
             handleClickReview={handleClickReview}
+            handleDeleteReview={handleDeleteReview}
             key={nanoid()}
-            className="btn flex h-36 flex-col items-stretch justify-between rounded-md border border-gray-100 bg-main-yellow p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
             {...review}
           />
         ))}

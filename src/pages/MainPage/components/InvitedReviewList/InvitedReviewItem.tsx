@@ -3,7 +3,6 @@ import { InvitedReview } from '@/types'
 import { STATUS, STATUS_STYLE } from '../../constants'
 
 interface InvitedReviewItemProps extends InvitedReview {
-  className: string
   handleClickReview: ({
     reviewId,
     participationId,
@@ -20,12 +19,11 @@ const InvitedReviewItem = ({
   title,
   status,
   submitAt,
-  className,
   handleClickReview,
 }: InvitedReviewItemProps) => {
   return (
     <div
-      className={className}
+      className="btn flex h-36 flex-col items-stretch justify-between rounded-md border border-gray-100 bg-main-yellow p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
       onClick={() =>
         handleClickReview({
           reviewId,
