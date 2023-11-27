@@ -16,11 +16,11 @@ const TokenErrorBoundary = ({ children }: PropsWithChildren) => {
       onReset={reset}
       onError={(error) => {
         if (isAxiosError(error) && error.response?.status === 401) {
+          localStorage.removeItem(TOKEN_KEY)
           addToast({
             message: '토큰이 만료되었습니다. 다시 로그인해주세요.',
             type: 'error',
           })
-          localStorage.removeItem(TOKEN_KEY)
           navigate('/login')
         } else {
           throw error
