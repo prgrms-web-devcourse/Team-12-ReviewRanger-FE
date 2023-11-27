@@ -1,11 +1,19 @@
+import { ChangeEvent, useRef } from 'react'
 import { useNameCheck, usePasswordCheck } from '@/hooks'
 import { Header, Input } from '@/components'
-import { useUser } from '@/apis/hooks'
-import { BasicProfileIcon, CheckIcon, EditIcon } from '@/assets/icons'
+import { useEditImage, useUser } from '@/apis/hooks'
+import {
+  BasicProfileIcon,
+  CheckIcon,
+  EditIcon,
+  ImageIcon,
+} from '@/assets/icons'
 import { useEditNameCheck, useEditPasswordCheck } from './hooks'
 
 const MyPage = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const { data: user } = useUser()
+  const { mutate: editImage } = useEditImage()
 
   const {
     name,
@@ -47,12 +55,46 @@ const MyPage = () => {
     passwordConfirmFailMessage,
   })
 
+  const handleClickImageButton = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+
+  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files) {
+      const formData = new FormData()
+      formData.append('image', e.currentTarget.files[0])
+      editImage(
+        { image: formData },
+        {
+          onSuccess: ({ data }) => console.log(data),
+        },
+      )
+    }
+  }
+
   return (
     <div className="flex h-screen flex-col">
       <Header />
       <div className="flex h-full flex-col items-center gap-6 bg-main-ivory pt-28 dark:bg-main-red-100 md:pt-48">
-        <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border bg-white dark:bg-black">
-          <BasicProfileIcon className="h-20 w-20" />
+        <div className="relative flex">
+          <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border bg-white dark:bg-black">
+            <BasicProfileIcon className="h-20 w-20" />
+          </div>
+          <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
+            <ImageIcon
+              className="z-10 h-4 w-4 cursor-pointer dark:stroke-white"
+              onClick={handleClickImageButton}
+            />
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept="image/png, image/jpeg, image/jpg"
+              className="hidden"
+              onChange={handleChangeImage}
+            />
+          </div>
         </div>
         <div className="mb-4 flex flex-col items-center gap-2">
           {editNameButton ? (

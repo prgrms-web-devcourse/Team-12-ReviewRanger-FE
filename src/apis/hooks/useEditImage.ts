@@ -6,21 +6,15 @@ interface EditImage {
 }
 
 const useEditImage = () => {
-  const editPassword = async ({ image }: { image: File }) => {
-    return await apiClient.put<EditImage>(
-      '/members/profile-image',
-      {
-        image,
+  const editImage = async ({ image }: { image: FormData }) => {
+    return await apiClient.put<EditImage>('/members/profile-image', image, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
       },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    )
+    })
   }
 
-  return useMutation({ mutationFn: editPassword })
+  return useMutation({ mutationFn: editImage })
 }
 
 export default useEditImage
