@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
+import { Modal } from '@/components'
 import {
   useEditResponse,
   useGetReviewForParticipation,
@@ -18,13 +19,15 @@ const ReviewReplyEdit = () => {
   const { addToast } = useToast()
   const reviewId = parseInt(pathname.split('/').at(-1) as string)
   const [initModal, setInitModal] = useState(true)
+  const labelRef = useRef<HTMLLabelElement>(null)
+  const hasMounted = useRef(false)
 
   const { data: user } = useUser()
+  const { data: reviewData } = useGetReviewForParticipation({ id: reviewId })
   const { data: prevReplyData } = useGetResponseByResponserForParticipation({
     reviewId,
     responserId: user?.id as number,
   })
-  const { data: reviewData } = useGetReviewForParticipation({ id: reviewId })
   const { mutate: editResponse } = useEditResponse()
   const { title, questions } = reviewData
 
@@ -50,8 +53,21 @@ const ReviewReplyEdit = () => {
     name: 'replyTargets',
   })
 
+  useEffect(() => {
+    if (hasMounted.current) {
+      if (labelRef.current) {
+        labelRef.current.click()
+      }
+    } else {
+      hasMounted.current = true
+    }
+  }, [])
+
   const handleClickModal = () => {
     setInitModal(false)
+    if (labelRef.current) {
+      labelRef.current.click()
+    }
     prevReplyData.forEach((receiverData) => {
       const { replies, receiver, responser } = receiverData
       const replyTarget = {
@@ -85,6 +101,10 @@ const ReviewReplyEdit = () => {
     })
   }
 
+  const handleClickCancelModal = () => {
+    navigate('/')
+  }
+
   const handleSubmitReply = () => {
     const requestData = {
       id: state.participationId,
@@ -105,19 +125,7 @@ const ReviewReplyEdit = () => {
   return (
     <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
       <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
-      {initModal ? (
-        <div className="flex h-full w-full items-center justify-center">
-          <div className="flex h-56 w-96 flex-col items-center justify-between rounded-md bg-gray-400 p-8">
-            <p className="whitespace-pre-wrap">{`이전에 작성한 답변이 남아 있습니다.\n계속 진행하시겠습니까?`}</p>
-            <button
-              onClick={handleClickModal}
-              className="rounded-md bg-green-300 px-4 py-2"
-            >
-              확인
-            </button>
-          </div>
-        </div>
-      ) : (
+      {!initModal && (
         <FormProvider {...methods}>
           <ReviewReply
             reviewData={reviewData}
@@ -125,6 +133,14 @@ const ReviewReplyEdit = () => {
           />
         </FormProvider>
       )}
+      <label ref={labelRef} htmlFor="review-previous-reply-load" />
+      <Modal
+        modalId="review-previous-reply-load"
+        content={`이전에 작성한 답변이 남아 있습니다.\n계속 진행하시겠습니까?`}
+        label="확인"
+        handleClickLabel={handleClickModal}
+        handleClose={handleClickCancelModal}
+      />
     </div>
   )
 }

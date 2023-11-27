@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Modal } from '@/components'
 import {
   useGetReviewForParticipation,
   useUser,
@@ -11,9 +12,12 @@ import { ReviewReplyEndType } from '../../types'
 import ReviewReply from './ReviewReply'
 
 const ReviewReplyEnd = () => {
+  const navigate = useNavigate()
   const { pathname, state } = useLocation()
   const reviewId = parseInt(pathname.split('/').at(-1) as string)
   const [initModal, setInitModal] = useState(true)
+  const labelRef = useRef<HTMLLabelElement>(null)
+  const hasMounted = useRef(false)
 
   const { data: user } = useUser()
   const { data: prevReplyData } = useGetResponseByResponserForParticipation({
@@ -39,8 +43,21 @@ const ReviewReplyEnd = () => {
     name: 'replyTargets',
   })
 
+  useEffect(() => {
+    if (hasMounted.current) {
+      if (labelRef.current) {
+        labelRef.current.click()
+      }
+    } else {
+      hasMounted.current = true
+    }
+  }, [])
+
   const handleClickModal = () => {
     setInitModal(false)
+    if (labelRef.current) {
+      labelRef.current.click()
+    }
     prevReplyData.forEach((receiverData) => {
       const { replies, receiver, responser } = receiverData
       const replyTarget = {
@@ -74,26 +91,26 @@ const ReviewReplyEnd = () => {
     })
   }
 
+  const handleClickCancelModal = () => {
+    navigate('/')
+  }
+
   return (
     <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
       <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
-      {initModal ? (
-        <div className="flex h-full w-full items-center justify-center">
-          <div className="flex h-56 w-96 flex-col items-center justify-between rounded-md bg-gray-400 p-8">
-            <p className="whitespace-pre-wrap">{`이미 종료된 설문입니다.\n답변하신 내용을 확인하시겠습니까?`}</p>
-            <button
-              onClick={handleClickModal}
-              className="rounded-md bg-green-300 px-4 py-2"
-            >
-              확인
-            </button>
-          </div>
-        </div>
-      ) : (
+      {!initModal && (
         <FormProvider {...methods}>
           <ReviewReply reviewData={reviewData} />
         </FormProvider>
       )}
+      <label ref={labelRef} htmlFor="review-previous-reply-load" />
+      <Modal
+        modalId="review-previous-reply-load"
+        content={`이미 종료된 설문입니다.\n답변하신 내용을 확인하시겠습니까?`}
+        label="확인"
+        handleClickLabel={handleClickModal}
+        handleClose={handleClickCancelModal}
+      />
     </div>
   )
 }
