@@ -1,1 +1,2 @@
-export { default as QueryErrorBoundary } from './QueryErrorBoundary'
+export { default as TokenErrorBoundary } from './TokenErrorBoundary'
+export { default as ApiErrorBoundary } from './ApiErrorBoundary'
