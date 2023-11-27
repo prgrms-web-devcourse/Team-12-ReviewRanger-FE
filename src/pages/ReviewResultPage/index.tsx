@@ -30,7 +30,6 @@ ChartJS.register(
   SubTitle,
 )
 
-//리뷰 결과 페이지
 const ReviewResultPage = () => {
   const reviewId = parseInt(useLocation().pathname.split('/').at(-1) || '1')
   const [{ data: review }, { data: results }] = useGetReceivedReview(reviewId)
@@ -105,7 +104,7 @@ const ReviewResultPage = () => {
             ),
           )}
         </ul>
-        <button className="btn mt-5 self-end rounded-md border border-gray-200 bg-main-yellow text-base dark:border-gray-200 dark:bg-gray-300 dark:text-white md:text-lg">
+        <button className="btn mt-5 self-end rounded-md border border-gray-200 bg-main-hover-yellow text-base dark:border-gray-200 dark:bg-gray-300 dark:text-white md:text-lg">
           pdf로 저장
         </button>
       </div>
