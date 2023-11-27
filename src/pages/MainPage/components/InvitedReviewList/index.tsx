@@ -9,15 +9,12 @@ import InvitedReviewItem from './InvitedReviewItem'
 
 interface InvitedReviewListProps {
   handleClickReview: ({
-    id,
+    reviewId,
     participationId,
     submitStatus,
     status,
-  }: {
-    id: number
-    participationId: number
+  }: Pick<InvitedReview, 'reviewId' | 'participationId' | 'status'> & {
     submitStatus: boolean
-    status: string
   }) => void
 }
 
@@ -48,7 +45,6 @@ const InvitedReviewList = ({ handleClickReview }: InvitedReviewListProps) => {
           <InvitedReviewItem
             handleClickReview={handleClickReview}
             key={nanoid()}
-            className="btn flex h-36 flex-col items-stretch justify-between rounded-md border border-gray-100 bg-main-yellow p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
             {...review}
           />
         ))}

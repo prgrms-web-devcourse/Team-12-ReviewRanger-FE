@@ -9,7 +9,11 @@ const Toggle = ({
   className = '',
 }: PropsWithChildren<ToggleProps>) => {
   return (
-    <label className={`${className}`} tabIndex={0}>
+    <label
+      className={`${className}`}
+      tabIndex={0}
+      onClick={(e) => e.stopPropagation()}
+    >
       {children}
     </label>
   )

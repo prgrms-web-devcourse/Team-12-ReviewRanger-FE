@@ -2,8 +2,8 @@ import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
 import { Profile, SearchBar } from '@/components'
 import { useUser } from '@/apis/hooks'
-import { Question } from '@/apis/hooks/useGetReviewForCreator'
 import { CloseIcon } from '@/assets/icons'
+import { Question } from '@/types'
 import { ReviewReplyStartType } from '../../types'
 
 interface ReceiverSelectProps {
