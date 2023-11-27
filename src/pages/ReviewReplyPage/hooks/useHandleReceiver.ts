@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from 'react'
-import { Receiver } from '@/apis/hooks/useGetReviewForCreator'
+import { Receiver } from '@/types'
 
 interface UseHandleReceiverProps {
   receivers: Receiver[]

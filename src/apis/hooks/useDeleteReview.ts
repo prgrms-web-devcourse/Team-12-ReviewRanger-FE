@@ -1,12 +1,21 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
-const useDeleteSurvey = () => {
-  const deleteSurvey = async ({ surveyId }: { surveyId: string }) => {
-    return await apiClient.delete(`/surveys/${surveyId}`)
-  }
-
-  return useMutation({ mutationFn: deleteSurvey })
+const deleteReview = async ({ reviewId }: { reviewId: number }) => {
+  return await apiClient.delete(`/reviews/${reviewId}`)
 }
 
-export default useDeleteSurvey
+const useDeleteReview = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: deleteReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['/reviews', '/participation'],
+      })
+    },
+  })
+}
+
+export default useDeleteReview

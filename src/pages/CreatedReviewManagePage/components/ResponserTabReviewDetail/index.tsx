@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { useGetReviewForCreator, useGetResponseByResponser } from '@/apis/hooks'
+import {
+  useGetReviewQuestion,
+  useGetResponseByResponserForCreator,
+} from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { getAnswer } from '@/pages/CreatedReviewManagePage/utils'
 import { SelectResponseUser, ProfileGroup, AnswerGroup } from '..'
@@ -20,7 +23,7 @@ const ReceiverReviewDetail = ({
     id: Number(reviewId),
   })
 
-  const { data: responseByReceiver } = useGetResponseByResponser({
+  const { data: responseByReceiver } = useGetResponseByResponserForCreator({
     responserId,
     reviewId,
   }).data
