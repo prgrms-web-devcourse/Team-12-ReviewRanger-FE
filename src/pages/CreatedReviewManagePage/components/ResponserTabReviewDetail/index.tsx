@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  useGetReviewQuestion,
+  useGetReviewForCreator,
   useGetResponseByResponserForCreator,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
