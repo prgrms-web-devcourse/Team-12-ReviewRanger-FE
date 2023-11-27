@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { Header } from '@/components'
 import {
   useCloseSurvey,
-  useGetReviewQuestion,
+  useGetReviewForCreator,
   useCheckAllReceiverReceived,
   useSendReview,
 } from '@/apis/hooks'
@@ -27,8 +27,8 @@ const CreatedReviewManagePage = () => {
   )
 
   //NOTE - 리뷰의 질문을 가져온다!
-  const { data: getReviewQuestion } = useGetReviewQuestion({
-    id: reviewId,
+  const { data: getReviewQuestion } = useGetReviewForCreator({
+    id: Number(reviewId),
   })
 
   const { data: checkAllReceiverReceived } = useCheckAllReceiverReceived({
@@ -45,7 +45,7 @@ const CreatedReviewManagePage = () => {
   const handleClickSendSurvey = () => {
     if (
       !checkAllReceiverReceived?.success ||
-      getReviewQuestion.data.status === 'END'
+      getReviewQuestion?.status === 'END'
     ) {
       //NOTE - 토스트 처리
 
@@ -91,14 +91,12 @@ const CreatedReviewManagePage = () => {
       </div>
 
       <div className="mx-auto flex w-full max-w-[800px] flex-col px-5 py-7 md:p-10">
-        <h1 className="text-xl md:text-2xl">
-          {getReviewQuestion?.data?.title}
-        </h1>
+        <h1 className="text-xl md:text-2xl">{getReviewQuestion?.title}</h1>
         <h2 className="mt-3 text-sm md:mt-4 md:text-xl">
-          {getReviewQuestion?.data?.description}
+          {getReviewQuestion?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        {getReviewQuestion?.data?.status === 'PROCEEDING' ? (
+        {getReviewQuestion?.status === 'PROCEEDING' ? (
           <button
             className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
@@ -113,7 +111,7 @@ const CreatedReviewManagePage = () => {
           `}
             disabled={
               !checkAllReceiverReceived?.success ||
-              getReviewQuestion?.data?.status === 'END'
+              getReviewQuestion?.status === 'END'
             }
             onClick={handleClickSendSurvey}
           >
