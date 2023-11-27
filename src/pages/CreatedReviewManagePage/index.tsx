@@ -1,7 +1,9 @@
 //생성한 리뷰 관리 페이지
 
+import { AxiosError } from 'axios'
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useToast } from '@/hooks'
 import { Header } from '@/components'
 import {
   useCloseSurvey,
@@ -19,6 +21,7 @@ import {
 const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
   //NOTE - 리뷰ID
+  const { addToast } = useToast()
   const reviewId = pathname.split('/').at(-1) ?? ''
 
   //NOTE - 작성자별 탭인지, 수신자별 탭인지
@@ -39,7 +42,16 @@ const CreatedReviewManagePage = () => {
 
   const { mutate: sendReview } = useSendReview()
   const handleClickSurveyClose = () => {
-    closeReview()
+    closeReview(undefined, {
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          addToast({
+            message: error?.response?.data.message,
+            type: 'error',
+          })
+        }
+      },
+    })
   }
 
   const handleClickSendSurvey = () => {
@@ -101,7 +113,6 @@ const CreatedReviewManagePage = () => {
             className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
             onClick={handleClickSurveyClose}
-            disabled={!checkAllReceiverReceived?.success}
           >
             설문 마감
           </button>
