@@ -66,7 +66,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
                   <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="w-40 rounded-sm">
-                  <Dropdown.Item defaultClose={false}>
+                  <Dropdown.Item enabled={false}>
                     <p className="text-xl">{user.name}</p>
                   </Dropdown.Item>
                   <Dropdown.Divider />
