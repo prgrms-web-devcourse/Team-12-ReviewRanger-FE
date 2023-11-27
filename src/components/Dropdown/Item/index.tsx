@@ -1,22 +1,25 @@
-import { PropsWithChildren } from 'react'
+import { HTMLAttributes, PropsWithChildren } from 'react'
 
-interface ItemProps {
-  onClick?: () => void
+interface ItemProps extends HTMLAttributes<HTMLAnchorElement> {
   defaultClose?: boolean
+  enabled?: boolean
 }
 
 const Item = ({
   children,
-  onClick,
-  defaultClose = true,
+  defaultClose = false,
+  enabled = true,
+  ...props
 }: PropsWithChildren<ItemProps>) => {
   return (
     <a
       className={`dropdown-item rounded-none text-center text-sm dark:text-white md:text-lg ${
-        defaultClose ? 'hover:bg-gray-400 dark:hover:bg-gray-300' : ''
+        enabled
+          ? 'hover:bg-gray-400 dark:hover:bg-gray-300'
+          : 'cursor-auto hover:bg-white dark:hover:bg-main-gray'
       }`}
       tabIndex={defaultClose ? undefined : -1}
-      onClick={onClick}
+      {...props}
     >
       {children}
     </a>
