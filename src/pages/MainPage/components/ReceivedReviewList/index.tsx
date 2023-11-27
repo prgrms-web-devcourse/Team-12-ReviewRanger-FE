@@ -8,7 +8,7 @@ import ListSkeleton from '../ListSkeleton'
 import ReceivedReviewItem from './ReceivedReviewItem'
 
 interface ReceivedReviewListProps {
-  handleClickReview: (id: number) => void
+  handleClickReview: ({ id }: Pick<ReceivedReview, 'id'>) => void
 }
 
 const ReceivedReviewList = ({ handleClickReview }: ReceivedReviewListProps) => {
@@ -38,7 +38,6 @@ const ReceivedReviewList = ({ handleClickReview }: ReceivedReviewListProps) => {
           <ReceivedReviewItem
             handleClickReview={handleClickReview}
             key={nanoid()}
-            className="btn flex h-36 flex-col items-stretch justify-between rounded-md border border-gray-100 bg-main-yellow p-2.5 transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
             {...review}
           />
         ))}
