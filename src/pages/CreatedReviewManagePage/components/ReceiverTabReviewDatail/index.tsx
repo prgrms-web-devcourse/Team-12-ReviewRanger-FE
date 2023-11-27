@@ -39,23 +39,25 @@ const ReceiverReviewDetail = ({
     const answer = getAnswer(questionType, questionId, responseByReceiver)
     switch (questionType) {
       case 'HEXASTAT':
-        return answer?.map((value) => {
-          if ('name' in value)
-            return {
-              statName: value?.name,
-              statScore: value.value,
-            }
-        })
-      case 'SUBJECTIVE':
-        return new Array(
-          answer
-            ?.map((value) => value.value)
-            ?.flat()
-            ?.toString()
-            ?.replace(/,/g, ''),
+        return answer
+          ?.map((value) => {
+            if ('name' in value)
+              return {
+                statName: value?.name,
+                statScore: value.value,
+              }
+          })
+          ?.filter((value) => value?.statScore !== 0)
+      case 'SUBJECTIVE': {
+        return new Array(answer?.map((value) => value.value)?.join(''))?.filter(
+          (value) => value !== '',
         )
+      }
+
       default:
-        return answer?.map((value) => value.value)
+        return answer
+          ?.map((value) => value.value)
+          ?.filter((value) => value !== 0)
     }
   }
 
@@ -65,14 +67,20 @@ const ReceiverReviewDetail = ({
     reviewId,
     reviewTitle: getReviewQuestion?.title,
     reviewDescription: getReviewQuestion?.description,
-    replies: getReviewQuestion?.questions?.map((question) => {
-      return {
-        questionId: question.id,
-        questionTitle: question.title,
-        questionType: question.type,
-        answers: formatAnswers(question.type, question.id),
-      }
-    }),
+    replies: getReviewQuestion?.questions
+      ?.map((question) => {
+        const combinedAnswer = formatAnswers(question.type, question.id)
+
+        if (combinedAnswer.length > 0) {
+          return {
+            questionId: question.id,
+            questionTitle: question.title,
+            questionType: question.type,
+            answers: combinedAnswer,
+          }
+        }
+      })
+      ?.filter((result) => typeof result !== 'undefined'),
   }
 
   const { mutate: saveFinalResult } = useSaveFinalResult(saveFinalReviewResult)
