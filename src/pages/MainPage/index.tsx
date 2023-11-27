@@ -23,15 +23,18 @@ const MainPage = () => {
     id,
     participationId,
     submitStatus,
+    status,
   }: {
     id: number
     participationId: number
     submitStatus: boolean
+    status: string
   }) => {
     navigate(`review-response/${id}`, {
       state: {
         participationId,
         submitStatus,
+        status,
       },
     })
   }

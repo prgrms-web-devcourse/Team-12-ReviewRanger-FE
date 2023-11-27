@@ -12,10 +12,12 @@ interface InvitedReviewListProps {
     id,
     participationId,
     submitStatus,
+    status,
   }: {
     id: number
     participationId: number
     submitStatus: boolean
+    status: string
   }) => void
 }
 

@@ -8,10 +8,12 @@ interface InvitedReviewItemProps extends InvitedReview {
     id,
     participationId,
     submitStatus,
+    status,
   }: {
     id: number
     participationId: number
     submitStatus: boolean
+    status: string
   }) => void
 }
 
@@ -32,6 +34,7 @@ const InvitedReviewItem = ({
           id: reviewId,
           participationId,
           submitStatus: !!submitAt,
+          status,
         })
       }
     >
