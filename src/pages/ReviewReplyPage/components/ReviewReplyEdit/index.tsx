@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useToast } from '@/hooks'
 import {
   useEditResponse,
   useGetReviewForParticipation,
@@ -14,6 +15,7 @@ import ReviewReply from './ReviewReply'
 const ReviewReplyEdit = () => {
   const navigate = useNavigate()
   const { pathname, state } = useLocation()
+  const { addToast } = useToast()
   const reviewId = parseInt(pathname.split('/').at(-1) as string)
   const [initModal, setInitModal] = useState(true)
 
@@ -90,7 +92,13 @@ const ReviewReplyEdit = () => {
     }
 
     editResponse(requestData, {
-      onSuccess: () => navigate('/'),
+      onSuccess: () => {
+        addToast({
+          message: '리뷰 답변 수정이 완료되었습니다.',
+          type: 'success',
+        })
+        navigate('/')
+      },
     })
   }
 
