@@ -16,9 +16,8 @@ interface Reply {
   answerChoice: AnswerChoice | null
 }
 
-interface User {
+export interface User {
   id: number
-  email: string
   name: string
 }
 interface Data {

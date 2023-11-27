@@ -1,5 +1,6 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { useLocation } from 'react-router-dom'
 import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import {
   ReviewReplyStartType,
@@ -23,6 +24,7 @@ const ReplyChoice = ({
 }: ReplyChoiceProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
+  const { state } = useLocation()
   const { getValues, setValue, register } = useFormContext<
     ReviewReplyStartType | ReviewReplyEditType
   >()
@@ -58,6 +60,7 @@ const ReplyChoice = ({
         {
           onChange: handleClickOption,
         })}
+        disabled={state.status === 'END' || state.status === 'DEADLINE'}
       >
         <option key={0} value={0}>
           선택하세요.
