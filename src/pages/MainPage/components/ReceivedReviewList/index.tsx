@@ -8,7 +8,7 @@ import ListSkeleton from '../ListSkeleton'
 import ReceivedReviewItem from './ReceivedReviewItem'
 
 interface ReceivedReviewListProps {
-  handleClickReview: (id: number) => void
+  handleClickReview: ({ id }: Pick<ReceivedReview, 'id'>) => void
 }
 
 const ReceivedReviewList = ({ handleClickReview }: ReceivedReviewListProps) => {

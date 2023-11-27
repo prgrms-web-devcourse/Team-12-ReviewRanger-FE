@@ -9,15 +9,12 @@ import InvitedReviewItem from './InvitedReviewItem'
 
 interface InvitedReviewListProps {
   handleClickReview: ({
-    id,
+    reviewId,
     participationId,
     submitStatus,
     status,
-  }: {
-    id: number
-    participationId: number
+  }: Pick<InvitedReview, 'reviewId' | 'participationId' | 'status'> & {
     submitStatus: boolean
-    status: string
   }) => void
 }
 

@@ -3,7 +3,7 @@ import { ReceivedReview } from '@/types'
 
 interface ReceivedReviewItemProps extends ReceivedReview {
   className: string
-  handleClickReview: (id: number) => void
+  handleClickReview: ({ id }: Pick<ReceivedReview, 'id'>) => void
 }
 
 const ReceivedReviewItem = ({
@@ -14,7 +14,7 @@ const ReceivedReviewItem = ({
   handleClickReview,
 }: ReceivedReviewItemProps) => {
   return (
-    <div className={className} onClick={() => handleClickReview(id)}>
+    <div className={className} onClick={() => handleClickReview({ id })}>
       <div className="flex"></div>
 
       <p className="line-clamp-2 text-center text-base text-black dark:text-sub-red-100 md:text-xl">

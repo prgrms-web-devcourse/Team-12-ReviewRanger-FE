@@ -9,13 +9,13 @@ import { ListSkeleton } from '..'
 import CreatedReviewItem from './CreatedReviewItem'
 
 interface CreatedReviewListProps {
-  handleClickReview: (id: number) => void
-  handleClickAddReview: () => void
+  handleClickReview: ({ reviewId }: Pick<CreatedReview, 'reviewId'>) => void
+  handleAddReview: () => void
 }
 
 const CreatedReviewList = ({
   handleClickReview,
-  handleClickAddReview,
+  handleAddReview,
 }: CreatedReviewListProps) => {
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetCreatedReviews()
@@ -41,7 +41,7 @@ const CreatedReviewList = ({
       <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
         <button
           className="btn h-36 rounded-md border border-gray-100 bg-main-yellow transition-transform dark:border-white dark:bg-main-red-200 md:h-40"
-          onClick={handleClickAddReview}
+          onClick={handleAddReview}
         >
           <PlusIcon className="h-6 w-6 fill-gray-200 dark:fill-white" />
         </button>

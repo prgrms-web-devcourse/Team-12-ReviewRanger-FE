@@ -5,15 +5,12 @@ import { STATUS, STATUS_STYLE } from '../../constants'
 interface InvitedReviewItemProps extends InvitedReview {
   className: string
   handleClickReview: ({
-    id,
+    reviewId,
     participationId,
     submitStatus,
     status,
-  }: {
-    id: number
-    participationId: number
+  }: Pick<InvitedReview, 'reviewId' | 'participationId' | 'status'> & {
     submitStatus: boolean
-    status: string
   }) => void
 }
 
@@ -31,7 +28,7 @@ const InvitedReviewItem = ({
       className={className}
       onClick={() =>
         handleClickReview({
-          id: reviewId,
+          reviewId,
           participationId,
           submitStatus: !!submitAt,
           status,
