@@ -5,6 +5,7 @@ interface ModalProps {
   content: string
   label: string
   handleClickLabel: () => void
+  handleCloseModal?: () => void
 }
 
 const Modal = ({
@@ -12,6 +13,7 @@ const Modal = ({
   content,
   label,
   handleClickLabel,
+  handleCloseModal,
 }: PropsWithChildren<ModalProps>) => {
   return (
     <>
@@ -34,6 +36,7 @@ const Modal = ({
             <label
               htmlFor="modal-1"
               className="btn w-full rounded-md border border-gray-300 bg-transparent px-8 text-base dark:border-gray-100 dark:text-white"
+              onClick={handleCloseModal}
             >
               취소
             </label>
