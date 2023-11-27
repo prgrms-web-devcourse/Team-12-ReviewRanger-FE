@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { TOKEN_KEY } from '@/constants'
 import apiClient from '../apiClient'
 
@@ -16,9 +16,15 @@ interface Response {
   message?: string
 }
 
+const login = async (user: loginProps) => {
+  return await apiClient.post<Response>('/login', user)
+}
+
 const useLogin = () => {
-  const login = async (user: loginProps) => {
-    return await apiClient.post<Response>('/login', user)
+  const queryClient = useQueryClient()
+
+  if (queryClient.getQueryData(['/user'])) {
+    queryClient.removeQueries({ queryKey: ['/user'] })
   }
 
   return useMutation({
