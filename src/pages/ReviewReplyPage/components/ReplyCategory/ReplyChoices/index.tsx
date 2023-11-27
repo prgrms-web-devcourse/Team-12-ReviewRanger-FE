@@ -1,8 +1,12 @@
 import { useState, MouseEvent, useEffect, useMemo } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
-import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
+import { useLocation } from 'react-router-dom'
+import { QuestionOption } from '@/apis/hooks/useGetReviewForCreator'
 import { CheckIcon } from '@/assets/icons'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import {
+  ReviewReplyStartType,
+  ReviewReplyEditType,
+} from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoicesProps {
   receiverIndex: number
@@ -21,7 +25,10 @@ const ReplyChoices = ({
 }: ReplyChoicesProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionIds, setSelectedOptionIds] = useState<number[]>([])
-  const { getValues, setValue, control } = useFormContext<ReviewReplyType>()
+  const { state } = useLocation()
+  const { getValues, setValue, control } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
   const { append: appendChoiceReply, remove: removeChoiceReply } =
     useFieldArray({
       control,
@@ -50,6 +57,10 @@ const ReplyChoices = ({
   }, [selectedOptionIds, handleCheckReply])
 
   const handleClickOption = (e: MouseEvent<HTMLLIElement>) => {
+    if (state.status === 'END' || state.status === 'DEADLINE') {
+      return
+    }
+
     const selectedTarget = options.find(
       (option) => option.optionId === e.currentTarget.value,
     )?.optionId

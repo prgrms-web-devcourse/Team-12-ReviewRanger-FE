@@ -42,7 +42,7 @@ interface Response {
   data: Data
 }
 
-const useGetReviewFirst = ({ id }: { id: number }) => {
+const useGetReviewForCreator = ({ id }: { id: number }) => {
   const getReviewFirst = async () => {
     const response = await apiClient.get<Response>(`/reviews/${id}`)
 
@@ -50,9 +50,9 @@ const useGetReviewFirst = ({ id }: { id: number }) => {
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviews/${id}`],
+    queryKey: [`/reviews/${id}/creator`],
     queryFn: getReviewFirst,
   })
 }
 
-export default useGetReviewFirst
+export default useGetReviewForCreator

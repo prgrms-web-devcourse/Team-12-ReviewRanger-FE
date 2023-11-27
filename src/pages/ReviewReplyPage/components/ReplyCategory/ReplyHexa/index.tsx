@@ -1,7 +1,11 @@
 import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import { useLocation } from 'react-router-dom'
+import { QuestionOption } from '@/apis/hooks/useGetReviewForCreator'
+import {
+  ReviewReplyStartType,
+  ReviewReplyEditType,
+} from '@/pages/ReviewReplyPage/types'
 
 interface ReplyHexaProps {
   receiverIndex: number
@@ -18,8 +22,10 @@ const ReplyHexa = ({
   questionIndex,
   handleCheckReply,
 }: ReplyHexaProps) => {
-  const { register, getValues, setValue, watch } =
-    useFormContext<ReviewReplyType>()
+  const { state } = useLocation()
+  const { register, getValues, setValue, watch } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
 
   useEffect(() => {
     let count = 0
@@ -64,6 +70,7 @@ const ReplyHexa = ({
                   setValue(hexaPath, parseInt(e.currentTarget.value))
                 },
               })}
+              disabled={state.status === 'END' || state.status === 'DEADLINE'}
               value={getValues(hexaPath) || 0}
               className="border border-gray-200 bg-white px-2.5 py-1 text-center text-sm focus:outline-none dark:border-gray-400 dark:bg-main-gray dark:text-white"
             >

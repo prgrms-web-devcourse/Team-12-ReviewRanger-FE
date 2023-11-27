@@ -1,7 +1,11 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
-import { ReviewReplyType } from '@/pages/ReviewReplyPage/types'
+import { useLocation } from 'react-router-dom'
+import { QuestionOption } from '@/apis/hooks/useGetReviewForCreator'
+import {
+  ReviewReplyStartType,
+  ReviewReplyEditType,
+} from '@/pages/ReviewReplyPage/types'
 
 interface ReplyChoiceProps {
   receiverIndex: number
@@ -20,7 +24,10 @@ const ReplyChoice = ({
 }: ReplyChoiceProps) => {
   const registerPath: RegisterPath = `replyTargets.${receiverIndex}.replies.${questionIndex}`
   const [selectedOptionId, setSelectedOptionId] = useState<number>(0)
-  const { getValues, setValue, register } = useFormContext<ReviewReplyType>()
+  const { state } = useLocation()
+  const { getValues, setValue, register } = useFormContext<
+    ReviewReplyStartType | ReviewReplyEditType
+  >()
 
   useEffect(() => {
     setSelectedOptionId(getValues(`${registerPath}.answerChoice`) || 0)
@@ -53,6 +60,7 @@ const ReplyChoice = ({
         {
           onChange: handleClickOption,
         })}
+        disabled={state.status === 'END' || state.status === 'DEADLINE'}
       >
         <option key={0} value={0}>
           선택하세요.
