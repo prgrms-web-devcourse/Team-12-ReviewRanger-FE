@@ -5,8 +5,7 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RouterProvider } from 'react-router-dom'
-import { ThemeProvider } from './components'
-import ToastProvider from './components/Toast/ToastProvider'
+import { ThemeProvider, ToastProvider } from './components'
 import { router } from './routes'
 
 const queryClient = new QueryClient({
