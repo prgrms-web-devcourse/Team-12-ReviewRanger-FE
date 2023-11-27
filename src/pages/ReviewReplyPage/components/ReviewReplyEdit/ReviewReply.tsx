@@ -114,8 +114,8 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
       </div>
       <Modal
         modalId="review-reply"
-        content="답변을 완료하시겠습니까?"
-        label="답변 완료"
+        content="답변 수정을 완료하시겠습니까?"
+        label="수정"
         handleClickLabel={handleSubmit}
       />
     </div>
