@@ -3,11 +3,11 @@ import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import {
   useEditResponse,
-  useGetReviewFirst,
+  useGetReviewForCreator,
   useUser,
   useGetResponseByResponserForReviewReplyPage,
 } from '@/apis/hooks'
-import { Question } from '@/apis/hooks/useGetReviewFirst'
+import { Question } from '@/apis/hooks/useGetReviewForCreator'
 import { ReviewReplyEditType } from '../../types'
 import ReviewReply from './ReviewReply'
 
@@ -22,7 +22,7 @@ const ReviewReplyEdit = () => {
     reviewId,
     responserId: user?.id as number,
   })
-  const { data: reviewData } = useGetReviewFirst({ id: reviewId })
+  const { data: reviewData } = useGetReviewForCreator({ id: reviewId })
   const { mutate: editResponse } = useEditResponse()
   const { title, questions } = reviewData
 

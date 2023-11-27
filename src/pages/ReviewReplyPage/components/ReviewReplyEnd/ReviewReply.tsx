@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import { Data } from '@/apis/hooks/useGetReviewFirst'
+import { Data } from '@/apis/hooks/useGetReviewForCreator'
 import { ReceiverItem, QuestionItem } from '../'
 import {
   useHandleReceiver,
