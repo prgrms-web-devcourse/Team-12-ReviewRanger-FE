@@ -11,7 +11,9 @@ const useDeleteReview = () => {
   return useMutation({
     mutationFn: deleteReview,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/reviews'] })
+      queryClient.invalidateQueries({
+        queryKey: ['/reviews', '/participation'],
+      })
     },
   })
 }
