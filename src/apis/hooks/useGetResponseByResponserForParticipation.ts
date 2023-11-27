@@ -1,4 +1,3 @@
-//NOTE - 답변페이지를 위해 작성자별 응답 결과 단일 조회
 import { useSuspenseQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
@@ -40,17 +39,17 @@ const useGetResponseByResponser = ({
   reviewId: number
   responserId: number
 }) => {
-  const getSingleAuthorResponse = async () => {
+  const getResponse = async () => {
     const singleAuthorResponse = await apiClient.get<Response>(
-      `/reviews/${reviewId}/responser/${responserId}`,
+      `/reviews/${reviewId}/responser/${responserId}/participation`,
     )
 
     return singleAuthorResponse.data.data
   }
 
   return useSuspenseQuery({
-    queryKey: [`/reviews/${reviewId}/responser/${responserId}`],
-    queryFn: getSingleAuthorResponse,
+    queryKey: [`/reviews/${reviewId}/responser/${responserId}/participation`],
+    queryFn: getResponse,
   })
 }
 export default useGetResponseByResponser

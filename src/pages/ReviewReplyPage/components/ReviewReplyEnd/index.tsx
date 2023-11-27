@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
 import {
-  useGetReviewForCreator,
+  useGetReviewForParticipation,
   useUser,
-  useGetResponseByResponserForReviewReplyPage,
+  useGetResponseByResponserForParticipation,
 } from '@/apis/hooks'
 import { Question } from '@/types'
 import { ReviewReplyEndType } from '../../types'
@@ -16,11 +16,11 @@ const ReviewReplyEnd = () => {
   const [initModal, setInitModal] = useState(true)
 
   const { data: user } = useUser()
-  const { data: prevReplyData } = useGetResponseByResponserForReviewReplyPage({
+  const { data: prevReplyData } = useGetResponseByResponserForParticipation({
     reviewId,
     responserId: user?.id as number,
   })
-  const { data: reviewData } = useGetReviewForCreator({ id: reviewId })
+  const { data: reviewData } = useGetReviewForParticipation({ id: reviewId })
   const { title, questions } = reviewData
 
   const methods = useForm<ReviewReplyEndType>({
