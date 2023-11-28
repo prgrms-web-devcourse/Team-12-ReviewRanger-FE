@@ -21,11 +21,16 @@ const Modal = ({
     <>
       <input className="modal-state" id={id} type="checkbox" />
       <div className="modal">
-        <label className="modal-overlay" htmlFor={id}></label>
+        <label
+          className="modal-overlay"
+          htmlFor={id}
+          onClick={handleClose}
+        ></label>
         <div className="modal-content flex w-80 flex-col items-center gap-8 rounded-md bg-white p-5 dark:bg-main-gray">
           <label
             htmlFor={id}
             className="btn h-fit w-fit justify-center self-end bg-transparent p-0"
+            onClick={handleClose}
           >
             <CloseIcon className="dark:fill-white" />
           </label>
