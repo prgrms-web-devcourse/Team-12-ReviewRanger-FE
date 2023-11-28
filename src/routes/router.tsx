@@ -11,6 +11,7 @@ import {
   ReviewResultPage,
   SignUpPage,
 } from '@/pages'
+import { TokenErrorBoundary } from '@/components'
 import { ResultSkeleton } from '@/pages/ReviewResultPage/components'
 import Layout from './Layout'
 import { PATH } from './constants'
@@ -39,36 +40,44 @@ const router = createBrowserRouter([
       {
         path: PATH.REVIEW_CREATION,
         element: (
-          <Suspense>
-            <ReviewCreatePage />
-          </Suspense>
+          <TokenErrorBoundary>
+            <Suspense>
+              <ReviewCreatePage />
+            </Suspense>
+          </TokenErrorBoundary>
         ),
         loader: loginLoader,
       },
       {
         path: PATH.REVIEW_MANAGEMENT,
         element: (
-          <Suspense>
-            <CreatedReviewManagePage />
-          </Suspense>
+          <TokenErrorBoundary>
+            <Suspense>
+              <CreatedReviewManagePage />
+            </Suspense>
+          </TokenErrorBoundary>
         ),
         loader: loginLoader,
       },
       {
         path: PATH.REVIEW_RESPONSE,
         element: (
-          <Suspense>
-            <ReviewReplyPage />
-          </Suspense>
+          <TokenErrorBoundary>
+            <Suspense>
+              <ReviewReplyPage />
+            </Suspense>
+          </TokenErrorBoundary>
         ),
         loader: loginLoader,
       },
       {
         path: PATH.REVIEW_RESULT,
         element: (
-          <Suspense fallback={<ResultSkeleton />}>
-            <ReviewResultPage />
-          </Suspense>
+          <TokenErrorBoundary>
+            <Suspense fallback={<ResultSkeleton />}>
+              <ReviewResultPage />
+            </Suspense>
+          </TokenErrorBoundary>
         ),
         loader: loginLoader,
       },
