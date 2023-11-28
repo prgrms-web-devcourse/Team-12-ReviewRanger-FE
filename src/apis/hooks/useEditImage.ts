@@ -5,16 +5,14 @@ interface EditImage {
   success: boolean
 }
 
-const useEditImage = () => {
-  const editImage = async ({ image }: { image: FormData }) => {
-    return await apiClient.put<EditImage>('/members/profile-image', image, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-  }
-
-  return useMutation({ mutationFn: editImage })
+const editImage = async ({ image }: { image: FormData }) => {
+  return await apiClient.put<EditImage>('/members/profile-image', image, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
 }
+
+const useEditImage = () => useMutation({ mutationFn: editImage })
 
 export default useEditImage
