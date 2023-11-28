@@ -118,8 +118,8 @@ const CreatedReviewManagePage = () => {
   }
 
   return (
-    <div className="flex h-auto min-h-screen flex-col bg-main-ivory text-black dark:bg-main-red-100 dark:text-white">
-      <div className="sticky top-0 ">
+    <div className="flex h-auto min-h-screen w-full flex-col bg-main-ivory text-black dark:bg-main-red-100 dark:text-white">
+      <div className="sticky top-0">
         <Header />
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
