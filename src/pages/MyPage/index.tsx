@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
-import { useNameCheck, usePasswordCheck } from '@/hooks'
-import { Header, Input } from '@/components'
+import { useNameCheck, usePasswordCheck, useToast } from '@/hooks'
+import { Header, Input, Modal } from '@/components'
 import { useEditImage, useUser } from '@/apis/hooks'
 import {
   BasicProfileIcon,
@@ -12,8 +12,9 @@ import { useEditNameCheck, useEditPasswordCheck } from './hooks'
 
 const MyPage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const { data: user } = useUser()
+  const { data: user, refetch } = useUser()
   const { mutate: editImage } = useEditImage()
+  const { addToast } = useToast()
 
   const {
     name,
@@ -70,7 +71,13 @@ const MyPage = () => {
       editImage(
         { image: formData },
         {
-          onSuccess: ({ data }) => console.log(data),
+          onSuccess: () => {
+            refetch()
+            addToast({
+              message: '이미지 변경이 완료되었습니다.',
+              type: 'success',
+            })
+          },
         },
       )
     }
@@ -83,7 +90,9 @@ const MyPage = () => {
         <div className="relative flex">
           <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border bg-white dark:bg-black">
             {user?.path ? (
-              <img src={user?.path} alt="profile-image" className="h-20 w-20" />
+              <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full p-1">
+                <img src={user?.path} alt="profile-image" />
+              </div>
             ) : (
               <BasicProfileIcon className="h-20 w-20" />
             )}

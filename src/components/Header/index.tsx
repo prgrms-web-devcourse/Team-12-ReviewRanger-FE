@@ -64,7 +64,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
               <Dropdown>
                 <Dropdown.Toggle className="avatar avatar-sm flex cursor-pointer items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black">
                   {user?.path ? (
-                    <div className="h-7 w-7 p-1 md:h-9 md:w-9">
+                    <div className="flex h-7 w-7 p-0.5 md:h-9 md:w-9">
                       <img src={user.path} alt="my" />
                     </div>
                   ) : (
