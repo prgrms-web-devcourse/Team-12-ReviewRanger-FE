@@ -8,7 +8,7 @@ import {
   ArrowLeftIcon,
   BasicProfileIcon,
 } from '@/assets/icons'
-import { rangerHead } from '@/assets/images'
+import { rangerCleanHead } from '@/assets/images'
 import { Modal } from '..'
 import Dropdown from '../Dropdown'
 
@@ -51,11 +51,11 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
           onClick={() => navigate('/')}
         >
           <img
-            src={rangerHead}
+            src={rangerCleanHead}
             alt="ranger-header"
-            className="h-8 w-8 md:h-11 md:w-10"
+            className="h-6 w-6 md:h-8 md:w-8"
           />
-          <LogoShortIcon className="h-7 w-8 md:hidden" />
+          <LogoShortIcon className="ml-1 h-7 w-8 md:hidden" />
           <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
         <div>
