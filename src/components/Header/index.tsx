@@ -1,12 +1,14 @@
 import { memo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useToast } from '@/hooks'
+import { useDarkMode, useToast } from '@/hooks'
 import { useUser, useLogout } from '@/apis/hooks'
 import {
   LogoRowIcon,
   LogoShortIcon,
   ArrowLeftIcon,
   BasicProfileIcon,
+  SunIcon,
+  MoonIcon,
 } from '@/assets/icons'
 import { rangerCleanHead } from '@/assets/images'
 import { Modal } from '..'
@@ -24,6 +26,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
   const navigate = useNavigate()
 
   const { addToast } = useToast()
+  const { toggle, darkMode } = useDarkMode()
 
   const avatarVisible = pathname !== '/sign-up' && pathname !== '/login'
   const goBackVisible = pathname !== '/login' && pathname !== '/'
@@ -58,7 +61,17 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
           <LogoShortIcon className="ml-1 h-7 w-8 md:hidden" />
           <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
-        <div>
+        <div className="flex items-center gap-x-3 md:gap-x-5">
+          <div
+            className="flex cursor-pointer items-center justify-center md:h-8 md:w-8"
+            onClick={toggle}
+          >
+            {darkMode ? (
+              <MoonIcon className="h-full w-full animate" />
+            ) : (
+              <SunIcon className="h-full w-full" />
+            )}
+          </div>
           {avatarVisible && user && (
             <>
               <Dropdown>

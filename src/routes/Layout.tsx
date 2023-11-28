@@ -1,9 +1,12 @@
+import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import { useDarkMode } from '@/hooks'
 import { ApiErrorBoundary } from '@/components'
+import { scrollToTop } from '@/utils'
 
 const Layout = () => {
-  const { toggle } = useDarkMode()
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   return (
     <>
@@ -14,12 +17,6 @@ const Layout = () => {
           </ApiErrorBoundary>
         </div>
       </div>
-      <button
-        className="btn fixed bottom-10 right-20 bg-pink-800 text-white"
-        onClick={toggle}
-      >
-        토글
-      </button>
     </>
   )
 }
