@@ -12,15 +12,13 @@ interface Response {
   data: {
     accessToken: string
   }
-  errorCode?: string
-  message?: string
+}
+
+const login = async (user: loginProps) => {
+  return await apiClient.post<Response>('/login', user)
 }
 
 const useLogin = () => {
-  const login = async (user: loginProps) => {
-    return await apiClient.post<Response>('/login', user)
-  }
-
   return useMutation({
     mutationFn: login,
     onSuccess: ({ data }) =>

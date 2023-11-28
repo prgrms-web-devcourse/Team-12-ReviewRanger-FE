@@ -14,17 +14,17 @@ interface PageParam {
   pageParam: number | null
 }
 
+const getCreatedReview = async ({ pageParam }: PageParam) => {
+  const response = await apiClient.get<CreatedReviewResponse>('/reviews', {
+    params: { cursorId: pageParam, size: 12 },
+  })
+
+  return response.data.data
+}
+
 const useGetCreatedReviews = () => {
-  const getCreatedReview = async ({ pageParam }: PageParam) => {
-    const response = await apiClient.get<CreatedReviewResponse>('/reviews', {
-      params: { cursorId: pageParam, size: 12 },
-    })
-
-    return response.data.data
-  }
-
   return useSuspenseInfiniteQuery({
-    queryKey: ['/reviews'],
+    queryKey: ['reviews', '/reviews'],
     queryFn: ({ pageParam }) => getCreatedReview({ pageParam }),
     initialPageParam: null as number | null,
     getNextPageParam: (lastPage) => {
@@ -37,7 +37,6 @@ const useGetCreatedReviews = () => {
       return content[content.length - 1].reviewId
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
     refetchInterval: 5000,
     refetchIntervalInBackground: false,
   })

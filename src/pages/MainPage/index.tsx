@@ -1,8 +1,8 @@
 import { Suspense, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useToast } from '@/hooks'
-import { Header } from '@/components'
-import useDeleteReview from '@/apis/hooks/useDeleteReview'
+import { Header, TokenErrorBoundary } from '@/components'
+import { useDeleteReview } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
 import { CreatedReview, InvitedReview, ReceivedReview } from '@/types'
 import {
@@ -34,6 +34,15 @@ const MainPage = () => {
   }: Pick<InvitedReview, 'reviewId' | 'participationId' | 'status'> & {
     submitStatus: boolean
   }) => {
+    if (status !== 'PROCEEDING' && !submitStatus) {
+      addToast({
+        message: '응답하지 않은 리뷰는 확인할 수 없습니다.',
+        type: 'error',
+      })
+
+      return
+    }
+
     navigate(`review-response/${reviewId}`, {
       state: {
         participationId,
@@ -97,40 +106,42 @@ const MainPage = () => {
           </div>
         </PageIntro>
 
-        <Suspense
-          fallback={
-            <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
-              <ListSkeleton />
-            </ul>
-          }
-        >
-          {(() => {
-            switch (activeTab) {
-              case 'invited':
-                return (
-                  <InvitedReviewList
-                    handleClickReview={handleInvitedReviewClick}
-                  />
-                )
-              case 'created':
-                return (
-                  <CreatedReviewList
-                    handleClickReview={handleCreatedReviewClick}
-                    handleAddReview={() => navigate('review-creation')}
-                    handleDeleteReview={handleDeleteReview}
-                  />
-                )
-              case 'received':
-                return (
-                  <ReceivedReviewList
-                    handleClickReview={handleReceivedReviewClick}
-                  />
-                )
-              default:
-                return null
+        <TokenErrorBoundary>
+          <Suspense
+            fallback={
+              <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
+                <ListSkeleton />
+              </ul>
             }
-          })()}
-        </Suspense>
+          >
+            {(() => {
+              switch (activeTab) {
+                case 'invited':
+                  return (
+                    <InvitedReviewList
+                      handleClickReview={handleInvitedReviewClick}
+                    />
+                  )
+                case 'created':
+                  return (
+                    <CreatedReviewList
+                      handleClickReview={handleCreatedReviewClick}
+                      handleAddReview={() => navigate('review-creation')}
+                      handleDeleteReview={handleDeleteReview}
+                    />
+                  )
+                case 'received':
+                  return (
+                    <ReceivedReviewList
+                      handleClickReview={handleReceivedReviewClick}
+                    />
+                  )
+                default:
+                  return null
+              }
+            })()}
+          </Suspense>
+        </TokenErrorBoundary>
       </div>
     </>
   )

@@ -31,5 +31,5 @@ export { default as useEditResponse } from './useEditResponse'
 export { default as useEditName } from './useEditName'
 export { default as useEditPassword } from './useEditPassword'
 
-export { default as useDeleteSurvey } from './useDeleteReview'
+export { default as useDeleteReview } from './useDeleteReview'
 export { default as useUpdateFinalReviewAnswer } from './useUpdateFinalReviewAnswer'
