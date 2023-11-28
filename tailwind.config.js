@@ -92,6 +92,7 @@ export default {
         'slide-in': 'slideIn 0.5s ease-in-out',
       },
     },
+    fontFamily: { Galmuri: ['Galmuri'] },
   },
   plugins: [rippleui],
 }
