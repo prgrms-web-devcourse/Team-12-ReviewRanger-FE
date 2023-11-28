@@ -23,19 +23,8 @@ const useLogin = () => {
 
   return useMutation({
     mutationFn: login,
-    onSuccess: ({ data }) => {
-      if (
-        data.errorCode &&
-        data.message &&
-        data.message === 'Bad credentials'
-      ) {
-        throw new Error('아이디 또는 비밀번호가 잘못되었습니다')
-      }
-      if (data.errorCode) {
-        throw new Error(data?.message)
-      }
-      localStorage.setItem(TOKEN_KEY, data.data.accessToken)
-    },
+    onSuccess: ({ data }) =>
+      localStorage.setItem(TOKEN_KEY, data.data.accessToken),
   })
 }
 
