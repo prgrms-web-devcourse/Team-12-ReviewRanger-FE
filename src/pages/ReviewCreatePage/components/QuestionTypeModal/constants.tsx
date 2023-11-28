@@ -1,6 +1,6 @@
 import {
   DropdownIcon,
-  HexagonICon,
+  HexagonIcon,
   MultipleChoiceIcon,
   SingleChoiceIcon,
   StarRatingIcon,
@@ -41,7 +41,7 @@ export const QUESTION_TYPES = [
   {
     label: '육각형 스탯',
     value: 'HEXASTAT',
-    Icon: <HexagonICon />,
+    Icon: <HexagonIcon />,
     iconStyle: 'stroke',
   },
 ] as const
