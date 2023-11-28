@@ -43,6 +43,12 @@ const CreatedReviewManagePage = () => {
   const { mutate: sendReview } = useSendReview()
   const handleClickSurveyClose = () => {
     closeReview(undefined, {
+      onSuccess: () => {
+        addToast({
+          message: '리뷰가 성공적으로 마감되었습니다!',
+          type: 'success',
+        })
+      },
       onError: (error) => {
         if (error instanceof AxiosError) {
           addToast({
@@ -64,7 +70,23 @@ const CreatedReviewManagePage = () => {
       return
     }
 
-    sendReview({ reviewId })
+    sendReview(
+      { reviewId },
+      {
+        onSuccess: ({ data }) => {
+          if (data.errorCode && data.message) {
+            addToast({ message: data.message, type: 'error' })
+
+            return
+          }
+
+          addToast({
+            message: '리뷰가 성공적으로 전송되었어요!',
+            type: 'success',
+          })
+        },
+      },
+    )
   }
 
   const REVIEW_MANAGE_TAB_CONTENT = {

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useToast } from '@/hooks'
 import {
   useGetReviewForCreator,
   useGetResponseByReceiver,
@@ -23,6 +24,8 @@ const ReceiverReviewDetail = ({
   ResponserList,
 }: ReviewDetailAccordionProps) => {
   //NOTE - 하나라도 응답 실패했을 떄 처리
+
+  const { addToast } = useToast()
   const { data: getReviewQuestion } = useGetReviewForCreator({
     id: Number(reviewId),
   })
@@ -98,12 +101,21 @@ const ReceiverReviewDetail = ({
     updatedAnswer: string,
     questionId: string,
   ) => {
-    updateFinalReviewAnswer({
-      userId: receiverId,
-      answer: updatedAnswer,
-      reviewId,
-      questionId,
-    })
+    updateFinalReviewAnswer(
+      {
+        userId: receiverId,
+        answer: updatedAnswer,
+        reviewId,
+        questionId,
+      },
+      {
+        onSuccess: ({ success }) => {
+          if (success) {
+            addToast({ message: '성공적으로 저장되었습니다!', type: 'success' })
+          }
+        },
+      },
+    )
   }
 
   return (

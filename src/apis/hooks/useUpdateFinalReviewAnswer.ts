@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query'
-import { useToast } from '@/hooks'
 import apiClient from '@/apis/apiClient'
 
 interface updatedReviewAnswer {
@@ -29,15 +28,8 @@ const updateFinalReviewResult = async ({
 }
 
 const useUpdateFinalReviewAnswer = () => {
-  const { addToast } = useToast()
-
   return useMutation({
     mutationFn: updateFinalReviewResult,
-    onSuccess: ({ success }) => {
-      if (success) {
-        addToast({ message: '성공적으로 저장되었습니다!', type: 'success' })
-      }
-    },
   })
 }
 
