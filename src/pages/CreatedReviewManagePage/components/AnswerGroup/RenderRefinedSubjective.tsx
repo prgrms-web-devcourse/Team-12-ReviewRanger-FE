@@ -22,7 +22,6 @@ const RenderRefinedSubjective = ({ text }: RenderRefinedSubjectiveProps) => {
       <ReactTextareaAutosize
         onChange={handleChangePrompt}
         className="m-0 w-full shrink-0 resize-none rounded-none border border-gray-200 bg-transparent p-5 text-sm dark:text-white"
-        defaultValue={prompt}
         value={result ? result : prompt}
       ></ReactTextareaAutosize>
 
