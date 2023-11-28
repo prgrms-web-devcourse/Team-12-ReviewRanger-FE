@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useToast } from '@/hooks'
 import {
   useGetReviewForCreator,
@@ -26,6 +26,7 @@ const ReceiverReviewDetail = ({
   //NOTE - 하나라도 응답 실패했을 떄 처리
 
   const { addToast } = useToast()
+  const hasAnswered = useRef(false)
   const { data: getReviewQuestion } = useGetReviewForCreator({
     id: Number(reviewId),
   })
@@ -87,8 +88,12 @@ const ReceiverReviewDetail = ({
 
   const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
-    if (!ResponserList?.includes(Number(receiverId))) {
+    if (
+      !ResponserList?.includes(Number(receiverId)) &&
+      hasAnswered.current.valueOf() === false
+    ) {
       saveFinalResult()
+      hasAnswered.current = true
     }
   }, [receiverId])
 
