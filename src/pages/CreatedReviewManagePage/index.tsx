@@ -126,7 +126,7 @@ const CreatedReviewManagePage = () => {
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-[55rem] flex-col px-5 py-7 md:p-10">
+      <div className="mx-auto flex w-full max-w-[37.5rem] flex-col px-5 py-7 md:p-10">
         <h1 className="text-xl md:text-2xl">{getReviewQuestion?.title}</h1>
         <h2 className="mt-3 text-sm md:mt-4 md:text-xl">
           {getReviewQuestion?.description}
