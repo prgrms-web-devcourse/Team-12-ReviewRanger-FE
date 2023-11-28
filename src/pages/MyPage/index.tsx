@@ -80,7 +80,11 @@ const MyPage = () => {
       <div className="flex h-full flex-col items-center gap-6 bg-main-ivory pt-28 dark:bg-main-red-100 md:pt-48">
         <div className="relative flex">
           <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border bg-white dark:bg-black">
-            <BasicProfileIcon className="h-20 w-20" />
+            {user?.path ? (
+              <img src={user?.path} alt="profile-image" className="h-20 w-20" />
+            ) : (
+              <BasicProfileIcon className="h-20 w-20" />
+            )}
           </div>
           <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
             <ImageIcon
