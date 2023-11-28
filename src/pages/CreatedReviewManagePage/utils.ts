@@ -23,7 +23,7 @@ interface QuestionOption {
 
 interface Reply {
   id: string
-  questionId: string
+  questionId: number
   //TODO - 몇명의 피어가 답변했는지를 이 responser로 판별해야함
   //TODO - 모든 replies의 responser를 뽑아와야 함
   responser: Receiver
@@ -36,7 +36,7 @@ interface Reply {
 }
 
 //NOTE - 주관식 질문일떄, 질문과 답변 매핑
-const getTextAnswer = (questionId: string, reply: Data[]) => {
+const getTextAnswer = (questionId: number, reply: Data[]) => {
   const res = reply
     ?.map(
       (data) =>
@@ -59,7 +59,7 @@ const getTextAnswer = (questionId: string, reply: Data[]) => {
 }
 
 //NOTE - 별점 질문과 답변들 매핑
-const getRatingAnswer = (questionId: string, reply: Data[]) => {
+const getRatingAnswer = (questionId: number, reply: Data[]) => {
   const res = reply
     ?.map(
       (data) =>
@@ -82,7 +82,7 @@ const getRatingAnswer = (questionId: string, reply: Data[]) => {
   return res
 }
 
-const getRemainAnswer = (questionId: string, reply: Data[]) => {
+const getRemainAnswer = (questionId: number, reply: Data[]) => {
   return reply
     ?.map(
       (value) =>
@@ -112,6 +112,7 @@ const getRemainAnswer = (questionId: string, reply: Data[]) => {
           ?.filter((value) => value?.value !== DEFAULT_VALUE.VALUE),
     )
     ?.flat()
+    ?.filter((value) => value.value !== null)
 }
 
 export const getAnswer = (
@@ -122,7 +123,7 @@ export const getAnswer = (
     | 'SUBJECTIVE'
     | 'RATING'
     | 'HEXASTAT',
-  questionId: string,
+  questionId: number,
   reply: Data[],
 ) => {
   if (questionType === 'RATING') {

@@ -35,7 +35,11 @@ const Questions = ({ question, index, receiverIndex }: QuestionsProps) => {
     value: string | number | number[]
   }) => {
     if (!question.isRequired) {
-      setValue(replyCompletePath, true)
+      if (type === 'HEXASTAT' && value !== 0 && value !== 6) {
+        setValue(replyCompletePath, false)
+      } else {
+        setValue(replyCompletePath, true)
+      }
 
       return
     }

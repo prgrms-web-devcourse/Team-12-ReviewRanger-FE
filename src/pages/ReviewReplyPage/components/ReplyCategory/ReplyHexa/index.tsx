@@ -30,17 +30,16 @@ const ReplyHexa = ({
   useEffect(() => {
     let count = 0
 
-    while (count < 6) {
+    for (let i = 0; i < 6; i++) {
       if (
         getValues(
           `replyTargets.${receiverIndex}.replies.${
-            questionIndex + count
+            questionIndex + i
           }.answerHexa`,
-        ) === 0
+        ) !== 0
       ) {
-        break
+        count++
       }
-      count++
     }
 
     handleCheckReply({ value: count })

@@ -14,7 +14,7 @@ const useCloseSurvey = ({ id }: { id: string }) => {
     mutationFn: closeSurvey,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [`/reviews/${id}`],
+        queryKey: [`/reviews/${id}/creator`],
       })
     },
   })

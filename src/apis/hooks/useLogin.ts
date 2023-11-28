@@ -21,9 +21,8 @@ const login = async (user: loginProps) => {
 const useLogin = () => {
   return useMutation({
     mutationFn: login,
-    onSuccess: ({ data }) => {
-      localStorage.setItem(TOKEN_KEY, data.data.accessToken)
-    },
+    onSuccess: ({ data }) =>
+      localStorage.setItem(TOKEN_KEY, data.data.accessToken),
   })
 }
 

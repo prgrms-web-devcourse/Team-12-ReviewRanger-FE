@@ -63,7 +63,13 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
             <>
               <Dropdown>
                 <Dropdown.Toggle className="avatar avatar-sm flex cursor-pointer items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black">
-                  <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
+                  {user?.path ? (
+                    <div className="flex h-7 w-7 p-0.5 md:h-9 md:w-9">
+                      <img src={user.path} alt="my" />
+                    </div>
+                  ) : (
+                    <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
+                  )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="w-40 rounded-sm">
                   <Dropdown.Item enabled={false}>

@@ -26,7 +26,7 @@ interface Receiver {
 
 interface Reply {
   id: string
-  questionId: string
+  questionId: number
   //TODO - 몇명의 피어가 답변했는지를 이 responser로 판별해야함
   //TODO - 모든 replies의 responser를 뽑아와야 함
   responser: Receiver

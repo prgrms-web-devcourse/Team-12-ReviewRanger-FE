@@ -9,11 +9,11 @@ interface TabsProps {
 }
 
 const Tabs = ({ activeTab, setActiveTab }: TabsProps) => {
-  const tabBorder = `after:absolute after:bottom-0 after:h-1 after:w-full after:bg-white after-duration-[400ms] after:content-[''] after:transition-transform after:scale-x-[0.25] after:rounded-full ${REVIEW_MANAGE_TAB_MENU_STYLE[activeTab]}`
+  const tabBorder = `after:absolute after:bottom-0 after:h-1 after:w-full after:bg-white after-duration-[400ms] after:content-[''] after:transition-transform after:scale-x-[0.25] after:rounded-full ${REVIEW_MANAGE_TAB_MENU_STYLE[activeTab]} w-full`
 
   return (
     <div
-      className={`relative flex h-11 bg-main-red-300 text-lg text-white md:h-[3.125rem] md:text-2xl ${tabBorder} shadow-md`}
+      className={`relative m-0 flex h-11 max-w-[55rem]  justify-between bg-main-red-300 text-lg text-white md:h-[3.125rem] md:text-2xl ${tabBorder} shadow-md`}
     >
       <button className="grow" onClick={() => setActiveTab('responser')}>
         {REVIEW_MANAGE_TAB_TITLE.responser}
