@@ -34,6 +34,15 @@ const MainPage = () => {
   }: Pick<InvitedReview, 'reviewId' | 'participationId' | 'status'> & {
     submitStatus: boolean
   }) => {
+    if (status !== 'PROCEEDING' && !submitStatus) {
+      addToast({
+        message: '응답하지 않은 리뷰는 확인할 수 없습니다.',
+        type: 'error',
+      })
+
+      return
+    }
+
     navigate(`review-response/${reviewId}`, {
       state: {
         participationId,
