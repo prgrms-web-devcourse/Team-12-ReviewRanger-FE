@@ -34,6 +34,7 @@ const ReplyRating = ({
   )
 
   const [score, setScore] = useState(prevScore || 0)
+  const [zero, setZero] = useState(false)
 
   useEffect(() => {
     setRates(
@@ -57,8 +58,23 @@ const ReplyRating = ({
       return
     }
 
-    setScore(index + 1)
-    changeStar(index)
+    if (index !== 0) {
+      setZero(false)
+      setScore(index + 1)
+      changeStar(index)
+
+      return
+    }
+
+    if (zero) {
+      setZero(false)
+      setScore(index)
+      changeStar(index - 1)
+    } else {
+      setZero(true)
+      setScore(index + 1)
+      changeStar(index)
+    }
   }
 
   return (
