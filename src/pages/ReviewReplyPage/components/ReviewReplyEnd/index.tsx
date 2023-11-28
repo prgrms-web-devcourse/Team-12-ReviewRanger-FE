@@ -44,12 +44,14 @@ const ReviewReplyEnd = () => {
   })
 
   useEffect(() => {
-    if (hasMounted.current) {
-      if (labelRef.current) {
-        labelRef.current.click()
-      }
-    } else {
+    if (!hasMounted.current) {
       hasMounted.current = true
+
+      return
+    }
+
+    if (labelRef.current) {
+      labelRef.current.click()
     }
   }, [])
 
