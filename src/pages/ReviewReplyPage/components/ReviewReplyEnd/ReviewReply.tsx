@@ -65,7 +65,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
               />
             ))}
           </ul>
-          <ul className="flex gap-5 overflow-x-auto">
+          <ul className="flex items-center gap-5 overflow-x-auto">
             {questions.map((question, index) => (
               <QuestionItem
                 index={index}
