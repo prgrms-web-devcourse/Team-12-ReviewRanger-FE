@@ -41,10 +41,10 @@ const ReceiverItem = ({
                 individualReplyCompletes &&
                 index !== undefined &&
                 individualReplyCompletes[index] &&
-                'border-sub-green dark:border-sub-green'
+                'border-2 !border-sub-green'
               } ${
                 (state.status === 'END' || state.status === 'DEADLINE') &&
-                'border-sub-green dark:border-sub-green'
+                'border-2 !border-sub-green'
               }`}
     >
       <Profile
