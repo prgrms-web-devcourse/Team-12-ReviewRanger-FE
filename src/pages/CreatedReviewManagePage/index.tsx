@@ -121,10 +121,12 @@ const CreatedReviewManagePage = () => {
     <div className="flex h-auto min-h-screen w-full flex-col bg-main-ivory text-black dark:bg-main-red-100 dark:text-white">
       <div className="sticky top-0">
         <Header />
-        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="flex  justify-center bg-main-red-300 text-center text-lg text-white">
+          <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-[800px] flex-col px-5 py-7 md:p-10">
+      <div className="mx-auto flex w-full max-w-[55rem] flex-col px-5 py-7 md:p-10">
         <h1 className="text-xl md:text-2xl">{getReviewQuestion?.title}</h1>
         <h2 className="mt-3 text-sm md:mt-4 md:text-xl">
           {getReviewQuestion?.description}
