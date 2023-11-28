@@ -37,7 +37,7 @@ const ReviewReplyStart = () => {
           message: '리뷰 답변 제출이 완료되었습니다.',
           type: 'success',
         })
-        navigate('/')
+        navigate('/', { replace: true })
       },
     })
   }
