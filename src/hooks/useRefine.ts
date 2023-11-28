@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { SSE } from 'sse'
 
-const useRefine = () => {
-  const [prompt, setPrompt] = useState('')
+const useRefine = ({ text = '' }: { text: string }) => {
+  const [prompt, setPrompt] = useState(text)
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState('')
 
@@ -32,7 +32,7 @@ const useRefine = () => {
     messages: [
       { content: prompt, role: 'user' },
       {
-        content: `이 글들은 동료에 대한 평가 글이야. "," 로 구분된 구문들에 대해 비판이 아닌 욕설, 비난, 부정적 감정 표현을 제거한 뒤 핵심만 간략하게 요약해서 최대한 짧은 하나의 구문을 만들어줘. 또한 조건이 있어. 모든 구문을 존댓말로 통일해야 해.`,
+        content: `이 글들은 동료에 대한 평가 글이야. "," 로 구분된 구문들에 대해 비판이 아닌 욕설, 비난, 부정적 감정 표현을 제거한 뒤 핵심만 간략하게 요약해서 최대한 짧은 하나의 구문을 만들어줘. 또한 조건이 있어. 모든 구문을 존댓말로 통일해야 해. 오로지 전달 받은 텍스트로만 정제해야 해. 너가 새로운 문구를 지어내면 안돼.`,
         role: 'system',
       },
     ],
@@ -58,8 +58,12 @@ const useRefine = () => {
   }
 
   const handleRefine = async () => {
-    if (showAlertForEmptyPrompt()) {
+    if (showAlertForEmptyPrompt() || isLoading) {
       return
+    }
+
+    if (result) {
+      setPrompt(result)
     }
 
     setIsLoading(true)
@@ -71,6 +75,7 @@ const useRefine = () => {
     source.addEventListener('message', (e: MessageEvent) => {
       if (e.data === '[DONE]') {
         source.close()
+        setIsLoading(false)
 
         return
       }
