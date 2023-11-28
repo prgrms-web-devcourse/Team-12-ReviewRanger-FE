@@ -1,7 +1,10 @@
 import { Suspense, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Header } from '@/components'
+import { useToast } from '@/hooks'
+import { Header, TokenErrorBoundary } from '@/components'
+import { useDeleteReview } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
+import { CreatedReview, InvitedReview, ReceivedReview } from '@/types'
 import {
   CreatedReviewList,
   InvitedReviewList,
@@ -13,24 +16,34 @@ import {
 import { INTRO_CONTENT, INTRO_STYLE } from './constants'
 
 const MainPage = () => {
+  const { mutate: deleteReview } = useDeleteReview()
+
   const navigate = useNavigate()
 
   const [activeTab, setActiveTab] = useState<
     'invited' | 'created' | 'received'
   >('invited')
 
+  const { addToast } = useToast()
+
   const handleInvitedReviewClick = ({
-    id,
+    reviewId,
     participationId,
     submitStatus,
     status,
-  }: {
-    id: number
-    participationId: number
+  }: Pick<InvitedReview, 'reviewId' | 'participationId' | 'status'> & {
     submitStatus: boolean
-    status: string
   }) => {
-    navigate(`review-response/${id}`, {
+    if (status !== 'PROCEEDING' && !submitStatus) {
+      addToast({
+        message: '응답하지 않은 리뷰는 확인할 수 없습니다.',
+        type: 'error',
+      })
+
+      return
+    }
+
+    navigate(`review-response/${reviewId}`, {
       state: {
         participationId,
         submitStatus,
@@ -39,12 +52,37 @@ const MainPage = () => {
     })
   }
 
-  const handleCreatedReviewClick = (id: number) => {
-    navigate(`review-management/${id}`)
+  const handleCreatedReviewClick = ({
+    reviewId,
+  }: Pick<CreatedReview, 'reviewId'>) => {
+    navigate(`review-management/${reviewId}`)
   }
 
-  const handleReceivedReviewClick = (id: number) => {
+  const handleReceivedReviewClick = ({ id }: Pick<ReceivedReview, 'id'>) => {
     navigate(`review-result/${id}`)
+  }
+
+  const handleDeleteReview = ({
+    reviewId,
+    status,
+  }: Pick<CreatedReview, 'reviewId' | 'status'>) => {
+    if (status !== 'PROCEEDING') {
+      addToast({
+        message: '진행 중인 리뷰만 삭제할 수 있습니다.',
+        type: 'error',
+      })
+
+      return
+    }
+
+    deleteReview(
+      { reviewId },
+      {
+        onSuccess: () => {
+          addToast({ message: '리뷰가 삭제되었습니다.', type: 'success' })
+        },
+      },
+    )
   }
 
   const { desc1, desc2, title } = INTRO_CONTENT[activeTab]
@@ -68,39 +106,42 @@ const MainPage = () => {
           </div>
         </PageIntro>
 
-        <Suspense
-          fallback={
-            <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
-              <ListSkeleton />
-            </ul>
-          }
-        >
-          {(() => {
-            switch (activeTab) {
-              case 'invited':
-                return (
-                  <InvitedReviewList
-                    handleClickReview={handleInvitedReviewClick}
-                  />
-                )
-              case 'created':
-                return (
-                  <CreatedReviewList
-                    handleClickReview={handleCreatedReviewClick}
-                    handleClickAddReview={() => navigate('review-creation')}
-                  />
-                )
-              case 'received':
-                return (
-                  <ReceivedReviewList
-                    handleClickReview={handleReceivedReviewClick}
-                  />
-                )
-              default:
-                return null
+        <TokenErrorBoundary>
+          <Suspense
+            fallback={
+              <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
+                <ListSkeleton />
+              </ul>
             }
-          })()}
-        </Suspense>
+          >
+            {(() => {
+              switch (activeTab) {
+                case 'invited':
+                  return (
+                    <InvitedReviewList
+                      handleClickReview={handleInvitedReviewClick}
+                    />
+                  )
+                case 'created':
+                  return (
+                    <CreatedReviewList
+                      handleClickReview={handleCreatedReviewClick}
+                      handleAddReview={() => navigate('review-creation')}
+                      handleDeleteReview={handleDeleteReview}
+                    />
+                  )
+                case 'received':
+                  return (
+                    <ReceivedReviewList
+                      handleClickReview={handleReceivedReviewClick}
+                    />
+                  )
+                default:
+                  return null
+              }
+            })()}
+          </Suspense>
+        </TokenErrorBoundary>
       </div>
     </>
   )

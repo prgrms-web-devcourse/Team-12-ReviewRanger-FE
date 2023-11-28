@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form'
-import { Data } from '@/apis/hooks/useGetReviewFirst'
+import { Modal } from '@/components'
+import { ReviewDetailedData } from '@/types'
 import { ReceiverItem, QuestionItem } from '..'
 import {
   useHandleReceiver,
@@ -11,8 +12,8 @@ import { ReviewReplyEditType } from '../../types'
 import Questions from '../Questions'
 
 interface ReviewReplyProps {
-  reviewData: Data
-  handleSubmit?: () => void
+  reviewData: ReviewDetailedData
+  handleSubmit: () => void
 }
 
 const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
@@ -91,11 +92,13 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
       </div>
       <div className="flex justify-center md:justify-end">
         {allReplyComplete ? (
-          <button
-            onClick={handleSubmit}
-            className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl"
-          >
-            답변 제출하기
+          <button className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl">
+            <label
+              htmlFor="review-reply"
+              className="flex h-full w-full items-center justify-center"
+            >
+              답변 제출하기
+            </label>
           </button>
         ) : (
           <button
@@ -109,6 +112,12 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
           </button>
         )}
       </div>
+      <Modal
+        modalId="review-reply"
+        content="답변 수정을 완료하시겠습니까?"
+        label="수정"
+        handleClickLabel={handleSubmit}
+      />
     </div>
   )
 }

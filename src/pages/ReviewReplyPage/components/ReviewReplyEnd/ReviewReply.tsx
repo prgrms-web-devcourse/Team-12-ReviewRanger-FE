@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import { Data } from '@/apis/hooks/useGetReviewFirst'
+import { ReviewDetailedData } from '@/types'
 import { ReceiverItem, QuestionItem } from '../'
 import {
   useHandleReceiver,
@@ -10,7 +10,7 @@ import { ReviewReplyEndType } from '../../types'
 import Questions from '../Questions'
 
 interface ReviewReplyProps {
-  reviewData: Data
+  reviewData: ReviewDetailedData
 }
 
 const ReviewReply = ({ reviewData }: ReviewReplyProps) => {

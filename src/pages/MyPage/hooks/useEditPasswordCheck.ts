@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useToast } from '@/hooks'
 import { useEditPassword } from '@/apis/hooks'
 
 interface UseEditPasswordCheckProps {
@@ -15,13 +16,18 @@ const useEditPasswordCheck = ({
   passwordConfirmFailMessage,
 }: UseEditPasswordCheckProps) => {
   const [editPasswordButton, setEditPasswordButton] = useState<boolean>(false)
+  const passwordRef = useRef<HTMLLabelElement>(null)
   const { mutate: editPassword } = useEditPassword()
+  const { addToast } = useToast()
 
   const handleEditPasswordStartingClick = () => {
     setEditPasswordButton(true)
   }
 
   const handleEditPasswordEndingClick = () => {
+    if (passwordRef.current) {
+      passwordRef.current.click()
+    }
     if (!password && !passwordConfirm) {
       setEditPasswordButton(false)
 
@@ -33,12 +39,19 @@ const useEditPasswordCheck = ({
     editPassword(
       { password },
       {
-        onSuccess: () => setEditPasswordButton(false),
+        onSuccess: () => {
+          setEditPasswordButton(false)
+          addToast({
+            message: '비밀번호 변경이 완료되었습니다.',
+            type: 'success',
+          })
+        },
       },
     )
   }
 
   return {
+    passwordRef,
     editPasswordButton,
     handleEditPasswordStartingClick,
     handleEditPasswordEndingClick,

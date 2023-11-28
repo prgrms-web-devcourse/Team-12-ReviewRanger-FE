@@ -18,7 +18,9 @@ const Menu = ({
 
   return (
     <div
-      className={`dropdown-menu border border-black bg-white shadow-md dark:border-white dark:bg-main-gray ${menuPosition[position]} ${className}`}
+      className={`dropdown-menu border border-black bg-white px-0 shadow-md dark:border-white dark:bg-main-gray ${menuPosition[position]} ${className}`}
+      onClick={(e) => e.stopPropagation()}
+      tabIndex={-1}
     >
       {children}
     </div>

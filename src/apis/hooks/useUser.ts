@@ -12,13 +12,13 @@ interface User {
   }
 }
 
+const getUser = async () => {
+  const user = await apiClient.get<User>('/user')
+
+  return user.data.data
+}
+
 const useUser = () => {
-  const getUser = async () => {
-    const user = await apiClient.get<User>('/user')
-
-    return user.data.data
-  }
-
   return useQuery({
     queryKey: ['/user'],
     queryFn: getUser,

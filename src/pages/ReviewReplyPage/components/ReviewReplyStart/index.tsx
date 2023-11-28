@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useCreateResponse, useGetReviewFirst } from '@/apis/hooks'
+import { useToast } from '@/hooks'
+import { useCreateResponse, useGetReviewForParticipation } from '@/apis/hooks'
 import { ReviewReplyStartType } from '../../types'
 import ReviewReply from './ReviewReply'
 import ReceiverSelect from './ReviewSelect'
 
 const ReviewReplyStart = () => {
   const navigate = useNavigate()
+  const { addToast } = useToast()
   const { pathname, state } = useLocation()
   const reviewId = parseInt(pathname.split('/').at(-1) as string)
   const [reviewStep, setReviewStep] = useState(1)
 
-  const { data: reviewData } = useGetReviewFirst({ id: reviewId })
+  const { data: reviewData } = useGetReviewForParticipation({ id: reviewId })
   const { mutate: createResponse } = useCreateResponse()
   const { title, description, receivers } = reviewData
 
@@ -30,7 +32,13 @@ const ReviewReplyStart = () => {
     }
 
     createResponse(requestData, {
-      onSuccess: () => navigate('/'),
+      onSuccess: () => {
+        addToast({
+          message: '리뷰 답변 제출이 완료되었습니다.',
+          type: 'success',
+        })
+        navigate('/')
+      },
     })
   }
 

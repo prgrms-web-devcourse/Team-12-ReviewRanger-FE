@@ -14,20 +14,20 @@ interface PageParam {
   pageParam: number | null
 }
 
+const getInvitedReview = async ({ pageParam }: PageParam) => {
+  const response = await apiClient.get<InvitedReviewResponse>(
+    '/participation',
+    {
+      params: { cursorId: pageParam, size: 12 },
+    },
+  )
+
+  return response.data.data
+}
+
 const useGetInvitedReviews = () => {
-  const getInvitedReview = async ({ pageParam }: PageParam) => {
-    const response = await apiClient.get<InvitedReviewResponse>(
-      '/participation',
-      {
-        params: { cursorId: pageParam, size: 12 },
-      },
-    )
-
-    return response.data.data
-  }
-
   return useSuspenseInfiniteQuery({
-    queryKey: ['/participation'],
+    queryKey: ['reviews', '/participation'],
     queryFn: ({ pageParam }) => getInvitedReview({ pageParam }),
     initialPageParam: null as number | null,
     getNextPageParam: (lastPage) => {
@@ -40,7 +40,6 @@ const useGetInvitedReviews = () => {
       return content[content.length - 1].participationId
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
     refetchInterval: 5000,
     refetchIntervalInBackground: false,
   })

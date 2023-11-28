@@ -1,11 +1,11 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
-import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import {
   ReviewReplyStartType,
   ReviewReplyEditType,
 } from '@/pages/ReviewReplyPage/types'
+import { QuestionOption } from '@/types'
 
 interface ReplyChoiceProps {
   receiverIndex: number
@@ -54,7 +54,7 @@ const ReplyChoice = ({
   return (
     <div>
       <select
-        className="h-10 w-full rounded-md border p-2.5 text-lg"
+        className="h-10 w-full rounded-md border bg-white p-2.5 text-lg dark:bg-main-gray dark:text-white"
         value={selectedOptionId}
         {...(register(`${registerPath}.answerChoice`),
         {

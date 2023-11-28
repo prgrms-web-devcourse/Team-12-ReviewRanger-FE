@@ -18,9 +18,7 @@ const useLogout = () => {
     mutationFn: logout,
     onSuccess: () => {
       localStorage.removeItem(TOKEN_KEY)
-      queryClient.removeQueries({
-        queryKey: ['/user'],
-      })
+      queryClient.clear()
     },
     //TODO - 로그아웃 실패 처리 추가 필요
   })

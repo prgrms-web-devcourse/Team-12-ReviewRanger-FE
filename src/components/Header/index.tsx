@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useToast } from '@/hooks'
 import { useUser, useLogout } from '@/apis/hooks'
 import {
   LogoRowIcon,
@@ -8,6 +9,7 @@ import {
   BasicProfileIcon,
 } from '@/assets/icons'
 import { rangerHead } from '@/assets/images'
+import { Modal } from '..'
 import Dropdown from '../Dropdown'
 
 interface HeaderProps {
@@ -21,12 +23,15 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
+  const { addToast } = useToast()
+
   const avatarVisible = pathname !== '/sign-up' && pathname !== '/login'
   const goBackVisible = pathname !== '/login' && pathname !== '/'
 
   const handleLogout = () => {
     logout(undefined, {
       onSuccess() {
+        addToast({ message: '로그아웃 되었습니다.', type: 'success' })
         navigate('/login')
       },
     })
@@ -55,28 +60,41 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
         </div>
         <div>
           {avatarVisible && user && (
-            <Dropdown>
-              <Dropdown.Toggle className="avatar avatar-sm flex cursor-pointer items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black">
-                {user?.path ? (
-                  <div className="h-7 w-7 p-1 md:h-9 md:w-9">
-                    <img src={user.path} alt="my" />
-                  </div>
-                ) : (
-                  <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
-                )}
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="w-40 rounded-sm">
-                <Dropdown.Item defaultClose={false}>
-                  <p className="text-xl">{user.name}</p>
-                </Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item onClick={() => navigate('/profile')}>
-                  마이페이지
-                </Dropdown.Item>
-                <Dropdown.Item>슬랙 알림 보기</Dropdown.Item>
-                <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <>
+              <Dropdown>
+                <Dropdown.Toggle className="avatar avatar-sm flex cursor-pointer items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black">
+                  {user?.path ? (
+                    <div className="h-7 w-7 p-1 md:h-9 md:w-9">
+                      <img src={user.path} alt="my" />
+                    </div>
+                  ) : (
+                    <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
+                  )}
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="w-40 rounded-sm">
+                  <Dropdown.Item enabled={false}>
+                    <p className="text-xl">{user.name}</p>
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={() => navigate('/profile')}>
+                    마이페이지
+                  </Dropdown.Item>
+                  <Dropdown.Item>슬랙 알림 보기</Dropdown.Item>
+                  <Dropdown.Item>
+                    <label htmlFor="logout" className="cursor-pointer">
+                      로그아웃
+                    </label>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+
+              <Modal
+                modalId="logout"
+                content="로그아웃 하시겠습니까?"
+                label="로그아웃"
+                handleClickLabel={handleLogout}
+              />
+            </>
           )}
         </div>
       </div>

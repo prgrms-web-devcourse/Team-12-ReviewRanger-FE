@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Profile } from '@/components'
-import { Receiver } from '@/apis/hooks/useGetReviewFirst'
 import { CheckInTheCircleIcon } from '@/assets/icons'
+import { Receiver } from '@/types'
 
 interface ReceiverItemProps {
   receiver: Receiver
@@ -41,10 +41,10 @@ const ReceiverItem = ({
                 individualReplyCompletes &&
                 index !== undefined &&
                 individualReplyCompletes[index] &&
-                'border-sub-green'
+                'border-sub-green dark:border-sub-green'
               } ${
                 (state.status === 'END' || state.status === 'DEADLINE') &&
-                'border-sub-green'
+                'border-sub-green dark:border-sub-green'
               }`}
     >
       <Profile

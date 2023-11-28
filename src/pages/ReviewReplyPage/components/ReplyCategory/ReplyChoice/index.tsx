@@ -1,12 +1,12 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
-import { QuestionOption } from '@/apis/hooks/useGetReviewFirst'
 import { CheckIcon } from '@/assets/icons'
 import {
   ReviewReplyStartType,
   ReviewReplyEditType,
 } from '@/pages/ReviewReplyPage/types'
+import { QuestionOption } from '@/types'
 
 interface ReplyChoiceProps {
   receiverIndex: number
