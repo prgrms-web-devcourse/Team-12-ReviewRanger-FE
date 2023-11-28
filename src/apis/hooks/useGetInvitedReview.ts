@@ -31,7 +31,7 @@ const useGetInvitedReview = (reviewId: number) => {
   }
 
   return useQuery({
-    queryKey: ['/invited-surveys/${reviewId}'],
+    queryKey: [`/invited-surveys/${reviewId}`],
     queryFn: getInvitedReview,
   })
 }

@@ -1,5 +1,5 @@
 //NOTE -  모든 수신자가 결과를 받았는지 검증하는 훅
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import apiClient from '@/apis/apiClient'
 
 interface Response {
@@ -16,7 +16,7 @@ const useCheckAllReceiverReceived = ({ id }: { id: string }) => {
     return response.data
   }
 
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: [`/final-results/${id}/status`],
     queryFn: getCheckAllReceiverReceived,
   })
