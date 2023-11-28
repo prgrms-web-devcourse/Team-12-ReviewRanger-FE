@@ -17,7 +17,7 @@ const ReviewReplyEnd = () => {
   const reviewId = parseInt(pathname.split('/').at(-1) as string)
   const [initModal, setInitModal] = useState(true)
   const labelRef = useRef<HTMLLabelElement>(null)
-  const hasMounted = useRef(false)
+  // const hasMounted = useRef(false)
 
   const { data: user } = useUser()
   const { data: prevReplyData } = useGetResponseByResponserForParticipation({
@@ -44,11 +44,12 @@ const ReviewReplyEnd = () => {
   })
 
   useEffect(() => {
-    if (!hasMounted.current) {
-      hasMounted.current = true
+    // NOTE: 개발 서버에서는 필요
+    // if (!hasMounted.current) {
+    //   hasMounted.current = true
 
-      return
-    }
+    //   return
+    // }
 
     if (labelRef.current) {
       labelRef.current.click()
