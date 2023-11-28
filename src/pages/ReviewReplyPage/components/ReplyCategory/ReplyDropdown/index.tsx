@@ -54,7 +54,7 @@ const ReplyChoice = ({
   return (
     <div>
       <select
-        className="h-10 w-full rounded-md border p-2.5 text-lg"
+        className="h-10 w-full rounded-md border bg-white p-2.5 text-lg dark:bg-main-gray dark:text-white"
         value={selectedOptionId}
         {...(register(`${registerPath}.answerChoice`),
         {

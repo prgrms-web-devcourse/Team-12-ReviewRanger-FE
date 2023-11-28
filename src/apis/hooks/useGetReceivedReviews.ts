@@ -14,20 +14,20 @@ interface PageParam {
   pageParam: number | null
 }
 
+const getReceivedReview = async ({ pageParam }: PageParam) => {
+  const response = await apiClient.get<ReceivedReviewResponse>(
+    '/final-results',
+    {
+      params: { cursorId: pageParam, size: 12 },
+    },
+  )
+
+  return response.data.data
+}
+
 const useGetReceivedReviews = () => {
-  const getReceivedReview = async ({ pageParam }: PageParam) => {
-    const response = await apiClient.get<ReceivedReviewResponse>(
-      '/final-results',
-      {
-        params: { cursorId: pageParam, size: 12 },
-      },
-    )
-
-    return response.data.data
-  }
-
   return useSuspenseInfiniteQuery({
-    queryKey: ['/final-results'],
+    queryKey: ['reviews', '/final-results'],
     queryFn: ({ pageParam }) => getReceivedReview({ pageParam }),
     initialPageParam: null as number | null,
     getNextPageParam: (lastPage) => {
@@ -40,7 +40,6 @@ const useGetReceivedReviews = () => {
       return content[content.length - 1].id
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
     refetchInterval: 5000,
     refetchIntervalInBackground: false,
   })
