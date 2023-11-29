@@ -42,11 +42,11 @@ const ReceiverReviewDetail = ({
   return (
     <>
       <label htmlFor="drawer" className="overlay"></label>
-      <div className="drawer drawer-bottom m-0 flex h-4/5 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-[32rem]">
+      <div className="drawer drawer-bottom m-0 flex h-5/6 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-5/6">
         <div className="sticky top-0 z-50 flex h-[30px] w-full shrink-0 flex-col items-center justify-center bg-main-yellow dark:bg-main-red-200 sm:h-[40px]">
           <label
             htmlFor="drawer-bottom"
-            className="m-0 flex w-full justify-center"
+            className="flex w-full cursor-pointer justify-center"
           >
             <CloseDropDownIcon className="h-[1rem] w-[1rem] cursor-pointer fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white md:h-[1.25rem] md:w-[1.25rem]" />
           </label>
