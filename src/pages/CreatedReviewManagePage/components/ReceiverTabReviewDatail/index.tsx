@@ -88,7 +88,10 @@ const ReceiverReviewDetail = ({
 
   const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
-    if (getReviewQuestion.status === 'END') {
+    if (
+      getReviewQuestion.status === 'END' ||
+      getReviewQuestion.status === 'PROCEEDING'
+    ) {
       return
     }
     if (
