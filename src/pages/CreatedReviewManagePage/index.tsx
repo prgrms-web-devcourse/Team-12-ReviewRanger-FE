@@ -62,10 +62,7 @@ const CreatedReviewManagePage = () => {
   }
 
   const handleClickSendSurvey = () => {
-    if (
-      !checkAllReceiverReceived?.success ||
-      getReviewQuestion?.status === 'END'
-    ) {
+    if (getReviewQuestion?.status === 'END') {
       //NOTE - 토스트 처리
 
       return
@@ -109,6 +106,9 @@ const CreatedReviewManagePage = () => {
         }
       >
         <AllResponseReviewByReceiver
+          questionOption={
+            getReviewQuestion.status as 'END' | 'DEADLINE' | 'PROCEEDING'
+          }
           reviewId={reviewId}
           ResponserList={
             getReviewQuestion.status === 'END'

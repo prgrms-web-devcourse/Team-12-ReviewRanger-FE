@@ -69,8 +69,9 @@ const ReviewReplyEdit = () => {
       labelRef.current.click()
     }
     prevReplyData.forEach((receiverData) => {
-      const { replies, receiver, responser } = receiverData
+      const { replies, receiver, responser, id } = receiverData
       const replyTarget = {
+        id,
         receiverId: receiver.id,
         responserId: responser.id,
         replies: replies.map(
@@ -80,14 +81,12 @@ const ReviewReplyEdit = () => {
             answerHexa,
             answerRating,
             answerText,
-            id,
           }) => {
             return {
               answerChoice: answerChoice?.optionId ?? null,
               answerHexa,
               answerRating,
               answerText,
-              id,
               isRequired: (
                 questions.find(({ id }) => id === questionId) as Question
               ).isRequired,

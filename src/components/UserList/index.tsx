@@ -14,6 +14,7 @@ interface UserListProps {
   onClickUser?: ({ id, name }: { id: string; name: string }) => void
   hasDrawer?: boolean
   ResponserList?: number[]
+  questionType?: 'PROCEEDING' | 'DEADLINE' | 'END'
 }
 
 const UserList = ({
@@ -23,6 +24,7 @@ const UserList = ({
   onClickUser,
   hasDrawer,
   ResponserList,
+  questionType,
 }: UserListProps) => {
   const handleClick = (id: string, name: string) => {
     onClickUser && onClickUser({ id, name })
@@ -60,13 +62,15 @@ const UserList = ({
                   className="flex items-center justify-between px-2 py-2 text-sm md:text-lg"
                 >
                   <div className="flex items-center gap-2">
-                    {responserCount && responserCount[index] && (
-                      <span
-                        className={`h-1.5 w-1.5 rounded-full ${
-                          hasSavedResult(user.id) ? '' : 'bg-red-600'
-                        }`}
-                      ></span>
-                    )}
+                    {responserCount &&
+                      responserCount[index] &&
+                      questionType !== 'PROCEEDING' && (
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full ${
+                            hasSavedResult(user.id) ? '' : 'bg-red-600'
+                          }`}
+                        ></span>
+                      )}
                     <Profile name={user.name} />
                   </div>
                   <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
@@ -90,13 +94,15 @@ const UserList = ({
                 className="flex items-center justify-between px-3 py-2 text-sm md:text-lg"
               >
                 <div className="flex items-center gap-2">
-                  {responserCount && responserCount[index] && (
-                    <span
-                      className={`dot ${
-                        hasSavedResult(user.id) ? 'bg-blue-600' : 'bg-red-600'
-                      }`}
-                    ></span>
-                  )}
+                  {responserCount &&
+                    responserCount[index] &&
+                    questionType !== 'PROCEEDING' && (
+                      <span
+                        className={`dot ${
+                          hasSavedResult(user.id) ? 'bg-blue-600' : 'bg-red-600'
+                        }`}
+                      ></span>
+                    )}
                   <Profile name={user.name} />
                 </div>
                 <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">

@@ -1,5 +1,5 @@
 interface Reply {
-  id: number
+  // id: number
   questionId: number
   isRequired: boolean
   answerChoice: number | null
@@ -9,6 +9,7 @@ interface Reply {
 }
 
 interface ReplyTarget {
+  id: number
   receiverId: number
   responserId: number
   replies: Reply[]

@@ -9,10 +9,12 @@ import { useResponseReviewByUser } from '../../hooks'
 interface AllResponseReviewByResponseProps {
   reviewId: string
   ResponserList?: number[]
+  questionOption?: 'PROCEEDING' | 'DEADLINE' | 'END'
 }
 const AllResponseReviewByResponser = ({
   reviewId,
   ResponserList,
+  questionOption,
 }: AllResponseReviewByResponseProps) => {
   const { data: responseByReceiver } = useGetAllResponseByReceiver({
     reviewId,
@@ -57,17 +59,13 @@ const AllResponseReviewByResponser = ({
             />
             <UserList
               hasDrawer
-              users={responseByReceiver.map((receiver) => {
-                return {
-                  id: receiver.receiverId,
-                  name: receiver.receiverName,
-                }
-              })}
+              users={findUserBySearchKeyword}
               onClickUser={({ id, name }) => setSelectedUser({ id, name })}
               responserCount={responseByReceiver?.map(
                 (value) => value.responserCount,
               )}
               ResponserList={ResponserList}
+              questionType={questionOption}
             />
             <Suspense fallback={<div className="spinner"></div>}>
               {selectedUser.id && (
