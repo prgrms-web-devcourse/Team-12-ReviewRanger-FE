@@ -53,6 +53,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
       question={question}
       index={index}
       receiverIndex={selectedReceiverIndex}
+      checkReplyComplete={checkReplyComplete}
     />
   ))
 

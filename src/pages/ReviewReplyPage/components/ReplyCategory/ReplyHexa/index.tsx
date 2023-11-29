@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
 import { HexagonIcon } from '@/assets/icons'
@@ -23,6 +23,7 @@ const ReplyHexa = ({
   questionIndex,
   handleCheckReply,
 }: ReplyHexaProps) => {
+  const [selectedOptionValue, setSelectedOptionValue] = useState(0)
   const { state } = useLocation()
   const { register, getValues, setValue, watch } = useFormContext<
     ReviewReplyStartType | ReviewReplyEditType
@@ -44,7 +45,13 @@ const ReplyHexa = ({
     }
 
     handleCheckReply({ value: count })
-  }, [handleCheckReply, getValues, receiverIndex, questionIndex])
+  }, [
+    handleCheckReply,
+    getValues,
+    receiverIndex,
+    questionIndex,
+    selectedOptionValue,
+  ])
 
   return (
     <div className="flex flex-col gap-5">
@@ -74,6 +81,7 @@ const ReplyHexa = ({
               {
                 onChange: (e) => {
                   setValue(hexaPath, parseInt(e.currentTarget.value))
+                  setSelectedOptionValue(parseInt(e.currentTarget.value))
                 },
               })}
               disabled={state.status === 'END' || state.status === 'DEADLINE'}

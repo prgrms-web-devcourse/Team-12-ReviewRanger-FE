@@ -10,7 +10,7 @@ import {
 interface ReplyTextProps {
   receiverIndex: number
   questionIndex: number
-  handleCheckReply: ({ value }: { value: string }) => void
+  handleCheckReply: ({ value }: { value: number }) => void
 }
 
 type RegisterPath = `replyTargets.${number}.replies.${number}`
@@ -53,7 +53,7 @@ const ReplyText = ({
         {...register(`${registerPath}.answerText`, {
           setValueAs: (value) => value.trim(),
           onChange: handleChangeReplyText,
-          onBlur: () => handleCheckReply({ value: text }),
+          onBlur: () => handleCheckReply({ value: text.trim().length }),
         })}
       />
       <p className="absolute bottom-5 right-5">

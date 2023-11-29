@@ -12,7 +12,7 @@ interface ReplyChoicesProps {
   receiverIndex: number
   questionIndex: number
   options: QuestionOption[]
-  handleCheckReply: ({ value }: { value: number[] }) => void
+  handleCheckReply: ({ value }: { value: number }) => void
 }
 
 type RegisterPath = `replyTargets.${number}.replies.${number}`
@@ -53,7 +53,7 @@ const ReplyChoices = ({
   }, [prevSelectedOptions, questionIndex, receiverIndex])
 
   useEffect(() => {
-    handleCheckReply({ value: selectedOptionIds })
+    handleCheckReply({ value: selectedOptionIds.length })
   }, [selectedOptionIds, handleCheckReply])
 
   const handleClickOption = (e: MouseEvent<HTMLLIElement>) => {
