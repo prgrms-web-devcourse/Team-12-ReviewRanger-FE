@@ -31,7 +31,7 @@ const ReceiverItem = ({
         handleClickReceiver(e)
         checkReplyComplete && checkReplyComplete()
       }}
-      className={`flex h-fit shrink-0 items-center justify-center gap-2 rounded-md border px-2 
+      className={`flex h-fit shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border px-2 
               py-1.5
               ${
                 selectedReceiver.receiverId === receiverId

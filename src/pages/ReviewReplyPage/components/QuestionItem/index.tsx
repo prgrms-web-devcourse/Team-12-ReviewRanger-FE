@@ -37,7 +37,7 @@ const QuestionItem = ({
         handleClickQuestion(e)
         checkReplyComplete && checkReplyComplete()
       }}
-      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm ${
+      className={`flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border text-sm ${
         index === selectedQuestionIndex
           ? 'border-black bg-main-hover-yellow text-black dark:border-white dark:bg-main-red-300 dark:text-white'
           : 'border-gray-100 bg-white text-gray-300 dark:border-gray-300 dark:bg-main-red-200 dark:text-gray-100'

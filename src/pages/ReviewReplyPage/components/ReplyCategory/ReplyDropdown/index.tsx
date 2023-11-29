@@ -77,7 +77,7 @@ const ReplyChoice = ({
         {options.map((option) => {
           return (
             <option
-              className="text-md w-full bg-white"
+              className="text-md w-full bg-white dark:bg-main-gray"
               key={option.optionId}
               value={option.optionId}
             >
