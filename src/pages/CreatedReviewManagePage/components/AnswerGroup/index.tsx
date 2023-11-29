@@ -32,9 +32,9 @@ const renderStarRating = (value: Answer) => (
       <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
       <p className="ml-[1.31rem] text-sm">{value.userName}</p>
     </h3>
-    <p className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
+    <div className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
       <StarRatingList rate={Number(value.value)} fixed={true} />
-    </p>
+    </div>
   </div>
 )
 
@@ -81,10 +81,10 @@ const renderResponseByQuestion = (
   role?: 'responser' | 'receiver',
 ) => (
   <article
-    className="m-t-[1.25rem] accordion-content w-full text-black dark:text-white"
+    className="accordion-content w-full border-x border-gray-200 text-black dark:text-white"
     key={nanoid()}
   >
-    <div className="accordion-content ml-[0.63rem] border-none">
+    <div className="accordion-content border-none px-2.5">
       {(() => {
         switch (questionType) {
           case 'RATING':
@@ -115,25 +115,33 @@ const QuestionAnswerRenderer = ({
   const [inputId] = useState(nanoid())
 
   return (
-    <section
+    <div
       className={`${
-        role === 'responser' && 'accordion accordion-open border-b-0'
-      } border-x border-gray-200 bg-white dark:bg-main-gray`}
+        role === 'responser' ? 'accordion accordion-open' : 'accordion'
+      } bg-white dark:bg-main-gray`}
     >
-      <input type="checkbox" id={inputId} className="accordion-toggle " />
+      <input type="checkbox" id={inputId} className="accordion-toggle" />
       <label
         htmlFor={inputId}
-        className="accordion-title ml-[0.62px] flex h-[2.5rem] justify-center  border-r-[1px] border-t border-gray-200 bg-white text-lg dark:bg-black"
+        className="accordion-title flex h-10 justify-center border border-gray-200 bg-white px-2.5 text-lg dark:border-gray-400 dark:bg-main-gray"
       >
-        <div className="flex items-center justify-between">
-          <h1 className="flex h-[2.75rem] items-center pl-[0.63rem] text-lg md:text-xl">
-            {QUESTION_TYPE[questionType]}
-            <span className="ml-[0.63rem] text-lg md:text-xl">
-              {questionTitle}
-            </span>
-          </h1>
-          <CloseDropDownIcon className="fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white" />
+        <div className="flex h-11 items-center text-lg md:text-xl">
+          {QUESTION_TYPE[questionType]}
+          <span className="ml-[0.63rem] text-lg md:text-xl">
+            {questionTitle}
+          </span>
         </div>
+
+        <span className="accordion-icon absolute top-1/2 flex -translate-y-1/2 items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+          </svg>
+        </span>
       </label>
 
       {questionType !== 'HEXASTAT' &&
@@ -150,7 +158,7 @@ const QuestionAnswerRenderer = ({
           ?.map((value) =>
             renderResponseByQuestion(value, answers, questionType),
           )}
-    </section>
+    </div>
   )
 }
 
