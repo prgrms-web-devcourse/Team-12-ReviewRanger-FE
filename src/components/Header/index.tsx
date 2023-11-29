@@ -63,11 +63,11 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
         </div>
         <div className="flex items-center gap-x-3 md:gap-x-5">
           <div
-            className="flex cursor-pointer items-center justify-center md:h-8 md:w-8"
+            className="flex h-6 w-6 cursor-pointer items-center justify-center md:h-8 md:w-8"
             onClick={toggle}
           >
             {darkMode ? (
-              <MoonIcon className="h-full w-full animate" />
+              <MoonIcon className="h-full w-full" />
             ) : (
               <SunIcon className="h-full w-full" />
             )}
