@@ -18,6 +18,7 @@ const AllResponseReviewByResponser = ({
   const { data: responseByResponser } = useGetAllResponseByResponser({
     reviewId,
   }).data || { data: [] }
+  const [sortState, setSortState] = useState(false)
   const [keyword, setKeyword] = useState('')
   const [filteredUsers, setFilteredUsers] = useState(
     responseByResponser.sort((a, b) => a.user.name.localeCompare(b.user.name)),
@@ -36,12 +37,22 @@ const AllResponseReviewByResponser = ({
   }
 
   const sortByName = () => {
-    setFilteredUsers(
-      () =>
-        [...filteredUsers]?.sort((a, b) =>
-          a.user.name.localeCompare(b.user.name),
-        ),
-    )
+    if (sortState) {
+      setFilteredUsers(
+        () =>
+          [...filteredUsers]?.sort((a, b) =>
+            a.user.name.localeCompare(b.user.name),
+          ),
+      )
+    } else {
+      setFilteredUsers(
+        () =>
+          [...filteredUsers]?.sort((a, b) =>
+            b.user.name.localeCompare(a.user.name),
+          ),
+      )
+    }
+    setSortState((prevState) => !prevState)
   }
 
   const sortByResponse = () => {
