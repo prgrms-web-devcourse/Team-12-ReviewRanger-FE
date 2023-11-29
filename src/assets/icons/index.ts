@@ -1,6 +1,5 @@
 export { default as CloseInTheCircleIcon } from './close-in-the-circle.svg?react'
 export { default as MenuIcon } from './menu.svg?react'
-export { default as BasicProfileIcon } from './basic-profile.svg?react'
 export { default as EyeOffIcon } from './eye-off.svg?react'
 export { default as EyeOnIcon } from './eye-on.svg?react'
 export { default as StarIcon } from './star.svg?react'
