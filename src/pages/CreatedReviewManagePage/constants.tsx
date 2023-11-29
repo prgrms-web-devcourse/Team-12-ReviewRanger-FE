@@ -3,7 +3,7 @@ import {
   DropdownIcon,
   TextIcon,
   StarRatingIcon,
-  HexagonICon,
+  HexagonIcon,
   MultipleChoiceIcon,
 } from '@/assets/icons'
 
@@ -38,7 +38,7 @@ export const QUESTION_TYPE = {
     <StarRatingIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
   ),
   HEXASTAT: (
-    <HexagonICon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+    <HexagonIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
   ),
 }
 
