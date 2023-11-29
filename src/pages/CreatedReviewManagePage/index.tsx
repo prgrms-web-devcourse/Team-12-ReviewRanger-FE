@@ -137,7 +137,7 @@ const CreatedReviewManagePage = () => {
           {getReviewQuestion?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        {getReviewQuestion?.status === 'PROCEEDING' ? (
+        {getReviewQuestion?.status === 'PROCEEDING' && (
           <button
             className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
@@ -145,17 +145,26 @@ const CreatedReviewManagePage = () => {
           >
             설문 마감
           </button>
-        ) : (
+        )}
+
+        {getReviewQuestion.status === 'DEADLINE' && (
           <button
             className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
-            disabled={
-              !checkAllReceiverReceived?.success ||
-              getReviewQuestion?.status === 'END'
-            }
+            disabled={!checkAllReceiverReceived?.success}
             onClick={handleClickSendSurvey}
           >
             전송
+          </button>
+        )}
+
+        {getReviewQuestion.status === 'END' && (
+          <button
+            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-gray-100 font-bold leading-[1.3125rem] text-white
+          `}
+            disabled
+          >
+            전송완료
           </button>
         )}
       </div>
