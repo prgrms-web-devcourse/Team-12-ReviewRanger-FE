@@ -4,6 +4,7 @@ import { useInfiniteScroll } from '@/hooks'
 import { useGetReceivedReviews } from '@/apis/hooks'
 import { scrollToTop } from '@/utils'
 import { ReceivedReview } from '@/types'
+import EmptyReview from '../EmptyReview'
 import ListSkeleton from '../ListSkeleton'
 import ReceivedReviewItem from './ReceivedReviewItem'
 
@@ -31,21 +32,25 @@ const ReceivedReviewList = ({ handleClickReview }: ReceivedReviewListProps) => {
     hasNextPage,
   })
 
-  return (
-    <>
-      <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
-        {reviews.map((review) => (
-          <ReceivedReviewItem
-            handleClickReview={handleClickReview}
-            key={nanoid()}
-            {...review}
-          />
-        ))}
-        {isFetchingNextPage && <ListSkeleton />}
-        <div ref={ref}></div>
-      </ul>
-    </>
-  )
+  if (reviews.length) {
+    return (
+      <>
+        <ul className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 md:gap-10">
+          {reviews.map((review) => (
+            <ReceivedReviewItem
+              handleClickReview={handleClickReview}
+              key={nanoid()}
+              {...review}
+            />
+          ))}
+          {isFetchingNextPage && <ListSkeleton />}
+          <div ref={ref}></div>
+        </ul>
+      </>
+    )
+  }
+
+  return <EmptyReview message="받은 리뷰 결과가 아직 없습니다. 😥" />
 }
 
 export default ReceivedReviewList
