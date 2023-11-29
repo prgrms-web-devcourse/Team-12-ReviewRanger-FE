@@ -26,7 +26,7 @@ const ReceiverReviewDetail = ({
   //NOTE - 하나라도 응답 실패했을 떄 처리
 
   const { addToast } = useToast()
-  const hasAnswered = useRef(false)
+  const hasAnswered = useRef<number[]>([])
   const { data: getReviewQuestion } = useGetReviewForCreator({
     id: Number(reviewId),
   })
@@ -90,10 +90,10 @@ const ReceiverReviewDetail = ({
   useEffect(() => {
     if (
       !ResponserList?.includes(Number(receiverId)) &&
-      hasAnswered.current.valueOf() === false
+      !hasAnswered.current.includes(Number(receiverId))
     ) {
       saveFinalResult()
-      hasAnswered.current = true
+      hasAnswered.current = [...hasAnswered.current, Number(receiverId)]
     }
   }, [receiverId])
 
