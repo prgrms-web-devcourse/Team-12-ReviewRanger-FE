@@ -92,7 +92,16 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
                   <Dropdown.Item onClick={() => navigate('/profile')}>
                     마이페이지
                   </Dropdown.Item>
-                  <Dropdown.Item>슬랙 알림 보기</Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      addToast({
+                        message: '아직 준비중인 기능이에요 😥',
+                        type: 'info',
+                      })
+                    }
+                  >
+                    슬랙 알림 보기
+                  </Dropdown.Item>
                   <Dropdown.Item>
                     <label htmlFor="logout" className="cursor-pointer">
                       로그아웃
