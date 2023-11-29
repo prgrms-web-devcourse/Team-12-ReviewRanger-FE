@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components'
 import { useLogin, useUser } from '@/apis/hooks'
@@ -25,7 +26,9 @@ const LoginPage = () => {
           navigate('/')
         },
         onError(data) {
-          addToast({ message: data.message, type: 'error' })
+          if (data instanceof AxiosError) {
+            addToast({ message: data.response?.data.message, type: 'error' })
+          }
         },
       },
     )

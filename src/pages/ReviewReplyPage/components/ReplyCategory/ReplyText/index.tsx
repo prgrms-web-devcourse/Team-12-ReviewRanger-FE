@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
+import { TextIcon } from '@/assets/icons'
 import {
   ReviewReplyStartType,
   ReviewReplyEditType,
@@ -9,7 +10,7 @@ import {
 interface ReplyTextProps {
   receiverIndex: number
   questionIndex: number
-  handleCheckReply: ({ value }: { value: string }) => void
+  handleCheckReply: ({ value }: { value: number }) => void
 }
 
 type RegisterPath = `replyTargets.${number}.replies.${number}`
@@ -37,18 +38,26 @@ const ReplyText = ({
     setText(e.currentTarget.value)
   }
 
+  useEffect(() => {
+    handleCheckReply({ value: text.trim().length })
+  }, [handleCheckReply, text])
+
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col gap-4">
+      <span className="flex w-fit items-center gap-2 rounded-full border border-sub-orange bg-white px-3 py-1 dark:border-sub-yellow dark:bg-main-red-200">
+        <TextIcon className="h-3 w-3 stroke-sub-orange dark:stroke-sub-yellow" />
+        <p className="text-sm text-sub-orange dark:text-sub-yellow">주관식</p>
+      </span>
       <textarea
         value={text}
-        className="h-80 rounded-md border border-gray-200 p-5 text-sm leading-5 focus:outline-none dark:bg-main-red-200 dark:text-white"
+        className="h-80 rounded-md border border-gray-200 bg-white p-5 text-sm leading-5 placeholder:text-gray-100 focus:outline-none dark:border-gray-100 dark:bg-main-red-200 dark:text-white placeholder:dark:text-gray-200"
         placeholder="답변을 입력해주세요."
         disabled={state.status === 'END' || state.status === 'DEADLINE'}
         maxLength={500}
         {...register(`${registerPath}.answerText`, {
           setValueAs: (value) => value.trim(),
           onChange: handleChangeReplyText,
-          onBlur: () => handleCheckReply({ value: text }),
+          onBlur: () => handleCheckReply({ value: text.trim().length }),
         })}
       />
       <p className="absolute bottom-5 right-5">

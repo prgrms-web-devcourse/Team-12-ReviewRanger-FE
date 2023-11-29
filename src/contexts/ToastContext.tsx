@@ -6,7 +6,7 @@ interface ToastContextType {
     type,
   }: {
     message: string
-    type: 'success' | 'error'
+    type: 'success' | 'error' | 'info'
   }) => void
   removeToast: ({ id }: { id: string }) => void
 }

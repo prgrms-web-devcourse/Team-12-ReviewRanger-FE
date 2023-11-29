@@ -16,7 +16,7 @@ const useSaveFinalResult = <T extends ReviewId>(finalResult: T) => {
 
   return useMutation({
     mutationFn: saveFinalResult,
-    onMutate: async () => {
+    onMutate: () => {
       const reviewId = finalResult.reviewId
       const userId = finalResult.userId
 

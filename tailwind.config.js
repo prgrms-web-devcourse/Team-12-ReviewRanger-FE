@@ -62,6 +62,10 @@ export default {
           lighten: '#DDF3E4',
           darken: '#113123',
         },
+        info: {
+          lighten: '#F8DEC7',
+          darken: '#3F2C26',
+        },
       },
       fontSize: {
         xs: '0.625rem',

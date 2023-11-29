@@ -117,7 +117,7 @@ const ReviewReplyEdit = () => {
           message: '리뷰 답변 수정이 완료되었습니다.',
           type: 'success',
         })
-        navigate('/')
+        navigate('/', { replace: true })
       },
     })
   }

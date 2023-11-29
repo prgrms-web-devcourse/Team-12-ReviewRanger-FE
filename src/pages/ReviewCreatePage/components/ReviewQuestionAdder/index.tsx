@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useFormContext, useFieldArray } from 'react-hook-form'
+import { useToast } from '@/hooks'
 import { PlusIcon } from '@/assets/icons'
 import { QuestionItem, QuestionTypeModal } from '..'
 import { Review } from '../../types'
@@ -25,6 +26,8 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
     control,
     name: 'questions',
   })
+
+  const { addToast } = useToast()
 
   const onSubmit: SubmitHandler<Review> = () => {
     if (!questions.length) {
@@ -94,6 +97,9 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
         <button
           className="h-10 w-24 rounded-md bg-active-orange text-lg text-white dark:text-black"
           type="button"
+          onClick={() => {
+            addToast({ message: '아직 준비중인 기능이에요 😥', type: 'info' })
+          }}
         >
           미리보기
         </button>

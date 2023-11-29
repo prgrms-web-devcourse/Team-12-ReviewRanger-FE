@@ -26,7 +26,7 @@ const ReceiverReviewDetail = ({
   //NOTE - 하나라도 응답 실패했을 떄 처리
 
   const { addToast } = useToast()
-  const hasAnswered = useRef(false)
+  const hasAnswered = useRef<number[]>([])
   const { data: getReviewQuestion } = useGetReviewForCreator({
     id: Number(reviewId),
   })
@@ -88,12 +88,15 @@ const ReceiverReviewDetail = ({
 
   const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
+    if (getReviewQuestion.status === 'END') {
+      return
+    }
     if (
       !ResponserList?.includes(Number(receiverId)) &&
-      hasAnswered.current.valueOf() === false
+      !hasAnswered.current.includes(Number(receiverId))
     ) {
       saveFinalResult()
-      hasAnswered.current = true
+      hasAnswered.current = [...hasAnswered.current, Number(receiverId)]
     }
   }, [receiverId])
 
@@ -126,9 +129,12 @@ const ReceiverReviewDetail = ({
   return (
     <>
       <label htmlFor="drawer" className="overlay"></label>
-      <div className="drawer drawer-bottom m-0 flex h-5/6 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-[32rem]">
+      <div className="drawer drawer-bottom m-0 flex h-5/6 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-5/6">
         <div className="sticky top-0 z-50 flex h-[30px] w-full shrink-0 flex-col items-center justify-center bg-main-yellow dark:bg-main-red-200 sm:h-[40px]">
-          <label htmlFor="drawer-bottom" className="flex w-full justify-center">
+          <label
+            htmlFor="drawer-bottom"
+            className="flex w-full cursor-pointer justify-center"
+          >
             <CloseDropDownIcon className="h-[1rem] w-[1rem] cursor-pointer fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white md:h-[1.25rem] md:w-[1.25rem]" />
           </label>
         </div>

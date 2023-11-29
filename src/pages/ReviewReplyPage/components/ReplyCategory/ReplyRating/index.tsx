@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
+import { StarRatingIcon } from '@/assets/icons'
 import { useStarRate } from '@/hooks/useStarRate/useStarRate'
 import {
   ReviewReplyStartType,
@@ -34,6 +35,7 @@ const ReplyRating = ({
   )
 
   const [score, setScore] = useState(prevScore || 0)
+  const [zero, setZero] = useState(false)
 
   useEffect(() => {
     setRates(
@@ -57,13 +59,34 @@ const ReplyRating = ({
       return
     }
 
-    setScore(index + 1)
-    changeStar(index)
+    if (index !== 0) {
+      setZero(false)
+      setScore(index + 1)
+      changeStar(index)
+
+      return
+    }
+
+    if (zero) {
+      setZero(false)
+      setScore(index)
+      changeStar(index - 1)
+    } else {
+      setZero(true)
+      setScore(index + 1)
+      changeStar(index)
+    }
   }
 
   return (
-    <div className="flex justify-center">
-      <StarRatingList handleClickStar={handleClickStar} rates={rates} />
+    <div className="flex flex-col gap-4">
+      <span className="flex w-fit items-center gap-2 rounded-full border border-sub-orange bg-white px-3 py-1 dark:border-sub-yellow dark:bg-main-red-200">
+        <StarRatingIcon className="h-4 w-4 stroke-sub-orange dark:stroke-sub-yellow" />
+        <p className="text-sm text-sub-orange dark:text-sub-yellow">별점</p>
+      </span>
+      <div className="flex justify-center">
+        <StarRatingList handleClickStar={handleClickStar} rates={rates} />
+      </div>
     </div>
   )
 }

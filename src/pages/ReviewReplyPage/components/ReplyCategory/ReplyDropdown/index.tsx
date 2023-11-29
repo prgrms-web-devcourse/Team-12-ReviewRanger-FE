@@ -1,6 +1,7 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
+import { DropdownIcon } from '@/assets/icons'
 import {
   ReviewReplyStartType,
   ReviewReplyEditType,
@@ -33,6 +34,10 @@ const ReplyChoice = ({
     setSelectedOptionId(getValues(`${registerPath}.answerChoice`) || 0)
   }, [getValues, registerPath])
 
+  useEffect(() => {
+    handleCheckReply({ value: selectedOptionId })
+  }, [handleCheckReply, selectedOptionId])
+
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,
   ) => {
@@ -52,7 +57,11 @@ const ReplyChoice = ({
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
+      <span className="flex w-fit items-center gap-2 rounded-full border border-sub-orange bg-white px-3 py-1 dark:border-sub-yellow dark:bg-main-red-200">
+        <DropdownIcon className="h-4 w-4 stroke-sub-orange dark:stroke-sub-yellow" />
+        <p className="text-sm text-sub-orange dark:text-sub-yellow">드롭다운</p>
+      </span>
       <select
         className="h-10 w-full rounded-md border bg-white p-2.5 text-lg dark:bg-main-gray dark:text-white"
         value={selectedOptionId}
