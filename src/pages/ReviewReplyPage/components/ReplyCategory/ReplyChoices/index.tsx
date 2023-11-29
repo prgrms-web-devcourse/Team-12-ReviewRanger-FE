@@ -92,7 +92,7 @@ const ReplyChoices = ({
       )
     } else {
       setSelectedOptionIds([...selectedOptionIds, selectedTarget])
-      if (getValues(`${registerPath}.answerChoice`) === 0) {
+      if (!getValues(`${registerPath}.answerChoice`)) {
         setValue(`${registerPath}.answerChoice`, selectedTarget)
       } else {
         appendChoiceReply({

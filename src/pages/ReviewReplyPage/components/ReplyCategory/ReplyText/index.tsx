@@ -38,6 +38,10 @@ const ReplyText = ({
     setText(e.currentTarget.value)
   }
 
+  useEffect(() => {
+    handleCheckReply({ value: text.trim().length })
+  }, [handleCheckReply, text])
+
   return (
     <div className="relative flex flex-col gap-4">
       <span className="flex w-fit items-center gap-2 rounded-full border border-sub-orange bg-white px-3 py-1 dark:border-sub-yellow dark:bg-main-red-200">

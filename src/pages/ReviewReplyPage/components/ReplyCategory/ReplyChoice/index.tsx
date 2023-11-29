@@ -34,6 +34,10 @@ const ReplyChoice = ({
     setSelectedOptionId(getValues(`${registerPath}.answerChoice`) || 0)
   }, [getValues, registerPath])
 
+  useEffect(() => {
+    handleCheckReply({ value: selectedOptionId })
+  }, [handleCheckReply, selectedOptionId])
+
   const handleClickOption = (
     e: MouseEvent<HTMLLIElement> | ChangeEvent<HTMLSelectElement>,
   ) => {

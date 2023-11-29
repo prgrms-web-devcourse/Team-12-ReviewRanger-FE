@@ -23,7 +23,7 @@ const ReplyHexa = ({
   questionIndex,
   handleCheckReply,
 }: ReplyHexaProps) => {
-  const [selectedOptionValue, setSelectedOptionValue] = useState(0)
+  const [selectedOptionValue, setSelectedOptionValue] = useState(-1)
   const { state } = useLocation()
   const { register, getValues, setValue, watch } = useFormContext<
     ReviewReplyStartType | ReviewReplyEditType
@@ -45,6 +45,7 @@ const ReplyHexa = ({
     }
 
     handleCheckReply({ value: count })
+    setSelectedOptionValue(-1)
   }, [
     handleCheckReply,
     getValues,
