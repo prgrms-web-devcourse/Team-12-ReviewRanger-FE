@@ -67,7 +67,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
             onClick={toggle}
           >
             {darkMode ? (
-              <MoonIcon className="h-full w-full animate" />
+              <MoonIcon className="animate h-full w-full" />
             ) : (
               <SunIcon className="h-full w-full" />
             )}
