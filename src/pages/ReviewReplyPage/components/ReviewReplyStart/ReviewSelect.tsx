@@ -149,7 +149,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
                       setName('')
                     }}
                   >
-                    <Profile name={nonReceiver.name} className="visible z-10" />
+                    <Profile name={nonReceiver.name} />
                   </Dropdown.Item>
                 ))
             ) : (

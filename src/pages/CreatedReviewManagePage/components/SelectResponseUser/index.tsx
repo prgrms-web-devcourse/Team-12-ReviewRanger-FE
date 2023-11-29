@@ -22,7 +22,7 @@ const SelectResponseUser = ({
           className={`flex h-fit shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border px-2 py-1.5 
           ${
             name === selectedName
-              ? 'border-black border-sub-green bg-main-yellow dark:border-white dark:bg-main-red-300'
+              ? 'border-black bg-main-yellow dark:border-white dark:bg-main-red-300'
               : 'border-gray-100 bg-white dark:border-gray-300 dark:bg-main-red-200'
           }`}
         >
