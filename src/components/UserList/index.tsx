@@ -57,13 +57,13 @@ const UserList = ({
               >
                 <div
                   onClick={() => handleClick(user.id, user.name)}
-                  className="flex items-center justify-between px-3 py-2 text-sm md:text-lg"
+                  className="flex items-center justify-between px-2 py-2 text-sm md:text-lg"
                 >
                   <div className="flex items-center gap-2">
                     {responserCount && responserCount[index] && (
                       <span
-                        className={`dot ${
-                          hasSavedResult(user.id) ? 'bg-blue-600' : 'bg-red-600'
+                        className={`h-1.5 w-1.5 rounded-full ${
+                          hasSavedResult(user.id) ? '' : 'bg-red-600'
                         }`}
                       ></span>
                     )}
