@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
-import { Profile, SearchBar } from '@/components'
+import { Profile, SearchBar, Dropdown } from '@/components'
 import { useUser } from '@/apis/hooks'
 import { CloseIcon } from '@/assets/icons'
 import { Question } from '@/types'
@@ -12,7 +12,6 @@ interface ReceiverSelectProps {
 }
 
 const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
-  const [focus, setFocus] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
   const { data: user } = useUser()
 
@@ -106,7 +105,6 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       'nonReceiverList',
       nonReceivers.sort((a, b) => a.receiverId - b.receiverId),
     )
-    setFocus(true)
   }
 
   const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -120,44 +118,47 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
   return (
     <div className="flex h-full flex-col justify-between pt-2.5">
       <div className="flex flex-col gap-5">
-        <div className="dropdown relative w-full">
-          <SearchBar
-            keyword={name}
-            placeholder="응답자 이름을 입력해주세요."
-            onFocus={handleInputFocus}
-            handleChangeKeyword={handleChangeName}
-            handleResetKeyword={handleResetName}
-            tabIndex={0}
-          />
-          {focus && (
-            <ul className="absolute z-10 flex max-h-[252px] w-full flex-col overflow-y-auto rounded-none border border-t-0 bg-white p-0 dark:bg-main-gray md:max-h-[258px]">
-              {nonReceivers.length > 0 ? (
-                nonReceivers
-                  .filter((nonReceiver) => nonReceiver.name.includes(name))
-                  .map((nonReceiver, index) => (
-                    <li
-                      onClick={() => {
-                        appendReceiver(nonReceiver)
-                        removeNonReceiver(index)
-                        clearErrors('receiverList')
-                        setFocus(false)
-                      }}
-                      key={nonReceiver.id}
-                      className={`${index !== 0 && 'border-t'} ${
-                        index != nonReceivers.length - 1 && 'border-b'
-                      } cursor-pointer border-gray-400 px-2.5 py-2.5 hover:bg-main-ivory dark:border-gray-300 dark:hover:bg-gray-300`}
-                    >
-                      <Profile name={nonReceiver.name} />
-                    </li>
-                  ))
-              ) : (
-                <p className="text-md flex h-[252px] items-center justify-center">
-                  더 이상 선택할 수 있는 유저가 없습니다.
-                </p>
-              )}
-            </ul>
-          )}
-        </div>
+        <Dropdown className="w-full">
+          <Dropdown.Toggle>
+            <SearchBar
+              keyword={name}
+              placeholder="응답자 이름을 입력해주세요."
+              onFocus={handleInputFocus}
+              handleChangeKeyword={handleChangeName}
+              handleResetKeyword={handleResetName}
+              tabIndex={0}
+            />
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="absolute z-10 flex max-h-[252px] w-full flex-col overflow-y-auto rounded-none border border-t-0 bg-white p-0 dark:bg-main-gray md:max-h-[258px]">
+            {nonReceivers.length > 0 ? (
+              nonReceivers
+                .filter((nonReceiver) => nonReceiver.name.includes(name))
+                .map((nonReceiver, index) => (
+                  <Dropdown.Item
+                    key={nonReceiver.id}
+                    className={`${index !== 0 && 'border-t'} ${
+                      index != nonReceivers.length - 1 && 'border-b'
+                    } cursor-pointer border-gray-400 px-2.5 py-2.5 hover:bg-main-ivory dark:border-gray-300 dark:hover:bg-gray-300`}
+                    onClick={() => {
+                      const nonReceiverIndex = nonReceivers.findIndex(
+                        (target) => target === nonReceiver,
+                      )
+                      appendReceiver(nonReceiver)
+                      removeNonReceiver(nonReceiverIndex)
+                      clearErrors('receiverList')
+                      setName('')
+                    }}
+                  >
+                    <Profile name={nonReceiver.name} className="visible z-10" />
+                  </Dropdown.Item>
+                ))
+            ) : (
+              <Dropdown.Item className="text-md flex h-[252px] items-center justify-center">
+                {'더 이상 선택할 수 있는 유저가 없습니다.'}
+              </Dropdown.Item>
+            )}
+          </Dropdown.Menu>
+        </Dropdown>
 
         <div className="relative h-80 overflow-auto rounded-md border bg-main-yellow p-2.5 dark:bg-main-red-200">
           <ul className="flex flex-wrap justify-start gap-2.5">

@@ -7,7 +7,9 @@ interface ProfileProps {
 }
 
 const Profile = ({
-  image = <BasicProfileIcon className="h-4 w-4 bg-white dark:bg-black" />,
+  image = (
+    <BasicProfileIcon className="visible h-4 w-4 bg-white dark:bg-black" />
+  ),
   name,
   className,
 }: ProfileProps) => {
