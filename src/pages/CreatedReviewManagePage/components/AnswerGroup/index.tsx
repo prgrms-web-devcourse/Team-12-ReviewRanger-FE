@@ -106,7 +106,7 @@ const renderResponseByQuestion = (
           <div className="flex w-full flex-col p-[0.62rem]">
             <textarea
               ref={ref}
-              className=" textarea m-0 h-auto w-full max-w-full overflow-auto  rounded-none border border-gray-200 text-sm"
+              className=" textarea m-0 h-auto w-full max-w-full overflow-auto rounded-none  border border-gray-200 bg-white text-sm"
               defaultValue={answers.map((answer) => answer.value as string)}
             ></textarea>
 

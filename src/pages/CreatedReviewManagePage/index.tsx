@@ -30,9 +30,10 @@ const CreatedReviewManagePage = () => {
   )
 
   //NOTE - 리뷰의 질문을 가져온다!
-  const { data: getReviewQuestion } = useGetReviewForCreator({
-    id: Number(reviewId),
-  })
+  const { data: getReviewQuestion, refetch: getUpdatdReviewQuestion } =
+    useGetReviewForCreator({
+      id: Number(reviewId),
+    })
 
   const { data: checkAllReceiverReceived } = useCheckAllReceiverReceived({
     id: reviewId,
@@ -40,7 +41,7 @@ const CreatedReviewManagePage = () => {
 
   const { mutate: closeReview } = useCloseSurvey({ id: reviewId })
 
-  const { mutate: sendReview } = useSendReview()
+  const { mutate: sendReview } = useSendReview({ reviewId })
   const handleClickSurveyClose = () => {
     closeReview(undefined, {
       onSuccess: () => {
@@ -70,23 +71,21 @@ const CreatedReviewManagePage = () => {
       return
     }
 
-    sendReview(
-      { reviewId },
-      {
-        onSuccess: ({ data }) => {
-          if (data.errorCode && data.message) {
-            addToast({ message: data.message, type: 'error' })
+    sendReview(undefined, {
+      onSuccess: ({ data }) => {
+        if (data.errorCode && data.message) {
+          addToast({ message: data.message, type: 'error' })
 
-            return
-          }
+          return
+        }
 
-          addToast({
-            message: '리뷰가 성공적으로 전송되었어요!',
-            type: 'success',
-          })
-        },
+        addToast({
+          message: '리뷰가 성공적으로 전송되었어요!',
+          type: 'success',
+        })
+        getUpdatdReviewQuestion()
       },
-    )
+    })
   }
 
   const REVIEW_MANAGE_TAB_CONTENT = {
@@ -111,7 +110,13 @@ const CreatedReviewManagePage = () => {
       >
         <AllResponseReviewByReceiver
           reviewId={reviewId}
-          ResponserList={checkAllReceiverReceived?.data}
+          ResponserList={
+            getReviewQuestion.status === 'END'
+              ? getReviewQuestion.receivers.map(
+                  (receiver) => receiver.receiverId,
+                )
+              : checkAllReceiverReceived?.data
+          }
         />
       </Suspense>
     ),
@@ -132,7 +137,7 @@ const CreatedReviewManagePage = () => {
           {getReviewQuestion?.description}
         </h2>
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        {getReviewQuestion?.status === 'PROCEEDING' ? (
+        {getReviewQuestion?.status === 'PROCEEDING' && (
           <button
             className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
@@ -140,17 +145,26 @@ const CreatedReviewManagePage = () => {
           >
             설문 마감
           </button>
-        ) : (
+        )}
+
+        {getReviewQuestion.status === 'DEADLINE' && (
           <button
             className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
-            disabled={
-              !checkAllReceiverReceived?.success ||
-              getReviewQuestion?.status === 'END'
-            }
+            disabled={!checkAllReceiverReceived?.success}
             onClick={handleClickSendSurvey}
           >
             전송
+          </button>
+        )}
+
+        {getReviewQuestion.status === 'END' && (
+          <button
+            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-gray-100 font-bold leading-[1.3125rem] text-white
+          `}
+            disabled
+          >
+            전송완료
           </button>
         )}
       </div>
