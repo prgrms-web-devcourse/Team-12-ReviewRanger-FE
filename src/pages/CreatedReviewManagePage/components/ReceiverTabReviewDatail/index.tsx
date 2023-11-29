@@ -88,6 +88,9 @@ const ReceiverReviewDetail = ({
 
   const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
+    if (getReviewQuestion.status === 'END') {
+      return
+    }
     if (
       !ResponserList?.includes(Number(receiverId)) &&
       !hasAnswered.current.includes(Number(receiverId))
