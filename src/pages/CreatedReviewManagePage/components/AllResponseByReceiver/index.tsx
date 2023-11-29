@@ -9,10 +9,12 @@ import { useResponseReviewByUser } from '../../hooks'
 interface AllResponseReviewByResponseProps {
   reviewId: string
   ResponserList?: number[]
+  questionOption?: 'PROCEEDING' | 'DEADLINE' | 'END'
 }
 const AllResponseReviewByResponser = ({
   reviewId,
   ResponserList,
+  questionOption,
 }: AllResponseReviewByResponseProps) => {
   const { data: responseByReceiver } = useGetAllResponseByReceiver({
     reviewId,
@@ -68,6 +70,7 @@ const AllResponseReviewByResponser = ({
                 (value) => value.responserCount,
               )}
               ResponserList={ResponserList}
+              questionType={questionOption}
             />
             <Suspense fallback={<div className="spinner"></div>}>
               {selectedUser.id && (
