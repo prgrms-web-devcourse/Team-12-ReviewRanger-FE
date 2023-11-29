@@ -6,11 +6,10 @@ import {
   LogoRowIcon,
   LogoShortIcon,
   ArrowLeftIcon,
-  BasicProfileIcon,
   SunIcon,
   MoonIcon,
 } from '@/assets/icons'
-import { rangerCleanHead } from '@/assets/images'
+import { rangerCleanHead, BasicProfile } from '@/assets/images'
 import { Modal } from '..'
 import Dropdown from '../Dropdown'
 
@@ -81,7 +80,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
                       <img src={user.path} alt="my" />
                     </div>
                   ) : (
-                    <BasicProfileIcon className="h-7 w-7 md:h-9 md:w-9" />
+                    <img src={BasicProfile} className="h-7 w-7 md:h-9 md:w-9" />
                   )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="w-40 rounded-sm">

@@ -1,4 +1,4 @@
-import { BasicProfileIcon } from '@/assets/icons'
+import { BasicProfile } from '@/assets/images'
 
 interface ProfileGroupProps {
   name: string
@@ -9,7 +9,10 @@ interface ProfileGroupProps {
 const ProfileGroup = ({ name, responserSize, type }: ProfileGroupProps) => {
   return (
     <div className="flex">
-      <BasicProfileIcon className="avatar h-[2.8125rem] w-[2.8125rem] border dark:bg-white dark:fill-white md:h-[3.5rem] md:w-[3.5rem]" />
+      <img
+        src={BasicProfile}
+        className="avatar h-[2.8125rem] w-[2.8125rem] border dark:bg-white dark:fill-white md:h-[3.5rem] md:w-[3.5rem]"
+      />
 
       <div className="ml-[0.63rem] flex flex-col md:ml-[1.44rem]">
         {type === 'receiver' ? (

@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import { StarRatingList } from '@/components'
-import { BasicProfileIcon } from '@/assets/icons'
+import { BasicProfile } from '@/assets/images'
 import { QUESTION_TYPE } from '../../constants'
 import RenderRefinedSubjective from './RenderRefinedSubjective'
 
@@ -29,7 +29,10 @@ interface Answer {
 const renderStarRating = (value: Answer) => (
   <div>
     <h3 className="flex items-center">
-      <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
+      <img
+        src={BasicProfile}
+        className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white"
+      />
       <p className="ml-[1.31rem] text-sm">{value.userName}</p>
     </h3>
     <div className="ml-[42.96px] mt-[0.5rem] text-base leading-5 md:mt-[0.62rem]">
@@ -51,7 +54,10 @@ const renderHexaStat = (value: Answer, answers: Answer[]) => {
       <div className="flex">
         {filteredAnswers.map((value) => (
           <div className="flex w-3/6 flex-wrap gap-[0.31rem]" key={nanoid()}>
-            <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
+            <img
+              src={BasicProfile}
+              className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white"
+            />
             <p className="text-sm">{value?.userName}</p>
             <p className="text-sm text-sub-wine">{value?.value}</p>
           </div>
@@ -64,7 +70,10 @@ const renderHexaStat = (value: Answer, answers: Answer[]) => {
 const renderDefault = (value: Answer) => (
   <>
     <h3 className="flex items-center ">
-      <BasicProfileIcon className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white" />
+      <img
+        src={BasicProfile}
+        className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white"
+      />
       <p className="ml-[1.31rem] text-sm">{value?.userName}</p>
     </h3>
     <p className="ml-[42.96px] mt-[0.5rem] break-all  text-base leading-5 md:mt-[0.62rem]">

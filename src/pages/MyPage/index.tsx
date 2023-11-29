@@ -2,12 +2,8 @@ import { ChangeEvent, useRef } from 'react'
 import { useNameCheck, usePasswordCheck, useToast } from '@/hooks'
 import { Header, Input, Modal } from '@/components'
 import { useEditImage, useUser } from '@/apis/hooks'
-import {
-  BasicProfileIcon,
-  CheckIcon,
-  EditIcon,
-  ImageIcon,
-} from '@/assets/icons'
+import { CheckIcon, EditIcon, ImageIcon } from '@/assets/icons'
+import { BasicProfile } from '@/assets/images'
 import { useEditNameCheck, useEditPasswordCheck } from './hooks'
 
 const MyPage = () => {
@@ -99,7 +95,7 @@ const MyPage = () => {
                 className="h-full w-full"
               />
             ) : (
-              <BasicProfileIcon className="h-20 w-20" />
+              <img src={BasicProfile} className="h-20 w-20" />
             )}
           </div>
           <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
