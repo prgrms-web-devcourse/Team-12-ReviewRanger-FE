@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import { StarRatingList } from '@/components'
-import { CloseDropDownIcon, BasicProfileIcon } from '@/assets/icons'
+import { BasicProfileIcon } from '@/assets/icons'
 import { QUESTION_TYPE } from '../../constants'
 import RenderRefinedSubjective from './RenderRefinedSubjective'
 
