@@ -12,12 +12,14 @@ const RenderRefinedSubjective = ({ text }: RenderRefinedSubjectiveProps) => {
   const { handleChangePrompt, handleRefine } = handlers
 
   return (
-    <div className="relative flex w-full flex-col bg-transparent p-2.5">
+    <div className="relative mt-8 flex w-full flex-col bg-transparent">
       {isLoading && (
         <div className="spinner-dot-pulse absolute right-6 top-6 [--spinner-color:var(--blue-9)]">
           <div className="spinner-pulse-dot"></div>
         </div>
       )}
+
+      <h1 className="mb-2 text-base md:text-lg">⭐ 전송될 취합 답변: </h1>
 
       <ReactTextareaAutosize
         onChange={handleChangePrompt}
@@ -25,7 +27,7 @@ const RenderRefinedSubjective = ({ text }: RenderRefinedSubjectiveProps) => {
         value={result ? result : prompt}
       ></ReactTextareaAutosize>
 
-      <div className="ml-2.5 flex gap-2 p-2.5">
+      <div className="flex gap-2">
         <IconButton
           className="mt-2.5 h-7 gap-1 rounded-md border border-gray-200 bg-gray-400 text-sm text-black"
           text="정제"

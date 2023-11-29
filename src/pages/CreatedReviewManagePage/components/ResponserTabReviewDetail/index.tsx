@@ -41,8 +41,8 @@ const ReceiverReviewDetail = ({
 
   return (
     <>
-      <label htmlFor="drawer" className="overlay"></label>
-      <div className="drawer drawer-bottom m-0 flex h-5/6 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-5/6">
+      <label className="overlay" htmlFor="drawer-bottom"></label>
+      <div className="drawer drawer-bottom m-0 flex h-[90%] w-full flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-5/6">
         <div className="sticky top-0 z-50 flex h-[30px] w-full shrink-0 flex-col items-center justify-center bg-main-yellow dark:bg-main-red-200 sm:h-[40px]">
           <label
             htmlFor="drawer-bottom"

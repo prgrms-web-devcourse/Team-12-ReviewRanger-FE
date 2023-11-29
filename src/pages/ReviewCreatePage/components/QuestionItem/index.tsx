@@ -126,7 +126,7 @@ const QuestionItem = ({
               <li className="mb-2.5 w-full border border-gray-200 last:mb-0 dark:border-gray-100">
                 <div className="flex items-center pr-2.5">
                   <input
-                    className="grow p-2.5 text-sm text-black outline-none  placeholder:text-gray-100 dark:bg-main-gray dark:text-white md:text-base"
+                    className="grow bg-white p-2.5 text-sm text-black outline-none placeholder:text-gray-100 dark:bg-main-gray dark:text-white md:text-base"
                     placeholder={`옵션 ${optionIndex + 1}`}
                     {...register(
                       `questions.${index}.questionOptions.${optionIndex}.optionName`,

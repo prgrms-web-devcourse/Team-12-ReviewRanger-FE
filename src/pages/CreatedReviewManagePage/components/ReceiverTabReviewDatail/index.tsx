@@ -128,8 +128,8 @@ const ReceiverReviewDetail = ({
 
   return (
     <>
-      <label htmlFor="drawer" className="overlay"></label>
-      <div className="drawer drawer-bottom m-0 flex h-5/6 w-full  flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-5/6">
+      <label className="overlay" htmlFor="drawer-bottom"></label>
+      <div className="drawer drawer-bottom m-0 flex h-[90%] w-full flex-col items-center gap-10 overflow-auto bg-main-ivory dark:bg-main-red-100 md:h-5/6">
         <div className="sticky top-0 z-50 flex h-[30px] w-full shrink-0 flex-col items-center justify-center bg-main-yellow dark:bg-main-red-200 sm:h-[40px]">
           <label
             htmlFor="drawer-bottom"
@@ -138,12 +138,14 @@ const ReceiverReviewDetail = ({
             <CloseDropDownIcon className="h-[1rem] w-[1rem] cursor-pointer fill-black stroke-black text-black dark:fill-white dark:stroke-white dark:text-white md:h-[1.25rem] md:w-[1.25rem]" />
           </label>
         </div>
-        <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
+        <div className="mx-auto w-full max-w-[550px] self-start px-2.5">
           <ProfileGroup
             type="receiver"
             name={receiverName}
             responserSize={responserCount?.size}
           />
+        </div>
+        <div className="accordion-group m-0 mb-[10px] flex w-[21.875rem] max-w-[550px] flex-col gap-10 md:w-[34.375rem]">
           {getReviewQuestion?.questions?.map((question) => (
             <AnswerGroup
               questionType={question?.type}

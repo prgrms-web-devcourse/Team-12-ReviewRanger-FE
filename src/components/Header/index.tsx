@@ -63,11 +63,11 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
         </div>
         <div className="flex items-center gap-x-3 md:gap-x-5">
           <div
-            className="flex cursor-pointer items-center justify-center md:h-8 md:w-8"
+            className="flex h-6 w-6 cursor-pointer items-center justify-center md:h-8 md:w-8"
             onClick={toggle}
           >
             {darkMode ? (
-              <MoonIcon className="animate h-full w-full" />
+              <MoonIcon className="h-full w-full" />
             ) : (
               <SunIcon className="h-full w-full" />
             )}
@@ -77,7 +77,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
               <Dropdown>
                 <Dropdown.Toggle className="avatar avatar-sm flex cursor-pointer items-center justify-center overflow-hidden border border-gray-200 bg-white md:avatar-md dark:bg-black">
                   {user?.path ? (
-                    <div className="flex h-7 w-7 p-0.5 md:h-9 md:w-9">
+                    <div className="flex h-7 w-7 md:h-9 md:w-9">
                       <img src={user.path} alt="my" />
                     </div>
                   ) : (

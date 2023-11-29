@@ -79,7 +79,7 @@ const ReplyChoice = ({
             key={option.optionId}
             value={option.optionId}
             onClick={handleClickOption}
-            className={`flex items-center justify-center gap-4 rounded-md border p-2.5 text-lg ${
+            className={`flex cursor-pointer items-center justify-center gap-4 rounded-md border p-2.5 text-lg ${
               selectedOptionId === option.optionId
                 ? 'border-sub-green bg-[#F1FFE7] text-black dark:bg-[rgba(81,156,23,0.20)] dark:text-white'
                 : 'border-gray-100 bg-white text-gray-200 dark:border-gray-200 dark:bg-main-red-200 dark:text-gray-100'

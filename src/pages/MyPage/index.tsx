@@ -88,18 +88,23 @@ const MyPage = () => {
       <Header />
       <div className="flex h-full flex-col items-center gap-6 bg-main-ivory pt-28 dark:bg-main-red-100 md:pt-48">
         <div className="relative flex">
-          <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border bg-white dark:bg-black">
+          <div
+            className="flex h-28 w-28 cursor-pointer items-center justify-center overflow-hidden rounded-full border bg-white dark:bg-black"
+            onClick={handleClickImageButton}
+          >
             {user?.path ? (
-              <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full p-1">
-                <img src={user?.path} alt="profile-image" />
-              </div>
+              <img
+                src={user?.path}
+                alt="profile-image"
+                className="h-full w-full"
+              />
             ) : (
               <BasicProfileIcon className="h-20 w-20" />
             )}
           </div>
           <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
             <ImageIcon
-              className="z-10 h-4 w-4 cursor-pointer dark:stroke-white"
+              className="z-10 h-4 w-4 cursor-pointer dark:fill-white"
               onClick={handleClickImageButton}
             />
             <input
@@ -135,7 +140,7 @@ const MyPage = () => {
               </div>
               <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
                 <EditIcon
-                  className="h-4 w-4 cursor-pointer dark:stroke-white"
+                  className="h-4 w-4 cursor-pointer dark:fill-white"
                   onClick={handleEditNameStartingClick}
                 />
               </div>

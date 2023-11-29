@@ -12,7 +12,7 @@ const StarRatingList = ({ handleClickStar, rates }: StarRatingListProps) => {
         <StarIcon
           className={`${
             rate ? 'fill-sub-yellow' : 'fill-gray-100'
-          } h-12 w-12 stroke-gray-200`}
+          } h-12 w-12 cursor-pointer stroke-gray-200`}
           onClick={() => handleClickStar(index)}
           key={index}
         />
