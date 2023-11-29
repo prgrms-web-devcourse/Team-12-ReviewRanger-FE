@@ -7,7 +7,7 @@ const ReviewReplyPage = () => {
   const { submitStatus, status: reviewStatus } = state
 
   return (
-    <div className="flex h-screen flex-col items-center bg-main-ivory dark:bg-main-red-100">
+    <div className="flex h-screen flex-col items-center overflow-auto bg-main-ivory dark:bg-main-red-100">
       <Header />
       {reviewStatus === 'PROCEEDING' &&
         (!submitStatus ? <ReviewReplyStart /> : <ReviewReplyEdit />)}
