@@ -8,7 +8,11 @@ interface LoginGroupProps {
 }
 const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
   const navigate = useNavigate()
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm({
+    mode: 'onChange',
+  })
+
+  const { onChange: onChangePassword } = register('password')
 
   return (
     <form
@@ -22,7 +26,11 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
       </div>
       <div>
         <div>
-          <Input type="password" register={register('password')} />
+          <Input
+            type="password"
+            register={register('password')}
+            onChange={onChangePassword}
+          />
         </div>
       </div>
       <div className="flex flex-col items-stretch">
