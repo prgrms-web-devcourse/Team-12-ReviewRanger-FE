@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
-import { Modal } from '@/components'
+import { Header, Modal } from '@/components'
 import {
   useEditResponse,
   useGetReviewForParticipation,
@@ -122,25 +122,28 @@ const ReviewReplyEdit = () => {
   }
 
   return (
-    <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
-      <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
-      {!initModal && (
-        <FormProvider {...methods}>
-          <ReviewReply
-            reviewData={reviewData}
-            handleSubmit={handleSubmitReply}
-          />
-        </FormProvider>
-      )}
-      <label ref={labelRef} htmlFor="review-previous-reply-load" />
-      <Modal
-        modalId="review-previous-reply-load"
-        content={`이전에 작성한 답변이 남아 있습니다.\n계속 진행하시겠습니까?`}
-        label="확인"
-        handleClickLabel={handleClickModal}
-        handleClose={handleClickCancelModal}
-      />
-    </div>
+    <>
+      <Header />
+      <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
+        <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
+        {!initModal && (
+          <FormProvider {...methods}>
+            <ReviewReply
+              reviewData={reviewData}
+              handleSubmit={handleSubmitReply}
+            />
+          </FormProvider>
+        )}
+        <label ref={labelRef} htmlFor="review-previous-reply-load" />
+        <Modal
+          modalId="review-previous-reply-load"
+          content={`이전에 작성한 답변이 남아 있습니다.\n계속 진행하시겠습니까?`}
+          label="확인"
+          handleClickLabel={handleClickModal}
+          handleClose={handleClickCancelModal}
+        />
+      </div>
+    </>
   )
 }
 
