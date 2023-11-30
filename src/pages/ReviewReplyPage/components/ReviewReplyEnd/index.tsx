@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Modal } from '@/components'
+import { Header, Modal } from '@/components'
 import {
   useGetReviewForParticipation,
   useUser,
@@ -96,22 +96,25 @@ const ReviewReplyEnd = () => {
   }
 
   return (
-    <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
-      <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
-      {!initModal && (
-        <FormProvider {...methods}>
-          <ReviewReply reviewData={reviewData} />
-        </FormProvider>
-      )}
-      <label ref={labelRef} htmlFor="review-previous-reply-load" />
-      <Modal
-        modalId="review-previous-reply-load"
-        content={`이미 종료된 설문입니다.\n답변하신 내용을 확인하시겠습니까?`}
-        label="확인"
-        handleClickLabel={handleClickModal}
-        handleClose={handleClickCancelModal}
-      />
-    </div>
+    <>
+      <Header />
+      <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
+        <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
+        {!initModal && (
+          <FormProvider {...methods}>
+            <ReviewReply reviewData={reviewData} />
+          </FormProvider>
+        )}
+        <label ref={labelRef} htmlFor="review-previous-reply-load" />
+        <Modal
+          modalId="review-previous-reply-load"
+          content={`이미 종료된 설문입니다.\n답변하신 내용을 확인하시겠습니까?`}
+          label="확인"
+          handleClickLabel={handleClickModal}
+          handleClose={handleClickCancelModal}
+        />
+      </div>
+    </>
   )
 }
 
