@@ -61,7 +61,7 @@ const ReviewReplyStart = () => {
       <Header handleGoBack={handleGoBack} />
       <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
         <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
-        {reviewStep === 1 && (
+        {reviewStep === 2 && (
           <p className="mt-2.5 whitespace-pre-wrap text-sm dark:text-white md:text-lg">
             {description}
           </p>
