@@ -21,6 +21,7 @@ const useGetAllUser = () => {
   return useSuspenseQuery({
     queryKey: ['/members'],
     queryFn: getAllUser,
+    select: (response) => response.filter((user) => user.name !== 'admin'),
   })
 }
 
