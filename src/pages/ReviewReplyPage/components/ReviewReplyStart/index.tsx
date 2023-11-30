@@ -5,8 +5,8 @@ import { useToast } from '@/hooks'
 import { Header, Modal } from '@/components'
 import { useCreateResponse, useGetReviewForParticipation } from '@/apis/hooks'
 import { ReviewReplyStartType } from '../../types'
+import ReceiverSelect from './ReceiverSelect'
 import ReviewReply from './ReviewReply'
-import ReceiverSelect from './ReviewSelect'
 
 const ReviewReplyStart = () => {
   const navigate = useNavigate()
