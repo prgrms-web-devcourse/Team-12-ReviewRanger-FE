@@ -6,6 +6,7 @@ import {
   useEffect,
 } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
+import { useToast } from '@/hooks'
 import { SearchBar } from '@/components'
 import { useUser } from '@/apis/hooks'
 import { Question } from '@/types'
@@ -22,6 +23,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
   const [filteredReceivers, setFilteredReceivers] = useState<User[]>([])
   const [filteredNonReceivers, setFilteredNonReceivers] = useState<User[]>([])
   const { data: user } = useUser()
+  const { addToast } = useToast()
 
   const { control, setValue, handleSubmit } =
     useFormContext<ReviewReplyStartType>()
@@ -56,6 +58,8 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
 
   const onSubmit: SubmitHandler<ReviewReplyStartType> = () => {
     if (!receivers.length) {
+      addToast({ message: '수신자를 한 명 이상 선택하세요.', type: 'error' })
+
       return
     }
 
