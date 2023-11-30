@@ -110,7 +110,7 @@ const useRefine = ({ text = '' }: { text: string }) => {
     handleChangePrompt,
   }
 
-  return { prompt, result, isLoading, handlers }
+  return { prompt, result, isLoading, handlers, setPrompt }
 }
 
 export default useRefine
