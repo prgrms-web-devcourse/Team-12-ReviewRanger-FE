@@ -1,15 +1,44 @@
 import ReactTextareaAutosize from 'react-textarea-autosize'
-import { useRefine } from '@/hooks'
+import { useRefine, useToast } from '@/hooks'
 import { IconButton } from '@/components'
+import { useUpdateFinalReviewAnswer } from '@/apis/hooks'
 import { FilterReplyIcon, SaveIcon } from '@/assets/icons'
 
 interface RenderRefinedSubjectiveProps {
   text: string
+  questionId: number
+  reviewId: number
+  userId: string
 }
 
-const RenderRefinedSubjective = ({ text }: RenderRefinedSubjectiveProps) => {
+const RenderRefinedSubjective = ({
+  text,
+  questionId,
+  reviewId,
+  userId,
+}: RenderRefinedSubjectiveProps) => {
   const { handlers, isLoading, prompt, result } = useRefine({ text })
   const { handleChangePrompt, handleRefine } = handlers
+  const { addToast } = useToast()
+
+  const { mutate: updateFinalAnswer } = useUpdateFinalReviewAnswer()
+  const handleUpdateFinalAnswer = (newAnswer: string) => {
+    updateFinalAnswer(
+      {
+        questionId,
+        reviewId,
+        userId,
+        answer: newAnswer,
+      },
+      {
+        onSuccess: () =>
+          addToast({
+            type: 'success',
+            message: '성공적으로 저장되었습니다!',
+          }),
+      },
+    )
+  }
 
   return (
     <div className="relative mt-8 flex w-full flex-col bg-transparent">
@@ -31,20 +60,18 @@ const RenderRefinedSubjective = ({ text }: RenderRefinedSubjectiveProps) => {
         <IconButton
           className="mt-2.5 h-7 gap-1 rounded-md border border-gray-200 bg-gray-400 text-sm text-black"
           text="정제"
-          onClick={handleRefine}
+          onClick={() => {
+            handleRefine().then(() => handleUpdateFinalAnswer(prompt))
+          }}
         >
           <FilterReplyIcon className="h-4 w-4" />
         </IconButton>
 
         <IconButton
-          disabled
           className="mt-2.5 h-7 gap-1 rounded-md border border-gray-200 bg-gray-400 text-sm text-black"
           text="저장"
           onClick={() => {
-            if (isLoading) {
-              return
-            }
-            //TODO: 저장 API 호출
+            handleUpdateFinalAnswer(prompt)
           }}
         >
           <SaveIcon />
