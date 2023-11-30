@@ -170,7 +170,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
         <div className="mt-4 flex flex-col gap-3 text-sm md:text-lg">
           <div className="w-fit rounded-md border border-sub-orange bg-white px-2 py-0.5 dark:border-sub-yellow dark:bg-main-red-200">
             <h1 className="text-sm text-sub-orange dark:text-sub-yellow md:text-base">
-              수신자 선택
+              리뷰 대상자(수신자) 선택
             </h1>
           </div>
           <SearchBar
