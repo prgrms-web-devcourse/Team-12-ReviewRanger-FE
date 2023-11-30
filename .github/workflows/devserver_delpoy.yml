@@ -28,7 +28,7 @@ jobs:
       - name: Set environment Variables
         run: |
           echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" >> $GITHUB_ENV
-          echo "VITE_AUTH_DOMAIN=${{ secrets.VITE_OPEN_API_KEY }}" >> $GITHUB_ENV
+          echo "VITE_OPEN_API_KEY=${{ secrets.VITE_OPEN_API_KEY }}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm install
