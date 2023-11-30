@@ -4,10 +4,11 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useRef,
 } from 'react'
 import { SubmitHandler, useFieldArray, useFormContext } from 'react-hook-form'
 import { useToast } from '@/hooks'
-import { SearchBar } from '@/components'
+import { Modal, SearchBar } from '@/components'
 import { useUser } from '@/apis/hooks'
 import { Question } from '@/types'
 import { ReviewReplyStartType, User } from '../../types'
@@ -22,6 +23,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
   const [name, setName] = useState<string>('')
   const [filteredReceivers, setFilteredReceivers] = useState<User[]>([])
   const [filteredNonReceivers, setFilteredNonReceivers] = useState<User[]>([])
+  const modalLabelRef = useRef<HTMLLabelElement>(null)
   const { data: user } = useUser()
   const { addToast } = useToast()
 
@@ -56,13 +58,48 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     )
   }, [name, receivers, nonReceivers])
 
-  const onSubmit: SubmitHandler<ReviewReplyStartType> = () => {
-    if (!receivers.length) {
-      addToast({ message: '수신자를 한 명 이상 선택하세요.', type: 'error' })
+  const handleInputFocus = () => {
+    setValue(
+      'nonReceiverList',
+      nonReceivers.sort((a, b) => a.receiverId - b.receiverId),
+    )
+  }
 
-      return
-    }
+  const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.currentTarget.value)
+  }
 
+  const handleResetName = () => {
+    setName('')
+  }
+
+  const handleReceiver = {
+    selectAll: (receivers: User[]) => {
+      replaceReceiver([])
+      appendNonReceiver(receivers)
+    },
+    select: (receiver: User) => {
+      const receiverIndex = receivers.findIndex((target) => target === receiver)
+      appendNonReceiver(receiver)
+      removeReceiver(receiverIndex)
+    },
+  }
+
+  const handleNonReceiver = {
+    selectAll: (nonReceivers: User[]) => {
+      replaceNonReceiver([])
+      appendReceiver(nonReceivers)
+    },
+    select: (nonReceiver: User) => {
+      const nonReceiverIndex = nonReceivers.findIndex(
+        (target) => target === nonReceiver,
+      )
+      appendReceiver(nonReceiver)
+      removeNonReceiver(nonReceiverIndex)
+    },
+  }
+
+  const completeReceiverSelect = () => {
     receivers.forEach(({ receiverId }) => {
       const replyTarget = {
         receiverId: receiverId,
@@ -112,95 +149,65 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
     setReviewStep(2)
   }
 
-  const handleInputFocus = () => {
-    setValue(
-      'nonReceiverList',
-      nonReceivers.sort((a, b) => a.receiverId - b.receiverId),
-    )
-  }
+  const onSubmit: SubmitHandler<ReviewReplyStartType> = () => {
+    if (!receivers.length) {
+      addToast({ message: '수신자를 한 명 이상 선택하세요.', type: 'error' })
 
-  const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    const changedName = e.currentTarget.value
+      return
+    }
 
-    setName(changedName)
-    setFilteredReceivers(
-      receivers.filter((receiver) => receiver.name.includes(changedName)),
-    )
-    setFilteredNonReceivers(
-      nonReceivers.filter((nonReceiver) =>
-        nonReceiver.name.includes(changedName),
-      ),
-    )
-  }
-
-  const handleResetName = () => {
-    setName('')
-  }
-
-  const handleReceiver = {
-    selectAll: (receivers: User[]) => {
-      replaceReceiver([])
-      appendNonReceiver(receivers)
-    },
-    select: (receiver: User) => {
-      const receiverIndex = receivers.findIndex((target) => target === receiver)
-      appendNonReceiver(receiver)
-      removeReceiver(receiverIndex)
-    },
-  }
-
-  const handleNonReceiver = {
-    selectAll: (nonReceivers: User[]) => {
-      replaceNonReceiver([])
-      appendReceiver(nonReceivers)
-    },
-    select: (nonReceiver: User) => {
-      const nonReceiverIndex = nonReceivers.findIndex(
-        (target) => target === nonReceiver,
-      )
-      appendReceiver(nonReceiver)
-      removeNonReceiver(nonReceiverIndex)
-    },
+    if (modalLabelRef.current) {
+      modalLabelRef.current.click()
+    }
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex h-full flex-col justify-between gap-3 pt-2.5"
-    >
-      <div className="mt-4 flex flex-col gap-3 text-sm md:text-lg">
-        <div className="w-fit rounded-md border border-sub-orange bg-white px-2 py-0.5 dark:border-sub-yellow dark:bg-main-red-200">
-          <h1 className="text-sm text-sub-orange dark:text-sub-yellow md:text-base">
-            수신자 선택
-          </h1>
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex h-full flex-col justify-between gap-3 pt-2.5"
+      >
+        <div className="mt-4 flex flex-col gap-3 text-sm md:text-lg">
+          <div className="w-fit rounded-md border border-sub-orange bg-white px-2 py-0.5 dark:border-sub-yellow dark:bg-main-red-200">
+            <h1 className="text-sm text-sub-orange dark:text-sub-yellow md:text-base">
+              수신자 선택
+            </h1>
+          </div>
+          <SearchBar
+            keyword={name}
+            placeholder="수신자 이름을 입력해주세요."
+            onFocus={handleInputFocus}
+            handleChangeKeyword={handleChangeName}
+            handleResetKeyword={handleResetName}
+            tabIndex={0}
+          />
+          <ReceiverList
+            receiverList={filteredReceivers}
+            selected={true}
+            handleSelectAllReceivers={handleReceiver.selectAll}
+            handleSelectReceiver={handleReceiver.select}
+          />
+          <ReceiverList
+            receiverList={filteredNonReceivers}
+            handleSelectAllReceivers={handleNonReceiver.selectAll}
+            handleSelectReceiver={handleNonReceiver.select}
+          />
         </div>
-        <SearchBar
-          keyword={name}
-          placeholder="수신자 이름을 입력해주세요."
-          onFocus={handleInputFocus}
-          handleChangeKeyword={handleChangeName}
-          handleResetKeyword={handleResetName}
-          tabIndex={0}
-        />
-        <ReceiverList
-          receiverList={filteredReceivers}
-          selected={true}
-          handleSelectAllReceivers={handleReceiver.selectAll}
-          handleSelectReceiver={handleReceiver.select}
-        />
-        <ReceiverList
-          receiverList={filteredNonReceivers}
-          handleSelectAllReceivers={handleNonReceiver.selectAll}
-          handleSelectReceiver={handleNonReceiver.select}
-        />
-      </div>
 
-      <div className="mt-2 flex justify-center md:justify-end">
-        <button className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl">
-          리뷰 시작하기
-        </button>
-      </div>
-    </form>
+        <div className="mt-2 flex justify-center md:justify-end">
+          <button className="mb-5 h-10 w-full rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:w-52 md:text-xl">
+            리뷰 시작하기
+          </button>
+        </div>
+      </form>
+      <label htmlFor="select-receiver" ref={modalLabelRef}></label>
+      <Modal
+        modalId="select-receiver"
+        content={`선택하신 수신자는 이후 변경할 수 없습니다.\n\n모든 수신자를 고르셨습니까?`}
+        label="확인"
+        handleClickLabel={completeReceiverSelect}
+      />
+    </>
   )
 }
 
