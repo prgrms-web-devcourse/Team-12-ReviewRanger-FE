@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
-import { Header } from '@/components'
+import { Header, Modal } from '@/components'
 import { useCreateResponse, useGetReviewForParticipation } from '@/apis/hooks'
 import { ReviewReplyStartType } from '../../types'
 import ReviewReply from './ReviewReply'
@@ -14,6 +14,7 @@ const ReviewReplyStart = () => {
   const { pathname, state } = useLocation()
   const reviewId = parseInt(pathname.split('/').at(-1) as string)
   const [reviewStep, setReviewStep] = useState(1)
+  const goBackLabelRef = useRef<HTMLLabelElement>(null)
 
   const { data: reviewData } = useGetReviewForParticipation({ id: reviewId })
   const { mutate: createResponse } = useCreateResponse()
@@ -49,7 +50,10 @@ const ReviewReplyStart = () => {
 
       return
     }
-    setReviewStep(reviewStep - 1)
+
+    if (goBackLabelRef.current) {
+      goBackLabelRef.current.click()
+    }
   }
 
   return (
@@ -75,6 +79,13 @@ const ReviewReplyStart = () => {
               handleSubmit={handleSubmitReply}
             />
           )}
+          <label htmlFor="go-back" ref={goBackLabelRef}></label>
+          <Modal
+            modalId="go-back"
+            content={`페이지를 벗어나면 지금까지 작성한 내용이 모두 삭제됩니다.\n\n뒤로 가시겠습니까?`}
+            label="뒤로 가기"
+            handleClickLabel={() => navigate('/')}
+          />
         </FormProvider>
       </div>
     </>

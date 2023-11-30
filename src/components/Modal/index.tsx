@@ -34,7 +34,7 @@ const Modal = ({
           >
             <CloseIcon className="dark:fill-white" />
           </label>
-          <span className="text-center text-base dark:text-white md:text-xl">
+          <span className="whitespace-pre-wrap text-center text-base dark:text-white md:text-xl">
             {content}
           </span>
           <div className="flex w-full gap-6">
