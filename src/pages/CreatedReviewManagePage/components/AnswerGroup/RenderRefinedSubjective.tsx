@@ -56,7 +56,7 @@ const RenderRefinedSubjective = ({
         value={result ? result : prompt}
       ></ReactTextareaAutosize>
 
-      <div className="flex gap-2">
+      <div className="flex w-full justify-end gap-2">
         <IconButton
           className="mt-2.5 h-7 gap-1 rounded-md border border-gray-200 bg-gray-400 text-sm text-black"
           text="정제"
