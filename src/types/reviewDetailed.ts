@@ -24,7 +24,7 @@ export interface ReviewDetailedData {
   title: string
   receivers: Receiver[]
   description: string
-  status: string
+  status: 'END' | 'DEADLINE' | 'PROCEEDING'
   questions: Question[]
 }
 

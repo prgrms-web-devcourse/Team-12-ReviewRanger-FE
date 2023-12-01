@@ -73,6 +73,9 @@ const ReceiverReviewDetail = ({
                 question?.id,
                 getUserSelectedAnswers,
               )}
+              questionId={question?.id}
+              userId={responserId}
+              reviewId={reviewId}
             />
           ))}
         </div>

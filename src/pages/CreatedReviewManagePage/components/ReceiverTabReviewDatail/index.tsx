@@ -1,10 +1,8 @@
 import { useEffect, useRef } from 'react'
-import { useToast } from '@/hooks'
 import {
   useGetReviewForCreator,
   useGetResponseByReceiver,
   useSaveFinalResult,
-  useUpdateFinalReviewAnswer,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { ProfileGroup, AnswerGroup } from '..'
@@ -25,7 +23,6 @@ const ReceiverReviewDetail = ({
 }: ReviewDetailAccordionProps) => {
   //NOTE - 하나라도 응답 실패했을 떄 처리
 
-  const { addToast } = useToast()
   const hasAnswered = useRef<number[]>([])
   const { data: getReviewQuestion } = useGetReviewForCreator({
     id: Number(reviewId),
@@ -86,7 +83,6 @@ const ReceiverReviewDetail = ({
 
   const { mutate: saveFinalResult } = useSaveFinalResult(saveFinalReviewResult)
 
-  const { mutate: updateFinalReviewAnswer } = useUpdateFinalReviewAnswer()
   useEffect(() => {
     if (
       getReviewQuestion.status === 'END' ||
@@ -107,27 +103,6 @@ const ReceiverReviewDetail = ({
   const responserCount = new Set(
     responseByReceiver?.map((data) => data?.responser?.id.toString()),
   )
-
-  const handleUpdateFinalReviewAnswer = (
-    updatedAnswer: string,
-    questionId: string,
-  ) => {
-    updateFinalReviewAnswer(
-      {
-        userId: receiverId,
-        answer: updatedAnswer,
-        reviewId,
-        questionId,
-      },
-      {
-        onSuccess: ({ success }) => {
-          if (success) {
-            addToast({ message: '성공적으로 저장되었습니다!', type: 'success' })
-          }
-        },
-      },
-    )
-  }
 
   return (
     <>
@@ -153,15 +128,16 @@ const ReceiverReviewDetail = ({
             <AnswerGroup
               questionType={question?.type}
               questionTitle={question?.title}
+              questionId={question?.id}
               key={question?.id}
               answers={getAnswer(
                 question?.type,
                 question?.id,
                 responseByReceiver,
               )}
-              onClickCleanButton={(newAnswer: string) => {
-                handleUpdateFinalReviewAnswer(newAnswer, question.id + '')
-              }}
+              reviewId={reviewId}
+              userId={receiverId}
+              reviewStatus={getReviewQuestion?.status}
             />
           ))}
         </div>

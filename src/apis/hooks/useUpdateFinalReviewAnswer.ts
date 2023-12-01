@@ -3,8 +3,8 @@ import apiClient from '@/apis/apiClient'
 
 interface updatedReviewAnswer {
   userId: string
-  reviewId: string
-  questionId: string
+  reviewId: number
+  questionId: number
   answer: string
 }
 
