@@ -43,6 +43,7 @@ const RadarChart = ({ answers }: RadarChartProps) => {
     scales: {
       r: {
         suggestedMax: 10,
+        suggestedMin: 0,
         ticks: {
           stepSize: 10,
           count: 4,
