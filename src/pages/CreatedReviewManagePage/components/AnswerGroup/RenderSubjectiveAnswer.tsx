@@ -3,6 +3,7 @@ import RenderRefinedSubjective from './RenderRefinedSubjective'
 import { Answer } from './'
 
 interface RenderSubjeciveAnswerProps {
+  reviewStatus?: 'END' | 'DEADLINE' | 'PROCEEDING'
   role?: 'responser' | 'receiver'
   value: Answer
   isLastAnswer: boolean
@@ -13,6 +14,7 @@ interface RenderSubjeciveAnswerProps {
 }
 
 const RenderSubjectiveAnswer = ({
+  reviewStatus,
   role,
   value,
   isLastAnswer,
@@ -30,7 +32,7 @@ const RenderSubjectiveAnswer = ({
       {value?.value}
     </p>
 
-    {isLastAnswer && role !== 'responser' && (
+    {isLastAnswer && role !== 'responser' && reviewStatus !== 'PROCEEDING' && (
       <RenderRefinedSubjective {...rest} />
     )}
   </>

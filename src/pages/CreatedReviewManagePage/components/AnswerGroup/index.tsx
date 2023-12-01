@@ -20,6 +20,7 @@ interface QuestionGroupProps {
   reviewId: string
   userId: string
   role?: 'responser' | 'receiver'
+  reviewStatus?: 'END' | 'DEADLINE' | 'PROCEEDING'
 }
 
 export interface Answer {
@@ -52,6 +53,7 @@ const QuestionAnswerRenderer = memo(
     questionId,
     reviewId,
     userId,
+    reviewStatus,
   }: QuestionGroupProps) => {
     const [inputId] = useState(nanoid())
     const renderResponseByQuestion = useCallback(
@@ -91,6 +93,7 @@ const QuestionAnswerRenderer = memo(
                       value={value}
                       role={role}
                       isLastAnswer={answers.length - 1 === index}
+                      reviewStatus={reviewStatus}
                     />
                   )
                 default:

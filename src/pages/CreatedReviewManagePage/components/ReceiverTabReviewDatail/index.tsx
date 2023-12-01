@@ -137,6 +137,7 @@ const ReceiverReviewDetail = ({
               )}
               reviewId={reviewId}
               userId={receiverId}
+              reviewStatus={getReviewQuestion?.status}
             />
           ))}
         </div>
