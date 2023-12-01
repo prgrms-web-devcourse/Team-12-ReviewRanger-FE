@@ -44,7 +44,7 @@ const ReplyRating = ({
         : Array(5).fill(false),
     )
     setScore(prevScore || 0)
-  }, [prevScore, receiverIndex, setRates])
+  }, [prevScore, receiverIndex, setRates, questionIndex])
 
   useEffect(() => {
     setValue(`${registerPath}.answerRating`, score)
