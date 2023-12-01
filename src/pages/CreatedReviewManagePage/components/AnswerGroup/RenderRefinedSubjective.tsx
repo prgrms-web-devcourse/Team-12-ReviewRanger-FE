@@ -71,6 +71,9 @@ const RenderRefinedSubjective = ({
           className="mt-2.5 h-7 gap-1 rounded-md border border-gray-200 bg-gray-400 text-sm text-black"
           text="저장"
           onClick={() => {
+            if (isLoading) {
+              return
+            }
             handleUpdateFinalAnswer(prompt)
           }}
         >
