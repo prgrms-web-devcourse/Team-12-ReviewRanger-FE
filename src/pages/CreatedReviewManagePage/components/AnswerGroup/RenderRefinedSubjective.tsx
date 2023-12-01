@@ -61,7 +61,7 @@ const RenderRefinedSubjective = ({
           className="mt-2.5 h-7 gap-1 rounded-md border border-gray-200 bg-gray-400 text-sm text-black"
           text="정제"
           onClick={() => {
-            handleRefine().then(() => handleUpdateFinalAnswer(prompt))
+            handleRefine()
           }}
         >
           <FilterReplyIcon className="h-4 w-4" />
