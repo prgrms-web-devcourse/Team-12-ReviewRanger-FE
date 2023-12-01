@@ -49,7 +49,7 @@ const ReceiverReviewDetail = ({
         })
 
       case 'SUBJECTIVE': {
-        const result = answer?.map((value) => value.value)?.join('')
+        const result = answer?.map((value) => value.value)?.join('\n')
 
         return result === '' ? [] : new Array(result)
       }
