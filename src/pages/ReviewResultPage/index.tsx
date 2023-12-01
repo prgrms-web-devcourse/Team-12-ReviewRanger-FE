@@ -91,7 +91,7 @@ const ReviewResultPage = () => {
 
                     case 'SUBJECTIVE':
                       return (
-                        <p className="text-justify text-sm text-black dark:text-white md:text-lg ">
+                        <p className="whitespace-pre-wrap text-justify text-sm text-black dark:text-white md:text-lg ">
                           {answers[0]}
                         </p>
                       )
