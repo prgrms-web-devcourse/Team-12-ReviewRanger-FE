@@ -64,8 +64,8 @@ const ReviewEntry = ({ setReviewStep }: ReviewEntryProps) => {
             {...register('description', {
               required: '내용을 입력해주세요.',
               maxLength: {
-                value: 300,
-                message: '300자 이내로 작성해주세요.',
+                value: 500,
+                message: '500자 이내로 작성해주세요.',
               },
               setValueAs: (value) => value.trim(),
             })}
