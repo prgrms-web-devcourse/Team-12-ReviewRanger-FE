@@ -51,8 +51,8 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
   ))
 
   return (
-    <div className="flex h-full flex-col justify-between">
-      <div className="flex flex-col gap-8 pt-2.5">
+    <div className="flex h-full flex-col justify-between gap-2">
+      <div className="flex flex-col gap-5 pt-2.5">
         <h3 className="text-sm text-gray-300 dark:text-gray-400">{`응답 대상자: ${selectedReceiver.name}`}</h3>
         <div className="flex flex-col gap-5">
           <ul className="flex items-center gap-2.5 overflow-x-auto">
@@ -76,6 +76,7 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
               />
             ))}
           </ul>
+          <hr />
         </div>
         {questionArray[selectedQuestionIndex]}
       </div>

@@ -13,7 +13,7 @@ interface ReplyTarget {
   replies: Reply[]
 }
 
-interface User {
+export interface User {
   receiverId: number
   name: string
 }
