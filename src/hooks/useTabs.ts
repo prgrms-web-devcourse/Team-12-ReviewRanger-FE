@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { TabsContext } from '@/contexts'
 
-const useDarkMode = () => {
+const useTabs = () => {
   return useContext(TabsContext)
 }
 
-export default useDarkMode
+export default useTabs
