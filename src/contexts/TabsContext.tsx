@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction, createContext } from 'react'
+import { Tabs } from '@/types'
 
 interface TabsContextType {
-  activeTab: 'invited' | 'created' | 'received'
-  setActiveTab: Dispatch<SetStateAction<'invited' | 'created' | 'received'>>
+  activeTab: Tabs
+  setActiveTab: Dispatch<SetStateAction<Tabs>>
 }
 
 const TabsContext = createContext<TabsContextType>({
