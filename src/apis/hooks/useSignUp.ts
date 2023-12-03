@@ -7,19 +7,13 @@ interface User {
   password: string
 }
 
-interface SignUpSuccess {
+interface SignUp {
   success: boolean
-}
-
-interface SignUpFail {
-  status: string
-  errorCode: string
-  message: string
 }
 
 const useSignUp = () => {
   const signUp = async (user: User) => {
-    return await apiClient.post<SignUpSuccess | SignUpFail>('/sign-up', user)
+    return await apiClient.post<SignUp>('/sign-up', user)
   }
 
   return useMutation({ mutationFn: signUp })
