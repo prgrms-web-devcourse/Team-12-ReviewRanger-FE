@@ -38,8 +38,6 @@ const DoughnutChart = ({ answers }: DoughnutChartProps) => {
   const labels = splitStrings(Array.from(answerMap.keys()))
   const data = Array.from(answerMap.values())
 
-  console.log(labels)
-
   const doughnutData: ChartData<'doughnut'> = {
     labels,
     datasets: [
