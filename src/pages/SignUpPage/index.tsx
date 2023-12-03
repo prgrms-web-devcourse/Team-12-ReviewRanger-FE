@@ -5,6 +5,7 @@ import { Input, Header } from '@/components'
 import { useSignUp } from '@/apis/hooks'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
+import { SignUpFail } from './types'
 
 const SingUpPage = () => {
   const navigate = useNavigate()
@@ -42,19 +43,16 @@ const SingUpPage = () => {
     signUp(
       { email, name, password },
       {
-        onSuccess: ({ data }) => {
-          if ('status' in data && data.status === 'CONFLICT') {
-            if (data.errorCode === 'EXIST_SAME_NAME') {
-              setNameFailMessage(data.message)
+        onSuccess: () => navigate('/'),
+        onError: (error) => {
+          if ('response' in error) {
+            const message = (error.response as SignUpFail).data.message
+            if (message.includes('이메일')) {
+              setEmailFailMessage(message)
+            } else {
+              setNameFailMessage(message)
             }
-            if (data.errorCode === 'EXIST_SAME_EMAIL') {
-              setEmailFailMessage(data.message)
-            }
-
-            return
           }
-
-          navigate('/')
         },
       },
     )
