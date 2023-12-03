@@ -26,7 +26,7 @@ const useCheckHeaderRoute = () => {
       setMyPageButtonClicked(false)
       setPrevButtonClicked(false)
     }
-  }, [location.pathname])
+  }, [])
 
   return { logoButtonClicked, prevButtonClicked, myPageButtonClicked }
 }
