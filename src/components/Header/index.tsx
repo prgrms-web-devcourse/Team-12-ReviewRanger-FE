@@ -38,28 +38,39 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
       },
     })
   }
-  const { myPageButtonClicked } = useCheckHeaderRoute()
+  const { myPageButtonClicked, logoButtonClicked } = useCheckHeaderRoute()
 
   return (
     <div className="sticky top-0 z-30 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
       <div className="relative flex w-[55rem] items-center justify-between px-6">
-        <div
-          className="cursor-pointer"
-          onClick={handleGoBack ?? (() => navigate(-1))}
-        >
-          <ArrowLeftIcon className={`${!goBackVisible && 'hidden'}`} />
+        <div className="cursor-pointer" onClick={handleGoBack}>
+          <label
+            htmlFor="prevpage"
+            className="flex cursor-pointer items-center"
+          >
+            <ArrowLeftIcon className={`${!goBackVisible && 'hidden'}`} />
+          </label>
         </div>
         <div
           className="absolute left-1/2 flex -translate-x-1/2 cursor-pointer items-center gap-1"
-          onClick={() => navigate('/')}
+          onClick={() => {
+            if (!logoButtonClicked) {
+              navigate('/')
+            }
+          }}
         >
-          <img
-            src={rangerCleanHead}
-            alt="ranger-header"
-            className="h-6 w-6 md:h-8 md:w-8"
-          />
-          <LogoShortIcon className="ml-1 h-7 w-8 md:hidden" />
-          <LogoRowIcon className="hidden h-11 w-60 md:block" />
+          <label
+            htmlFor={`${logoButtonClicked ? 'mainpage' : ''}`}
+            className="flex cursor-pointer items-center"
+          >
+            <img
+              src={rangerCleanHead}
+              alt="ranger-header"
+              className="h-6 w-6 md:h-8 md:w-8"
+            />
+            <LogoShortIcon className="ml-1 h-7 w-8 md:hidden" />
+            <LogoRowIcon className="hidden h-11 w-60 md:block" />
+          </label>
         </div>
         <div className="flex items-center gap-x-3 md:gap-x-5">
           <div
@@ -130,9 +141,18 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
               <Modal
                 modalId="mypage"
                 content="마이페이지로 이동하시겠습니까?"
-                label="이동"
+                label="이동하기"
                 handleClickLabel={() => {
                   navigate('/profile')
+                }}
+              />
+
+              <Modal
+                modalId="mainpage"
+                content="메인페이지로 이동하시겠습니까??"
+                label="이동하기"
+                handleClickLabel={() => {
+                  navigate('/')
                 }}
               />
             </>
