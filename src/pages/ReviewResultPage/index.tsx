@@ -13,7 +13,7 @@ import {
 } from 'chart.js'
 import dayjs from 'dayjs'
 import { useLocation } from 'react-router-dom'
-import { Header } from '@/components'
+import { Header, ReviewInfo } from '@/components'
 import { useGetReceivedReview } from '@/apis/hooks'
 import { DoughnutChart, RadarChart, StarChart } from './components'
 
@@ -53,14 +53,7 @@ const ReviewResultPage = () => {
             </p>
           </div>
 
-          <div className="flex justify-between">
-            <h1 className="text-xl text-black dark:text-white md:text-2xl">
-              {title}
-            </h1>
-          </div>
-          <p className="whitespace-pre-line text-sm text-gray-300 dark:text-gray-400 md:text-lg">
-            {description}
-          </p>
+          <ReviewInfo {...{ title, description }} />
         </div>
 
         <ul className="mt-8 flex flex-col border border-gray-300 bg-white dark:border-gray-100 dark:bg-main-gray">
@@ -91,7 +84,7 @@ const ReviewResultPage = () => {
 
                     case 'SUBJECTIVE':
                       return (
-                        <p className="whitespace-pre-wrap text-justify text-sm text-black dark:text-white md:text-lg ">
+                        <p className="whitespace-pre-wrap text-justify text-sm text-black dark:text-white md:text-xl ">
                           {answers[0]}
                         </p>
                       )

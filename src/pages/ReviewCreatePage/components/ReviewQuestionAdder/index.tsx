@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useFormContext, useFieldArray } from 'react-hook-form'
 import { useToast } from '@/hooks'
+import { ReviewInfo } from '@/components'
 import { PlusIcon } from '@/assets/icons'
 import { QuestionItem, QuestionTypeModal } from '..'
 import { Review } from '../../types'
@@ -51,14 +52,7 @@ const ReviewQuestionAdder = ({ setReviewStep }: ReviewQuestionAdderProps) => {
       className="mx-auto flex h-full w-full max-w-[37.5rem] grow flex-col justify-between px-5 pb-10 pt-[1.87rem]"
     >
       <div className="flex flex-col gap-8">
-        <div>
-          <h1 className="text-xl text-black dark:text-white md:text-2xl">
-            {title}
-          </h1>
-          <p className="mt-[0.63rem] whitespace-pre-line text-sm text-black dark:text-white md:text-base">
-            {description}
-          </p>
-        </div>
+        <ReviewInfo {...{ title, description }} />
 
         {/* 질문 리스트 */}
         {questions.length !== 0 && (
