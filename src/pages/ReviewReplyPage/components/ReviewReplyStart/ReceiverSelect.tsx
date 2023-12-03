@@ -205,7 +205,7 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
       <label htmlFor="select-receiver" ref={modalLabelRef}></label>
       <Modal
         modalId="select-receiver"
-        content={`선택하신 수신자는 이후 변경할 수 없습니다.\n\n리뷰 대상자를 총 ${receivers.length}명 고르셨습니다.`}
+        content={`선택하신 수신자는\n이후 변경할 수 없습니다.\n\n리뷰 대상자를 총 ${receivers.length}명 고르셨습니다.`}
         label="확인"
         handleClickLabel={completeReceiverSelect}
       />
