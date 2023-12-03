@@ -76,7 +76,7 @@ const Questions = ({
         )}
       </div>
       {description && (
-        <p className="mb-4 min-h-[2.5rem] whitespace-pre-wrap text-sm text-gray-300 dark:text-gray-400 md:text-lg">
+        <p className="mb-2 min-h-[2.5rem] whitespace-pre-wrap text-sm text-gray-300 dark:text-gray-400 md:text-lg">
           {description}
         </p>
       )}
