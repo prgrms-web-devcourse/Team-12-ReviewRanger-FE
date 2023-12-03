@@ -174,13 +174,13 @@ const CreatedReviewManagePage = () => {
         modalId="close-review"
         handleClickLabel={handleClickSurveyClose}
         content="설문을 마감하시겠습니까?"
-        label="마감"
+        label="마감하기"
       />
       <Modal
         modalId="send-review"
         handleClickLabel={handleClickSendSurvey}
         content="설문을 전송하시겠습니까?"
-        label="전송"
+        label="전송하기"
       />
     </div>
   )
