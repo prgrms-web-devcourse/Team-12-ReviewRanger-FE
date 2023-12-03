@@ -30,17 +30,21 @@ const useEditNameCheck = ({
   }
 
   const handleEditNameEndingClick = () => {
-    if (nameRef.current) {
-      nameRef.current.click()
-    }
     if (currentName === name || !name) {
       setEditNameButton(false)
+      setNameFailMessage('')
 
       return
     }
     if (nameFailMessage) {
       return
     }
+    if (nameRef.current) {
+      nameRef.current.click()
+    }
+  }
+
+  const handleChangeNameComplete = () => {
     editName(
       { name },
       {
@@ -52,6 +56,11 @@ const useEditNameCheck = ({
           }
 
           await refetch()
+
+          if (nameRef.current) {
+            nameRef.current.click()
+          }
+
           setEditNameButton(false)
           setName('')
           addToast({
@@ -68,6 +77,7 @@ const useEditNameCheck = ({
     editNameButton,
     handleEditNameStartingClick,
     handleEditNameEndingClick,
+    handleChangeNameComplete,
   }
 }
 

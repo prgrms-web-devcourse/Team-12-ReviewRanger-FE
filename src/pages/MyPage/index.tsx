@@ -34,6 +34,7 @@ const MyPage = () => {
     editNameButton,
     handleEditNameStartingClick,
     handleEditNameEndingClick,
+    handleChangeNameComplete,
   } = useEditNameCheck({
     currentName: user?.name || '',
     name,
@@ -124,9 +125,11 @@ const MyPage = () => {
                 value={name}
               />
               <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200">
-                <label htmlFor="edit-name" ref={nameRef}>
-                  <CheckIcon className="h-4 w-4 cursor-pointer fill-sub-green" />
-                </label>
+                <CheckIcon
+                  className="h-4 w-4 cursor-pointer fill-sub-green"
+                  onClick={handleEditNameEndingClick}
+                />
+                <label htmlFor="edit-name" className="hidden" ref={nameRef} />
               </div>
             </div>
           ) : (
@@ -190,7 +193,7 @@ const MyPage = () => {
         modalId="edit-name"
         content={`'${name}'로 이름을 변경하시겠습니까?`}
         label="변경"
-        handleClickLabel={handleEditNameEndingClick}
+        handleClickLabel={handleChangeNameComplete}
       />
       <Modal
         modalId="edit-password"
