@@ -140,7 +140,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
 
               <Modal
                 modalId="mypage"
-                content="마이페이지로 이동하시겠습니까?"
+                content={`페이지를 벗어나면 지금까지 작성한 내용이 모두 삭제됩니다.\n\n 이동하시겠습니까?`}
                 label="이동하기"
                 handleClickLabel={() => {
                   navigate('/profile')
@@ -149,7 +149,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
 
               <Modal
                 modalId="mainpage"
-                content="메인페이지로 이동하시겠습니까??"
+                content={`페이지를 벗어나면 지금까지 작성한 내용이 모두 삭제됩니다.\n\n 이동하시겠습니까?`}
                 label="이동하기"
                 handleClickLabel={() => {
                   navigate('/')
