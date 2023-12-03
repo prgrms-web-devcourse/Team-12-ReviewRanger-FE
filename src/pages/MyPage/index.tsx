@@ -193,7 +193,10 @@ const MyPage = () => {
         modalId="edit-name"
         content={`'${name}'로 이름을 변경하시겠습니까?`}
         label="변경"
-        handleClickLabel={handleChangeNameComplete}
+        handleClickLabel={() => {
+          nameRef.current?.click()
+          handleChangeNameComplete()
+        }}
       />
       <Modal
         modalId="edit-password"

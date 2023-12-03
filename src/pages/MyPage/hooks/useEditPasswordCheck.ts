@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios'
 import { useRef, useState } from 'react'
 import { useToast } from '@/hooks'
 import { useEditPassword } from '@/apis/hooks'
@@ -45,6 +46,11 @@ const useEditPasswordCheck = ({
             message: '비밀번호 변경이 완료되었습니다.',
             type: 'success',
           })
+        },
+        onError: (error) => {
+          if (isAxiosError(error)) {
+            addToast({ message: error.response?.data.message, type: 'error' })
+          }
         },
       },
     )
