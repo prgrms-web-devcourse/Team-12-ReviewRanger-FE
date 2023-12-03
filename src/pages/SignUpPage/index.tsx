@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios'
 import { MouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEmailCheck, useNameCheck, usePasswordCheck } from '@/hooks'
@@ -5,7 +6,6 @@ import { Input, Header } from '@/components'
 import { useSignUp } from '@/apis/hooks'
 import { LogoColIcon } from '@/assets/icons'
 import { rangers } from '@/assets/images'
-import { SignUpFail } from './types'
 
 const SingUpPage = () => {
   const navigate = useNavigate()
@@ -45,8 +45,8 @@ const SingUpPage = () => {
       {
         onSuccess: () => navigate('/'),
         onError: (error) => {
-          if ('response' in error) {
-            const message = (error.response as SignUpFail).data.message
+          if (isAxiosError(error)) {
+            const message = error.response?.data.message
             if (message.includes('이메일')) {
               setEmailFailMessage(message)
             } else {
