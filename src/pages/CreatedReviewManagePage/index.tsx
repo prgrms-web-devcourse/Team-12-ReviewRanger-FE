@@ -4,7 +4,7 @@ import { AxiosError } from 'axios'
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
-import { Header } from '@/components'
+import { Header, Modal } from '@/components'
 import {
   useCloseSurvey,
   useGetReviewForCreator,
@@ -141,9 +141,10 @@ const CreatedReviewManagePage = () => {
           <button
             className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
-            onClick={handleClickSurveyClose}
           >
-            설문 마감
+            <label htmlFor="close-review" className="cursor-pointer">
+              설문 마감
+            </label>
           </button>
         )}
 
@@ -152,9 +153,10 @@ const CreatedReviewManagePage = () => {
             className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
           `}
             disabled={!checkAllReceiverReceived?.success}
-            onClick={handleClickSendSurvey}
           >
-            전송
+            <label htmlFor="send-review" className="cursor-pointer">
+              전송
+            </label>
           </button>
         )}
 
@@ -168,6 +170,18 @@ const CreatedReviewManagePage = () => {
           </button>
         )}
       </div>
+      <Modal
+        modalId="close-review"
+        handleClickLabel={handleClickSurveyClose}
+        content="설문을 마감하시겠습니까?"
+        label="마감하기"
+      />
+      <Modal
+        modalId="send-review"
+        handleClickLabel={handleClickSendSurvey}
+        content="설문을 전송하시겠습니까?"
+        label="전송하기"
+      />
     </div>
   )
 }
