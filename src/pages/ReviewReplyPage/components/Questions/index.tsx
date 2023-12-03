@@ -68,15 +68,15 @@ const Questions = ({
   return (
     <div className={`flex flex-col gap-2.5`}>
       <div className="flex justify-between">
-        <h2 className="text-lg dark:text-white">{title}</h2>
+        <h2 className="text-lg dark:text-white md:text-2xl">{title}</h2>
         {isRequired && (
-          <h3 className="text-sm text-sub-red-200 dark:text-active-orange">
+          <h3 className="text-sm text-sub-red-200 dark:text-active-orange md:text-lg">
             필수 질문
           </h3>
         )}
       </div>
       {description && (
-        <p className="mb-4 min-h-[2.5rem] whitespace-pre-wrap text-sm text-gray-300 dark:text-gray-400">
+        <p className="mb-2 min-h-[2.5rem] whitespace-pre-wrap text-sm text-gray-300 dark:text-gray-400 md:text-lg">
           {description}
         </p>
       )}

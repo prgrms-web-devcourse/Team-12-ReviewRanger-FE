@@ -33,14 +33,17 @@ const ReplyText = ({
     setText(getValues(`${registerPath}.answerText`) || '')
   }, [registerPath, getValues])
 
-  const handleChangeReplyText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextCount(e.currentTarget.value.length)
-    setText(e.currentTarget.value)
-  }
-
   useEffect(() => {
     handleCheckReply({ value: text.trim().length })
   }, [handleCheckReply, text])
+
+  useEffect(() => {
+    setTextCount(text.length)
+  }, [text])
+
+  const handleChangeReplyText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.currentTarget.value)
+  }
 
   return (
     <div className="relative flex flex-col gap-4">

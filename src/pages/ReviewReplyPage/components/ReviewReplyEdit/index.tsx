@@ -125,8 +125,10 @@ const ReviewReplyEdit = () => {
     <>
       <Header />
       <div className="flex h-full w-full max-w-[37.5rem] flex-col p-5 text-black">
-        <h1 className="text-lg dark:text-white md:text-2xl">{title}</h1>
-        <h3 className="mt-2.5 whitespace-pre-wrap text-sm dark:text-white md:text-lg">
+        <h1 className="text-2xl font-bold dark:text-white md:text-4xl">
+          {title}
+        </h1>
+        <h3 className="mt-2.5 whitespace-pre-wrap text-lg dark:text-white md:text-2xl">
           {description}
         </h3>
         {!initModal && (
