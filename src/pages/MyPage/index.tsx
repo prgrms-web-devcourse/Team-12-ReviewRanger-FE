@@ -134,7 +134,7 @@ const MyPage = () => {
             </div>
           ) : (
             <div className="relative flex items-center">
-              <div className="text-xl text-black dark:text-white md:text-3xl">
+              <div className="text-2xl text-black dark:text-white md:text-3xl">
                 {user?.name}
               </div>
               <div className="absolute -right-8 flex h-6 w-6 items-center justify-center rounded-full border bg-white dark:bg-main-red-200 md:-right-9 md:h-7 md:w-7">
@@ -145,7 +145,7 @@ const MyPage = () => {
               </div>
             </div>
           )}
-          <div className="text-sm text-gray-300 dark:text-white md:text-lg">
+          <div className="text-base text-gray-300 dark:text-white md:text-xl">
             {user?.email}
           </div>
         </div>
