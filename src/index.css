@@ -6,6 +6,19 @@
   img {
     object-fit: cover;
   }
+
+  textarea,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span {
+    word-break: break-all;
+    white-space: pre-wrap;
+  }
 }
 
 @media screen and (min-width: 768px) {

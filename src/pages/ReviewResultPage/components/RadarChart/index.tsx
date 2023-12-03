@@ -51,7 +51,7 @@ const RadarChart = ({ answers }: RadarChartProps) => {
         },
         pointLabels: {
           font: {
-            size: 12,
+            size: 14,
           },
           color: darkMode ? '#fff' : '#000',
         },
