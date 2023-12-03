@@ -74,6 +74,7 @@ export default {
         lg: '0.875rem',
         xl: '1rem',
         '2xl': '1.125rem',
+        '3xl': '1.5rem',
       },
       boxShadow: {
         md: '0px 2px 0px 0px rgba(0, 0, 0, 0.25)',
