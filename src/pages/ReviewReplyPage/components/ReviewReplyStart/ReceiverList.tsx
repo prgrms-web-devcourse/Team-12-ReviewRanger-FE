@@ -1,5 +1,5 @@
 import { Profile } from '@/components'
-import { CheckInTheCircleIcon } from '@/assets/icons'
+import { CheckInTheCircleIcon, AlertIcon } from '@/assets/icons'
 import { User } from '../../types'
 
 interface ReceiverListProps {
@@ -34,8 +34,8 @@ const ReceiverList = ({
         </button>
       </div>
 
-      {receiverList.length > 0 && (
-        <ul className="flex max-h-[200px] flex-col overflow-auto border bg-main-ivory">
+      {receiverList.length > 0 ? (
+        <ul className="flex h-40 flex-col overflow-auto border bg-main-ivory dark:bg-main-gray md:h-48">
           {receiverList.map((receiver, index) => (
             <li
               key={index}
@@ -49,6 +49,13 @@ const ReceiverList = ({
             </li>
           ))}
         </ul>
+      ) : (
+        <div className="flex h-40 flex-col items-center justify-center gap-3 border bg-main-ivory dark:bg-main-gray md:h-48">
+          <AlertIcon className="fill-black dark:fill-white" />
+          <span className="dark:text-white">
+            선택할 수 있는 유저가 없습니다.
+          </span>
+        </div>
       )}
     </div>
   )
