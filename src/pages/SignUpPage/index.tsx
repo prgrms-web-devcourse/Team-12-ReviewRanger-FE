@@ -17,6 +17,7 @@ const SingUpPage = () => {
   const {
     password,
     passwordFailMessage,
+    passwordConfirm,
     passwordConfirmFailMessage,
     handlePasswordChange,
     handlePasswordConfirmChange,
@@ -26,6 +27,10 @@ const SingUpPage = () => {
     e.preventDefault()
 
     if (
+      !name ||
+      !email ||
+      !password ||
+      !passwordConfirm ||
       emailFailMessage ||
       nameFailMessage ||
       passwordFailMessage ||
