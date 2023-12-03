@@ -22,6 +22,11 @@ export default ({ mode }) => {
             return true
           }
         },
+        manualChunks: (id) => {
+          if (id.includes('/node_modules')) {
+            return 'third-party-library'
+          }
+        },
       },
     },
     server: {
@@ -30,8 +35,6 @@ export default ({ mode }) => {
           target: env.VITE_API_KEY,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
-          secure: false,
-          ws: true,
         },
       },
     },
