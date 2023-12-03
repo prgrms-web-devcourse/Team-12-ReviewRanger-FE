@@ -16,7 +16,6 @@ const SingUpPage = () => {
     useNameCheck()
   const {
     password,
-    passwordConfirm,
     passwordFailMessage,
     passwordConfirmFailMessage,
     handlePasswordChange,
@@ -91,7 +90,6 @@ const SingUpPage = () => {
               message={passwordConfirmFailMessage}
             />
             <button
-              disabled={!email || !name || !password || !passwordConfirm}
               className="h-14 w-80 max-w-xs rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
               onClick={handleSignUpButtonClick}
             >
