@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useDarkMode, useToast } from '@/hooks'
+import { useDarkMode, useToast, useCheckHeaderRoute } from '@/hooks'
 import { useUser, useLogout } from '@/apis/hooks'
 import {
   LogoRowIcon,
@@ -38,6 +38,7 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
       },
     })
   }
+  const { myPageButtonClicked } = useCheckHeaderRoute()
 
   return (
     <div className="sticky top-0 z-30 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
@@ -88,8 +89,18 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
                     <p className="text-xl">{user.name}</p>
                   </Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => navigate('/profile')}>
-                    마이페이지
+                  <Dropdown.Item>
+                    <label
+                      htmlFor={`${myPageButtonClicked ? 'mypage' : ''}`}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        if (!myPageButtonClicked) {
+                          navigate('/profile')
+                        }
+                      }}
+                    >
+                      마이페이지
+                    </label>
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() =>
@@ -114,6 +125,15 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
                 content="로그아웃 하시겠습니까?"
                 label="로그아웃"
                 handleClickLabel={handleLogout}
+              />
+
+              <Modal
+                modalId="mypage"
+                content="마이페이지로 이동하시겠습니까?"
+                label="이동"
+                handleClickLabel={() => {
+                  navigate('/profile')
+                }}
               />
             </>
           )}
