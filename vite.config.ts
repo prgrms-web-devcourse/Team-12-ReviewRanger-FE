@@ -22,11 +22,6 @@ export default ({ mode }) => {
             return true
           }
         },
-        manualChunks: (id) => {
-          if (id.includes('/node_modules')) {
-            return 'third-party-library'
-          }
-        },
       },
     },
     server: {
