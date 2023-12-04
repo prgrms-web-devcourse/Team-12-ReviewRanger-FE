@@ -4,7 +4,7 @@ import { AxiosError } from 'axios'
 import { Suspense, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
-import { Header, Modal } from '@/components'
+import { Header, Modal, ReviewInfo } from '@/components'
 import {
   useCloseSurvey,
   useGetReviewForCreator,
@@ -132,13 +132,12 @@ const CreatedReviewManagePage = () => {
       </div>
 
       <div className="mx-auto flex w-full max-w-[37.5rem] flex-col px-5 py-7 md:p-10">
-        <h1 className="text-2xl font-bold md:text-3xl">
-          {getReviewQuestion?.title}
-        </h1>
-
-        <h2 className="mt-3 whitespace-pre-wrap text-sm md:mt-4 md:text-xl">
-          {getReviewQuestion?.description}
-        </h2>
+        <ReviewInfo
+          {...{
+            title: getReviewQuestion?.title,
+            description: getReviewQuestion?.description,
+          }}
+        />
         <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
         {getReviewQuestion?.status === 'PROCEEDING' && (
           <button
