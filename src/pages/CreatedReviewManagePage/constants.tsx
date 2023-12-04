@@ -1,10 +1,10 @@
 import {
   SingleChoiceIcon,
   DropdownIcon,
-  TextIcon,
   StarRatingIcon,
   HexagonIcon,
   MultipleChoiceIcon,
+  SubjectiveIcon,
 } from '@/assets/icons'
 
 export const PATH = {
@@ -22,24 +22,14 @@ export const REVIEW_MANAGE_TAB_TITLE = {
 }
 
 export const QUESTION_TYPE = {
-  SINGLE_CHOICE: (
-    <SingleChoiceIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
-  ),
+  SINGLE_CHOICE: <SingleChoiceIcon className="dark:stroke-white" />,
   MULTIPLE_CHOICE: (
-    <MultipleChoiceIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
+    <MultipleChoiceIcon className="stroke-black dark:stroke-white" />
   ),
-  DROPDOWN: (
-    <DropdownIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
-  ),
-  SUBJECTIVE: (
-    <TextIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
-  ),
-  RATING: (
-    <StarRatingIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
-  ),
-  HEXASTAT: (
-    <HexagonIcon className="fill-dark stroke-black dark:fill-white dark:stroke-white" />
-  ),
+  DROPDOWN: <DropdownIcon className="dark:fill-white" />,
+  SUBJECTIVE: <SubjectiveIcon className="dark:fill-white" />,
+  RATING: <StarRatingIcon className="dark:stroke-white" />,
+  HEXASTAT: <HexagonIcon className="dark:stroke-white" />,
 }
 
 export const DEFAULT_VALUE = {
