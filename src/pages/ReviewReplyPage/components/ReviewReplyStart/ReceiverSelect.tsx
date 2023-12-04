@@ -181,17 +181,17 @@ const ReceiverSelect = ({ setReviewStep, questions }: ReceiverSelectProps) => {
             handleResetKeyword={handleResetName}
             tabIndex={0}
           />
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-2 flex flex-col gap-3">
+            <ReceiverList
+              receiverList={filteredNonReceivers}
+              handleSelectAllReceivers={handleNonReceiver.selectAll}
+              handleSelectReceiver={handleNonReceiver.select}
+            />
             <ReceiverList
               receiverList={filteredReceivers}
               selected={true}
               handleSelectAllReceivers={handleReceiver.selectAll}
               handleSelectReceiver={handleReceiver.select}
-            />
-            <ReceiverList
-              receiverList={filteredNonReceivers}
-              handleSelectAllReceivers={handleNonReceiver.selectAll}
-              handleSelectReceiver={handleNonReceiver.select}
             />
           </div>
         </div>

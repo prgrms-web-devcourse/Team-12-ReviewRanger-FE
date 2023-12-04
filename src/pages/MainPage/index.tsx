@@ -1,6 +1,6 @@
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useToast } from '@/hooks'
+import { useTabs, useToast } from '@/hooks'
 import { Header, TokenErrorBoundary } from '@/components'
 import { useDeleteReview } from '@/apis/hooks'
 import { rangerIdle } from '@/assets/images'
@@ -20,9 +20,7 @@ const MainPage = () => {
 
   const navigate = useNavigate()
 
-  const [activeTab, setActiveTab] = useState<
-    'invited' | 'created' | 'received'
-  >('invited')
+  const { activeTab, setActiveTab } = useTabs()
 
   const { addToast } = useToast()
 

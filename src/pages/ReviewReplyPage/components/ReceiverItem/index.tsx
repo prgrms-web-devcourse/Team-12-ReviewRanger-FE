@@ -35,16 +35,16 @@ const ReceiverItem = ({
               py-1.5
               ${
                 selectedReceiver.receiverId === receiverId
-                  ? 'border-black bg-main-yellow dark:border-white dark:bg-main-red-300'
+                  ? 'border-2 border-black bg-main-yellow dark:border-white dark:bg-gray-500'
                   : 'border-gray-100 bg-white dark:border-gray-300 dark:bg-main-red-200'
               } ${
                 individualReplyCompletes &&
                 index !== undefined &&
                 individualReplyCompletes[index] &&
-                'border-2 !border-sub-green'
+                'border-1 !border-sub-green'
               } ${
                 (state.status === 'END' || state.status === 'DEADLINE') &&
-                'border-2 !border-sub-green'
+                'border-1 !border-sub-green'
               }`}
     >
       <Profile

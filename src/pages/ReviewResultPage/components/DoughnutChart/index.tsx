@@ -6,6 +6,26 @@ interface DoughnutChartProps {
   answers: string[]
 }
 
+const splitStrings = (input: string[]): string[][] | string[] => {
+  const result: string[][] = []
+
+  for (const str of input) {
+    if (str.length <= 7) {
+      result.push([str])
+      continue
+    }
+
+    const chunks: string[] = []
+
+    for (let i = 0; i < str.length; i += 7) {
+      chunks.push(str.substring(i, i + 7).trim())
+    }
+    result.push(chunks)
+  }
+
+  return result
+}
+
 const DoughnutChart = ({ answers }: DoughnutChartProps) => {
   const { darkMode } = useDarkMode()
 
@@ -15,7 +35,7 @@ const DoughnutChart = ({ answers }: DoughnutChartProps) => {
     answerMap.set(answer, (answerMap.get(answer) || 0) + 1)
   })
 
-  const labels = Array.from(answerMap.keys())
+  const labels = splitStrings(Array.from(answerMap.keys()))
   const data = Array.from(answerMap.values())
 
   const doughnutData: ChartData<'doughnut'> = {
@@ -47,9 +67,9 @@ const DoughnutChart = ({ answers }: DoughnutChartProps) => {
         position: 'right',
         display: true,
         labels: {
-          padding: 20,
           font: {
-            size: 12,
+            size: 13,
+            lineHeight: 1.5,
           },
           color: darkMode ? '#fff' : '#000',
           usePointStyle: true,
@@ -59,7 +79,7 @@ const DoughnutChart = ({ answers }: DoughnutChartProps) => {
   }
 
   return (
-    <div className="mx-auto w-fit max-w-full">
+    <div className="mx-auto w-full max-w-full md:w-4/6">
       <Doughnut data={doughnutData} options={DoughnutOptions} />
     </div>
   )

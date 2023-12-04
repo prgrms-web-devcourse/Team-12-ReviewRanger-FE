@@ -36,6 +36,7 @@ export default {
           200: '#636363',
           300: '#454545',
           400: '#DBDBDB',
+          500: '#1f2937',
         },
         active: {
           orange: '#FF9900',
@@ -74,6 +75,8 @@ export default {
         lg: '0.875rem',
         xl: '1rem',
         '2xl': '1.125rem',
+        '3xl': '1.5rem',
+        '4xl': '1.875rem',
       },
       boxShadow: {
         md: '0px 2px 0px 0px rgba(0, 0, 0, 0.25)',
