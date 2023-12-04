@@ -1,7 +1,7 @@
 //생성한 리뷰 관리 페이지
 
 import { AxiosError } from 'axios'
-import { Suspense, useState } from 'react'
+import { Suspense, useState, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
 import { Header, Modal, ReviewInfo } from '@/components'
@@ -40,9 +40,12 @@ const CreatedReviewManagePage = () => {
   })
 
   const { mutate: closeReview } = useCloseSurvey({ id: reviewId })
+  const closeReviewRef = useRef<HTMLLabelElement | null>(null)
+  const sendReviewRef = useRef<HTMLLabelElement | null>(null)
 
   const { mutate: sendReview } = useSendReview({ reviewId })
   const handleClickSurveyClose = () => {
+    closeReviewRef?.current?.click()
     closeReview(undefined, {
       onSuccess: () => {
         addToast({
@@ -67,6 +70,8 @@ const CreatedReviewManagePage = () => {
 
       return
     }
+
+    sendReviewRef?.current?.click()
 
     sendReview(undefined, {
       onSuccess: ({ data }) => {
@@ -144,7 +149,11 @@ const CreatedReviewManagePage = () => {
             className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
     `}
           >
-            <label htmlFor="close-review" className="cursor-pointer">
+            <label
+              htmlFor="close-review"
+              className="cursor-pointer"
+              ref={closeReviewRef}
+            >
               설문 마감
             </label>
           </button>
@@ -156,7 +165,11 @@ const CreatedReviewManagePage = () => {
           `}
             disabled={!checkAllReceiverReceived?.success}
           >
-            <label htmlFor="send-review" className="cursor-pointer">
+            <label
+              htmlFor="send-review"
+              className="cursor-pointer"
+              ref={sendReviewRef}
+            >
               전송
             </label>
           </button>
