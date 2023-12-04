@@ -34,11 +34,11 @@ const renderDefault = (value: Answer) => (
     <h3 className="flex items-center ">
       <img
         src={BasicProfile}
-        className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white"
+        className="avatar h-5 w-5 border dark:bg-white dark:fill-white"
       />
-      <p className="ml-[1.31rem] text-sm">{value?.userName}</p>
+      <p className="ml-5 text-sm md:text-lg">{value?.userName}</p>
     </h3>
-    <p className="ml-[42.96px] mt-[0.5rem] break-all  text-base leading-5 md:mt-[0.62rem]">
+    <p className="ml-10 mt-2 break-all text-base leading-6 md:mt-2.5 md:text-xl">
       {value?.value}
     </p>
   </>
@@ -71,7 +71,7 @@ const QuestionAnswerRenderer = memo(
           className="accordion-content w-full border-x border-gray-200 text-black dark:text-white"
           key={nanoid()}
         >
-          <div className="accordion-content border-none px-2.5">
+          <div className="accordion-content border-none px-4">
             {(() => {
               switch (questionType) {
                 case 'RATING':
@@ -115,25 +115,26 @@ const QuestionAnswerRenderer = memo(
         <input type="checkbox" id={inputId} className="accordion-toggle" />
         <label
           htmlFor={inputId}
-          className="accordion-title flex h-10 justify-center border border-gray-200 bg-white px-2.5 text-lg dark:border-gray-400 dark:bg-main-gray"
+          className="accordion-title flex justify-center border border-gray-200 bg-white px-2.5 py-1 text-lg dark:border-gray-400 dark:bg-main-gray md:py-2.5"
         >
-          <div className="flex h-11 items-center text-lg md:text-xl">
+          <div className="flex items-center justify-between gap-4 text-lg md:text-xl">
             {QUESTION_TYPE[questionType]}
-            <span className="ml-[0.63rem] text-lg md:text-xl">
-              {questionTitle}
+            <span className="w-full text-lg md:text-2xl">{questionTitle}</span>
+
+            <span className="accordion-icon static">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                  className="dark:fill-white"
+                ></path>
+              </svg>
             </span>
           </div>
-
-          <span className="accordion-icon absolute top-1/2 flex -translate-y-1/2 items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
-            </svg>
-          </span>
         </label>
 
         {questionType !== 'HEXASTAT' &&
