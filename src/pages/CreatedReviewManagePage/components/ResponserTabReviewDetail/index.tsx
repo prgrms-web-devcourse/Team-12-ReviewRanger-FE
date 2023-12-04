@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   useGetReviewForCreator,
   useGetResponseByResponserForCreator,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
 import { getAnswer } from '@/pages/CreatedReviewManagePage/utils'
+import { scrollToTop } from '@/utils'
 import { SelectResponseUser, ProfileGroup, AnswerGroup } from '..'
 
 interface ReviewDetailAccordionProps {
@@ -38,6 +39,10 @@ const ReceiverReviewDetail = ({
   const getUserSelectedAnswers = responseByReceiver?.filter(
     (response) => response?.receiver?.name === selectedName,
   )
+
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   return (
     <>
