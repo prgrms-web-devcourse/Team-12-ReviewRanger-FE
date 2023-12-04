@@ -13,6 +13,7 @@ import {
 } from 'chart.js'
 import dayjs from 'dayjs'
 import { useLocation } from 'react-router-dom'
+import { useToast } from '@/hooks'
 import { Header, ReviewInfo } from '@/components'
 import { useGetReceivedReview } from '@/apis/hooks'
 import { DoughnutChart, RadarChart, StarChart } from './components'
@@ -35,6 +36,8 @@ const ReviewResultPage = () => {
   const [{ data: review }, { data: results }] = useGetReceivedReview(reviewId)
 
   const { title, description, updatedAt, userName } = review
+
+  const { addToast } = useToast()
 
   return (
     <div className="h-full">
@@ -99,7 +102,9 @@ const ReviewResultPage = () => {
         </ul>
         <button
           className="btn mt-5 self-end rounded-md border border-gray-200 bg-main-hover-yellow text-base dark:border-gray-200 dark:bg-gray-300 dark:text-white md:text-lg"
-          onClick={() => window.print()}
+          onClick={() =>
+            addToast({ message: '아직 준비중인 기능이에요 😥', type: 'info' })
+          }
         >
           pdf로 저장
         </button>
