@@ -34,7 +34,7 @@ const LoginGroup = ({ handleLogin }: LoginGroupProps) => {
         </div>
       </div>
       <div className="flex flex-col items-stretch">
-        <button className="pointer-cursor h-14 w-80 max-w-xs rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl">
+        <button className="pointer-cursor h-14 w-80 max-w-xs rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl">
           로그인
         </button>
         <button

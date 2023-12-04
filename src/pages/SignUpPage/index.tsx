@@ -93,7 +93,7 @@ const SingUpPage = () => {
               message={passwordConfirmFailMessage}
             />
             <button
-              className="h-14 w-80 max-w-xs rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
+              className="h-14 w-80 max-w-xs rounded-md bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
               onClick={handleSignUpButtonClick}
             >
               회원가입 완료
