@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios'
 import { MouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEmailCheck, useNameCheck, usePasswordCheck } from '@/hooks'
@@ -16,8 +17,8 @@ const SingUpPage = () => {
     useNameCheck()
   const {
     password,
-    passwordConfirm,
     passwordFailMessage,
+    passwordConfirm,
     passwordConfirmFailMessage,
     handlePasswordChange,
     handlePasswordConfirmChange,
@@ -27,6 +28,10 @@ const SingUpPage = () => {
     e.preventDefault()
 
     if (
+      !name ||
+      !email ||
+      !password ||
+      !passwordConfirm ||
       emailFailMessage ||
       nameFailMessage ||
       passwordFailMessage ||
@@ -38,19 +43,16 @@ const SingUpPage = () => {
     signUp(
       { email, name, password },
       {
-        onSuccess: ({ data }) => {
-          if ('status' in data && data.status === 'CONFLICT') {
-            if (data.errorCode === 'EXIST_SAME_NAME') {
-              setNameFailMessage(data.message)
+        onSuccess: () => navigate('/'),
+        onError: (error) => {
+          if (isAxiosError(error)) {
+            const message = error.response?.data.message
+            if (message.includes('이메일')) {
+              setEmailFailMessage(message)
+            } else {
+              setNameFailMessage(message)
             }
-            if (data.errorCode === 'EXIST_SAME_EMAIL') {
-              setEmailFailMessage(data.message)
-            }
-
-            return
           }
-
-          navigate('/')
         },
       },
     )
@@ -91,7 +93,6 @@ const SingUpPage = () => {
               message={passwordConfirmFailMessage}
             />
             <button
-              disabled={!email || !name || !password || !passwordConfirm}
               className="h-14 w-80 max-w-xs rounded-xl bg-active-orange text-lg text-white hover:border hover:border-black disabled:bg-opacity-50 dark:text-black md:text-xl"
               onClick={handleSignUpButtonClick}
             >
