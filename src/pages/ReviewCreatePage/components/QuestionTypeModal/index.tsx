@@ -44,7 +44,7 @@ const QuestionTypeModal = ({ append }: QuestionTypeModalProps) => {
           <p className="text-lg text-black dark:text-white md:text-xl">
             질문 형식 선택
           </p>
-          <label htmlFor="modal-2" className="btn p-0">
+          <label htmlFor="modal-2" className="btn bg-transparent p-0">
             <CloseIcon className="fill-black dark:fill-white" />
           </label>
         </div>
