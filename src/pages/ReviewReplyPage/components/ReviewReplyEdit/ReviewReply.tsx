@@ -47,7 +47,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   })
 
   const { individualReplyCompletes, allReplyComplete, checkReplyComplete } =
-    useReplyComplete({ receivers, selectedReceiverIndex, editPage: true })
+    useReplyComplete({ receivers, selectedReceiverIndex, editing: true })
 
   useEffect(() => {
     setSelectedQuestionIndex(0)

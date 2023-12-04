@@ -16,6 +16,7 @@ interface ReplyTarget {
 export interface User {
   receiverId: number
   name: string
+  path: string
 }
 
 interface ReplyComplete {

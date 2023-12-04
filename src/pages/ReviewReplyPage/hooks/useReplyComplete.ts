@@ -6,18 +6,18 @@ import { ReviewReplyEditType } from '../types'
 interface UseReplyCompleteProps {
   receivers: Receiver[]
   selectedReceiverIndex: number
-  editPage?: boolean
+  editing?: boolean
 }
 
 const useReplyComplete = ({
   receivers,
   selectedReceiverIndex,
-  editPage = false,
+  editing = false,
 }: UseReplyCompleteProps) => {
   const [individualReplyCompletes, setIndividualReplyCompletes] = useState<
     boolean[]
-  >(Array(receivers.length).fill(editPage))
-  const [allReplyComplete, setAllReplyComplete] = useState<boolean>(editPage)
+  >(Array(receivers.length).fill(editing))
+  const [allReplyComplete, setAllReplyComplete] = useState<boolean>(editing)
   const { getValues } = useFormContext<ReviewReplyEditType>()
 
   const checkReplyComplete = useCallback(() => {

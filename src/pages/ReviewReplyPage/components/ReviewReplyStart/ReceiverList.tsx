@@ -42,7 +42,7 @@ const ReceiverList = ({
               className="flex cursor-pointer items-center justify-between border-b border-gray-400 px-5 py-1.5 hover:bg-main-yellow dark:bg-gray-300 dark:hover:bg-gray-200 md:px-5 md:py-2"
               onClick={() => handleSelectReceiver(receiver)}
             >
-              <Profile name={receiver.name} />
+              <Profile name={receiver.name} image={receiver.path} />
               <CheckInTheCircleIcon
                 className={selected ? 'fill-sub-green' : 'fill-gray-100'}
               />

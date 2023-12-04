@@ -87,7 +87,11 @@ const ReviewReplyEnd = () => {
         ),
       }
       appendReplyTarget(replyTarget)
-      appendReceiver({ receiverId: receiver.id, name: receiver.name })
+      appendReceiver({
+        receiverId: receiver.id,
+        name: receiver.name,
+        path: receiver.path,
+      })
     })
   }
 

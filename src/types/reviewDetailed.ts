@@ -17,6 +17,7 @@ export interface Question {
 export interface Receiver {
   receiverId: number
   name: string
+  path?: string
 }
 
 export interface ReviewDetailedData {
