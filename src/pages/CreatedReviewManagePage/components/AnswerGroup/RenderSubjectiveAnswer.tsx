@@ -26,9 +26,9 @@ const RenderSubjectiveAnswer = ({
         src={BasicProfile}
         className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white"
       />
-      <p className="ml-[1.31rem] text-sm">{value?.userName}</p>
+      <p className="ml-5 text-sm md:text-lg">{value?.userName}</p>
     </h3>
-    <p className="ml-[42.96px] mt-[0.5rem] break-all  text-base leading-5 md:mt-[0.62rem]">
+    <p className="ml-10 mt-2 text-base leading-5 md:mt-2.5 md:text-xl">
       {value?.value}
     </p>
 

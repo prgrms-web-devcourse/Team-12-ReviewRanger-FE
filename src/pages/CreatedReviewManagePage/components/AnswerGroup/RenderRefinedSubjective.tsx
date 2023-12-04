@@ -43,7 +43,7 @@ const RenderRefinedSubjective = ({
   return (
     <div className="relative mt-8 flex w-full flex-col bg-transparent">
       {isLoading && (
-        <div className="spinner-dot-pulse absolute right-6 top-6 [--spinner-color:var(--blue-9)]">
+        <div className="spinner-dot-pulse absolute right-6 top-10 [--spinner-color:var(--blue-9)]">
           <div className="spinner-pulse-dot"></div>
         </div>
       )}
@@ -52,7 +52,7 @@ const RenderRefinedSubjective = ({
 
       <ReactTextareaAutosize
         onChange={handleChangePrompt}
-        className="m-0 w-full shrink-0 resize-none rounded-none border border-gray-200 bg-transparent p-5 text-sm dark:text-white"
+        className="w-full shrink-0 resize-none rounded-none border border-gray-200 bg-transparent p-5 text-sm dark:text-white md:text-lg"
         value={result ? result : prompt}
       ></ReactTextareaAutosize>
 
