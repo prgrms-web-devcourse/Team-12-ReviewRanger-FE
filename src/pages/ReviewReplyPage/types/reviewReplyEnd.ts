@@ -17,6 +17,7 @@ interface ReplyTarget {
 interface User {
   receiverId: number
   name: string
+  path: string
 }
 
 export interface ReviewReplyEndType {

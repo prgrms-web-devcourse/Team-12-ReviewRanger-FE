@@ -22,7 +22,9 @@ const ReceiverItem = ({
   checkReplyComplete,
 }: ReceiverItemProps) => {
   const { state } = useLocation()
-  const { receiverId, name } = receiver
+  const { receiverId, name, path } = receiver
+
+  console.log(receiver)
 
   return (
     <li
@@ -49,6 +51,7 @@ const ReceiverItem = ({
     >
       <Profile
         name={name}
+        image={path}
         className={`${
           selectedReceiver.name === name
             ? 'text-black dark:text-white'

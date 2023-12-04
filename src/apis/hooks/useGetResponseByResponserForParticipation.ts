@@ -18,6 +18,7 @@ interface Reply {
 export interface User {
   id: number
   name: string
+  path: string
 }
 interface Data {
   id: number
