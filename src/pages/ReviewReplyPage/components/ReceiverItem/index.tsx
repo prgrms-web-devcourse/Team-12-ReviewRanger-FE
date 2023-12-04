@@ -24,8 +24,6 @@ const ReceiverItem = ({
   const { state } = useLocation()
   const { receiverId, name, path } = receiver
 
-  console.log(receiver)
-
   return (
     <li
       value={receiverId}
