@@ -5,6 +5,7 @@ import {
   useSaveFinalResult,
 } from '@/apis/hooks'
 import { CloseDropDownIcon } from '@/assets/icons'
+import { scrollToTop } from '@/utils'
 import { ProfileGroup, AnswerGroup } from '..'
 import { getAnswer } from '../../utils'
 
@@ -103,6 +104,9 @@ const ReceiverReviewDetail = ({
   const responserCount = new Set(
     responseByReceiver?.map((data) => data?.responser?.id.toString()),
   )
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   return (
     <>

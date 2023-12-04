@@ -30,10 +30,10 @@ const Input = ({
 
   return (
     <div
-      className={`flex ${className} ${w} max-w-xs flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-main-yellow px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:bg-main-red-200 dark:focus-within:border-white`}
+      className={`flex ${className} ${w} max-w-xs flex-col justify-center gap-[0.44rem] rounded-md border border-gray-100 bg-main-yellow px-[0.63rem] pb-[0.69rem] pt-[0.31rem] focus-within:border-black dark:border-gray-300 dark:bg-main-red-200 dark:focus-within:border-white`}
     >
       <div className="flex flex-row justify-between gap-2">
-        <div className="h-4 shrink-0 text-xs text-gray-100 md:text-sm">
+        <div className="h-4 shrink-0 text-xs text-gray-200 dark:text-gray-100 md:text-sm">
           {INPUT_TYPE[type].TITLE}
         </div>
         {message && (
@@ -46,7 +46,7 @@ const Input = ({
         <input
           value={value}
           {...register}
-          className="h-4 flex-1 border-0 bg-transparent text-sm text-black focus:outline-none dark:text-white md:text-lg"
+          className="h-4 flex-1 border-0 bg-transparent text-sm text-black placeholder:text-gray-100 focus:outline-none dark:text-white md:text-lg"
           placeholder={placeholder}
           disabled={disabled}
           onChange={onChange}
