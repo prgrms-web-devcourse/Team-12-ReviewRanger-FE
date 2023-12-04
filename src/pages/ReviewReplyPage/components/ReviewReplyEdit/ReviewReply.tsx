@@ -46,7 +46,7 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
   })
 
   const { individualReplyCompletes, allReplyComplete, checkReplyComplete } =
-    useReplyComplete({ receivers, selectedReceiverIndex })
+    useReplyComplete({ receivers, selectedReceiverIndex, editPage: true })
 
   const questionArray = questions.map((question, index) => (
     <Questions

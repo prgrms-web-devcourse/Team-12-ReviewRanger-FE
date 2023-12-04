@@ -1,6 +1,6 @@
-import { memo } from 'react'
+import { memo, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useDarkMode, useToast, useCheckHeaderRoute } from '@/hooks'
+import { useDarkMode, useToast } from '@/hooks'
 import { useUser, useLogout } from '@/apis/hooks'
 import {
   LogoRowIcon,
@@ -27,6 +27,10 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
   const { addToast } = useToast()
   const { toggle, darkMode } = useDarkMode()
 
+  const [toPath, setToPath] = useState<string | number>('')
+
+  const labelRef = useRef<HTMLLabelElement>(null)
+
   const avatarVisible = pathname !== '/sign-up' && pathname !== '/login'
   const goBackVisible = pathname !== '/login' && pathname !== '/'
 
@@ -38,39 +42,41 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
       },
     })
   }
-  const { myPageButtonClicked, logoButtonClicked } = useCheckHeaderRoute()
+
+  const handleNavigate = (path: string | number) => {
+    if (
+      pathname.includes('review-response') ||
+      pathname.includes('review-creation')
+    ) {
+      setToPath(path)
+      labelRef.current?.click()
+
+      return
+    }
+
+    navigate(path as string)
+  }
 
   return (
     <div className="sticky top-0 z-30 flex h-12 w-full shrink-0 justify-center bg-main-red-300 py-4 md:h-20">
       <div className="relative flex w-[55rem] items-center justify-between px-6">
-        <div className="cursor-pointer" onClick={handleGoBack}>
-          <label
-            htmlFor="prevpage"
-            className="flex cursor-pointer items-center"
-          >
-            <ArrowLeftIcon className={`${!goBackVisible && 'hidden'}`} />
-          </label>
+        <div
+          className="cursor-pointer"
+          onClick={handleGoBack ?? (() => handleNavigate(-1))}
+        >
+          <ArrowLeftIcon className={`${!goBackVisible && 'hidden'}`} />
         </div>
         <div
           className="absolute left-1/2 flex -translate-x-1/2 cursor-pointer items-center gap-1"
-          onClick={() => {
-            if (!logoButtonClicked) {
-              navigate('/')
-            }
-          }}
+          onClick={() => handleNavigate('/')}
         >
-          <label
-            htmlFor={`${logoButtonClicked ? 'mainpage' : ''}`}
-            className="flex cursor-pointer items-center"
-          >
-            <img
-              src={rangerCleanHead}
-              alt="ranger-header"
-              className="h-6 w-6 md:h-8 md:w-8"
-            />
-            <LogoShortIcon className="ml-1 h-7 w-8 md:hidden" />
-            <LogoRowIcon className="hidden h-11 w-60 md:block" />
-          </label>
+          <img
+            src={rangerCleanHead}
+            alt="ranger-header"
+            className="h-6 w-6 md:h-8 md:w-8"
+          />
+          <LogoShortIcon className="ml-1 h-7 w-8 md:hidden" />
+          <LogoRowIcon className="hidden h-11 w-60 md:block" />
         </div>
         <div className="flex items-center gap-x-3 md:gap-x-5">
           <div
@@ -100,18 +106,8 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
                     <p className="text-xl">{user.name}</p>
                   </Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item>
-                    <label
-                      htmlFor={`${myPageButtonClicked ? 'mypage' : ''}`}
-                      className="cursor-pointer"
-                      onClick={() => {
-                        if (!myPageButtonClicked) {
-                          navigate('/profile')
-                        }
-                      }}
-                    >
-                      마이페이지
-                    </label>
+                  <Dropdown.Item onClick={() => handleNavigate('/profile')}>
+                    마이페이지
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() =>
@@ -138,21 +134,13 @@ const Header = memo(({ handleGoBack }: HeaderProps) => {
                 handleClickLabel={handleLogout}
               />
 
+              <label htmlFor="prompt" ref={labelRef} className="hidden" />
               <Modal
-                modalId="mypage"
-                content={`페이지를 벗어나면 지금까지 작성한 내용이 모두 삭제됩니다.\n\n 이동하시겠습니까?`}
+                modalId="prompt"
+                content={`페이지를 벗어나면 지금까지\n작성한 내용이 모두 삭제됩니다.\n\n 이동하시겠습니까?`}
                 label="이동하기"
                 handleClickLabel={() => {
-                  navigate('/profile')
-                }}
-              />
-
-              <Modal
-                modalId="mainpage"
-                content={`페이지를 벗어나면 지금까지 작성한 내용이 모두 삭제됩니다.\n\n 이동하시겠습니까?`}
-                label="이동하기"
-                handleClickLabel={() => {
-                  navigate('/')
+                  navigate(toPath as string)
                 }}
               />
             </>

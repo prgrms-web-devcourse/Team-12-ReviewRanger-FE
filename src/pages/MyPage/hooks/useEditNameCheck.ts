@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { useToast } from '@/hooks'
 import { useEditName, useUser } from '@/apis/hooks'
@@ -57,16 +58,17 @@ const useEditNameCheck = ({
 
           await refetch()
 
-          if (nameRef.current) {
-            nameRef.current.click()
-          }
-
           setEditNameButton(false)
           setName('')
           addToast({
             message: '이름 변경이 완료되었습니다.',
             type: 'success',
           })
+        },
+        onError: (error) => {
+          if (isAxiosError(error)) {
+            addToast({ message: error.response?.data.message, type: 'error' })
+          }
         },
       },
     )
