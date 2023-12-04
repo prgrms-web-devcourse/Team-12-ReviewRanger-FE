@@ -102,6 +102,7 @@ const useRefine = ({ text = '' }: { text: string }) => {
 
   const handleChangePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPrompt(e.target.value)
+    setResult(e.target.value)
   }
 
   const handlers = {
