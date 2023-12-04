@@ -59,7 +59,7 @@ const ReplyChoice = ({
   return (
     <div className="flex flex-col gap-4">
       <span className="flex w-fit items-center gap-2 rounded-full border border-sub-orange bg-white px-3 py-1 dark:border-sub-yellow dark:bg-main-red-200">
-        <DropdownIcon className="h-4 w-4 stroke-sub-orange dark:stroke-sub-yellow" />
+        <DropdownIcon className="h-4 w-4 fill-sub-orange dark:fill-sub-yellow" />
         <p className="text-sm text-sub-orange dark:text-sub-yellow">드롭다운</p>
       </span>
       <select

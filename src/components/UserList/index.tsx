@@ -67,18 +67,18 @@ const UserList = ({
                       questionType !== 'PROCEEDING' && (
                         <span
                           className={`h-1.5 w-1.5 rounded-full ${
-                            hasSavedResult(user.id) ? '' : 'bg-red-600'
+                            hasSavedResult(user.id) ? 'hidden' : 'bg-red-600'
                           }`}
                         ></span>
                       )}
                     <Profile name={user.name} />
                   </div>
-                  <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
+                  <div className="text-xs text-gray-300 dark:text-gray-100 md:text-base">
                     {date ? (
                       `답변일시: ${date}`
                     ) : responserCount ? (
                       <span>
-                        응답자:{responserCount && responserCount[index]}명
+                        응답자: {responserCount && responserCount[index]}명
                       </span>
                     ) : (
                       <p className="text-sub-red-200 dark:text-sub-yellow">
@@ -105,12 +105,12 @@ const UserList = ({
                     )}
                   <Profile name={user.name} />
                 </div>
-                <div className="text-xs text-gray-300 dark:text-gray-100 md:text-sm">
+                <div className="text-xs text-gray-300 dark:text-gray-100 md:text-base">
                   {date ? (
                     `답변일시: ${date}`
                   ) : responserCount ? (
                     <span>
-                      응답자:{responserCount && responserCount[index]}명
+                      응답자: {responserCount && responserCount[index]}명
                     </span>
                   ) : (
                     <p className="text-sub-red-200 dark:text-sub-yellow">

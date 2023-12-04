@@ -14,20 +14,24 @@ const RenderHexaStat = ({
   return (
     <>
       <div>
-        <h2 className="mb-[0.81rem] flex h-[1.375rem] w-fit items-center justify-center bg-gray-300 p-2 text-sm text-white">
+        <h2 className="mb-4 flex h-fit w-fit items-center justify-center bg-gray-300 px-2 text-sm text-white md:text-base">
           {value?.name}
         </h2>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4 md:gap-6">
         {filteredAnswers.map((value) => (
-          <div className="flex gap-[0.31rem]" key={nanoid()}>
-            <img
-              src={BasicProfile}
-              className="avatar h-[1.25rem] w-[1.25rem] border dark:bg-white dark:fill-white"
-            />
+          <div className="flex justify-between gap-2" key={nanoid()}>
+            <div className="flex gap-2">
+              <img
+                src={BasicProfile}
+                className="avatar h-5 w-5 border dark:bg-white dark:fill-white"
+              />
 
-            <p className="text-sm">{value?.userName}</p>
-            <p className="text-sm text-sub-wine">{value?.value}</p>
+              <p className="text-sm md:text-lg">{value?.userName}</p>
+            </div>
+            <p className="shrink-0 text-sm text-sub-wine md:text-lg">
+              {value?.value}
+            </p>
           </div>
         ))}
       </div>

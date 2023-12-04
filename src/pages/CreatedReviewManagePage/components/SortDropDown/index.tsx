@@ -18,7 +18,7 @@ const SortDropDown = ({
         <IconButton
           tabIndex={0}
           text="정렬"
-          className="flex h-6 w-14 gap-0.5 rounded-none border border-gray-200 bg-white p-0 text-xs dark:bg-main-gray dark:text-white"
+          className="flex h-fit gap-1 rounded-none border border-gray-200 bg-white px-2 py-0 text-xs dark:bg-main-gray dark:text-white md:text-base"
         >
           <ReviewAlignIcon className="fill-black dark:fill-white" />
         </IconButton>

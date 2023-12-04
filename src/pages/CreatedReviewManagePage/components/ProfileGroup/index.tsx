@@ -26,7 +26,7 @@ const ProfileGroup = ({ name, responserSize, type }: ProfileGroupProps) => {
         )}
         {type === 'receiver' ? (
           <p className="text-[0.875rem] md:text-xl">
-            <span className="inline cursor-pointer  rounded-md border-[1px] border-sub-green bg-white pb-[0.19rem] pl-[0.31rem] pr-[0.31rem] pt-[0.19rem] text-[0.75rem]  text-sub-green dark:border-sub-yellow dark:bg-main-red-200 dark:text-sub-yellow md:text-base">
+            <span className="inline rounded-md border-[1px] border-sub-green bg-white pb-[0.19rem] pl-[0.31rem] pr-[0.31rem] pt-[0.19rem] text-[0.75rem]  text-sub-green dark:border-sub-yellow dark:bg-main-red-200 dark:text-sub-yellow md:text-base">
               {responserSize}명의 피어
             </span>
             <span className="ml-[0.25rem] text-[0.75rem] md:text-base ">
@@ -35,7 +35,7 @@ const ProfileGroup = ({ name, responserSize, type }: ProfileGroupProps) => {
           </p>
         ) : (
           <p className="text-[0.875rem] md:text-xl">
-            <span className="inline cursor-pointer  rounded-md border-[1px] border-sub-green bg-white pb-[0.19rem] pl-[0.31rem] pr-[0.31rem] pt-[0.19rem] text-[0.75rem]  text-sub-green dark:border-sub-yellow dark:bg-main-red-200 dark:text-sub-yellow md:text-base">
+            <span className="inline rounded-md border-[1px] border-sub-green bg-white pb-[0.19rem] pl-[0.31rem] pr-[0.31rem] pt-[0.19rem] text-[0.75rem]  text-sub-green dark:border-sub-yellow dark:bg-main-red-200 dark:text-sub-yellow md:text-base">
               {responserSize}명의 피어
             </span>
             <span className="ml-[0.25rem] text-[0.75rem] md:text-base ">

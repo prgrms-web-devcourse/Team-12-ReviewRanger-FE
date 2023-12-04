@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
-import { TextIcon } from '@/assets/icons'
+import { SubjectiveIcon } from '@/assets/icons'
 import {
   ReviewReplyStartType,
   ReviewReplyEditType,
@@ -48,7 +48,7 @@ const ReplyText = ({
   return (
     <div className="relative flex flex-col gap-4">
       <span className="flex w-fit items-center gap-2 rounded-full border border-sub-orange bg-white px-3 py-1 dark:border-sub-yellow dark:bg-main-red-200">
-        <TextIcon className="h-3 w-3 stroke-sub-orange dark:stroke-sub-yellow" />
+        <SubjectiveIcon className="h-4 w-4 fill-sub-orange dark:fill-sub-yellow" />
         <p className="text-sm text-sub-orange dark:text-sub-yellow">주관식</p>
       </span>
       <textarea
