@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 import { Profile } from '..'
 
 interface PersonalAnswerProps {
-  image?: string | JSX.Element
+  image?: string
   name: string
   type?: 'basic' | 'hexagon'
 }

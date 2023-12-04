@@ -6,7 +6,7 @@ interface ProfileProps {
   className?: string
 }
 
-const Profile = ({ image, name, className }: ProfileProps) => {
+const Profile = ({ image = BasicProfile, name, className }: ProfileProps) => {
   return (
     <div className="flex flex-row items-center gap-2">
       <img
