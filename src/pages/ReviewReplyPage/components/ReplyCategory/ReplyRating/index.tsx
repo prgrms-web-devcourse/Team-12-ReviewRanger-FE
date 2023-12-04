@@ -34,7 +34,6 @@ const ReplyRating = ({
     [registerPath, getValues],
   )
 
-  const [score, setScore] = useState(prevScore || 0)
   const [zero, setZero] = useState(false)
 
   useEffect(() => {
@@ -43,16 +42,13 @@ const ReplyRating = ({
         ? Array.from({ length: 5 }, (_, index) => index < prevScore)
         : Array(5).fill(false),
     )
-    setScore(prevScore || 0)
-  }, [prevScore, receiverIndex, setRates, questionIndex])
+  }, [prevScore, setRates, receiverIndex, questionIndex])
 
-  useEffect(() => {
-    setValue(`${registerPath}.answerRating`, score)
-  }, [score, registerPath, setValue])
-
-  useEffect(() => {
-    handleCheckReply({ value: score })
-  }, [score, handleCheckReply])
+  const clickStar = (index: number) => {
+    setValue(`${registerPath}.answerRating`, index)
+    handleCheckReply({ value: index })
+    changeStar(index - 1)
+  }
 
   const handleClickStar = (index: number) => {
     if (state.status === 'END' || state.status === 'DEADLINE') {
@@ -61,20 +57,17 @@ const ReplyRating = ({
 
     if (index !== 0) {
       setZero(false)
-      setScore(index + 1)
-      changeStar(index)
+      clickStar(index + 1)
 
       return
     }
 
     if (zero) {
       setZero(false)
-      setScore(index)
-      changeStar(index - 1)
+      clickStar(index)
     } else {
       setZero(true)
-      setScore(index + 1)
-      changeStar(index)
+      clickStar(index + 1)
     }
   }
 

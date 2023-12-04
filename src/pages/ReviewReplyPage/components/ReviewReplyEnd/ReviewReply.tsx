@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ReviewDetailedData } from '@/types'
 import { ReceiverItem, QuestionItem } from '../'
@@ -41,6 +42,10 @@ const ReviewReply = ({ reviewData }: ReviewReplyProps) => {
     setSelectedReceiver,
     setSelectedReceiverIndex,
   })
+
+  useEffect(() => {
+    setSelectedQuestionIndex(0)
+  }, [selectedReceiver, setSelectedQuestionIndex])
 
   const questionArray = questions.map((question, index) => (
     <Questions

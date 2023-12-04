@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Modal } from '@/components'
 import { ReviewDetailedData } from '@/types'
@@ -47,6 +48,10 @@ const ReviewReply = ({ reviewData, handleSubmit }: ReviewReplyProps) => {
 
   const { individualReplyCompletes, allReplyComplete, checkReplyComplete } =
     useReplyComplete({ receivers, selectedReceiverIndex })
+
+  useEffect(() => {
+    setSelectedQuestionIndex(0)
+  }, [selectedReceiver, setSelectedQuestionIndex])
 
   const questionArray = questions.map((question, index) => (
     <Questions
