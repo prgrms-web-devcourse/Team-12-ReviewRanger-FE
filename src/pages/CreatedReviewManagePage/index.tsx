@@ -1,10 +1,9 @@
 //생성한 리뷰 관리 페이지
 
 import { AxiosError } from 'axios'
-import { Suspense, useState, useRef } from 'react'
+import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
-import { Header, Modal, ReviewInfo } from '@/components'
 import {
   useCloseSurvey,
   useGetReviewForCreator,
@@ -12,11 +11,7 @@ import {
   useSendReview,
 } from '@/apis/hooks'
 
-import {
-  Tabs,
-  AllResponseReviewByResponser,
-  AllResponseReviewByReceiver,
-} from './components'
+import { CreatedReviewMangePage } from './SubComponent'
 
 const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
@@ -40,12 +35,9 @@ const CreatedReviewManagePage = () => {
   })
 
   const { mutate: closeReview } = useCloseSurvey({ id: reviewId })
-  const closeReviewRef = useRef<HTMLLabelElement | null>(null)
-  const sendReviewRef = useRef<HTMLLabelElement | null>(null)
 
   const { mutate: sendReview } = useSendReview({ reviewId })
   const handleClickSurveyClose = () => {
-    closeReviewRef?.current?.click()
     closeReview(undefined, {
       onSuccess: () => {
         addToast({
@@ -71,8 +63,6 @@ const CreatedReviewManagePage = () => {
       return
     }
 
-    sendReviewRef?.current?.click()
-
     sendReview(undefined, {
       onSuccess: ({ data }) => {
         if (data.errorCode && data.message) {
@@ -90,114 +80,58 @@ const CreatedReviewManagePage = () => {
     })
   }
 
-  const REVIEW_MANAGE_TAB_CONTENT = {
-    responser: (
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center">
-            <div className="spinner-simple"></div>
-          </div>
-        }
-      >
-        <AllResponseReviewByResponser reviewId={reviewId} />
-      </Suspense>
-    ),
-    receiver: (
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center">
-            <div className="spinner-simple"></div>
-          </div>
-        }
-      >
-        <AllResponseReviewByReceiver
-          questionOption={
-            getReviewQuestion.status as 'END' | 'DEADLINE' | 'PROCEEDING'
-          }
-          reviewId={reviewId}
-          ResponserList={
-            getReviewQuestion.status === 'END'
-              ? getReviewQuestion.receivers.map(
-                  (receiver) => receiver.receiverId,
-                )
-              : checkAllReceiverReceived?.data
-          }
-        />
-      </Suspense>
-    ),
+  const handleClickModal = () => {
+    if (getReviewQuestion?.status === 'PROCEEDING') {
+      return handleClickSurveyClose
+    }
+    if (getReviewQuestion?.status === 'DEADLINE') {
+      return handleClickSendSurvey
+    }
+  }
+
+  const disabled = () => {
+    if (getReviewQuestion?.status === 'DEADLINE') {
+      return !checkAllReceiverReceived?.success
+    }
+
+    if (getReviewQuestion?.status === 'END') {
+      return true
+    }
   }
 
   return (
     <div className="flex h-auto min-h-screen w-full flex-col bg-main-ivory text-black dark:bg-main-red-100 dark:text-white">
-      <div className="sticky top-0">
-        <Header />
-        <div className="flex  justify-center bg-main-red-300 text-center text-lg text-white">
-          <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        </div>
-      </div>
+      <CreatedReviewMangePage.ReviewManageHeader
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
 
       <div className="mx-auto flex w-full max-w-[37.5rem] flex-col px-5 py-7 md:p-10">
-        <ReviewInfo
+        <CreatedReviewMangePage.ReviewInfo
           {...{
             title: getReviewQuestion?.title,
             description: getReviewQuestion?.description,
           }}
         />
-        <div className="mt-7">{REVIEW_MANAGE_TAB_CONTENT[activeTab]}</div>
-        {getReviewQuestion?.status === 'PROCEEDING' && (
-          <button
-            className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black
-    `}
-          >
-            <label
-              htmlFor="close-review"
-              className="cursor-pointer"
-              ref={closeReviewRef}
-            >
-              설문 마감
-            </label>
-          </button>
-        )}
-
-        {getReviewQuestion.status === 'DEADLINE' && (
-          <button
-            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-active-orange leading-[1.3125rem] text-white dark:text-black
-          `}
-            disabled={!checkAllReceiverReceived?.success}
-          >
-            <label
-              htmlFor="send-review"
-              className="cursor-pointer"
-              ref={sendReviewRef}
-            >
-              전송
-            </label>
-          </button>
-        )}
-
-        {getReviewQuestion.status === 'END' && (
-          <button
-            className={`btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-gray-100 font-bold leading-[1.3125rem] text-white
-          `}
-            disabled
-          >
-            전송완료
-          </button>
-        )}
+        <CreatedReviewMangePage.ReviewManageTab
+          responserList={
+            getReviewQuestion.status === 'END'
+              ? getReviewQuestion.receivers.map(
+                  (receiver) => receiver.receiverId,
+                )
+              : checkAllReceiverReceived?.data ?? []
+          }
+          reviewId={reviewId}
+          role={activeTab}
+        />
+        <CreatedReviewMangePage.ActionButton
+          onClickModal={handleClickModal}
+          isDisabled={disabled()}
+          status={getReviewQuestion?.status}
+        />
       </div>
-      <Modal
-        modalId="close-review"
-        handleClickLabel={handleClickSurveyClose}
-        content="설문을 마감하시겠습니까?"
-        label="마감하기"
-      />
-      <Modal
-        modalId="send-review"
-        handleClickLabel={handleClickSendSurvey}
-        content="설문을 전송하시겠습니까?"
-        label="전송하기"
-      />
     </div>
   )
 }
+
 export default CreatedReviewManagePage
