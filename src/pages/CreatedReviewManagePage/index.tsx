@@ -4,6 +4,7 @@ import { AxiosError } from 'axios'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useToast } from '@/hooks'
+import { ReviewInfo } from '@/components'
 import {
   useCloseSurvey,
   useGetReviewForCreator,
@@ -15,7 +16,6 @@ import { CreatedReviewMangePage } from './SubComponent'
 
 const CreatedReviewManagePage = () => {
   const { pathname } = useLocation()
-  //NOTE - 리뷰ID
   const { addToast } = useToast()
   const reviewId = pathname.split('/').at(-1) ?? ''
 
@@ -107,7 +107,7 @@ const CreatedReviewManagePage = () => {
       />
 
       <div className="mx-auto flex w-full max-w-[37.5rem] flex-col px-5 py-7 md:p-10">
-        <CreatedReviewMangePage.ReviewInfo
+        <ReviewInfo
           {...{
             title: getReviewQuestion?.title,
             description: getReviewQuestion?.description,

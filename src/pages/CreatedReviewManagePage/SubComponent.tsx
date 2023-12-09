@@ -80,12 +80,13 @@ const ActionButton = ({
     ['END', '전송'],
     ['PROCEEDING', '설문 종료'],
   ])
+  const className =
+    status !== 'END'
+      ? `btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black`
+      : `btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-gray-100 font-bold leading-[1.3125rem] text-white`
 
   return (
-    <button
-      className={`btn fixed bottom-10 cursor-pointer self-end rounded-md bg-active-orange text-white dark:text-black`}
-      disabled={isDisabled}
-    >
+    <button className={className} disabled={isDisabled}>
       <label
         htmlFor={activeButtonModalId}
         className="cursor-pointer"
@@ -130,30 +131,9 @@ const ActionButtonModal = ({
     />
   )
 }
-const ReviewInfo = ({
-  title,
-  description,
-}: {
-  title: string
-  description: string
-}) => {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-black dark:text-white md:text-4xl">
-        {title}
-      </h1>
-      <p className="mt-[0.63rem] whitespace-pre-line text-base text-black dark:text-white md:text-xl">
-        {description}
-      </p>
-    </div>
-  )
-}
-
-export default ReviewInfo
 
 export const CreatedReviewMangePage = {
   ActionButton,
   ReviewManageTab,
   ReviewManageHeader,
-  ReviewInfo,
 }
