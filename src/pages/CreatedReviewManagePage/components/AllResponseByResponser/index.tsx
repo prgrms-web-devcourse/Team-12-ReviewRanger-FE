@@ -1,5 +1,5 @@
 //NOTE - 작성자별 탭
-import { useState, Suspense } from 'react'
+import { Suspense } from 'react'
 import { UserList, SearchBar } from '@/components'
 import { useGetAllResponseByResponser } from '@/apis/hooks'
 import {
@@ -7,6 +7,7 @@ import {
   NotFoundSearchUser,
   ResponserTabReviewDetail,
 } from '../../components'
+import { useResponseReviewByUser } from '../../hooks'
 
 interface AllResponseReviewByResponser {
   reviewId: string
@@ -18,64 +19,25 @@ const AllResponseReviewByResponser = ({
   const { data: responseByResponser } = useGetAllResponseByResponser({
     reviewId,
   }).data || { data: [] }
-  const [sortState, setSortState] = useState(false)
-  const [keyword, setKeyword] = useState('')
-  const [filteredUsers, setFilteredUsers] = useState(
-    responseByResponser.sort((a, b) => a.user.name.localeCompare(b.user.name)),
-  )
-  //TODO - 기본 user의 ID가 필요함 빈 문자열로 설정 시 에러
-  const [selectedUser, setSelectedUser] = useState<{
-    id: string
-    name: string
-  }>({
-    id: '',
-    name: '',
+  const {
+    filteredUsers,
+    selectedUser,
+    setSelectedUser,
+    findUserBySearchKeyword,
+    handleChangeKeyword,
+    sortByName,
+    sortByNoResponse,
+    sortByResponse,
+  } = useResponseReviewByUser({
+    users: responseByResponser?.map((data) => {
+      return {
+        id: data.id,
+        name: data.user.name,
+        isAnswered: data.isAnswered,
+        submitAt: data.submitAt,
+      }
+    }),
   })
-
-  const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value)
-  }
-
-  const sortByName = () => {
-    if (sortState) {
-      setFilteredUsers(
-        () =>
-          [...filteredUsers]?.sort((a, b) =>
-            a.user.name.localeCompare(b.user.name),
-          ),
-      )
-    } else {
-      setFilteredUsers(
-        () =>
-          [...filteredUsers]?.sort((a, b) =>
-            b.user.name.localeCompare(a.user.name),
-          ),
-      )
-    }
-    setSortState((prevState) => !prevState)
-  }
-
-  const sortByResponse = () => {
-    setFilteredUsers(
-      () =>
-        [...filteredUsers]?.sort(
-          (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
-        ),
-    )
-  }
-
-  const sortByNoResponse = () => {
-    setFilteredUsers(
-      () =>
-        [...filteredUsers]?.sort(
-          (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
-        ),
-    )
-  }
-
-  const findUserBySearchKeyword = filteredUsers
-    ?.map((value) => value.user)
-    ?.filter((user) => user.name.trim().includes(keyword))
 
   return (
     <div className="flex flex-col gap-5">
@@ -112,7 +74,7 @@ const AllResponseReviewByResponser = ({
               <UserList
                 hasDrawer
                 users={findUserBySearchKeyword}
-                submitAt={filteredUsers?.map((value) => value.submitAt)}
+                submitAt={filteredUsers?.map((value) => value?.submitAt ?? '')}
                 onClickUser={({ id, name }) => setSelectedUser({ id, name })}
               />
               <Suspense fallback={<div className="spinner" />}>

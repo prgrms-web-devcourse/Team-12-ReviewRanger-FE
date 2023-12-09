@@ -3,7 +3,9 @@ import { useState } from 'react'
 interface Receiver {
   id: string
   name: string
-  responserCount: number
+  responserCount?: number
+  isAnswered?: boolean
+  submitAt?: string
 }
 
 const useResponseByReviewUser = ({ users }: { users: Receiver[] }) => {
@@ -16,7 +18,40 @@ const useResponseByReviewUser = ({ users }: { users: Receiver[] }) => {
     name: '',
   })
 
-  const [filteredUsers] = useState(
+  const [sortState, setSortState] = useState(false)
+
+  const sortByName = () => {
+    if (sortState) {
+      setFilteredUsers(
+        () => [...filteredUsers]?.sort((a, b) => a.name.localeCompare(b.name)),
+      )
+    } else {
+      setFilteredUsers(
+        () => [...filteredUsers]?.sort((a, b) => b.name.localeCompare(a.name)),
+      )
+    }
+    setSortState((prevState) => !prevState)
+  }
+
+  const sortByResponse = () => {
+    setFilteredUsers(
+      () =>
+        [...filteredUsers]?.sort(
+          (a, b) => Number(a.isAnswered) - Number(b.isAnswered),
+        ),
+    )
+  }
+
+  const sortByNoResponse = () => {
+    setFilteredUsers(
+      () =>
+        [...filteredUsers]?.sort(
+          (a, b) => Number(b.isAnswered) - Number(a.isAnswered),
+        ),
+    )
+  }
+
+  const [filteredUsers, setFilteredUsers] = useState(
     users?.sort((a, b) => a?.name?.localeCompare(b?.name)),
   )
 
@@ -30,10 +65,14 @@ const useResponseByReviewUser = ({ users }: { users: Receiver[] }) => {
 
   return {
     filteredUsers,
+    setFilteredUsers,
     findUserBySearchKeyword,
     selectedUser,
     handleChangeKeyword,
     setSelectedUser,
+    sortByName,
+    sortByNoResponse,
+    sortByResponse,
   }
 }
 

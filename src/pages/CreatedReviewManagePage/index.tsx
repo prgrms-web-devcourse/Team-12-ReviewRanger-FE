@@ -35,8 +35,8 @@ const CreatedReviewManagePage = () => {
   })
 
   const { mutate: closeReview } = useCloseSurvey({ id: reviewId })
-
   const { mutate: sendReview } = useSendReview({ reviewId })
+
   const handleClickSurveyClose = () => {
     closeReview(undefined, {
       onSuccess: () => {
