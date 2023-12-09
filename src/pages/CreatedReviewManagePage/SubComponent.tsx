@@ -70,15 +70,16 @@ const ActionButton = ({
   onClickModal: () => void
 }) => {
   const actionButtonRef = useRef<HTMLLabelElement | null>(null)
-  const activeButtonModalId = `${status}${nanoid()}`
+  const activeButtonModalId = useRef(`${status}${nanoid()}`)
+
   const handleModalClick = () => {
     onClickModal()
     actionButtonRef?.current?.click()
   }
   const actionButtonLabel = new Map([
-    ['DEADLINE', '설문 마감'],
-    ['END', '전송'],
-    ['PROCEEDING', '설문 종료'],
+    ['DEADLINE', '전송'],
+    ['END', '전송완료'],
+    ['PROCEEDING', '설문종료'],
   ])
   const className =
     status !== 'END'
@@ -86,20 +87,23 @@ const ActionButton = ({
       : `btn fixed bottom-10 h-[2.5rem] w-[6.25rem] cursor-pointer self-end rounded-md bg-gray-100 font-bold leading-[1.3125rem] text-white`
 
   return (
-    <button className={className} disabled={isDisabled}>
-      <label
-        htmlFor={activeButtonModalId}
-        className="cursor-pointer"
-        ref={actionButtonRef}
-      >
-        {actionButtonLabel.get(status)}
-      </label>
+    <>
+      <button className={className} disabled={isDisabled}>
+        <label
+          htmlFor={activeButtonModalId.current}
+          className="cursor-pointer"
+          ref={actionButtonRef}
+        >
+          {actionButtonLabel.get(status)}
+        </label>
+      </button>
+
       <ActionButtonModal
         handleClickLabel={handleModalClick}
-        modalId={activeButtonModalId}
+        modalId={activeButtonModalId.current}
         status={status}
       />
-    </button>
+    </>
   )
 }
 

@@ -82,10 +82,10 @@ const CreatedReviewManagePage = () => {
 
   const handleClickModal = () => {
     if (getReviewQuestion?.status === 'PROCEEDING') {
-      return handleClickSurveyClose
+      return handleClickSurveyClose()
     }
     if (getReviewQuestion?.status === 'DEADLINE') {
-      return handleClickSendSurvey
+      return handleClickSendSurvey()
     }
   }
 
